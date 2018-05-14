@@ -1,7 +1,0 @@
----
-title: "Untitled"
-author: "Kevin Wong"
-date: "5/13/2018"
-output: html_document
----
-swag

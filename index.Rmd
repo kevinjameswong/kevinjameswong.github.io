@@ -1,10 +1,13 @@
 ---
-title: "Untitled"
-author: "Kevin Wong"
-date: "5/13/2018"
-output: html_document
+title: "About Kevin Wong"
 ---
 
-testing 10:53PM
+This website was created by me. I am is a Statistics student at the University of Illinois. [Go Illini!](https://fightingillini.com)
 
-[swag](better.html)
+
+```{r out.height = "200px", out.width = "200px", fig.align = "center", echo = FALSE}
+library(knitr)
+# include_graphics("kevin wong.png")
+```
+
+[Kevin's Schoolwork](schoolwork.html){target="_blank"}
