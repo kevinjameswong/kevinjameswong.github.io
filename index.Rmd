@@ -1,5 +1,6 @@
 ---
 title: "Kevin Wong"
+css: custom.css
 output:
   html_document:
     theme: readable
@@ -19,21 +20,24 @@ include_graphics("kevin wong.png")
 <center>This website was created by me. I am is a Statistics student at the University of Illinois. [Go Illini!](https://fightingillini.com)</center>
 
 # Contact Information
-Email:              <kjwong2@illinois.edu>  
-LinkedIn:   [linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/)  
-GitHub:     [github.com/kevinjameswong](https://github.com/kevinjameswong)
+
+Email: <kjwong2@illinois.edu> 
+
+LinkedIn: [linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"} 
+
+GitHub: [github.com/kevinjameswong](https://github.com/kevinjameswong){target="_blank"}
 
 Here is my resume! [Resume](Kevin Wong Resume)  
 
-
-
 # Work Experience
 
+### Irwin Academic Center  
+### Kane County Cougars
 
 # Projects
 
-
-
-
+### Analyzing Illinois Basketball Data
+### Analyzing NFl Rushing Yards Data
+### Ross MacNeill Foundation Skate-A-Thon
 
 [Kevin's Schoolwork](schoolwork.html){target="_blank"}

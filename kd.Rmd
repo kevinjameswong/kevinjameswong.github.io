@@ -1,30 +1,27 @@
 ---
-title: "j"
-author: "Kevin Wong"
-date: "5/14/2018"
-output: html_document
+title: "Home | David Dalpiaz"
+output:
+  html_document:
+    lib_dir: libs
+    self_contained: no
+    theme: cosmo
+    css: style.css
+    includes:
+      in_header: "header.html"
+      before_body: "before.html"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+Hello and welcome to my webzone! I'm currently a [Lecturer](http://www.stat.illinois.edu/people/faculty/dalpiaz.shtml) and [MS Academic Advisor](http://www.stat.illinois.edu/students/graduates.shtml) for the [Department of Statistics](http://www.stat.illinois.edu/) at the [University of Illinois at Urbana-Champaign](http://illinois.edu/).
 
-## R Markdown
+After a BS in Mathematics from the University of Illinois at Urbana-Champaign, I did a Phd in Statistics at the University of Illinois at Urbana-Champaign with [Ping Ma](http://malab.uga.edu/).
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+You've probably noticed a theme. Yes, I've spent a lot of time at UIUC. [I'm still mad we don't use UIUC anymore.](https://en.wikipedia.org/wiki/List_of_the_oldest_currently_registered_Internet_domain_names) Oh well. Go Illini!
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
-```
+Other places you can find me:
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+- [GitHub](https://github.com/daviddalpiaz/)
+- [UIUC, Statistics Department](http://www.stat.illinois.edu/people/faculty/dalpiaz.shtml)
+- [MS Advising Blog](https://publish.illinois.edu/statisticsmasters/)
+- [Reddit](https://www.reddit.com/user/daviddalpiaz)
+<!-- - [Last.fm](https://www.last.fm/user/daviddalpiaz) -->
