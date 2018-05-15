@@ -5,7 +5,9 @@ output:
   html_document:
     theme: readable
     toc: yes
-urlcolor: darkblue
+urlcolor: red
+linkcolor: red
+citecolor: red
 ---
 
 # Introduction
@@ -17,7 +19,7 @@ library(knitr)
 include_graphics("kevin wong.png")
 ```
 
-<center>This website was created by me. I am is a Statistics student at the University of Illinois. [Go Illini!](https://fightingillini.com)</center>
+<center>This website was created by me. I am a Statistics student at the University of Illinois at Urbana-Champaign. [Go Illini!](https://fightingillini.com)</center>
 
 # Contact Information
 
