@@ -31,15 +31,15 @@ GitHub: [github.com/kevinjameswong](https://github.com/kevinjameswong){target="_
 
 Here is my resume! [Resume](Kevin Wong Resume)  
 
-# Work Experience
+# Work Experience (to be continued)
 
 ### Irwin Academic Center  
 ### Kane County Cougars
 
-# Projects
+# Projects (to be continued)
 
 ### Analyzing Illinois Basketball Data
-### Analyzing NFl Rushing Yards Data
+### Analyzing NFL Rushing Yards Data
 ### Ross MacNeill Foundation Skate-A-Thon
 
 [Kevin's Schoolwork](schoolwork.html){target="_blank"}
