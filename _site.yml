@@ -1,5 +1,5 @@
 ---
-name: "my-website"
+name: "What"
 navbar:
   title: "Kevin"
   left:
@@ -12,6 +12,6 @@ output:
     theme: readable
     highlight: tango
     include:
-      after_body: index.html
+      after_body: footer.html
     css: custom.css
 ---
