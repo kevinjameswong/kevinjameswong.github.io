@@ -1,0 +1,17 @@
+---
+name: "my-website"
+navbar:
+  title: "Kevin"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: index.html
+output:
+  html_document:
+    theme: readable
+    highlight: tango
+    include:
+      after_body: index.html
+    css: custom.css
+---
