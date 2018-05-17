@@ -5,6 +5,8 @@ output:
   html_document:
     theme: readable
     toc: yes
+    include:
+      after_body: footer.html
 urlcolor: red
 linkcolor: red
 citecolor: red
