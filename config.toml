@@ -1,36 +1,23 @@
----
-theme: jekyll-theme-architect
----
-
-baseurl = "https://www.kevinwong.netlify.com"
+baseurl = "/"
 languageCode = "en-us"
-title = "Kevin Wong's Website"
+title = "A Hugo website"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
-
-copyright = "&copy; Kevin Wong 2018"
-
-[outputs]
-  home = [ "HTML", "CSS", "RSS" ]
-  section = [ "HTML", "RSS" ]
 
 [permalinks]
     post = "/:year/:month/:day/:slug/"
 
 [[menu.main]]
     name = "About"
-    url = "https://www.kevinwong.netlify.com/About"
-[[menu.main]]
-    name = "LinkedIn"
-    url = "https://LinkedIn.com/in/kevinjameswong"
+    url = "/about/"
 [[menu.main]]
     name = "GitHub"
-    url = "https://github.com/kevinjwong"
+    url = "https://github.com/rstudio/blogdown"
 [[menu.main]]
     name = "Twitter"
-    url = "https://twitter.com/kevinwong35"
+    url = "https://twitter.com/rstudio"
 
 [params]
     description = "A website built through Hugo and blogdown."
@@ -49,3 +36,4 @@ copyright = "&copy; Kevin Wong 2018"
     width = 50
     height = 50
     alt = "Logo"
+

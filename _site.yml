@@ -1,0 +1,10 @@
+name: "my-website"
+navbar:
+  title: "kev"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Viridis Colors"
+      href: index.html
+    - text: "Terrain Colors"
+      href: index.html
