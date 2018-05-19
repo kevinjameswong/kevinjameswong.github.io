@@ -18,7 +18,11 @@ library(knitr)
 include_graphics("kevin wong.jpg")
 ```
 
-<center>This website was created by me. I am a Statistics student at the University of Illinois at Urbana-Champaign. [Go Illini!](https://fightingillini.com){target="_blank"}</center>
+<center>This website was created by me. I am a Statistics student at the University of Illinois at Urbana-Champaign. [Go Illini!](https://fightingillini.com){target="_blank"}</center>  
+
+<br>
+
+<center>My college GPA is currently $3.85$.</center>
 
 # Contact Information
 
