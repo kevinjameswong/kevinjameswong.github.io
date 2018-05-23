@@ -1,9 +1,58 @@
 ---
 title: "Kevin's Schoolwork"
-css: custom.css
 output:
   html_document:
     theme: readable
+    toc: yes
+    include:
+      after_body: footer.html
+css: custom.css
 ---
 
-[R33M Video](https://www.youtube.com/watch?v=SG5-_hInODw){target="_blank"}
+I am a *Statistics* major at the *University of Illinois*. I am also minoring in *Leadership Studies* and *Business*.
+
+# Courses Taken
+
+## Statistics
+
+Some of the Statistics Courses I have taken include:  
+
+- **STAT $385$**: Statistics Programming Methods            (Grade: A+)
+- **STAT $400$**: Statistics and Probability I              (Grade: A)
+- **STAT $410$**: Statistics and Probability II             (Grade: A-)
+- **STAT $420$**: Methods of Applied Statistics             (Grade: A)
+- **STAT $425$**: Applied Regression and Design             (Grade: A)
+- **STAT $432$**: Basics of Statistical Learning            (Grade: A)
+- **STAT $440$**: Statistical Data Management               (Grade: TBD)
+- **STAT $448$**: Advanced Data Analysis                    (Grade: TBD)
+
+My GPA in STAT courses at U of I is $3.96$.
+
+## Leadership Studies
+
+Some of the Leadership Studies Courses I have taken include:  
+
+- **AGED $230$**: Leadership Communications            (Grade: A)
+- **AGED $260$**: Introduction to Leadership Studies   (Grade: A+)
+- **AGED $380$**: Leadership in Groups and Teams       (Grade: A+)
+- **AGED $480$**: Collaborative Leadership             (Grade: A)
+
+My GPA in Leadership courses at U of I is $4.00$.
+
+## Business
+
+Some of the Business Courses I have taken include:  
+
+- **BADM $310$**: Management and Organizational Behavior  (Grade: TBD)
+- **BADM $320$**: Principles of Marketing   (Grade: TBD)
+- **BADM $340$**: Ethical Dilemmas of Business (Grade: TBD)
+- **ACCY $200$**: Fundamentals of Accounting      (Grade: TBD)
+- **FIN $221$**: Corporate Finance            (Grade: TBD)
+
+***
+
+My GPA in Leadership courses at U of I is TBD.
+
+# School Projects
+
+[R$33$M Video](https://www.youtube.com/watch?v=SG5-_hInODw){target="_blank"}

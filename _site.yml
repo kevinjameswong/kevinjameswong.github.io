@@ -1,0 +1,17 @@
+name: "Kevin's Website"
+output_dir: "."
+navbar:
+  title: "Kevin Wong"
+  color: black
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About Me"
+      href: about.html
+output:
+  html_document:
+    theme: readable
+    toc: yes
+    include:
+      after_body: footer.html
+css: custom.css

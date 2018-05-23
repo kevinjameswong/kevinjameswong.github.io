@@ -9,6 +9,8 @@ output:
 css: custom.css
 ---
 
+***
+
 # Introduction
 
 <center>Hello, I am Kevin Wong!</center>
@@ -24,6 +26,8 @@ include_graphics("kevin wong.jpg")
 
 <center>My college GPA is currently $3.85$.</center>
 
+***
+
 # Contact Information
 
 Email: <kjwong2@illinois.edu> 
@@ -34,15 +38,25 @@ GitHub: [github.com/kevinjameswong](https://github.com/kevinjameswong){target="_
 
 Here is my resume! [Resume](Kevin Wong Resume)  
 
+***
+
 # Work Experience (to be continued)
 
-### Irwin Academic Center  
+### Irwin Academic Center
+Content Tutor - University of Illinois Division of Intercollegiate Athletics - Irwin Academic Services
+
 ### Kane County Cougars
+
+***
 
 # Projects (to be continued)
 
 ### Analyzing Illinois Basketball Data
 ### Analyzing NFL Rushing Yards Data
 ### Ross MacNeill Foundation Skate-A-Thon
+
+***
+
+# Schoolwork
 
 [Kevin's Schoolwork](schoolwork.html){target="_blank"}
