@@ -2,7 +2,7 @@
 title: "Kevin Wong"
 output:
   html_document:
-    css: custom.css
+    css: style.css
     toc: yes
     theme: readable
 ---
@@ -18,11 +18,15 @@ library(knitr)
 include_graphics("kevin wong.jpg")
 ```
 
-<center>This website was created by me. I am a Statistics student at the University of Illinois at Urbana-Champaign. [Go Illini!](https://fightingillini.com){target="_blank"}</center>  
+<center>This website was created by me. I am a Statistics student at the University of Illinois at Urbana-Champaign. I *LOVE* my school! [Go Illini!](https://fightingillini.com){target="_blank"}</center>  
 
 <br>
 
-<center>My college GPA is currently $3.85$.</center>
+<center>On this website, you can find out more information about me. I enjoy mathematics and computer science. My dream job is to do financial analysis one day for a company.</center>
+
+<br>
+
+<center>I will be graduating from the University of Illinois in Spring 2019. My college GPA is currently $3.85$.</center>
 
 ***
 
@@ -41,9 +45,12 @@ Here is my resume! [Resume](Kevin Wong Resume)
 # Work Experience (to be continued)
 
 ### Irwin Academic Center
+
 Content Tutor - University of Illinois Division of Intercollegiate Athletics - Irwin Academic Services
 
 ### Kane County Cougars
+
+Accounting Intern for Kane County Cougars (Class-A Affilate of MLB Arizona Diamondbacks)
 
 ***
 

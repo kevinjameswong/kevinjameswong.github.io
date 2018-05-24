@@ -7,6 +7,10 @@
 		body {
 			background-color: green;
 		}
+		h1 {
+		  font-size: 400px;
+		  color: green;
+		}
 		</style>
 	</head>
 </html>

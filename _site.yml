@@ -1,5 +1,11 @@
 name: "kevins-website"
 output_dir: "."
+output:
+  html_document:
+    css: style.css
+    theme: readable
+    include:
+      after_body: footer.html
 navbar:
   title: "Kevin's Website"
   right:
@@ -9,9 +15,3 @@ navbar:
       href: about.html
     - text: "Schoolwork"
       href: schoolwork.html
-output:
-  html_document:
-    css: custom.css
-    theme: readable
-    include:
-      after_body: footer.html
