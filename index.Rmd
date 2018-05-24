@@ -4,6 +4,7 @@ output:
   html_document:
     toc: yes
     theme: readable
+css: custom.css
 ---
 
 ***
@@ -38,6 +39,8 @@ LinkedIn: [linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjame
 GitHub: [github.com/kevinjameswong](https://github.com/kevinjameswong){target="_blank"}
 
 Here is my resume! [Resume](Kevin Wong Resume)  
+
+I am still working on this website, so there is still a lot that needs to be improved. For example, that resume link doesn't work. Last updated: May $23$, $2018$.
 
 ***
 
