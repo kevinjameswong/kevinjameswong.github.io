@@ -3,9 +3,23 @@
 	<head>
 		<meta charset="utf-8" />
 		<style>
-		  body {
-			  background-color: #e6f9ff;
-		  }
+		  h1 {
+ 			  color: red;
+ 			  text-align: center;
+ 			  font-size: 40px;
+ 		  }
+ 		  h2 {
+ 			  color: red;
+ 			  text-align: center;
+ 			  font-size: 30px;
+  		}
+  		p {
+  			text-align: justify;
+  			color: black;
+  		}
+  		body {
+  			background-color: #e6faff;
+ 		  }
 		</style>
 	</head>
 </html>
