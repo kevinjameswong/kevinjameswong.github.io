@@ -4,68 +4,8 @@
 		<meta charset="utf-8" />
 		<title>kjwong2's External Style Sheet</title>
 		<style>
-		h1 {
-			color: blue;
-			text-align: center;
-			font-size: 40px;
-		}
-		h2 {
-			color: blue;
-			text-align: center;
-			font-size: 30px;
-		}
-		p {
-			text-align: justify;
-			color: black;
-		}
 		body {
 			background-color: #e6faff;
-		}
-		#homebutton {
-			position: relative;
-			left: 0px;
-			top: 0px;
-		}
-		#contactbutton {
-			position: relative;
-			left: 0px;
-			top: 0px;
-		}
-		#titleimg {
-			float: left;
-			height: 30px;
-			top: 5px;
-			position: relative;
-		}
-		#titlebar {
-			border: 2px solid;
-			border-color: grey;
-			height: 40px;
-		}
-		.title.toc-ignore {
-		  display: none;
-		}
-		.realtitle {
-		  font-size: 500%;
-		}
-		body .main-container {
-		  max-width: 750px;
-		  margin-left: auto;
-		  margin-right: auto;
-		  
-		}
-		h1.realtitle {
-		  margin-top: 4px;
-		}
-		.creatednav {
-		  padding-right: 10px;
-		  padding-left: 10px;
-		}
-		.titlebar {
-			color: white;
-		}
-		.navbar {
-			color: black;
 		}
 		</style>
 	</head>

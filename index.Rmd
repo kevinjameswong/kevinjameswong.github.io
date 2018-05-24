@@ -3,7 +3,7 @@ title: "Kevin Wong"
 output:
   html_document:
     toc: yes
-    theme: flatly
+    theme: readable
 css: custom.css
 ---
 
