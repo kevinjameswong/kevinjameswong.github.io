@@ -2,9 +2,9 @@
 title: "Kevin Wong"
 output:
   html_document:
+    css: custom.css
     toc: yes
     theme: readable
-css: custom.css
 ---
 
 ***
@@ -57,4 +57,4 @@ Content Tutor - University of Illinois Division of Intercollegiate Athletics - I
 
 # Schoolwork
 
-[Kevin's Schoolwork](schoolwork.html){target="_blank"}
+[Kevin's Schoolwork](schoolwork.html)
