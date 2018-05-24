@@ -2,8 +2,6 @@ name: "kevins-website"
 output_dir: "."
 navbar:
   title: "Kevin's Website"
-  css: custom.css
-  theme: flatly
   right:
     - text: "Home"
       href: index.html
