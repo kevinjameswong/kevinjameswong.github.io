@@ -1,8 +1,9 @@
-name: "Kevin's Website"
+name: "kevins-website"
 output_dir: "."
 navbar:
-  title: "Kevin Wong"
-  color: black
+  title: "Kevin's Website"
+  css: custom.css
+  theme: flatly
   right:
     - text: "Home"
       href: index.html
@@ -10,8 +11,8 @@ navbar:
       href: about.html
 output:
   html_document:
-    theme: readable
     toc: yes
+    theme: flatly
     include:
       after_body: footer.html
 css: custom.css

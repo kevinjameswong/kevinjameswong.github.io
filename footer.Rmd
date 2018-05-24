@@ -2,7 +2,7 @@
 css: custom.css
 output:
   html_document:
-    theme: readable
+    theme: flatly
 ---
 
 <center>Copyright &copy; 2018 Kevin Wong, Inc. All rights reserved.</center>

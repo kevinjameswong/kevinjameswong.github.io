@@ -2,8 +2,8 @@
 title: "Kevin Wong"
 output:
   html_document:
-    theme: readable
     toc: yes
+    theme: flatly
     include:
       after_body: footer.html
 css: custom.css

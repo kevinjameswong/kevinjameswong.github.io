@@ -1,7 +1,6 @@
 ---
 output:
   html_document:
-    theme: readable
     toc: yes
     include:
 css: custom.css
