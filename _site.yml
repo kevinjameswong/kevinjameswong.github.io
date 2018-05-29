@@ -15,3 +15,5 @@ navbar:
       href: about.html
     - text: "Schoolwork"
       href: schoolwork.html
+    - text: "All Tabs"
+      href: fullsite.html

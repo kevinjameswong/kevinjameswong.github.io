@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="utf-8" />
 		<style>
+		  .swag {
+		    color: red;
+		  }
 		  h1 {
  			  color: black;
  		  }
@@ -60,6 +63,9 @@
 		  }
 		  .navbar {
 			  color: black;
+		  }
+		  realtitle {
+		    color: green;
 		  }
 		</style>
 	</head>
