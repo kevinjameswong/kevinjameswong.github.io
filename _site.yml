@@ -11,13 +11,11 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "About Me"
-      href: about.html
+    - text: "Work Experience"
+      href: work.html
     - text: "Schoolwork"
       href: schoolwork.html
-    - text: "About Me"
-      href: about.html
-    - text: "Schoolwork"
-      href: schoolwork.html
+    - text: "Contact Me"
+      href: contact.html
     - text: "All"
       href: fullsite.html
