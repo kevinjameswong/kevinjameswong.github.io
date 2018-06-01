@@ -1,21 +1,17 @@
 ---
 title: "Kevin Wong"
 output:
-  html_document:
-    theme: readable
+  html_document
 ---
-
-<center><h1>Kevin Wong</h1></center>
-
-```{r out.height = "150px", out.width = "150px", fig.align = "center", echo = FALSE}
-library(knitr)
-include_graphics("images/kevin wong.jpg")
-```
-
-<br>
 
 <center>Hello, I am Kevin Wong. Welcome to my website!</center>
 <center>I am a Statistics student at the University of Illinois at Urbana-Champaign.</center>
+
+<br>
+
+<center>I will be graduating from the Univ. of Illinois in Spring $2019$. My college GPA is currently $3.85$.</center>
+
+<center></center>
 
 <hr />
 
@@ -26,5 +22,3 @@ include_graphics("images/kevin wong.jpg")
   <a class="swag1">[Contact Me!](contact.html)</a>
   </h4>
 </center>
-
-<hr />

@@ -1,0 +1,33 @@
+---
+title: "Work History"
+output:
+  html_document:
+    toc: yes
+---
+
+<hr />
+
+# Work Experience (to be continued)
+
+<hr />
+
+### Irwin Academic Center
+
+<right>L</right>
+```{r out.height = "150px", out.width = "200px", fig.align = "center", echo = FALSE}
+library(knitr)
+include_graphics("images/irwin.jpg")
+```
+
+Content Tutor - University of Illinois Division of Intercollegiate Athletics - Irwin Academic Services
+
+<hr />
+
+### Kane County Cougars
+
+```{r out.height = "150px", out.width = "200px", fig.align = "center", echo = FALSE}
+library(knitr)
+include_graphics("images/cougarslogo.png")
+```
+
+Accounting Intern for Kane County Cougars (Class-A Affilate of MLB Arizona Diamondbacks)
