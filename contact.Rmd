@@ -7,3 +7,14 @@ LinkedIn: [linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjame
 GitHub: [github.com/kevinjameswong](https://github.com/kevinjameswong){target="_blank"}
 
 Here is my resume! [Resume](Kevin Wong Resume) Not finished yet.
+
+```{r}
+library(datasets)
+View(mtcars)
+kevn =
+  mtcars %>%
+  filter(cyl %in% c(6, 8))
+View(kevn)
+??or
+```
+

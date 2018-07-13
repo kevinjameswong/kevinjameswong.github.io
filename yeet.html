@@ -9,9 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Kevin Wong" />
 
 
-<title>Kevin’s Schoolwork</title>
+<title>Untitled</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -450,68 +451,61 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Kevin’s Schoolwork</h1>
+<h1 class="title toc-ignore">Untitled</h1>
+<h4 class="author"><em>Kevin Wong</em></h4>
+<h4 class="date"><em>6/24/2018</em></h4>
 
 </div>
 
-<div id="TOC">
-<ul>
-<li><a href="#courses-taken">Courses Taken</a><ul>
-<li><a href="#statistics">Statistics</a></li>
-<li><a href="#leadership-studies">Leadership Studies</a></li>
-<li><a href="#business">Business</a></li>
-</ul></li>
-<li><a href="#school-projects">School Projects</a></li>
-</ul>
-</div>
 
-<p>I am a <em>Statistics</em> major at the <em>University of Illinois</em>. I am also minoring in <em>Leadership Studies</em> and <em>Business</em>.</p>
-<div id="courses-taken" class="section level1">
-<h1>Courses Taken</h1>
-<div id="statistics" class="section level2">
-<h2>Statistics</h2>
-<p>Some of the Statistics Courses I have taken include:</p>
-<ul>
-<li><strong>STAT <span class="math inline">\(385\)</span></strong>: Statistics Programming Methods (Grade: A+)</li>
-<li><strong>STAT <span class="math inline">\(400\)</span></strong>: Statistics and Probability I (Grade: A)</li>
-<li><strong>STAT <span class="math inline">\(410\)</span></strong>: Statistics and Probability II (Grade: A-)</li>
-<li><strong>STAT <span class="math inline">\(420\)</span></strong>: Methods of Applied Statistics (Grade: A)</li>
-<li><strong>STAT <span class="math inline">\(425\)</span></strong>: Applied Regression and Design (Grade: A)</li>
-<li><strong>STAT <span class="math inline">\(432\)</span></strong>: Basics of Statistical Learning (Grade: A)</li>
-<li><strong>STAT <span class="math inline">\(440\)</span></strong>: Statistical Data Management (Grade: TBD)</li>
-<li><strong>STAT <span class="math inline">\(448\)</span></strong>: Advanced Data Analysis (Grade: TBD)</li>
-</ul>
-<p>My GPA in STAT courses at U of I is <span class="math inline">\(3.96\)</span>.</p>
-</div>
-<div id="leadership-studies" class="section level2">
-<h2>Leadership Studies</h2>
-<p>Some of the Leadership Studies Courses I have taken include:</p>
-<ul>
-<li><strong>AGED <span class="math inline">\(230\)</span></strong>: Leadership Communications (Grade: A)</li>
-<li><strong>AGED <span class="math inline">\(260\)</span></strong>: Introduction to Leadership Studies (Grade: A+)</li>
-<li><strong>AGED <span class="math inline">\(380\)</span></strong>: Leadership in Groups and Teams (Grade: A+)</li>
-<li><strong>AGED <span class="math inline">\(480\)</span></strong>: Collaborative Leadership (Grade: A)</li>
-</ul>
-<p>My GPA in Leadership courses at U of I is <em><span class="math inline">\(4.00\)</span></em>.</p>
-</div>
-<div id="business" class="section level2">
-<h2>Business</h2>
-<p>Some of the Business Courses I have taken include:</p>
-<ul>
-<li><strong>BADM <span class="math inline">\(310\)</span></strong>: Management and Organizational Behavior (Grade: TBD)</li>
-<li><strong>BADM <span class="math inline">\(320\)</span></strong>: Principles of Marketing (Grade: TBD)</li>
-<li><strong>BADM <span class="math inline">\(340\)</span></strong>: Ethical Dilemmas of Business (Grade: TBD)</li>
-<li><strong>ACCY <span class="math inline">\(200\)</span></strong>: Fundamentals of Accounting (Grade: TBD)</li>
-<li><strong>FIN <span class="math inline">\(221\)</span></strong>: Corporate Finance (Grade: TBD)</li>
-</ul>
-<p>My GPA in Business Courses at U of I is TBD.</p>
-<hr />
-</div>
-</div>
-<div id="school-projects" class="section level1">
-<h1>School Projects</h1>
-<p><a href="https://www.youtube.com/watch?v=SG5-_hInODw" target="_blank">R<span class="math inline">\(33\)</span>M Video</a></p>
-</div>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>my_db = src_mysql(dbname = &quot;PFB_AP&quot;,
+                  host = &quot;sports-vts.cerbtiounk1y.us-east-1.rds.amazonaws.com&quot;,
+                  port = 3306,
+                  user = &quot;admin_vts&quot;,
+                  password = &quot;SV_i0%39k^B&quot;)
+
+df1 = tbl(my_db, &quot;PLAYER_METRIC&quot;)
+df2 = tbl(my_db, &quot;POSITION&quot;)
+df3 = tbl(my_db, &quot;PLAYER_INFO&quot;)
+
+df1 = collect(df1)
+df2 = collect(df2)
+df3 = collect(df3)
+
+df4 = merge(df1, df3)</code></pre>
+<pre class="r"><code>kayla = lm(DASH_FORTY_YARD_RT ~ HEIGHT_DM + WEIGHT_DM + YEAR_PRO_QY, data = df4)
+summary(kayla)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = DASH_FORTY_YARD_RT ~ HEIGHT_DM + WEIGHT_DM + YEAR_PRO_QY, 
+##     data = df4)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.66608 -0.10048 -0.01168  0.08194  0.90555 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.4348731  0.1355540  25.340  &lt; 2e-16 ***
+## HEIGHT_DM   -0.0004091  0.0020884  -0.196  0.84473    
+## WEIGHT_DM    0.0055868  0.0001191  46.927  &lt; 2e-16 ***
+## YEAR_PRO_QY -0.0037791  0.0013178  -2.868  0.00419 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1556 on 1637 degrees of freedom
+##   (8253 observations deleted due to missingness)
+## Multiple R-squared:  0.7327, Adjusted R-squared:  0.7322 
+## F-statistic:  1496 on 3 and 1637 DF,  p-value: &lt; 2.2e-16</code></pre>
 
 <!DOCTYPE html>
 
