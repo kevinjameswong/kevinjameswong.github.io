@@ -1,0 +1,366 @@
+---
+title: "Untitled"
+author: "Kevin Wong"
+date: "7/18/2018"
+output: html_document
+---
+
+```{r}
+x = c(7.9, 6.4, 3.6, 9.6, 5.1, 9.4, 10.1, 6.2)
+y = c(6.1, 6.1, 4.7, 4.9, 5.5, 4.1, 6.2, 4.5)
+
+var(x)
+sd(x) ^ 2
+top = mean(x) - mean(y)
+
+one = var(x)/length(x)
+two = var(y)/length(y)
+sq_one_two = sqrt(one + two)
+top / sq_one_two
+k = (mean(x) - mean(y)) / sqrt((var(x)/length(x)) + (var(y)/length(y)))
+k
+
+x - y
+ci(x - y)
+two_mean_same_var_CI = function(list_1, list_2, t_a_over2){
+  x_bar_1 = mean(list_1)
+  x_bar_2 = mean(list_2)
+  n_1 = length(list_1)
+  n_2 = length(list_2)
+  s_1 = sd(list_1)
+  s_2 = sd(list_2)
+  sp = (((n_1 - 1) * s_1^2 + (n_2 - 1) * s_2^2) / (n_1 + n_2 - 2)) %>% sqrt()
+  CI_lower = (x_bar_1 - x_bar_2) - t_a_over2 * sp * sqrt(1 / n_1 + 1 / n_2)
+  CI_upper = (x_bar_1 - x_bar_2) + t_a_over2 * sp * sqrt(1 / n_1 + 1 / n_2)
+  answers = list(CI_lower, CI_upper)
+  return(answers)
+}
+
+two_mean_same_var_CI(list_1 = x, list_2 = y, t_a_over2 = 1.96)
+
+two_mean_same_var_CI = function(list_1, list_2, t_a_over2){
+  x_bar_1 = mean(list_1)
+  x_bar_2 = mean(list_2)
+  n_1 = length(list_1)
+  n_2 = length(list_2)
+  s_1 = sd(list_1)
+  s_2 = sd(list_2)
+  sp = (((n_1 - 1) * s_1^2 + (n_2 - 1) * s_2^2) / (n_1 + n_2 - 2)) %>% sqrt()
+  CI_lower = (x_bar_1 - x_bar_2) - t_a_over2 * sp * sqrt(1 / n_1 + 1 / n_2)
+  CI_upper = (x_bar_1 - x_bar_2) + t_a_over2 * sp * sqrt(1 / n_1 + 1 / n_2)
+  answers = list(CI_lower, CI_upper)
+  return(answers)
+}
+
+two_mean_same_var_CI(list_1 = x, list_2 = y, t_a_over2 = 1.96)
+```
+
+```{r}
+x = c(7.9, 6.4, 3.6, 9.6, 5.1, 9.4, 10.1, 6.2)
+y = c(6.1, 6.1, 4.7, 4.9, 5.5, 4.1, 6.2, 4.5)
+
+var(x)
+sd(x) ^ 2
+top = mean(x) - mean(y)
+
+one = var(x)/length(x)
+two = var(y)/length(y)
+sq_one_two = sqrt(one + two)
+top / sq_one_two
+k = (mean(x) - mean(y)) / sqrt((var(x)/length(x)) + (var(y)/length(y)))
+k
+
+
+x = c(7.9, 6.4, 3.6, 9.6, 5.1, 9.4, 10.1, 6.2)
+y = c(6.1, 6.1, 4.7, 4.9, 5.5, 4.1, 6.2, 4.5)
+d = x - y
+d_bar = sum(d / length(x))
+t =  d_bar / (sd(d) / sqrt(length(x)))
+t
+```
+```{r}
+n = 25
+r = 0.543
+t = r / (((1 - r^2) / (n - 2)) %>% sqrt())
+t
+```
+```{r}
+x = c(69, 70, 74, 70, 75)
+y = c(73, 79, 72, 73, 87)
+d = x - y
+d_bar = sum(d / length(x))
+t =  d_bar / (sd(d) / sqrt(length(x)))
+t
+d_bar
+sd(d)
+```
+
+```{r}
+c = c(9, 2, 3, 4, 2, 5, 9, 10)
+n = c(85, 52, 55, 68, 67, 86, 83, 73)
+
+
+cor(c, n)
+```
+
+```{r}
+x = c(115.2, 120.9, 108, 112.4, 107.5, 119.1, 121.3, 110.8, 122.3)
+y = c(116, 119.1, 105.1, 111.9, 109.1, 115.2, 118.5, 110.7, 120.9)
+d = x - y
+crit = 3.35539
+CI_lower = mean(d) - crit * sd(d) / sqrt(length(x))
+CI_upper = mean(d) + crit * sd(d) / sqrt(length(x))
+CI_lower
+CI_upper
+```
+
+```{r}
+one_samp_z_test = function(x_bar, mu, o_sigma, n) {
+  z = (x_bar - mu) / (o_sigma / sqrt(n))
+  return(z)
+}
+one_samp_z_test(40, 41, 1, 10)
+
+```
+```{r}
+lsf.str("package:BSDA")
+?nsize
+```
+
+```{r}
+a = c(3.5, 3.8, 3.6, 3.6, 3.5, 3.9, 4.0, 3.9, 3.5, 3.7)
+b = c(3.6, 3.7, 3.9, 3.6, 3.9, 3.8, 3.7, 3.9, 3.8, 4.0)
+
+lm(b ~ a)
+```
+
+```{r warnings = FALSE}
+c = c(3, 4, 5, 6, 7, 10)
+d = ifelse(test = c > 5, yes = c == NA, no = c)
+d
+
+ek = ifelse(test = c > 5, yes = is.na(c), no = c)
+ek
+
+c %>% mutate(c = replace(c, c < 5, NA))
+
+
+xx = c(0:4)
+is.na(xx) <- c(2, 4)
+xx
+```
+
+```{r}
+mtcars %>% mutate(cyl = replace(cyl, cyl < 5, NA))
+```
+
+```{r}
+library(stringr)
+kayla = c(7.78, 8.78, 9.78, 10.78, 11.58)
+kayla = as.character(kayla)
+kayla = str_replace_all(string = kayla, pattern = ".78", replacement = ".875")
+kayla = str_replace_all(string = kayla, pattern = ".58", replacement = ".625")
+kayla = as.numeric(kayla)
+kayla
+```
+
+```{r}
+normalcdf = function(lower_bound, upper_bound, mean, sd) {
+  if (missing(mean)) {
+    mean = 0
+  }
+  pnorm(q = upper_bound, mean = mean, sd = sd) - pnorm(q = lower_bound, mean = mean, sd = sd)
+}
+
+invNorm = function(area, mean, sd) {
+  qnorm(p = area, mean, sd)
+}
+
+tcdf = function(lower_bound, upper_bound, df) {
+  pt(q = upper_bound, df = df) - pt(q = lower_bound, df = df)
+}
+
+invT = function(area, df) {
+  qt(p = area, df)
+}
+
+chisqcdf = function(lower_bound, upper_bound, df) {
+  pchisq(q = upper_bound, df = df) - pchisq(q = lower_bound, df = df)
+}
+```
+
+```{r}
+kevin_binom = function(trials, prob, type, successes) {
+  if (type == "less" | type == "less than") {
+    return (pbinom(q = successes - 1, size = trials, prob = prob))
+  }
+  if (type == "less than or equal" | type == "less than or" | type == "less or" | type == "less or equal") {
+    return (pbinom(q = successes, size = trials, prob = prob))
+  }
+  if (type == "equal" | type == "equal to") {
+    return (pbinom(q = successes, size = trials, prob = prob) - pbinom(q = successes - 1, size = trials, prob = prob))
+  }
+  if (type == "greater" | type == "great" | type == "greater than") {
+    return (1 - pbinom(q = successes, size = trials, prob = prob))
+  }
+  if (type == "greater than or equal" | type == "greater than or" | type == "greater or" | type == "greater or equal") {
+    return (1 - pbinom(q = successes - 1, size = trials, prob = prob))
+  }
+  if (type == "between") {
+    return (pbinom(q = successes[2], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob))
+  }
+  else {
+    message ("ERROR: Check TYPE")
+  }
+}
+```
+
+```{r}
+kevin_geom = function(attempts, prob, type) {
+  if (type == "less" | type == "less than") {
+    return (pgeom(q = attempts - 2, prob = prob))
+  }
+  if (type == "less than or equal" | type == "less than or" | type == "less or" | type == "less or equal") {
+    return (pgeom(q = attempts - 1, prob = prob))
+  }
+  if (type == "equal" | type == "equal to") {
+    return (pgeom(q = attempts - 1, prob = prob) - pgeom(q = attempts - 2, prob = prob))
+  }
+  if (type == "greater" | type == "great" | type == "greater than") {
+    return (1 - pgeom(q = attempts - 1, prob = prob))
+  }
+  if (type == "greater than or equal" | type == "greater than or" | type == "greater or" | type == "greater or equal") {
+    return (1 - pgeom(q = attempts - 2, prob = prob))
+  }
+  if (type == "between") {
+    return (pgeom(q = attempts[2] - 1, prob = prob) - pgeom(q = attempts[1] - 2, prob = prob))
+  }
+  else {
+    message ("ERROR: Check TYPE")
+  }
+}
+```
+
+
+```{r}
+kevin_yeet = function(x) {
+  return (c(1, x))
+}
+
+kevin_yeet(3)
+```
+
+```{r}
+kevin_ci = function(mean, sigma, type, confidence_level, n) {
+  if (type == "average" | type == "avg") {
+    new_sd = sigma / sqrt(n)
+  }
+  if (type == "sum") {
+    new_sd = sigma * sqrt(n)
+  }
+  alpha = 1 - confidence_level / 100
+  
+  lower = mean - margin_of_error
+  upper = mean + margin_of_error
+}
+
+kevin_ci(mean = 1, sd = 1, type = "avg", confidence_level = 2)
+```
+```{r}
+
+```
+
+
+
+
+```{r}
+px = function(x, z, sd, n) {
+  y = (x - z) / (sd / sqrt(n))
+  y = pt(q = y, df = n - 1)
+  return(y)
+}
+
+px(x = .6, z = 9/4, sd = 10, n = 100)
+```
+
+
+
+```{r}
+ka = function(x, y) {
+  if (x > 10) {
+    p = 2 * x
+  }
+  else if (y > 10) {
+    p = 2 * y
+  }
+  else {
+    p = "YEET"
+  }
+  return(p)
+}
+
+ka(x = 401/20, y = 0)
+
+401/20
+```
+
+
+
+```{r}
+kev_test_f = function(var1, var2, var3) {
+  if (var2 == 2 | var3 == 3) {
+    var2 = var3
+  }
+  var4 = var1 + var3
+  return(var4)
+}
+
+kev_test_v = function(a, b, c) {
+  kev[1] = a
+  kev[2] = b
+  kev[3] = c
+}
+
+kev_test_v(a = 1, b = 2, c = 3)
+```
+
+
+```{r}
+kevin_ci_mean(x_bar = 2.25, sd = 5, confidence_level = 99, n = 100, type = "avg")
+```
+
+
+
+```{r}
+View(mtcars)
+str(mtcars$cyl)
+mtcars$cyl = as.factor(mtcars$cyl)
+kp = lm(mpg ~ 0 + hp + cyl, data = mtcars)
+mom = lm(mpg ~ 0 + hp, data = mtcars)
+anova(mom, kp)
+summary(kp)
+str(mtcars$cyl)
+```
+
+```{r}
+aj = function(a, b) {
+  a = as.list(a)
+  b = as.list(b)
+  x = a + b
+  return(x)
+}
+
+aj(a = c(1, 2), b = list(3, 4))
+
+list(3,4) + list(0,9)
+
+a = list(3, 4)
+b = list(0, 9)
+a = unlist(a)
+a[1]
+a = c(a)
+a
+b = c(b)
+a+b
+```
+
