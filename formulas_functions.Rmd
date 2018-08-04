@@ -95,7 +95,7 @@ kevin_binom = function(trials, prob, type, successes, ...) {
 }
 ```
 
-```{r kevin geom GOOD}
+```{r kevin_geom GOOD}
 kevin_geom = function(trials, prob, type, ...) {
   trials = as.numeric(data.frame(unlist(as.list(match.call())[c("trials", "attempts", "n")])[1]))
   prob = as.numeric(data.frame(unlist(as.list(match.call())[c("prob", "p")])[1]))
@@ -355,7 +355,7 @@ kevin_ho_prop_test = function(p, p_hat, alpha, n, test, ...) {
 }
 ```
 
-```{r}
+```{r eval = FALSE}
 # kevin_binom(n = 15, p = .2, type = "equal", k = 3)
 # kevin_binom(n = 15, p = .2, type = "at most", k = 5)
 # kevin_binom(n = 15, p = .2, type = "at least", k = 8)
@@ -378,7 +378,7 @@ length(ploi)
 ploi[1]
 ```
 
-```{r}
+```{r eval = FALSE}
 p = list(4:6)
 k = list(3:5)
 as = list(p ,k)
@@ -389,9 +389,28 @@ asdf = data.frame(
 )
 ```
 
-```{r}
+```{r eval = FALSE}
 s = lm(formula = mpg ~ hp + I(hp^2), data = mtcars)
 plot(x = mtcars$mpg, y = mtcars$hp, col = "darkblue")
 abline(s)
+
+summary(mtcars$cyl)
+mtcars$cyl = as.factor(mtcars$cyl)
+str(mtcars$cyl)
+kev = c(9, NA, 0)
+kayla = c(2, 3, 3)
+kayla = as.factor(kayla)
+View(kayla)
+l = data.frame(
+  kev = kev,
+  kayla = kayla
+)
+l
+replace(l, , 9000)
+
+class(kayla)
+
+k = c("3", 3, "AS", 3)
+as.numeric(k)
 ```
 
