@@ -474,44 +474,63 @@ $(document).ready(function () {
   results = pnorm(q = upper_bound, mean = mean, sd = sd) - pnorm(q = lower_bound, mean = mean, sd = sd)
   names(results) = NULL
   return(results)
-}</code></pre>
+}
+
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 5)
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, var = 25)
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 10, n = 4)</code></pre>
 <pre class="r"><code>invNorm = function(area, mean, sd) {
-  mean = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;mean&quot;, &quot;mu&quot;)])[1]))
-  sd = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;)])[1]))
+  a = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;mean&quot;, &quot;mu&quot;)])[1]))
+  b = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;)])[1]))
   
-  if (missing(mean) | missing(sd)) {
+  if (missing(mean) | missing(sd) | missing(mean) &amp; missing(sd)) {
     mean = 0
     sd = 1
+    message(&quot;Using 0 as mean and 1 as sd&quot;)
   }
-  qnorm(p = area, mean, sd)
-}</code></pre>
+  
+  qnorm(p = area, mean = mean, sd = sd)
+}
+
+# invNorm(area = .95, mean = 0, sd = 1)
+# invNorm(area = .975)</code></pre>
 <pre class="r"><code>tcdf = function(lower_bound, upper_bound, df) {
   pt(q = upper_bound, df = df) - pt(q = lower_bound, df = df)
-}</code></pre>
+}
+
+# tcdf(lower_bound = 2, upper_bound = 4, df = 20)</code></pre>
 <pre class="r"><code>invT = function(area, df) {
   qt(p = area, df)
-}</code></pre>
+}
+
+# invT(area = .975, df = 20)</code></pre>
 <pre class="r"><code>chisqcdf = function(lower_bound, upper_bound, df) {
   pchisq(q = upper_bound, df = df) - pchisq(q = lower_bound, df = df)
-}</code></pre>
+}
+
+chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
+<pre><code>## [1] 0.5541934</code></pre>
 <pre class="r"><code>kevin_binom = function(trials, prob, type, successes, ...) {
   trials = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;trials&quot;, &quot;n&quot;)])[1]))
   prob = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;prob&quot;, &quot;p&quot;)])[1]))
-  # successes = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;successes&quot;, &quot;k&quot;)])[1]))
+  successes = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;successes&quot;, &quot;k&quot;)])[1]))
   
-  if (type == &quot;less&quot; | type == &quot;less than&quot;) {
+  if (trials &lt; successes) {
+    return(message(&quot;ERROR: Check n or k!&quot;))
+  }
+  if (type == &quot;less&quot; | type == &quot;less than&quot; | type == &quot;&lt;&quot;) {
     results = pbinom(q = successes - 1, size = trials, prob = prob)
   }
-  else if (type == &quot;less than or equal&quot; | type == &quot;less than or&quot; | type == &quot;less or&quot; | type == &quot;less or equal&quot; | type == &quot;at most&quot; | type == &quot;or less&quot;) {
+  else if (type == &quot;less than or equal&quot; | type == &quot;less than or&quot; | type == &quot;less or&quot; | type == &quot;less or equal&quot; | type == &quot;at most&quot; | type == &quot;or less&quot; | type == &quot;&lt;=&quot;) {
     results = pbinom(q = successes, size = trials, prob = prob)
   }
-  else if (type == &quot;equal&quot; | type == &quot;equal to&quot; | type == &quot;exact&quot; | type == &quot;exactly&quot;) {
+  else if (type == &quot;equal&quot; | type == &quot;equal to&quot; | type == &quot;exact&quot; | type == &quot;exactly&quot; | type == &quot;=&quot;) {
     results = pbinom(q = successes, size = trials, prob = prob) - pbinom(q = successes - 1, size = trials, prob = prob)
   }
-  else if (type == &quot;greater&quot; | type == &quot;great&quot; | type == &quot;greater than&quot; | type == &quot;more&quot; | type == &quot;more than&quot;) {
+  else if (type == &quot;greater&quot; | type == &quot;great&quot; | type == &quot;greater than&quot; | type == &quot;more&quot; | type == &quot;more than&quot; | type == &quot;&gt;&quot;) {
     results = 1 - pbinom(q = successes, size = trials, prob = prob)
   }
-  else if (type == &quot;greater than or equal&quot; | type == &quot;greater than or&quot; | type == &quot;greater or&quot; | type == &quot;greater or equal&quot; | type == &quot;at least&quot; | type == &quot;or more&quot;) {
+  else if (type == &quot;greater than or equal&quot; | type == &quot;greater than or&quot; | type == &quot;greater or&quot; | type == &quot;greater or equal&quot; | type == &quot;at least&quot; | type == &quot;or more&quot; | type == &quot;&gt;=&quot;) {
     results = 1 - pbinom(q = successes - 1, size = trials, prob = prob)
   }
   else if (type == &quot;between&quot; | type == &quot;in between&quot;) {
@@ -519,36 +538,42 @@ $(document).ready(function () {
       successes = unlist(successes)
       results = pbinom(q = successes[length(successes)], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
     }
+    else if (length(successes) == 1) {
+      return(message(&quot;ERROR: Check type!&quot;))
+    }
     else {
       return(message(&quot;ERROR: Check k successes!&quot;))
     }
   }
   else {
-    message (&quot;ERROR: Check TYPE&quot;)
+    return(message(&quot;ERROR: Check TYPE&quot;))
   }
   names(results) = NULL
   return(results)
-}</code></pre>
+}
+
+# kevin_binom(n = 9, prob = .75, type = &quot;equal&quot;, k = 7)
+# kevin_binom(n = 4, prob = .75, type = &quot;at least&quot;, k = 3)</code></pre>
 <pre class="r"><code>kevin_geom = function(trials, prob, type, ...) {
   trials = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;trials&quot;, &quot;attempts&quot;, &quot;n&quot;)])[1]))
   prob = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;prob&quot;, &quot;p&quot;)])[1]))
   
-  if (type == &quot;less&quot; | type == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+  if (type == &quot;less&quot; | type == &quot;less than&quot; | type == &quot;&lt;&quot;) {
     results = pgeom(q = trials - 2, prob = prob)
   }
-  else if (type == &quot;less than or equal&quot; | type == &quot;less than or&quot; | type == &quot;less or&quot; | type == &quot;less or equal&quot; | type == &quot;at most&quot; | type == &quot;or less&quot; | test == &quot;&lt;=&quot;) {
+  else if (type == &quot;less than or equal&quot; | type == &quot;less than or&quot; | type == &quot;less or&quot; | type == &quot;less or equal&quot; | type == &quot;at most&quot; | type == &quot;or less&quot; | type == &quot;&lt;=&quot;) {
     results = pgeom(q = trials - 1, prob = prob)
   }
-  else if (type == &quot;equal&quot; | type == &quot;equal to&quot; | type == &quot;exact&quot; | type == &quot;exactly&quot; | test == &quot;=&quot;) {
+  else if (type == &quot;equal&quot; | type == &quot;equal to&quot; | type == &quot;exact&quot; | type == &quot;exactly&quot; | type == &quot;=&quot;) {
     results = pgeom(q = trials - 1, prob = prob) - pgeom(q = trials - 2, prob = prob)
   }
-  else if (type == &quot;greater&quot; | type == &quot;great&quot; | type == &quot;greater than&quot; | test == &quot;&gt;&quot;) {
+  else if (type == &quot;greater&quot; | type == &quot;great&quot; | type == &quot;greater than&quot; | type == &quot;more&quot; | type == &quot;more than&quot; | type == &quot;&gt;&quot;) {
     results = 1 - pgeom(q = trials - 1, prob = prob)
   }
-  else if (type == &quot;greater than or equal&quot; | type == &quot;greater than or&quot; | type == &quot;greater or&quot; | type == &quot;greater or equal&quot; | type == &quot;at least&quot; | type == &quot;or more&quot; | test == &quot;&gt;=&quot;) {
+  else if (type == &quot;greater than or equal&quot; | type == &quot;greater than or&quot; | type == &quot;greater or&quot; | type == &quot;greater or equal&quot; | type == &quot;at least&quot; | type == &quot;or more&quot; | type == &quot;&gt;=&quot;) {
     results = 1 - pgeom(q = trials - 2, prob = prob)
   }
-  else if (type == &quot;between&quot;) {
+  else if (type == &quot;between&quot; | type == &quot;in between&quot;) {
     results = pgeom(q = trials[2] - 1, prob = prob) - pgeom(q = trials[1] - 2, prob = prob)
   }
   else {
@@ -556,16 +581,22 @@ $(document).ready(function () {
   }
   names(results) = NULL
   return(results)
-}</code></pre>
-<pre class="r"><code>ci_mean = function(x_bar, sd, type, confidence_level, n, ...) {
+}
+
+# kevin_geom(trials = 3, prob = .1, type = &quot;equal&quot;)</code></pre>
+<pre class="r"><code>ci_mean = function(x_bar, sd, confidence_level, n, average, sum, ...) {
   x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar&quot;, &quot;mean&quot;, &quot;xbar&quot;)])[1]))
   sd = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;)])[1]))
+  average = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;average&quot;, &quot;avg&quot;)])[1]))
   
-  if (type == &quot;average&quot; | type == &quot;avg&quot; | missing(type)) {
+  if (average == TRUE &amp; missing(sum)) {
     standard_error = sd / sqrt(n)
   }
-  else if (type == &quot;sum&quot;) {
+  else if (missing(average) &amp; sum == TRUE) {
     standard_error = sd * sqrt(n)
+  }
+  else {
+    return(message(&quot;ERROR: Either `Average` or `Sum` is needed&quot;))
   }
   if (confidence_level &gt; 100) {
     return(message (&quot;ERROR: Check confidence level!&quot;))
@@ -636,7 +667,7 @@ $(document).ready(function () {
   mu = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;null_mean&quot;, &quot;mu&quot;)])[1]))
   x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar&quot;, &quot;sample_mean&quot;)])[1]))
   sd = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;, &quot;s&quot;)])[1]))
-  a = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+  alpha = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
   
   if (missing(alpha)) {
     alpha = .05
@@ -768,56 +799,292 @@ $(document).ready(function () {
   names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
   return(results)
 }</code></pre>
-<pre class="r"><code># kevin_binom(n = 15, p = .2, type = &quot;equal&quot;, k = 3)
-# kevin_binom(n = 15, p = .2, type = &quot;at most&quot;, k = 5)
-# kevin_binom(n = 15, p = .2, type = &quot;at least&quot;, k = 8)
-# kevin_binom(n = 15, p = .2, type = &quot;in between&quot;, k = list(4, 6))
+<pre class="r"><code>kevin_ho_two_sample_mean_test = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, test, alpha, C, ...) {
+  x_bar_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_A&quot;, &quot;xbara&quot;, &quot;mu_A&quot;)])[1]))
+  x_bar_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_B&quot;, &quot;xbarb&quot;, &quot;mu_B&quot;)])[1]))
+  s_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_A&quot;, &quot;s_a&quot;, &quot;sA&quot;, &quot;sa&quot;)])[1]))
+  s_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_B&quot;, &quot;s_b&quot;, &quot;sB&quot;, &quot;sb&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;c&quot;, &quot;C&quot;, &quot;diff&quot;, &quot;difference&quot;)])[1]))
+  a = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+  
+  if (missing(C)) {
+    C = 0
+  }
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+    test_stat = ((x_bar_A - x_bar_B) - C) / sqrt((s_A ^ 2 / n_A + s_B ^ 2 / n_B))
+  }
+  else {
+    s_pooled_sq = (((n_A - 1)  * s_A ^ 2) + ((n_B - 1)  * s_B ^ 2)) / (n_A + n_B - 2)
+    n = n_A + n_B - 2
+    test_stat = ((x_bar_A - x_bar_B) - C) / sqrt(s_pooled_sq * ((1 / n_A) + (1 / n_B)))
+  }
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;&gt;&quot;) {
+    if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+      critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+      p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+      problem = &quot;One-Sided, Right Tailed Z Test&quot;
+    }
+    else {
+      critical_value = qt(p = 1 - alpha, df = n - 1)
+      p_value = 1 - pt(q = test_stat, df = n - 1)
+      problem = &quot;One-Sided, Right Tailed T Test&quot;
+    }
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+      critical_value = qnorm(p = alpha, mean = 0, sd = 1)
+      p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+      problem = &quot;One-Sided, Left Tailed Z Test&quot;
+    }
+    else {
+      critical_value = qt(p = alpha, df = n - 1)
+      p_value = pt(q = test_stat, df = n - 1)
+      problem = &quot;One-Sided, Left Tailed T Test&quot;
+    }
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot;) {
+    if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+      if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
+        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+      }
+      else if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+      }
+      problem = &quot;Two-Sided Z Test&quot;
+      critical_value = c(critical_value_low, critical_value_high)
+    }
+    else {
+      if (pt(q = test_stat, df = n - 1) &gt; .5) {
+        critical_value_low = qt(p = alpha, df = n - 1)
+        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        p_value = 2 * (1 - pt(q = test_stat, df = n - 1))
+      }
+      else if (pt(q = test_stat, df = n - 1) &lt; .5) {
+        critical_value_low = qt(p = alpha, df = n - 1)
+        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        p_value = 2 * pt(q = test_stat, df = n - 1)
+      }
+      problem = &quot;Two-Sided T Test&quot;
+      critical_value = c(critical_value_low, critical_value_high)
+    }
+  }
+  else {
+    return(message(&quot;ERROR: Check test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  else if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(
+    ifelse(exists(&quot;problem&quot;),        problem,        NA),
+    ifelse(exists(&quot;n&quot;),              n,              NA),
+    ifelse(exists(&quot;critical_value&quot;), critical_value, NA),
+    ifelse(exists(&quot;test_stat&quot;),      test_stat,      NA),
+    ifelse(exists(&quot;alpha&quot;),          alpha,          NA),
+    ifelse(exists(&quot;p_value&quot;),        p_value,        NA),
+    ifelse(exists(&quot;decision&quot;),       decision,       NA))
+  names(results) = c(&quot;Problem&quot;, &quot;Degrees_of_Freedom&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>ci_2_sample_mean = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, average, sum, confidence_level, ...) {
+  x_bar_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_A&quot;, &quot;mean_A&quot;, &quot;xbar_A&quot;, &quot;xbarA&quot;)])[1]))
+  x_bar_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_B&quot;, &quot;mean_B&quot;, &quot;xbar_B&quot;, &quot;xbarB&quot;)])[1]))
+  s_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_A&quot;, &quot;sA&quot;, &quot;sd_A&quot;, &quot;sdA&quot;, &quot;sigma_A&quot;, &quot;sigmaA&quot;)])[1]))
+  s_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_B&quot;, &quot;sB&quot;, &quot;sd_B&quot;, &quot;sdB&quot;, &quot;sigma_B&quot;, &quot;sigmaB&quot;)])[1]))
+  
+  x_bar_1_minus_x_bar_2 = x_bar_A - x_bar_B
+  min_n_A_n_B = min(n_A, n_B)
+  
+  if (average == TRUE &amp; missing(sum)) {
+    standard_error = sqrt(s_A ^ 2 / n_A + s_B ^ 2 / n_B)
+  }
+  else if (missing(average) &amp; sum == TRUE) {
+    standard_error = x_bar_1_minus_x_bar_2
+  }
+  else {
+    return(message(&quot;ERROR: Either `Average` or `Sum` is needed&quot;))
+  }
+  if (confidence_level &gt; 100) {
+    return(message (&quot;ERROR: Check confidence level!&quot;))
+  }
+  if (confidence_level &lt; 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+    crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
+  }
+  else {
+    crit = - qt(p = alpha / 2, df = min_n_A_n_B - 1)
+  }
+  margin_of_error = crit * standard_error
+  lower = x_bar_1_minus_x_bar_2 - margin_of_error
+  upper = x_bar_1_minus_x_bar_2 + margin_of_error
+  results = c(lower, upper)
+  names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ho_2_sample_prop_test = function(p_hat_A, p_hat_B, alpha, n_A, n_B, test, C, ...) {
+  p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_A&quot;, &quot;sample_prop_A&quot;)])[1]))
+  p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_B&quot;, &quot;sample_prop_B&quot;)])[1]))
+  n_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_A&quot;, &quot;nA&quot;)])[1]))
+  n_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_B&quot;, &quot;nB&quot;)])[1]))
 
-# kevin_geom(n = c(3,6), p = .8, type = &quot;between&quot;)
-plo = data.frame(4,6)
-length(plo)
-plo[2]
+  if (missing(C)) {
+    C = 0
+  }
+  
+  x_A = p_hat_A * n_A
+  x_B = p_hat_B * n_B
+  
+  p_hat = (x_A + x_B) / (n_A + n_B)
+  test_stat = ((p_hat_A - p_hat_B) - C) / sqrt(p_hat * (1 - p_hat) / (n_A + n_B))
+  
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;&gt;&quot;) {
+    p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = pnorm(q = 1 - alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Right Tailed Z Test&quot;
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = pnorm(q = alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Left Tailed Z Test&quot;
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot;) {
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
+      p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+    }
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+      p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+    }
+    problem = &quot;Two-Sided Z Test&quot;
+    critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    critical_value = c(critical_value_low, critical_value_high)
+  }
+  else {
+    return(message(&quot;ERROR: Check Test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>ci_2_sample_prop = function(p_hat_A, p_hat_B, confidence_level, n_A, n_B, ...) {
+  p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_A&quot;, &quot;mean_A&quot;, &quot;sample_proportion_A&quot;)])[1]))
+  p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_B&quot;, &quot;mean_B&quot;, &quot;sample_proportion_B&quot;)])[1]))
+  
+  p1_minus_p2 = p_hat_A - p_hat_B
+  if (confidence_level &gt; 100) {
+    return(message (&quot;ERROR: Check confidence level!&quot;))
+  }
+  if (confidence_level &lt; 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
+  
+  standard_error = sqrt((p_hat_A * (1 - p_hat_A) / n_A) + (p_hat_B * (1 - p_hat_B) / n_B))
+  margin_of_error = crit * standard_error
+  lower = p1_minus_p2 - margin_of_error
+  upper = p1_minus_p2 + margin_of_error
+  results = c(lower, upper)
+  names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_bivar_prob = function(expression, muX, muY, varX, varY, sdX, sdY, cov_x_y, independence, ...) {
+  # muX, muY, sdX, sdY, cov_x_y
+  library(stringr)
+  library(dplyr)
+  muX = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;muX&quot;, &quot;mux&quot;, &quot;meanX&quot;, &quot;meanx&quot;)])[1]))
+  muY = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;muY&quot;, &quot;muy&quot;, &quot;meanY&quot;, &quot;meanY&quot;)])[1]))
+  
+  if (missing(varX) &amp; !missing(sdX)) {
+    varX = sdX ^ 2
+  }
+  else if (!missing(varX) &amp; missing(sdX)) {
+    varX = varX
+  }
+  else if (!missing(varX) &amp; !missing(sdX)) {
+    message(&quot;Using varX&quot;)
+  }
+  else {
+    return(message(&quot;ERROR: Need either varX or sdX!&quot;))
+  }
+  if (missing(varY) &amp; !missing(sdY)) {
+    varY = sdY ^ 2
+  }
+  else if (!missing(varX) &amp; missing(sdY)) {
+    varY = varY
+  }
+  else if (!missing(varY) &amp; !missing(sdY)) {
+    message(&quot;Using varY&quot;)
+  }
+  else {
+    return(message(&quot;ERROR: Need either varY or sdY!&quot;))
+  }
+  x_coef = str_extract(string = expression, pattern = &quot;[[:digit:]]{1,2}[xX]&quot;) %&gt;% str_extract(pattern = &quot;[[:digit:]]{1,2}&quot;) %&gt;% as.numeric()
+  y_coef = str_extract(string = expression, pattern = &quot;[[:digit:]]{1,2}[yY]&quot;) %&gt;% str_extract(pattern = &quot;[[:digit:]]{1,2}&quot;) %&gt;% as.numeric()
+  limit = str_extract(string = expression, pattern = &quot;[[:digit:]]{1,4}$&quot;) %&gt;% as.numeric()
+  if (missing(cov_x_y) &amp; independence == TRUE) {
+    cov_x_y = 0
+  }
+  else {
+    return(message(&quot;ERROR: Check cov_x_y&quot;))
+  }
+  sd = sqrt(x_coef ^ 2 * varX + y_coef ^ 2 * varY + 2 * cov_x_y)
+  if (str_detect(string = expression, pattern = &quot;\\+&quot;) == TRUE) {
+    mean = x_coef * muX + y_coef * muY
+  }
+  else if (str_detect(string = expression, pattern = &quot;\\-&quot;) == TRUE) {
+    mean = x_coef * muX - y_coef * muY
+  }
+  if (str_detect(string = expression, pattern = &quot;&lt;&quot;) == TRUE) {
+    prob = pnorm(q = limit, mean = mean, sd = sd)
+  }
+  else if (str_detect(string = expression, pattern = &quot;&gt;&quot;) == TRUE) {
+    prob = 1 - pnorm(q = limit, mean = mean, sd = sd)
+  }
+  else {
+    return(message(&quot;ERROR: Check expression sign!&quot;))
+  }
+  return(prob)
+}
 
-l = c(4, 6)
-str(l)
-length(l)
-
-
-ploi = c(3:55)
-length(ploi)
-as.list(ploi)
-length(ploi)
-ploi[1]</code></pre>
-<pre class="r"><code>p = list(4:6)
-k = list(3:5)
-as = list(p ,k)
-unlist(as)
-asdf = data.frame(
-  p = p,
-  k = k
-)</code></pre>
-<pre class="r"><code>s = lm(formula = mpg ~ hp + I(hp^2), data = mtcars)
-plot(x = mtcars$mpg, y = mtcars$hp, col = &quot;darkblue&quot;)
-abline(s)
-
-summary(mtcars$cyl)
-mtcars$cyl = as.factor(mtcars$cyl)
-str(mtcars$cyl)
-kev = c(9, NA, 0)
-kayla = c(2, 3, 3)
-kayla = as.factor(kayla)
-View(kayla)
-l = data.frame(
-  kev = kev,
-  kayla = kayla
-)
-l
-replace(l, , 9000)
-
-class(kayla)
-
-k = c(&quot;3&quot;, 3, &quot;AS&quot;, 3)
-as.numeric(k)</code></pre>
+# kevin_bivar_prob(expression = &quot;6X + 4Y &gt; 1500&quot;, muX = 170, sdX = 10, muY = 125, sdY = 8, independence = TRUE)</code></pre>
 
 <!DOCTYPE html>
 

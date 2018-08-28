@@ -16,7 +16,7 @@ output:
 
 <br>
 
-<center>On this website, you can find out more information about me. I enjoy mathematics and computer science. My dream job is to do financial analysis one day for a company.</center>
+<center>On this website, you can find out more information about me. I enjoy mathematics and computer science. My dream job is to be a computer engineer one day.</center>
 
 <br>
 

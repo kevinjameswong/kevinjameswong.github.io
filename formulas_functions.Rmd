@@ -24,98 +24,114 @@ normalcdf = function(lower_bound, upper_bound, mean, sd, n, var, ...) {
   names(results) = NULL
   return(results)
 }
+
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 5)
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, var = 25)
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 10, n = 4)
 ```
 
 ```{r invNorm GOOD}
 invNorm = function(area, mean, sd) {
-  mean = as.numeric(data.frame(unlist(as.list(match.call())[c("mean", "mu")])[1]))
-  sd = as.numeric(data.frame(unlist(as.list(match.call())[c("sd", "sigma")])[1]))
+  a = as.numeric(data.frame(unlist(as.list(match.call())[c("mean", "mu")])[1]))
+  b = as.numeric(data.frame(unlist(as.list(match.call())[c("sd", "sigma")])[1]))
   
-  if (missing(mean) | missing(sd)) {
+  if (missing(mean) | missing(sd) | missing(mean) & missing(sd)) {
     mean = 0
     sd = 1
+    message("Using 0 as mean and 1 as sd")
   }
-  qnorm(p = area, mean, sd)
+  
+  qnorm(p = area, mean = mean, sd = sd)
 }
+
+# invNorm(area = .95, mean = 0, sd = 1)
+# invNorm(area = .975)
 ```
 
 ```{r tcdf GOOD}
 tcdf = function(lower_bound, upper_bound, df) {
   pt(q = upper_bound, df = df) - pt(q = lower_bound, df = df)
 }
+
+# tcdf(lower_bound = 2, upper_bound = 4, df = 20)
 ```
 
 ```{r invT GOOD}
 invT = function(area, df) {
   qt(p = area, df)
 }
+
+# invT(area = .975, df = 20)
 ```
 
 ```{r chisqcdf GOOD}
 chisqcdf = function(lower_bound, upper_bound, df) {
   pchisq(q = upper_bound, df = df) - pchisq(q = lower_bound, df = df)
 }
+
+# chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)
 ```
 
-```{r kevin_binom GOOD}
+```{r}
 kevin_binom = function(trials, prob, type, successes, ...) {
   trials = as.numeric(data.frame(unlist(as.list(match.call())[c("trials", "n")])[1]))
   prob = as.numeric(data.frame(unlist(as.list(match.call())[c("prob", "p")])[1]))
-  # successes = as.numeric(data.frame(unlist(as.list(match.call())[c("successes", "k")])[1]))
+  successes = as.numeric(data.frame(unlist(as.list(match.call())[c("successes", "k")])[1]))
   
-  if (type == "less" | type == "less than") {
-    results = pbinom(q = successes - 1, size = trials, prob = prob)
+  if (trials < successes) {
+    return(message("ERROR: Check n or k!"))
   }
-  else if (type == "less than or equal" | type == "less than or" | type == "less or" | type == "less or equal" | type == "at most" | type == "or less") {
-    results = pbinom(q = successes, size = trials, prob = prob)
-  }
-  else if (type == "equal" | type == "equal to" | type == "exact" | type == "exactly") {
-    results = pbinom(q = successes, size = trials, prob = prob) - pbinom(q = successes - 1, size = trials, prob = prob)
-  }
-  else if (type == "greater" | type == "great" | type == "greater than" | type == "more" | type == "more than") {
-    results = 1 - pbinom(q = successes, size = trials, prob = prob)
-  }
-  else if (type == "greater than or equal" | type == "greater than or" | type == "greater or" | type == "greater or equal" | type == "at least" | type == "or more") {
-    results = 1 - pbinom(q = successes - 1, size = trials, prob = prob)
-  }
-  else if (type == "between" | type == "in between") {
-    if (length(successes) ==  2) {
-      successes = unlist(successes)
-      results = pbinom(q = successes[length(successes)], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
-    }
-    else {
-      return(message("ERROR: Check k successes!"))
-    }
-  }
-  else {
-    message ("ERROR: Check TYPE")
-  }
-  names(results) = NULL
+  prob_less = pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_less_or = pbinom(q = successes[1], size = trials, prob = prob)
+  prob_equal = pbinom(q = successes[1], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_greater = 1 - pbinom(q = successes[1], size = trials, prob = prob)
+  prob_greater_or = 1 - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_between = pbinom(q = successes[2], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  
+  results = list(trials, successes, prob, prob_less, prob_less_or, prob_equal, prob_greater_or, prob_greater, prob_between)
+  names(results) = c(
+    "Trials",
+    "Successes",
+    "Probability of Each Success",
+    paste("Less Than ", successes[1], " Successes", sep = ""),
+    paste("At Most ", successes[1], " Successes", sep = ""),
+    paste("Equal To ", successes[1], " Successes", sep = ""),
+    paste("At Least ", successes[1], " Successes", sep = ""),
+    paste("Greater Than ", successes[1], " Successes", sep = ""),
+    paste("Between ", successes[1], " and ", successes[2], " Successes", sep = "")
+  )
   return(results)
 }
+
+# kevin_binom(n = 12, prob = .5, k = 11)
 ```
+
+```{r}
+kevin_binom(n = 4, prob = .75, k = list(3,6))
+```
+
 
 ```{r kevin_geom GOOD}
 kevin_geom = function(trials, prob, type, ...) {
   trials = as.numeric(data.frame(unlist(as.list(match.call())[c("trials", "attempts", "n")])[1]))
   prob = as.numeric(data.frame(unlist(as.list(match.call())[c("prob", "p")])[1]))
   
-  if (type == "less" | type == "less than" | test == "<") {
+  if (type == "less" | type == "less than" | type == "<") {
     results = pgeom(q = trials - 2, prob = prob)
   }
-  else if (type == "less than or equal" | type == "less than or" | type == "less or" | type == "less or equal" | type == "at most" | type == "or less" | test == "<=") {
+  else if (type == "less than or equal" | type == "less than or" | type == "less or" | type == "less or equal" | type == "at most" | type == "or less" | type == "<=") {
     results = pgeom(q = trials - 1, prob = prob)
   }
-  else if (type == "equal" | type == "equal to" | type == "exact" | type == "exactly" | test == "=") {
+  else if (type == "equal" | type == "equal to" | type == "exact" | type == "exactly" | type == "=") {
     results = pgeom(q = trials - 1, prob = prob) - pgeom(q = trials - 2, prob = prob)
   }
-  else if (type == "greater" | type == "great" | type == "greater than" | test == ">") {
+  else if (type == "greater" | type == "great" | type == "greater than" | type == "more" | type == "more than" | type == ">") {
     results = 1 - pgeom(q = trials - 1, prob = prob)
   }
-  else if (type == "greater than or equal" | type == "greater than or" | type == "greater or" | type == "greater or equal" | type == "at least" | type == "or more" | test == ">=") {
+  else if (type == "greater than or equal" | type == "greater than or" | type == "greater or" | type == "greater or equal" | type == "at least" | type == "or more" | type == ">=") {
     results = 1 - pgeom(q = trials - 2, prob = prob)
   }
-  else if (type == "between") {
+  else if (type == "between" | type == "in between") {
     results = pgeom(q = trials[2] - 1, prob = prob) - pgeom(q = trials[1] - 2, prob = prob)
   }
   else {
@@ -124,18 +140,24 @@ kevin_geom = function(trials, prob, type, ...) {
   names(results) = NULL
   return(results)
 }
+
+# kevin_geom(trials = 3, prob = .1, type = "equal")
 ```
 
 ```{r ci mean GOOD}
-ci_mean = function(x_bar, sd, type, confidence_level, n, ...) {
+ci_mean = function(x_bar, sd, confidence_level, n, average, sum, ...) {
   x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c("x_bar", "mean", "xbar")])[1]))
   sd = as.numeric(data.frame(unlist(as.list(match.call())[c("sd", "sigma")])[1]))
+  average = as.numeric(data.frame(unlist(as.list(match.call())[c("average", "avg")])[1]))
   
-  if (type == "average" | type == "avg" | missing(type)) {
+  if (average == TRUE & missing(sum)) {
     standard_error = sd / sqrt(n)
   }
-  else if (type == "sum") {
+  else if (missing(average) & sum == TRUE) {
     standard_error = sd * sqrt(n)
+  }
+  else {
+    return(message("ERROR: Either `Average` or `Sum` is needed"))
   }
   if (confidence_level > 100) {
     return(message ("ERROR: Check confidence level!"))
@@ -157,6 +179,8 @@ ci_mean = function(x_bar, sd, type, confidence_level, n, ...) {
   names(results) = c("Lower", "Upper")
   return(results)
 }
+
+ci_mean()
 ```
 
 ```{r ci prop GOOD}
@@ -213,12 +237,12 @@ kevin_ci_var = function(sd, confidence_level, n) {
 }
 ```
 
-```{r kevin ho mean test}
+```{r kevin ho 1 sample mean test}
 kevin_ho_mean_test = function(mu, x_bar, n, test, sd, alpha, ...) {
   mu = as.numeric(data.frame(unlist(as.list(match.call())[c("null_mean", "mu")])[1]))
   x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c("x_bar", "sample_mean")])[1]))
   sd = as.numeric(data.frame(unlist(as.list(match.call())[c("sd", "sigma", "s")])[1]))
-  a = as.numeric(data.frame(unlist(as.list(match.call())[c("alpha", "a")])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c("alpha", "a")])[1]))
   
   if (missing(alpha)) {
     alpha = .05
@@ -301,10 +325,11 @@ kevin_ho_mean_test = function(mu, x_bar, n, test, sd, alpha, ...) {
 }
 ```
 
-```{r kevin ho prop test}
+```{r kevin ho 1 sample prop test}
 kevin_ho_prop_test = function(p, p_hat, alpha, n, test, ...) {
   p = as.numeric(data.frame(unlist(as.list(match.call())[c("null_prop", "p", "po")])[1]))
   p_hat = as.numeric(data.frame(unlist(as.list(match.call())[c("p_hat", "sample_prop")])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c("alpha", "a")])[1]))
 
   if (missing(alpha)) {
     alpha = .05
@@ -355,62 +380,320 @@ kevin_ho_prop_test = function(p, p_hat, alpha, n, test, ...) {
 }
 ```
 
-```{r eval = FALSE}
-# kevin_binom(n = 15, p = .2, type = "equal", k = 3)
-# kevin_binom(n = 15, p = .2, type = "at most", k = 5)
-# kevin_binom(n = 15, p = .2, type = "at least", k = 8)
-# kevin_binom(n = 15, p = .2, type = "in between", k = list(4, 6))
-
-# kevin_geom(n = c(3,6), p = .8, type = "between")
-plo = data.frame(4,6)
-length(plo)
-plo[2]
-
-l = c(4, 6)
-str(l)
-length(l)
-
-
-ploi = c(3:55)
-length(ploi)
-as.list(ploi)
-length(ploi)
-ploi[1]
+```{r kevin ho 2 sample diff mean test}
+kevin_ho_two_sample_mean_test = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, test, alpha, C, ...) {
+  x_bar_A = as.numeric(data.frame(unlist(as.list(match.call())[c("x_bar_A", "xbara", "mu_A")])[1]))
+  x_bar_B = as.numeric(data.frame(unlist(as.list(match.call())[c("x_bar_B", "xbarb", "mu_B")])[1]))
+  s_A = as.numeric(data.frame(unlist(as.list(match.call())[c("s_A", "s_a", "sA", "sa")])[1]))
+  s_B = as.numeric(data.frame(unlist(as.list(match.call())[c("s_B", "s_b", "sB", "sb")])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c("c", "C", "diff", "difference")])[1]))
+  a = as.numeric(data.frame(unlist(as.list(match.call())[c("alpha", "a")])[1]))
+  
+  if (missing(C)) {
+    C = 0
+  }
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha > 100) {
+    return(message ("ERROR: Check Alpha!"))
+  }
+  if (alpha >= 1) {
+    alpha = alpha / 100
+  }
+  if (n_A >= 30 & n_B >= 30) {
+    test_stat = ((x_bar_A - x_bar_B) - C) / sqrt((s_A ^ 2 / n_A + s_B ^ 2 / n_B))
+  }
+  else {
+    s_pooled_sq = (((n_A - 1)  * s_A ^ 2) + ((n_B - 1)  * s_B ^ 2)) / (n_A + n_B - 2)
+    n = n_A + n_B - 2
+    test_stat = ((x_bar_A - x_bar_B) - C) / sqrt(s_pooled_sq * ((1 / n_A) + (1 / n_B)))
+  }
+  if (test == "right_tailed" | test == "right tail" | test == "right" | test == "right tailed" | test == "greater" | test == "greater than" | test == "great" | test == ">") {
+    if (n_A >= 30 & n_B >= 30) {
+      critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+      p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+      problem = "One-Sided, Right Tailed Z Test"
+    }
+    else {
+      critical_value = qt(p = 1 - alpha, df = n - 1)
+      p_value = 1 - pt(q = test_stat, df = n - 1)
+      problem = "One-Sided, Right Tailed T Test"
+    }
+  }
+  else if (test == "left_tailed" | test == "left tail" | test == "left" | test == "left tailed" | test == "less" | test == "less than" | test == "<") {
+    if (n_A >= 30 & n_B >= 30) {
+      critical_value = qnorm(p = alpha, mean = 0, sd = 1)
+      p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+      problem = "One-Sided, Left Tailed Z Test"
+    }
+    else {
+      critical_value = qt(p = alpha, df = n - 1)
+      p_value = pt(q = test_stat, df = n - 1)
+      problem = "One-Sided, Left Tailed T Test"
+    }
+  }
+  else if (test == "two sided" | test == "two_sided" | test == "two_tailed" | test == "two tailed" | test == "both" | test == "two" | test == "not equal" | test == "different" | test == "!=") {
+    if (n_A >= 30 & n_B >= 30) {
+      if (pnorm(q = test_stat, mean = 0, sd = 1) > .5) {
+        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+      }
+      else if (pnorm(q = test_stat, mean = 0, sd = 1) < .5) {
+        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+      }
+      problem = "Two-Sided Z Test"
+      critical_value = c(critical_value_low, critical_value_high)
+    }
+    else {
+      if (pt(q = test_stat, df = n - 1) > .5) {
+        critical_value_low = qt(p = alpha, df = n - 1)
+        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        p_value = 2 * (1 - pt(q = test_stat, df = n - 1))
+      }
+      else if (pt(q = test_stat, df = n - 1) < .5) {
+        critical_value_low = qt(p = alpha, df = n - 1)
+        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        p_value = 2 * pt(q = test_stat, df = n - 1)
+      }
+      problem = "Two-Sided T Test"
+      critical_value = c(critical_value_low, critical_value_high)
+    }
+  }
+  else {
+    return(message("ERROR: Check test!"))
+  }
+  if (p_value < alpha) {
+    decision = c("REJECT the Null. FAIL TO REJECT the Alternative.")
+  }
+  else if (p_value > alpha) {
+    decision = c("FAIL TO REJECT the Null. REJECT the Alternative.")
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(
+    ifelse(exists("problem"),        problem,        NA),
+    ifelse(exists("n"),              n,              NA),
+    ifelse(exists("critical_value"), critical_value, NA),
+    ifelse(exists("test_stat"),      test_stat,      NA),
+    ifelse(exists("alpha"),          alpha,          NA),
+    ifelse(exists("p_value"),        p_value,        NA),
+    ifelse(exists("decision"),       decision,       NA))
+  names(results) = c("Problem", "Degrees_of_Freedom", "Critical_Value", "Test_Statistic", "Alpha", "P_Value", "Decision")
+  return(results)
+}
 ```
 
-```{r eval = FALSE}
-p = list(4:6)
-k = list(3:5)
-as = list(p ,k)
-unlist(as)
-asdf = data.frame(
-  p = p,
-  k = k
-)
+```{r kevin ci 2 sample diff mean}
+ci_2_sample_mean = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, average, sum, confidence_level, ...) {
+  x_bar_A = as.numeric(data.frame(unlist(as.list(match.call())[c("x_bar_A", "mean_A", "xbar_A", "xbarA")])[1]))
+  x_bar_B = as.numeric(data.frame(unlist(as.list(match.call())[c("x_bar_B", "mean_B", "xbar_B", "xbarB")])[1]))
+  s_A = as.numeric(data.frame(unlist(as.list(match.call())[c("s_A", "sA", "sd_A", "sdA", "sigma_A", "sigmaA")])[1]))
+  s_B = as.numeric(data.frame(unlist(as.list(match.call())[c("s_B", "sB", "sd_B", "sdB", "sigma_B", "sigmaB")])[1]))
+  
+  x_bar_1_minus_x_bar_2 = x_bar_A - x_bar_B
+  min_n_A_n_B = min(n_A, n_B)
+  
+  if (average == TRUE & missing(sum)) {
+    standard_error = sqrt(s_A ^ 2 / n_A + s_B ^ 2 / n_B)
+  }
+  else if (missing(average) & sum == TRUE) {
+    standard_error = x_bar_1_minus_x_bar_2
+  }
+  else {
+    return(message("ERROR: Either `Average` or `Sum` is needed"))
+  }
+  if (confidence_level > 100) {
+    return(message ("ERROR: Check confidence level!"))
+  }
+  if (confidence_level < 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  if (n_A >= 30 & n_B >= 30) {
+    crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
+  }
+  else {
+    crit = - qt(p = alpha / 2, df = min_n_A_n_B - 1)
+  }
+  margin_of_error = crit * standard_error
+  lower = x_bar_1_minus_x_bar_2 - margin_of_error
+  upper = x_bar_1_minus_x_bar_2 + margin_of_error
+  results = c(lower, upper)
+  names(results) = c("Lower", "Upper")
+  return(results)
+}
 ```
 
-```{r eval = FALSE}
-s = lm(formula = mpg ~ hp + I(hp^2), data = mtcars)
-plot(x = mtcars$mpg, y = mtcars$hp, col = "darkblue")
-abline(s)
+```{r kevin ho 2 sample diff prop test}
+kevin_ho_2_sample_prop_test = function(p_hat_A, p_hat_B, alpha, n_A, n_B, test, C, ...) {
+  p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c("p_hat_A", "sample_prop_A")])[1]))
+  p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c("p_hat_B", "sample_prop_B")])[1]))
+  n_A = as.numeric(data.frame(unlist(as.list(match.call())[c("n_A", "nA")])[1]))
+  n_B = as.numeric(data.frame(unlist(as.list(match.call())[c("n_B", "nB")])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c("alpha", "a")])[1]))
 
-summary(mtcars$cyl)
-mtcars$cyl = as.factor(mtcars$cyl)
-str(mtcars$cyl)
-kev = c(9, NA, 0)
-kayla = c(2, 3, 3)
-kayla = as.factor(kayla)
-View(kayla)
-l = data.frame(
-  kev = kev,
-  kayla = kayla
-)
-l
-replace(l, , 9000)
+  if (missing(C)) {
+    C = 0
+  }
+  
+  x_A = p_hat_A * n_A
+  x_B = p_hat_B * n_B
+  
+  p_hat = (x_A + x_B) / (n_A + n_B)
+  test_stat = ((p_hat_A - p_hat_B) - C) / sqrt(p_hat * (1 - p_hat) / (n_A + n_B))
+  
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha > 100) {
+    return(message ("ERROR: Check Alpha!"))
+  }
+  if (alpha >= 1) {
+    alpha = alpha / 100
+  }
+  if (test == "right_tailed" | test == "right tail" | test == "right" | test == "right tailed" | test == "greater" | test == "greater than" | test == "great" | test == ">") {
+    p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = pnorm(q = 1 - alpha, mean = 0, sd = 1)
+    problem = "One-Sided, Right Tailed Z Test"
+  }
+  else if (test == "left_tailed" | test == "left tail" | test == "left" | test == "left tailed" | test == "less" | test == "less than" | test == "<") {
+    p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = pnorm(q = alpha, mean = 0, sd = 1)
+    problem = "One-Sided, Left Tailed Z Test"
+  }
+  else if (test == "two sided" | test == "two_sided" | test == "two_tailed" | test == "two tailed" | test == "both" | test == "two" | test == "not equal" | test == "different" | test == "!=") {
+    if (pnorm(q = test_stat, mean = 0, sd = 1) > .5) {
+      p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+    }
+    if (pnorm(q = test_stat, mean = 0, sd = 1) < .5) {
+      p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+    }
+    problem = "Two-Sided Z Test"
+    critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    critical_value = c(critical_value_low, critical_value_high)
+  }
+  else {
+    return(message("ERROR: Check Test!"))
+  }
+  if (p_value < alpha) {
+    decision = c("REJECT the Null. FAIL TO REJECT the Alternative.")
+  }
+  if (p_value > alpha) {
+    decision = c("FAIL TO REJECT the Null. REJECT the Alternative.")
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c("Problem", "Critical_Value", "Test_Statistic", "Alpha", "P_Value", "Decision")
+  return(results)
+}
+```
 
-class(kayla)
+```{r kevin ci 2 sample diff prop}
+ci_2_sample_prop = function(p_hat_A, p_hat_B, confidence_level, n_A, n_B, ...) {
+  p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c("p_hat_A", "mean_A", "sample_proportion_A")])[1]))
+  p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c("p_hat_B", "mean_B", "sample_proportion_B")])[1]))
+  
+  p1_minus_p2 = p_hat_A - p_hat_B
+  if (confidence_level > 100) {
+    return(message ("ERROR: Check confidence level!"))
+  }
+  if (confidence_level < 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
+  
+  standard_error = sqrt((p_hat_A * (1 - p_hat_A) / n_A) + (p_hat_B * (1 - p_hat_B) / n_B))
+  margin_of_error = crit * standard_error
+  lower = p1_minus_p2 - margin_of_error
+  upper = p1_minus_p2 + margin_of_error
+  results = c(lower, upper)
+  names(results) = c("Lower", "Upper")
+  return(results)
+}
+```
 
-k = c("3", 3, "AS", 3)
-as.numeric(k)
+```{r kevin bivar prob, warnings = FALSE}
+kevin_bivar_prob = function(expression, muX, muY, varX, varY, sdX, sdY, cov_x_y, independence, ...) {
+  # muX, muY, sdX, sdY, cov_x_y
+  library(stringr)
+  library(dplyr)
+  muX = as.numeric(data.frame(unlist(as.list(match.call())[c("muX", "mux", "meanX", "meanx")])[1]))
+  muY = as.numeric(data.frame(unlist(as.list(match.call())[c("muY", "muy", "meanY", "meanY")])[1]))
+  
+  if (missing(varX) & !missing(sdX)) {
+    varX = sdX ^ 2
+  }
+  else if (!missing(varX) & missing(sdX)) {
+    varX = varX
+  }
+  else if (!missing(varX) & !missing(sdX)) {
+    message("Using varX")
+  }
+  else {
+    return(message("ERROR: Need either varX or sdX!"))
+  }
+  if (missing(varY) & !missing(sdY)) {
+    varY = sdY ^ 2
+  }
+  else if (!missing(varX) & missing(sdY)) {
+    varY = varY
+  }
+  else if (!missing(varY) & !missing(sdY)) {
+    message("Using varY")
+  }
+  else {
+    return(message("ERROR: Need either varY or sdY!"))
+  }
+  x_coef = str_extract(string = expression, pattern = "[[:digit:]]{1,2}[xX]") %>% str_extract(pattern = "[[:digit:]]{1,2}") %>% as.numeric()
+  y_coef = str_extract(string = expression, pattern = "[[:digit:]]{1,2}[yY]") %>% str_extract(pattern = "[[:digit:]]{1,2}") %>% as.numeric()
+  limit = str_extract(string = expression, pattern = "[[:digit:]]{1,4}$") %>% as.numeric()
+  if (missing(cov_x_y) & independence == TRUE) {
+    cov_x_y = 0
+  }
+  else {
+    return(message("ERROR: Check cov_x_y"))
+  }
+  sd = sqrt(x_coef ^ 2 * varX + y_coef ^ 2 * varY + 2 * cov_x_y)
+  if (str_detect(string = expression, pattern = "\\+") == TRUE) {
+    mean = x_coef * muX + y_coef * muY
+  }
+  else if (str_detect(string = expression, pattern = "\\-") == TRUE) {
+    mean = x_coef * muX - y_coef * muY
+  }
+  if (str_detect(string = expression, pattern = "<") == TRUE) {
+    prob = pnorm(q = limit, mean = mean, sd = sd)
+  }
+  else if (str_detect(string = expression, pattern = ">") == TRUE) {
+    prob = 1 - pnorm(q = limit, mean = mean, sd = sd)
+  }
+  else {
+    return(message("ERROR: Check expression sign!"))
+  }
+  return(prob)
+}
+
+# kevin_bivar_prob(expression = "6X + 4Y > 1500", muX = 170, sdX = 10, muY = 125, sdY = 8, independence = TRUE)
+```
+
+
+
+```{r}
+```
+
+```{r}
+boott = function(k) {
+  p = k + 3
+  l = paste("Yeet", k, sep = "")
+  names(p) = c(l)
+  return(p)
+}
+boott(2)
 ```
 

@@ -1,0 +1,324 @@
+---
+title: "Untitled"
+author: "Kevin Wong"
+date: "8/9/2018"
+output: html_document
+---
+
+
+
+
+```{r}
+rm(list = ls())
+```
+
+```{r}
+kayla = read.csv("stamina.csv")
+
+kayla$pff_PLAYERID = as.factor(kayla$pff_PLAYERID)
+kayla$pff_PLAYID = as.factor(kayla$pff_PLAYID)
+
+kayla = arrange(kayla, kayla$pff_TEAM, kayla$pff_PLAYID)
+
+kayla$PLAYID5 = cumsum(!duplicated(kayla$pff_PLAYID))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+levels(kayla$pff_PLAYERID) = 1:length(unique(kayla$pff_PLAYERID))
+\
+max(1)
+max_ = function(x) {
+  t = 0
+  t = cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[x], ]$PLAYID5) != 1)) %>%
+    as.factor() %>%
+    tabulate() %>%
+    max()
+  return(t)
+}
+
+cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[1], ]$PLAYID5) != 1)) %>%
+    as.factor() %>%
+    tabulate() %>%
+ as.numeric() %>%
+    max()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+s = c(1, 2, 3, 4)
+for (i in 1:length(s)) {
+  t = s + 3
+}
+t
+```
+
+
+
+
+```{r}
+for (i in 1:length(s)) {
+ cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[i], ]$PLAYID5) != 1)) %>%
+    as.factor() %>%
+    tabulate() %>%
+    max()
+}
+
+pl
+t[2]
+```
+
+
+
+
+```{r}
+kayla = read.csv("stamina.csv")
+
+kayla$pff_PLAYERID = as.factor(kayla$pff_PLAYERID)
+kayla$pff_PLAYID = as.factor(kayla$pff_PLAYID)
+
+kayla = arrange(kayla, kayla$pff_TEAM, kayla$pff_PLAYID)
+
+kayla$PLAYID5 = cumsum(!duplicated(kayla$pff_PLAYID))
+
+
+max = function(x) {
+  cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[x], ]$PLAYID5) != 1)) %>%
+    as.factor() %>%
+    tabulate() %>%
+    max()
+}
+po
+max(kayla$pff_PLAYERID)
+
+c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[2], ]$PLAYID5) != 1) %>%
+  cumsum() %>%
+  as.factor() %>%
+  tabulate() %>%
+  max()
+
+c(TRUE, diff(df[df$players == unique(df$players)[9], ]$l) != 1) %>%
+  cumsum() %>%
+  as.factor() %>%
+  tabulate() %>%
+  max()
+
+
+  cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[x], ]$PLAYID5) != 1)) %>%
+    as.factor() %>%
+    tabulate() %>%
+    max()
+
+
+cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[which(unique(kayla$pff_PLAYERID) == 2223)], ]$PLAYID5) != 1)) %>%
+      as.factor() %>%
+      tabulate() %>%
+      max()
+
+which(unique(kayla$pff_PLAYERID) == 2224)
+```
+
+
+
+```{r}
+kayla = read.csv("stamina.csv")
+
+kayla$pff_GAMEID = as.factor(kayla$pff_GAMEID)
+kayla$pff_PLAYID = as.factor(kayla$pff_PLAYID)
+kayla$pff_PLAYERID = as.factor(kayla$pff_PLAYERID)
+
+
+p = c("A", "B", "AB", "C", "D", "F", "E", "E")
+p = as.factor(p)
+levels(p) = 1:length(p)
+levels(p)
+
+ay = factor(p, levels = 1:length(unique(p))) %>%
+  as.numeric() %>%
+  sort()
+ay
+
+kayla = arrange(kayla, kayla$pff_TEAM, as.integer(kayla$pff_PLAYID))
+
+levels(kayla$pff_PLAYID) = 1:length(kayla$pff_PLAYID)
+kayla$AY5 = factor(kayla$pff_PLAYID, levels = 1:length(unique(kayla$pff_PLAYID))) %>% as.numeric() %>% sort()
+
+kayla$PLAYID5 = levels(kayla$pff_PLAYID)
+kayla$pff_PLAYID
+
+factor(kayla$pff_PLAYID, levels = 1:length(unique(kayla$pff_PLAYID)))
+```
+
+```{r}
+kayla$pff_PLAYID = as.numeric(kayla$pff_PLAYID)
+
+
+PLAYID6 = factor(kayla$pff_PLAYID, levels = 1:length(unique(kayla$pff_PLAYID))) %>% as.numeric() %>% sort()
+PLAYID6 = c(PLAYID6, 90000000)
+kayla$PLAYID6 = PLAYID6
+```
+
+
+```{r}
+for (i in 1:length(unique(kayla$pff_PLAYERID))) {
+  assign(
+    x = paste("max_", as.character(kayla$pff_PLAYERID)[i], sep = ""),
+    value = 
+      cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[i], ]$PLAYID2) != 1)) %>%
+      as.factor() %>%
+      tabulate() %>%
+      max()
+  )
+}
+# parsimonois
+# loquacious
+```
+
+
+```{r}
+cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[92], ]$PLAID5) != 1)) %>%
+      as.factor() %>%
+      tabulate() %>%
+      max()
+
+which(unique(kayla$pff_PLAYERID) == 4317)
+unique(kayla$pff_PLAYERID)[11]
+
+      cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[220], ]$PLAYID2) != 1)) %>%
+      as.factor() %>%
+      tabulate() %>%
+      max()
+
+# max(tabulate(unique(unlist(as.factor(cumsum(c(TRUE, diff(unlist(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[1850], ]$PLAYID2)) != 1))))
+
+
+cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[1], ]$PLAYID2) != 1))
+```
+
+
+
+```{r}
+which(unique(kayla$pff_PLAYERID) == 4317)
+
+cumsum(c(TRUE, diff(kayla[kayla$pff_PLAYERID == unique(kayla$pff_PLAYERID)[117], ]$PLAYID2) != 1)) %>%
+      as.factor() %>%
+      tabulate() %>%
+      max()
+
+tabulate(tabulate(as.factor(kayla$pff_PLAYID)))
+
+unique(kayla$)
+p = 
+
+848852  854267  872881  906283 1189163 1227744 1969123 2041183 2238368 2368957 2393120
+1496010 / 11
+```
+
