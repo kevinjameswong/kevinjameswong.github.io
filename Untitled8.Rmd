@@ -8,7 +8,7 @@ output: html_document
 ```{r}
 library(faraway)
 gala
-X = cbind("Intercept = 1", gala$Area, gala$Elevation, gala$Nearest, gala$Scruz, gala$Adjacent)
+X = cbind(c("Intercept = 1"), gala$Area, gala$Elevation, gala$Nearest, gala$Scruz, gala$Adjacent)
 y = as.matrix(gala$Species)
 
 t(X)
