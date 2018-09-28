@@ -2,7 +2,7 @@
 title: "Work History"
 output:
   html_document:
-    toc: yes
+    toc: TRUE
 ---
 
 <h1>Work Experience</h1>

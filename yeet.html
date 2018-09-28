@@ -458,54 +458,7 @@ $(document).ready(function () {
 </div>
 
 
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>my_db = src_mysql(dbname = &quot;PFB_AP&quot;,
-                  host = &quot;sports-vts.cerbtiounk1y.us-east-1.rds.amazonaws.com&quot;,
-                  port = 3306,
-                  user = &quot;admin_vts&quot;,
-                  password = &quot;SV_i0%39k^B&quot;)
 
-df1 = tbl(my_db, &quot;PLAYER_METRIC&quot;)
-df2 = tbl(my_db, &quot;POSITION&quot;)
-df3 = tbl(my_db, &quot;PLAYER_INFO&quot;)
-
-df1 = collect(df1)
-df2 = collect(df2)
-df3 = collect(df3)
-
-df4 = merge(df1, df3)</code></pre>
-<pre class="r"><code>kayla = lm(DASH_FORTY_YARD_RT ~ HEIGHT_DM + WEIGHT_DM + YEAR_PRO_QY, data = df4)
-summary(kayla)</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = DASH_FORTY_YARD_RT ~ HEIGHT_DM + WEIGHT_DM + YEAR_PRO_QY, 
-##     data = df4)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.66608 -0.10048 -0.01168  0.08194  0.90555 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  3.4348731  0.1355540  25.340  &lt; 2e-16 ***
-## HEIGHT_DM   -0.0004091  0.0020884  -0.196  0.84473    
-## WEIGHT_DM    0.0055868  0.0001191  46.927  &lt; 2e-16 ***
-## YEAR_PRO_QY -0.0037791  0.0013178  -2.868  0.00419 ** 
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.1556 on 1637 degrees of freedom
-##   (8253 observations deleted due to missingness)
-## Multiple R-squared:  0.7327, Adjusted R-squared:  0.7322 
-## F-statistic:  1496 on 3 and 1637 DF,  p-value: &lt; 2.2e-16</code></pre>
 
 <!DOCTYPE html>
 

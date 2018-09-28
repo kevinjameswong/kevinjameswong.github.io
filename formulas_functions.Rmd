@@ -286,8 +286,8 @@ kevin_ho_mean_test = function(mu, x_bar, n, test, sd, alpha, ...) {
         p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
       }
       else if (pnorm(q = test_stat, mean = 0, sd = 1) < .5) {
-        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
         p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
       }
       problem = "Two-Sided Z Test"
@@ -340,6 +340,12 @@ kevin_ho_prop_test = function(p, p_hat, alpha, n, test, ...) {
   if (alpha >= 1) {
     alpha = alpha / 100
   }
+  if (p > 1) {
+    return(message ("ERROR: Check p!"))
+  }
+  if (p_hat > 1) {
+    return(message ("ERROR: Check p!"))
+  }
   test_stat = (p_hat - p) / sqrt(p * (1 - p) / n)
   if (test == "right_tailed" | test == "right tail" | test == "right" | test == "right tailed" | test == "greater" | test == "greater than" | test == "great" | test == ">") {
     p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
@@ -355,12 +361,12 @@ kevin_ho_prop_test = function(p, p_hat, alpha, n, test, ...) {
     if (pnorm(q = test_stat, mean = 0, sd = 1) > .5) {
       p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
     }
-    if (pnorm(q = test_stat, mean = 0, sd = 1) < .5) {
+    else if (pnorm(q = test_stat, mean = 0, sd = 1) < .5) {
       p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
     }
     problem = "Two-Sided Z Test"
-    critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-    critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
     critical_value = c(critical_value_low, critical_value_high)
   }
   else {
@@ -436,13 +442,13 @@ kevin_ho_two_sample_mean_test = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, t
   else if (test == "two sided" | test == "two_sided" | test == "two_tailed" | test == "two tailed" | test == "both" | test == "two" | test == "not equal" | test == "different" | test == "!=") {
     if (n_A >= 30 & n_B >= 30) {
       if (pnorm(q = test_stat, mean = 0, sd = 1) > .5) {
-        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
         p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
       }
       else if (pnorm(q = test_stat, mean = 0, sd = 1) < .5) {
-        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
         p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
       }
       problem = "Two-Sided Z Test"
@@ -450,13 +456,13 @@ kevin_ho_two_sample_mean_test = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, t
     }
     else {
       if (pt(q = test_stat, df = n - 1) > .5) {
-        critical_value_low = qt(p = alpha, df = n - 1)
-        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        critical_value_low = qt(p = alpha / 2, df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
         p_value = 2 * (1 - pt(q = test_stat, df = n - 1))
       }
       else if (pt(q = test_stat, df = n - 1) < .5) {
-        critical_value_low = qt(p = alpha, df = n - 1)
-        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        critical_value_low = qt(p = alpha / 2, df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
         p_value = 2 * pt(q = test_stat, df = n - 1)
       }
       problem = "Two-Sided T Test"
@@ -573,8 +579,8 @@ kevin_ho_2_sample_prop_test = function(p_hat_A, p_hat_B, alpha, n_A, n_B, test, 
       p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
     }
     problem = "Two-Sided Z Test"
-    critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-    critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
     critical_value = c(critical_value_low, critical_value_high)
   }
   else {

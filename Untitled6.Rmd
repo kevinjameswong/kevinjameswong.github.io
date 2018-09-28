@@ -6,67 +6,897 @@ output: html_document
 ---
 
 ```{r}
-k = c(1, 2)
-p = c(2, 3)
-df = data.frame(
+k = c(40, 70, 100)
+p = c(5.6, 4.8, 4.2)
+
+
+
+data1 = data.frame(
   k = k,
   p = p
 )
 
-library(grid)
-library(gridExtra)
-library(dplyr)
-library(tibble)
-library(knitr)
+sum(k )
 
-# d = head(iris[ , 1:3])
-# 
-# ?grid.table()
-# 
-# grid.table(d, theme = ttheme_minimal(core = list(bg_params = list(fill = c("red", "blue", "orange"), col = NA))))
-```
+l = c(90)
 
-```{r}
+kayla = lm(p ~ 1 + k + I(k^2), data = data1)
 
-```
+coef(kayla)
 
-
-```{r}
-# tibble(d)
-```
-
-```{r}
-
-```
-
-```{r}
-# g = tableGrob(iris[1:4,1:3])
-# find_cell = function(table, row, col, name = "core-fg") {
-#   l = table$layout
-#   which(l$t == row & l$l == col & l$name == name)
-# }
-# 
-# g$grobs[find_cell(g, 2, 2, "core-bg")][[1]][["gp"]] = gpar(fill = "#FFFFFF")
-# 
-# grid.draw(g)
-```
-
-```{r}
-ucla_sec = "blue"
-dfk = data.frame(
-  TEAM = c("UCLA-H", "UCLA-A", "CIN-A"),
-  HELMET = c("blue", "blue", "red")
-)
-dd = tableGrob(dfk)
-
-find_cell = function(table, row, col, name = "core-fg") {
-  l = table$layout
-  which(l$t == row & l$l == col & l$name == name)
+kayla_function = function(x) {
+  coef(kayla)[1] + coef(kayla)[2] * x + coef(kayla)[3] * x^2
 }
 
-dd$grobs[find_cell(dd, 1, 2, "core-bg")][[1]][["gp"]] = gpar(fill = "#FFFFFF")
-
-grid.draw(dd)
+kayla_function(l)
 ```
 
+```{r}
+# FINDING FUTURE VALUE
+fv = 0
+pv = .93
+r = .0225
+n = 1
+t = 1000
+
+fv = pv * (1 + r / n) ^ (n * t); fv
+```
+
+```{r}
+#FINDING PRESENT VALUE
+fv = 10000
+pv = 0
+r = .07
+n = 1
+t = 10
+
+pv1 = fv / ((1 + r / n) ^ (n * t)); pv1
+```
+
+```{r}
+#FINDING INTEREST RATE
+fv = 21936.95
+pv = 12800
+r = r
+n = 1
+t = 7
+
+
+r = n * ((fv / pv) ^ (1 / (n * t)) - 1); r
+```
+
+
+```{r}
+(1250 * 1.09 ^ 8) + (1250 * 1.09 ^ 7) + (1250 * 1.09 ^ 6) + (1250 * 1.09 ^ 5) + (1250 * 1.09 ^ 4) + (1250 * 1.09 ^ 3) + (1250 * 1.09 ^ 2) + (1250 * 1.09 ^ 1)
+(1500 * 1.04 ^ 9) + (1500 * 1.04 ^ 8) + (1500 * 1.04 ^ 7) + (1500 * 1.04 ^ 6) + (1500 * 1.04 ^ 5) + (1500 * 1.04 ^ 4) + (1500 * 1.04 ^ 3) + (1500 * 1.04 ^ 2) + (1500 * 1.04 ^ 1)
+```
+
+```{r}
+5 * (1 + .15)^82.373
+```
+
+()
+```{r}
+#IRA EXAMPLE
+fv = 0
+deposit = 4000
+r = .08
+number_of_deposits = 65 - 22
+n = number_of_deposits
+t = 1
+
+fv = deposit * ( ( (1 + r) ^ n - 1) / r ); fv
+```
+
+
+
+```{r}
+invT(.975, 49)
+```
+```{r}
+sammy = c(6, 4, 6, 8, 7, 7, 6, 3, 3, 8, 10, 4, 8, 7, 8, 7, 5, 9, 5, 8, 4, 3, 8, 5, 5, 4, 4, 4, 8, 4, 5, 6, 2, 5, 9, 9, 8, 4, 8, 9, 9, 5, 9, 7, 8, 3, 10, 8, 9, 6)
+sd(sammy)
+```
+
+
+k
+
+```{r}
+kevin_ci_mean(mean = 6.34, sd = 2.162859, type = "avg", n = 50, confidence_level = 95)
+
+
+((6.34 - (2.162859 * 2.009575) / sqrt(50) + 6.34 + (2.162859 * 2.009575) / sqrt(50)) / 2) - 6.34 + (2.162859 * 2.009575) / sqrt(50)
+6.34 + (2.162859 * 2.009575) / sqrt(50)
+```
+
+
+```{r}
+
+alpha = .05
+n = 50
+crit = - qt(p = alpha / 2, df = n - 1)
+
+sd = sd(sammy)
+sd
+
+standard_error = sd / sqrt(n)
+
+margin_of_error = crit * standard_error
+
+margin_of_error
+x_bar = 6.34
+lower = x_bar + margin_of_error
+lower
+```
+
+
+```{r}
+#IRA CATCHUP EXAMPLE
+start = 0
+fv = 15000
+deposit = 0
+r = .04
+number_of_deposits = 7
+n = number_of_deposits
+t = 1
+
+pmt = fv - start * ((1 + r) ^ n); pmt
+
+deposit_ans_1 = (pmt) / ( ( (1 + r) ^ n - 1) / r ); deposit_ans_1
+deposit_ans_2 = (fv - start * ((1 + r) ^ n)) / ( ( (1 + r) ^ n - 1) / r ); deposit_ans_2
+```
+
+```{r}
+14845.19 / (1.05 * ((1)- (1/(1.05^8)))/.05)
+```
+
+```{r}
+24 * 1.0475 ^ 386
+2000 + (2000 * .07) * 3
+2000 * (1 + .07) ^ 3
+```
+
+```{r}
+# MEGA MILLIONS EXAMPLE
+winnings = 35000000
+t = 4
+r = .0950
+avg = winnings / t
+
+amount = avg * (( 1 - (1 / (1 + r) ^ t)) / r) * (1 + r); amount
+```
+
+
+```{r}
+a = (1 / (1 + 0.095) ^ 1) + (1 / (1 + 0.095) ^ 2) + (1 / (1 + 0.095) ^ 3) + (1 / (1 + 0.095) ^ 4)
+
+8411.76 / a
+```
+
+```{r}
+2000 + (2000 * .09) * 3
+2000 * 1.09 ^ 3
+```
+
+
+```{r}
+(15000 / .04) / (1.04) * (1.04 ^ (6-1))
+```
+
+```{r}
+(1.04^3 + 1.04^2 + 1.04^1 + 1.04^0) * 1830
+```
+
+```{r}
+(1.11^3 + 1.11^2 + 1.11^1 + 1.11) * 1690
+```
+
+
+```{r}
+(700 * 0.078) * 5
+```
+
+```{r}
+x = c(16, 4, 0, 34, 41, 6, 5, 34, 13, 5, 22, 17)
+p = sort(x)
+o = (p - mean(x))^2
+
+
+sum(o) / 11
+sd(x)
+length(x)
+mean(x)
+median(x)
+??coefficient
+sort(x)
+var(x)
+cv(x)
+```
+```{r}
+13.6811 ^ 2
+```
+
+
+```{r}
+p = c(19.2, 18.1, 15.9, 16.2, 17.6, 13.4, 14.5, 12.3)
+sort(p)
+median(p)
+round(sd(p), 4)
+
+summary(p)
+
+17.73 - 14.22
+mean(p)
+
+```
+
+
+```{r}
+aa = c(15, 25, 28, 26, 19, 15, 30, 20, 25, 15)
+
+
+(sort(aa) - mean(aa)) ^ 2 %>% sum() / 9
+
+sd(aa)
+
+median(aa)
+var(aa)
+mode(aa)
+```
+
+
+```{r}
+a = 8 * ((14 + 0)/2 - 44.5) ^ 2
+b = 41 * ((29 + 15)/2 - 44.5) ^ 2
+c = 103 * ((44 + 30)/2 - 44.5) ^ 2
+d = 98 * ((59 + 45)/2 - 44.5) ^ 2
+e = 41 * ((74 + 60)/2 - 44.5) ^ 2
+f = 9 * ((89 + 75)/2 - 44.5) ^ 2
+
+
+a
+b
+c
+d
+e
+f
+
+((a+b+c+d+e+f) / 299) %>% sqrt()
+```
+
+```{r}
+t = c(2, 2, 4, 5, 1, 5, 9, 6, 5, 2)
+(sort(t) - mean(t)) ^ 2
+mean(t)
+median(t)
+var(t)
+
+
+sd(t)
+
+```
+
+
+
+
+
+
+
+
+```{r}
+#COMPOUND
+fv = 0
+pv = 45000
+r = .11
+n = 1
+t = 3
+
+fv = pv * ((1 + r / n) ^ (n * t)); fv
+```
+
+```{r}
+# SIMPLE
+fv = -900
+pv = 45000
+r = .06
+n = 1
+t = 3
+
+fv = pv + (pv * r * t); fv
+```
+
+```{r}
+15000/(1.09^3)
+```
+
+
+
+
+
+
+
+```{r}
+pv = 8000
+pmt = 750
+r = .071
+
+log(exp(2), base = exp(1))
+
+
+l = (1 - (pv * r) / (pmt * (1 + r))) ^ -1
+
+k = log((l), base = exp(1))
+p = log((1 + r), base = exp(1))
+
+k / p
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+compound = function(fv, pv, r, n, t) {
+  if (missing(fv)) {
+    fv = pv * (1 + r / n) ^ (n * t)
+    results = list(fv)
+    names(results) = c("Future Value")
+    return(results)
+  }
+  else if (missing(pv)) {
+    pv = fv / ((1 + r / n) ^ (n * t))
+    results = list(pv)
+    names(results) = c("Present Value")
+    return(results)
+  }
+  else if (missing(r)) {
+    r = n * ((fv / pv) ^ (1 / (n * t)) - 1)
+    p_r = paste(r * 100, "%", sep = "")
+    results = list(r, p_r)
+    names(results) = c("Interest Rate", "Interest Rate %")
+    return(results)
+  }
+  else if (missing(t)) {
+    pv = fv / ((1 + r / n) ^ (n * t))
+    results = list(pv)
+    names(results) = c("Present Value")
+    return(results)
+  }
+  else {
+    return(message("ERROR! Kevin"))
+  }
+}
+```
+
+```{r}
+compound(r = 0.0225, n = 1, fv = .93, t = 1000)
+```
+
+```{r}
+sam = c(17, 11, 12, 23, 20, 23, 15, 16, 23, 22, 18, 23, 25, 14, 12, 12, 20, 18, 12, 19, 11, 11, 20, 21, 11, 18, 14, 13, 13, 19, 16, 10, 22, 18, 23)
+mean(sam)
+```
+
+```{r}
+kevin_ho_mean_test(mu = 15, x_bar = 17, sd = 4, alpha = 0.01, n = 35, test = "right")
+```
+
+```{r}
+(17-15) / (4 / sqrt(35))
+```
+
+```{r}
+x = c(8, 14, 22, 24, 30, 40, 50, 62, 72)
+mean(x)
+median(x)
+summary(x)
+```
+
+
+```{r}
+age = c(15, 22, 25, 28, 35, 40)
+grade = c(-2.4, 0, 3, 0, -12.5, -25)
+kayla_df = data.frame(
+  age = age,
+  grade = grade
+)
+
+kayla = lm(grade ~ poly(age, 5, raw = TRUE), data = kayla_df)
+kayla
+summary(kayla)
+x  = 29
+y = coef(kayla)[1] + coef(kayla)[2] * x ^ 1 + coef(kayla)[3] * x ^ 2 + coef(kayla)[4] * x ^ 3 + coef(kayla)[5] * x ^ 4  + coef(kayla)[6] * x ^ 5
+ 
+x
+
+y
+kevin = c(20, 25, 30, 35, 40, 45, 500)
+x = data.frame(
+  kevin = kevin
+)
+?predict
+predict(kayla, newdata = x)
+plot(grade ~ age, data = kayla_df, xlab = "Age", ylab = "Grade", main = "Kayla", col = "darkblue")
+abline(h = 0, lty = 2)
+lines(age, predict(lm(grade ~ poly(age, length(age) - 1), data = kayla_df)), lwd = 3, col = "orange")
+```
+
+
+```{r}
+x = c(15, 29, 25, 26, 18, 15, 28, 20, 25, 15)
+
+median(x)
+
+6.6^2
+```
+```{r}
+a = 34 * (7-44.3)^2 + 64 * (22-44.3)^2 + 56* (37-44.3)^2 + 48* (52-44.3)^2 + 64* (67-44.3)^2 + 34* (82-44.3)^2
+sqrt(a/299)
+```
+
+```{r}
+p = c(6, 5, 2, 2, 3, 3, 3, 1, 5, 9)
+sort(p)
+
+
+sum((p - mean(p))^2) / 10
+
+
+sd(p)
+
+sqrt(5.09)
+
+90 + 75 + 97 + 90 + 80 + 60
+```
+
+```{r}
+s = c(80, 90, 56, 85, 75, 80)
+
+sum((s-mean(s))^2) / 6
+mean(s)
+var(s)
+median(s)
+
+```
+
+```{r}
+k = c(2, 3, 4, 5 ,6, 7, 10, 10)
+var(k)
+```
+
+```{r}
+.65 * .35
+
+(5 / 36) * (11/ 36)
+2/36
+```
+```{r}
+install.packages("sas7bdat")
+library(sas7bdat)
+
+mom = read_sas("bobby")
+
+~
+```
+
+```{r}
+a = 2146 + 1841
+
+b = 2146 + 1841 + 262 + 201
+
+ a/ b
+ 
+ 1841 / 2146
+ 
+201  / 262
+
+221 / 233
+
+4840 / 5255
+```
+```{r}
+2146 + 233
+
+1841 + 221
+
+262 + 5255
+
+4840 + 201
+
+1841 + 201
+
+2042 / (2146 + 262)
+```
+
+```{r}
+c = c(1, 1, 1, 1, 2, 2, 3, 3, 3, 4)
+var(c)
+sd(c)
+```
+
+```{r}
+c = c(8, 14, 22, 24, 30, 40, 50, 62, 72, 214)
+summary(c)
+mean(c)
+
+sum(((sort(c) - mean(c))^2)) / length(c)
+
+var(c)
+
+sd(c)
+x = c(82, 69, 74, 74, 81, 77, 60, 71, 12, 8, 9, 13, 11, 10, 3, 10)
+summary(x)
+sd(c) / mean(c)
+
+x = c(25, 35, 68, 104, 120, 52, 100)
+```
+
+```{r}
+(72- 53.6) / 60.01333333
+```
+
+
+```{r}
+c = c(0, 4, 5, 5, 6, 13, 16, 17, 22, 34, 34, 41)
+summary(v)
+```
+
+
+```{r}
+100 * 1.1
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+650 * (0 - 2.9) ^ 2 + 786 * (2 - 2.9) ^ 2 + 507 * (3 - 2.9) ^ 2 + 329 * (4 - 2.9) ^ 2 + 291 * (5 - 2.9) ^ 2 + 57 * (8 - 2.9) ^ 2 + 180 * (10 - 2.9) ^ 2 
+```
+
+```{r}
+18346 / 2799
+```
+
+```{r}
+(0 * 650) + (2 * 786) + (3 * 507) + (4 * 329) + (5 * 291) + (8 * 57) + (10 * 180)
+
+650 + 786 + 507 + 329 + 291 + 57 + 180
+```
+
+```{r}
+8120 / 2800
+```
+
+
+
+```{r}
+k = rep(2, 3)
+l = c(rep(0, 650), rep(2, 786), rep(3, 507), rep(4, 329), rep(5, 291), rep(8, 57), rep(10, 180))
+var(l)
+
+```
+
+```{r}
+s = c(870, 880, 760, 850, 750, 820, 900, 650)
+sd(s)
+```
+```{r}
+100.48 / 49
+```
+
+
+```{r}
+sqrt(50000 / 7)
+```
+
+```{r}
+3 * (1 - 3.48) ^ 2 + 10 * (2 - 3.48) ^ 2 + 13 * (3 - 3.48) ^ 2 + 15 * (4 - 3.48) ^ 2 + 4 * (5 - 3.48) ^ 2 + 3 * (6 - 3.48) ^ 2 + 2 * (7 - 3.48) ^ 2
+```
+
+
+```{r}
+(870 - 810) ^ 2 + (880 - 810) ^ 2 + (760 - 810) ^ 2 + (850 - 810) ^ 2 + (750 - 810) ^ 2 + (820 - 810) ^ 2 + (900 - 810) ^ 2 + (650 - 810) ^ 2
+```
+
+
+```{r}
+3 * (0 - 3.16) ^ 2 + 2 * (1 - 3.16) ^ 2 + 4 * (2 - 3.16) ^ 2 + 3 * (3 - 3.16) ^ 2 + 5 * (4 - 3.16) ^ 2 + 8 * (5 - 3.16) ^ 2
+```
+
+```{r}
+75.36 / 24
+
+sqrt(3.14)
+```
+
+```{r}
+0.0175 * 50 + 13.968
+```
+
+
+```{r}
+(20 * (1 - 8.05) ^ 2 + 30 * (4 - 8.05) ^ 2 + 50 * (7 - 8.05) ^ 2 + 60 * (10 - 8.05) ^ 2 + 40 * (13 - 8.05) ^ 2) / 199
+```
+```{r}
+(17.4 - 16) / (5.7 / sqrt(80))
+```
+
+```{r}
+tcdf(1.650, 80, 80)
+```
+
+```{r}
+kevin_ho_prop_test(p = .42, p_hat = 26/91, alpha = .01, n = 91, test = "two")
+p = .42
+p_hat = 0.2857143
+n = 91
+k = (p_hat - p) / sqrt(p * (1 - p) / n)
+k
+test_stat
+
+(1 - normalcdf(0.01, 9, 0, 1)) * 2
+
+
+invNorm(0.005, 0, 1)
+sqrt(26 )
+test_stat = 1
+test_stat
+
+0.01- 0.009446846
+```
+
+```{r}
+ci_mean(mean = 4.16, sd = 3.56, n = 400, average = TRUE, confidence_level = 99)
+```
+
+```{r}
+x = c(18, 14, 9, 10, 5, 22, 14, 12)
+y = c(39, 9, 9, 7, 8, 35, 36, 22)
+
+mean(x)
+mean(y)
+(x- mean(x)) * (y - mean(y))
+cor(x, y)
+
+sum((x- mean(x))^2)
+sum((y- mean(y))^2)
+16 +384
+8 * 10.675
+```
+
+```{r}
+22 * (4 - 3.43)^2 + 14 * (3 - 3.43)^2 + 3 * (2 - 3.43)^2 + 1 * (1 - 3.43)^2
+
+sqrt(21.776 / 40)
+```
+```{r}
+A = E + GS
+```
+
+
+```{r}
+83 * (7 - 30.6)^2 + 79 * (22 - 30.6)^2 + 64 * (37 - 30.6)^2 + 42 * (52 - 30.6)^2 + 21 * (67 - 30.6)^2 + 11 * (82 - 30.6)^2
+sqrt(130812 / 299)
+```
+```{r}
+s = c(1, 5, 7, 5, 6, 2, 2, 5, 2, 3)
+median(s)
+
+(sum((sort(s) - mean(s)) ^2)) / 10
+```
+
+
+```{r}
+s = c(66, 75, 75, 80, 90, 97)
+sqrt(sum((s - mean(s))^2) / 6)
+```
+
+```{r}
+7 * 83 + 22 * 79 + 37 * 64 + 52 * 42 + 67 * 21 + 82 * 11
+9180 / 300
+```
+
+```{r}
+s = c(15, 25, 28, 26, 18, 25, 30, 20, 25, 15)
+
+mean(s)
+median(s)
+sort(s)
+var(s)
+sd(s)
+(sum((sort(s) - mean(s)) ^2)) / 9
+
+sqrt(31.6)
+```
+
+```{r}
+9000 / (1.07^3)
+```
+```{r}
+r = .07
+initial_payment = 4500
+years = 3
+a = initial_payment
+b = years
+
+(9000 - a* (1+r)^3) / ((1 + r)^2 + (1 + r)^1 + (1 + r)^0)
+x* (1+8/100)^2+x*(1+8/100)^1+x*(1+8/100)^0
+x* (1+8/100)^2+x*(1+8/100)^1+x*(1+8/100)^0 = 8000/4500
+
+
+8000/4000 = (1 + r / n) ^ (n * t)
+```
+
+```{r}
+sum(mtcars[mtcars$mpg < 15,]$mpg)
+```
+
+```{r}
+normalcdf(68.6, 9999, 67, 2)
+```
+
+```{r}
+406 - 510
+
+-104/80
+```
+
+```{r}
+s = c(8, 6, 9, 12, 10, 8, 10, 3)
+t = c(78, 92, 84, 97, 88, 91, 97, 61)
+c
+sort(s)
+mean(s)
+sd(s) / mean(s)
+
+sum((s - mean(s)) * (t - mean(t))) / 8
+ 22.625 / (2.586 * 11.18034)
+sqrt(sum((s - mean(s))^2) / 8)
+sqrt(sum((t - mean(t))^2) / 8)
+```
+```{r}
+a = c(69, 66, 67, 70, 66, 68, 64, 60, 70)
+b = c(9.5, 7, 8, 10, 8, 8.5, 6.5, 7, 8.5)
+
+sum(((a - mean(a))^2)/ 8)
+sd(b)
+sum((b - mean(b))^2) / 8
+
+
+sum((a - mean(a)) * (b - mean(b)))
+
+
+cov(a, b)
+cor(a, b)
+cov(a, b) / (sd(a) * sd(b))
+```
+
+
+
+```{r}
+a = c(67, 69, 66, 66, 68, 70, 70, 64, 60)
+
+b = c(8, 9.5, 7, 8, 8.5, 10, 8.5, 6.5, 5.5)
+
+sum((b - mean(b))^2)
+var(a)
+var(b)
+
+sd(a)
+sd(b)
+mean(b)
+
+cor(a, b)
+
+sum((a - mean(a)) * (b - mean(b)))
+sum(((a - mean(a))^2)/ 8)
+sd(b)
+sum((b - mean(b))^2) / 8
+
+
+sum((a - mean(a)) * (b - mean(b)))
+
+
+cov(a, b)
+cor(a, b)
+cov(a, b) / (sd(a) * sd(b))
+```
+
+```{r}
+a = c(2, 9, 1, 8, 5)
+b = c(2.3, 2.8, 2.2, 3.8, 3.5)
+mean(b)
+cov(a, b)
+a - mean(a)
+b - mean(b)
+cov(a, b) / (sqrt(sum((a - mean(a))^2) / 4) * sqrt(sum((b - mean(b))^2)  / 4))
+sum((a - mean(a)) * (b - mean(b)))  / 4
+mean(b)
+```
+
+```{r}
+a = c(18, 22, 11, 12, 16, 8, 18, 25, 14)
+b = c(64, 83, 39, 57, 88, 65, 75, 86, 68)
+
+sum((a - mean(a)) * (b - mean(b))) / 9
+
+sqrt(sum((b - mean(b))^2) / 9)
+sqrt(sum((a - mean(a))^2) / 9)
+
+52.3333333 / (14.7807 * 5.09902)
+```
+
+
+```{r}
+a = c(9, -5, 0, 3, -2, 1, 7, 3)
+b = c(14, 9, 2, 8, 12, 6, 10, 11)
+
+median(b)
+```
+
+```{r}
+(14 + 15 + 6 + 8 + 8) / 
+```
+
+```{r}
+(8 * (1 - 2.68)^2 + 4 * (2 - 2.68)^2 + 2 * (3 - 2.68)^2 + 3 * (5 - 2.68)^2 + 2 * (7 - 2.68)^2) / 19
+```
+
+```{r}
+a = c(9, -5, 0, 3, -2, 1, 7, 3)
+b = c(14, 9, 2, 8, 12, 6, 10, 11)
+
+sum((a - mean(a)) * (b - mean(b))) / 7
+
+sd(a)
+
+cor(a,b)
+
+
+```
 

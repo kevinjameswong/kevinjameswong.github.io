@@ -1,0 +1,27 @@
+---
+title: "Untitled"
+author: "Kevin Wong"
+date: "9/26/2018"
+output: html_document
+---
+
+```{r}
+library(faraway)
+gala
+X = cbind("Intercept = 1", gala$Area, gala$Elevation, gala$Nearest, gala$Scruz, gala$Adjacent)
+y = as.matrix(gala$Species)
+
+t(X)
+dim(t(X))
+
+t(X) %*% X
+
+
+X %*% y
+solve( t(X) %*% X ) %*% t(X) %*% y
+```
+
+```{r}
+J
+```
+

@@ -1,0 +1,114 @@
+/*******************************
+***   Homework 1 Solutions   ***
+*******************************/
+
+ods pdf file='C:\440\hw1\hw1 solution Su17.pdf';
+/* If you're using SAS Studio, then you just had to click the create pdf button,
+   without having to use ODS. */
+
+libname hw1 'C:\440\hw1';
+/* If you're using SAS Studio, then your LIBNAME statement looks like this... */
+* libname hw1 '~/my_courses/dunger_sas/hw1';
+
+
+title 'Homework 1 Report';
+option nodate pageno=1 center ls=96 ;
+
+
+/* Exercise 1 */
+/*a*/
+title2 'Part 1a';
+proc contents data=hw1.employee_roster;
+run;
+
+/*b*/
+data low_earners;
+   set hw1.employee_roster;
+   where Salary < 35000;
+   label Job_Title="Position"
+         Salary="Yearly Salary";
+run;
+
+/*c*/
+title2 'Part 1c';
+proc print data=low_earners label;
+   var Employee_Name Job_Title Salary;
+run;
+
+/*d*/
+title2 'Part 1d';
+proc print data=hw1.employee_roster label;
+   where Employee_Gender = "M" and
+   		 Department="Accounts" and
+         Salary between 24000 and 36000;
+   var Employee_Name Employee_Gender Department Salary;
+run;
+
+/*e*/
+title2 'Part 1e';
+proc print data=hw1.employee_roster;
+   where Employee_Name like "% S%" or 
+         Employee_Name like "% T%" or 
+         Employee_Name like "% U%" or
+		 (Employee_Name ? "-" and Employee_Name not like "% %-%");
+         /* or replace the last two with either... 
+		 (Employee_Name like "%-% %" and Employee_Name not like "% %-%");   or...
+		 trim(Employee_Name) like "%-% %";                                  or...
+		 scan(Employee_Name,1,' ') like '%-%';                                  */
+   var Employee_Name Employee_ID Org_Group;
+run;
+
+/*f*/
+title2 'Part 1f';
+proc print data=hw1.employee_roster label;
+   where year(Employee_Term_Date) < 2003 and
+         Employee_Term_Date is not missing;
+   var Employee_Name Job_Title Employee_Term_Date;
+   *format Employee_Term_Date worddate.;
+run;
+
+
+
+
+/* Exercise 2 */
+/*a*/
+title2 'Part 2a';
+title3 'Descriptor Portion of Cars_1993';
+proc contents data=hw1.cars_1993;
+run;
+
+/*b*/
+data work.efficient;
+   set hw1.cars_1993;
+   where CityMPG ge 25 or HighwayMPG ge 37;
+   label CityMPG='City Mileage'
+         HighwayMPG='Highway Mileage';
+run;
+
+/*c*/
+title2 'Part 2c';
+title3 'Efficient Cars';
+proc print data=efficient label;
+   var Manufacturer Model CityMPG HighwayMPG;
+run;
+
+/*d*/
+title2 'Part 2d';
+title3 'Small and Cheap Cars';
+proc print data=hw1.cars_1993;
+   where Type in ('Sporty' 'Compact' 'Small') and
+   		 Price < 18;
+   var Manufacturer Model Type Price;
+run;
+
+/*e*/
+title2 'Part 2e';
+title3 'Non-US cars beginning with numbers';
+proc print data=hw1.cars_1993;
+   where Origin^='US' and '0' <= Model < 'A';
+   var Manufacturer Model Type Price;
+run;
+
+
+
+ods pdf close;
