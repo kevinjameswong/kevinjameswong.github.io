@@ -1,5 +1,5 @@
 ---
-title: "Kevin's Schoolwork"
+title: "Kevin Wong - Welcome to my website!"
 output:
   html_document:
     toc: yes
