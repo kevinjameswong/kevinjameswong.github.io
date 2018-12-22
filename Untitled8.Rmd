@@ -6,129 +6,31 @@ output: html_document
 ---
 
 ```{r}
-((-1.45)^2) * (0.25) + ((-0.45)^2) * (0.3) + ((0.55)^2) * (0.2) + ((1.55)^2) * (0.25)
-((-0.75)^2) * (0.45) + ((0.25)^2) * (0.4) + ((1.25)^2) * (0.1) + ((2.25)^2) * (0.05)
-
-
+a = 14200
+b = 18200
+c = 16200
+d = 4260
+e = .3
+June = a + b * e - d; June
+July = b + c * e - b * e; July
 ```
-
-
 ```{r}
-a = (-5 * 0.025) + (0 * 0.1) + (5 * 0.345) + (10 * 0.32) + (15 * 0.21)
-((-5 - a)^2) * (0.025) + ((0 - a)^2) * (0.1) + ((5 - a)^2) * (0.345) + ((10 - a)^2) * (0.32) + ((15 - a)^2) * (0.21)
-```
-
-```{r}
-sqrt(((0 - 0.14)^2) * (0.86) + ((1 - 0.14)^2) * (0.14))
-```
-
-```{r}
-kevin_binom(trials = 16, prob = .25, successes = 3)
+a = 14000
+b = 18000
+c = 16000
+d = 3500
+e = .25
+June = a + b * e - d; June
+July = b + c * e - b * e; July
 ```
 
 ```{r}
-normalcdf(1,2.1,2, .5)
-(2.1 - 2) / .5
-(1 - 2) / .5
-.9772-.1587
+a = 15200
+b = 19200
+c = 17200
+d = 3800
+e = .25
+June = a + b * e - d; June
+July = b + c * e - b * e; July
 ```
-
-```{r}
-75600 / 6
-```
-
-
-
-```{r}
-.3225 / (sqrt((1 - 2.45)^2 * (0.25) + (2 - 2.45)^2 * (0.3) + (3 - 2.45)^2 * (0.2) + (4 - 2.45)^2 * (0.25)) * sqrt((0 - 0.75)^2 * (0.45) + (1 - 0.75)^2 * (0.4) + (2 - 0.75)^2 * (0.1) + (3 - 0.75)^2 * (0.05)))
-```
-
-
-
-
-
-
-
-```{r}
-(30 - 48)^2 * (0.1) + (40 - 48)^2 * (0.25) + (50 - 48)^2 * (0.4) + (60 - 48)^2 * (0.25)
-```
-```{r}
-(50 - 64)^2 * (0.1) + (60 - 64)^2 * (0.5) + (70 - 64)^2 * (0.3) + (80 - 64)^2 * (0.1)
-```
-
-```{r}
-338/(194)
-
-(338 - 194) / 338
-```
-
-
-
-
-
-```{r}
-x = c(-1, -1, -1, -1, 1, 1, 1, 1)
-y = c(1.3, 0.8, 1.2, .6, 2.3, 2.5, 1.8, 1.6)
-
-kevin = data.frame(
-  x = x,
-  y = y
-)
-
-mod1 = lm(y ~ x, data = kevin)
-```
-
-
-```{r}
-betahat_1 = summary(mod1)$coef[2,1]
-# names(mod1)
-stde = sqrt(diag(vcov(mod1)))[2]
-names(stde) = NULL
-df = length(x) - 2
-betahat_1_ci = c(betahat_1 - qt(.975, df)*stde, betahat_1 + qt(.975, df)*stde); betahat_1_ci
-
-betahat
-```
-
-```{r}
-summary(mod1)
-```
-
-```{r}
-lf = c(1)
-l = data.frame(
-  x = 0
-)
-newdata = l
-newdata
-predict(mod1, newdata = newdata, interval = "prediction", level = 0.95)
-
-
-?predict
-?predict.lm
-
-(2.009224 + -0.05922438) / 2
-```
-```{r}
-tcdf(1.5 - .733, 99999, 6)
-```
-
-
-```{r}
-library(shiny)
-gala
-X = cbind(c("Intercept = 1"), gala$Area, gala$Elevation, gala$Nearest, gala$Scruz, gala$Adjacent)
-y = as.matrix(gala$Species)
-
-t(X)
-dim(t(X))
-
-t(X) %*% X
-
-
-X %*% y
-solve( t(X) %*% X ) %*% t(X) %*% y
-```
-
-
 

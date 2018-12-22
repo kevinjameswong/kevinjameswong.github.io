@@ -1,5 +1,5 @@
 ---
-title: "Kevin Wong - Welcome to my website!"
+title: "Kevin Wong - Kevin's Schoolwork"
 output:
   html_document:
     toc: yes
@@ -20,7 +20,7 @@ Some of the Statistics Courses I have taken include:
 - **STAT $425$**: Applied Regression and Design             (Grade: A)
 - **STAT $432$**: Basics of Statistical Learning            (Grade: A)
 - **STAT $440$**: Statistical Data Management               (Grade: TBD)
-- **STAT $448$**: Advanced Data Analysis                    (Grade: TBD)
+- **STAT $448$**: Advanced Data Analysis                    (Grade: A)
 
 My GPA in STAT courses at U of I is $3.96$.
 
@@ -41,9 +41,9 @@ Some of the Business Courses I have taken include:
 
 - **BADM $310$**: Management and Organizational Behavior  (Grade: TBD)
 - **BADM $320$**: Principles of Marketing                 (Grade: TBD)
-- **BADM $340$**: Ethical Dilemmas of Business            (Grade: TBD)
-- **ACCY $200$**: Fundamentals of Accounting              (Grade: TBD)
-- **FIN $221$**: Corporate Finance                        (Grade: TBD)
+- **BADM $340$**: Ethical Dilemmas of Business            (Grade: A)
+- **ACCY $200$**: Fundamentals of Accounting              (Grade: A)
+- **FIN $221$**: Corporate Finance                        (Grade: A)
 
 My GPA in Business Courses at U of I is TBD.
 
@@ -53,6 +53,3 @@ My GPA in Business Courses at U of I is TBD.
 
 [R$33$M Video](https://www.youtube.com/watch?v=SG5-_hInODw){target="_blank"}
 
-***
-
-[BADM 340 Final Project](https://docs.google.com/presentation/d/1rLxdhsJZGTZHns3DFRSOQiJ285jG3LaPme54kgcpqbo/edit?usp=sharing){target="_blank"}

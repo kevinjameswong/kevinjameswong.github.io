@@ -1,0 +1,106 @@
+---
+title: "Spotify"
+author: "Kevin Wong"
+date: "12/19/2018"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+```
+
+```{r}
+spotify = read.csv("Spotify_Wrapped.csv")
+
+# View(spotify)
+```
+
+```{r}
+spotify = spotify %>% group_by(Year) %>% mutate(Score = max(row_number()) + 1 - row_number())
+```
+
+```{r Most Popular Albums}
+spotify %>%
+  group_by(Album)   %>%
+  count(Album)      %>%
+  rename(Count = n) %>%
+  arrange(desc(Count))
+```
+
+```{r Most Popular Songs}
+spotify %>%
+  group_by(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6) %>%
+  count(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6, Total = sum(Score)) %>%
+  rename(Appearances = n) %>%
+  arrange(desc(Total), desc(Appearances))
+```
+
+```{r Most Popular Artists, warning = FALSE}
+a1 = spotify %>%
+  count(Artist.1) %>%
+  rename(Total = n, Artist = Artist.1)
+a2 = spotify %>%
+  count(Artist.2) %>%
+  rename(Total = n, Artist = Artist.2)
+a3 = spotify %>%
+  count(Artist.3) %>%
+  rename(Total = n, Artist = Artist.3)
+a4 = spotify %>%
+  count(Artist.4) %>%
+  rename(Total = n, Artist = Artist.4)
+a5 = spotify %>%
+  count(Artist.5) %>%
+  rename(Total = n, Artist = Artist.5)
+a6 = spotify %>%
+  count(Artist.6) %>%
+  rename(Total = n, Artist = Artist.6)
+
+bind_rows(a1, a2, a3, a4, a5, a6) %>%
+  arrange(Artist) %>%
+  group_by(Artist) %>%
+  summarize(Total = sum(Total)) %>%
+  arrange(desc(Total)) %>%
+  tail(n = -1)
+```
+
+
+```{r Songs on 2016 and 2017}
+spotify %>%
+  filter(Year == 2016 | Year == 2017) %>%
+  arrange(Song) %>%
+  group_by(Song, Artist.1) %>%
+  count(Song, Total = sum(Score)) %>%
+  rename(Appearances = n) %>%
+  filter(Appearances == 2) %>%
+  arrange(desc(Total))
+```
+
+```{r Songs on 2017 and 2018}
+spotify %>%
+  filter(Year == 2017 | Year == 2018) %>%
+  arrange(Song) %>%
+  group_by(Song, Artist.1) %>%
+  count(Song, Total = sum(Score)) %>%
+  rename(Appearances = n) %>%
+  filter(Appearances == 2) %>%
+  arrange(desc(Total))
+```
+
+```{r Songs on 2016 and 2018}
+spotify %>%
+  filter(Year == 2016 | Year == 2018) %>%
+  arrange(Song) %>%
+  group_by(Song, Artist.1) %>%
+  count(Song, Total = sum(Score)) %>%
+  rename(Appearances = n) %>%
+  filter(Appearances == 2) %>%
+  arrange(desc(Total))
+```
+
+
+
+
+
+
+
+
