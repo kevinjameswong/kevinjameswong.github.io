@@ -9,7 +9,7 @@ output:
 
 <hr />
 
-### Kane County Cougars
+## Kane County Cougars
 
 ```{r out.height = "150px", out.width = "200px", fig.align = "center", echo = FALSE}
 library(knitr)
@@ -42,7 +42,7 @@ Promotions/Marketing Intern
 
 <hr />
 
-### Irwin Academic Services Center
+## Irwin Academic Services Center
 
 ```{r out.height = "150px", out.width = "200px", fig.align = "center", echo = FALSE}
 library(knitr)

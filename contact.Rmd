@@ -2,7 +2,7 @@
 title: "Contact Me"
 ---
 
-<h1>Contact Information</h1>
+# Contact Information
 
 Email: <kjwong2@illinois.edu> 
 
