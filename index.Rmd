@@ -9,7 +9,7 @@ output:
 
 <br>
 
-<center>I will be graduating from the Univ. of Illinois in Spring $2019$. My college GPA is currently $3.88$.</center>
+<center>I will be graduating from the Univ. of Illinois in Spring $2019$. My college GPA is currently $3.87$.</center>
 
 <center></center>
 
