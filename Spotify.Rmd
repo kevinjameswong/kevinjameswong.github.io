@@ -12,7 +12,7 @@ library(dplyr)
 ```{r}
 spotify = read.csv("Spotify_Wrapped.csv")
 
-# View(spotify)
+View(spotify)
 ```
 
 ```{r}

@@ -5,7 +5,11 @@ output:
     toc: yes
 ---
 
-I am a *Statistics* major at the *University of Illinois*. I am also minoring in *Leadership Studies* and *Business*.
+***
+
+<h1>Kevin's Schoolwork</h1>
+
+I am a *Statistics* major at the **University of Illinois**. I am also minoring in *Leadership Studies* and *Business*. My GPA is $3.87$.
 
 # Courses Taken
 
