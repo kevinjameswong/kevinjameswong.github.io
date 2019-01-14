@@ -1,0 +1,16 @@
+---
+title: "Kevin Wong - Excel Projects"
+output:
+  html_document:
+    toc: yes
+---
+
+***
+
+<h1>Excel Projects</h1>
+
+I am a *Statistics* major at the **University of Illinois**. I am also minoring in *Leadership Studies* and *Business*. My GPA is $3.87$.
+
+# Courses Taken
+
+***

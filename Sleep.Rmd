@@ -1,0 +1,22 @@
+---
+title: "Sleep"
+author: "Kevin Wong"
+date: "1/4/2019"
+output: html_document
+---
+
+```{r}
+Sleep = read.csv("sleepdata.csv", sep = ";")
+names(Sleep) = c(
+  "Start_Time",
+  "Wake_Up_Time",
+  "Sleep_Quality",
+  "Time_In_Bed",
+  "Wake_Up_Mood",
+  "Sleep_Notes",
+  "Heart_Rate",
+  "Steps_Taken"
+)
+write.csv(Sleep, "S.csv")
+```
+
