@@ -9,8 +9,6 @@ output:
 
 <h1>Excel Projects</h1>
 
-I am a *Statistics* major at the **University of Illinois**. I am also minoring in *Leadership Studies* and *Business*. My GPA is $3.87$.
-
-# Courses Taken
+I like to make Excel files in my free time. Here are my favorites!
 
 ***
