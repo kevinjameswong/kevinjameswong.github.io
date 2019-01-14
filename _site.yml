@@ -6,6 +6,7 @@ output:
     theme: readable
     include:
       in_header:  header.html
+      after_body: footer.html
 navbar:
   title: "Kevin's Website"
   right:
