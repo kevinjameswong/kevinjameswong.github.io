@@ -1,0 +1,24 @@
+name: "kevins-website"
+output_dir: "."
+output:
+  html_document:
+    css: style.css
+    theme: readable
+    include:
+      in_header:  header.html
+      after_body: footer.html
+navbar:
+  title: "Kevin's Website"
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Work Experience"
+      href: work.html
+    - text: "Excel Projects"
+      href: excel.html
+    - text: "Schoolwork"
+      href: schoolwork.html
+    - text: "Contact Me"
+      href: contact.html
+    - text: "All"
+      href: fullsite.html
