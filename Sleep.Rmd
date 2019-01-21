@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r}
-Sleep = read.csv("sleepdata.csv", sep = ";")
+Sleep = read.csv("S.csv", sep = ";")
 names(Sleep) = c(
   "Start_Time",
   "Wake_Up_Time",
@@ -17,6 +17,6 @@ names(Sleep) = c(
   "Heart_Rate",
   "Steps_Taken"
 )
-write.csv(Sleep, "S.csv")
+write.csv(Sleep, "T.csv")
 ```
 

@@ -7,12 +7,66 @@ output:
 
 <center><h1>Kevin Wong</h1></center>
 
-```{r out.height = "150px", out.width = "150px", fig.align = "center", echo = FALSE}
-# library(knitr)
-# include_graphics("images/kevin wong.jpg")
+```{r}
+kevin_ho_prop_test(p = .6, p_hat = 158/250, n = 250, test = "two")
 ```
 
 ```{r}
+x = c(50, 44, 47, 40, 54)
+y = c(10, 13, 9, 5, 7)
 
+x = c(2, 3, 4)
+y = c(3, 8, 10)
+z = c(2, 5, 2)
+cor(z, y)
+
+
+```
+
+```{r}
+kevin_ho_mean_test(mu = 20, x_bar = 18.6, n = 100, sd = 6, test = "left", type = "t")
+6 / sqrt(31)
+
+sqrt(2500)
+((2.575 * 6) / .1)^2
+sqrt((.84 * .16 / 800))
+
+sqrt(.86 * .14 / 50)
+```
+
+
+```{r}
+kevin_ho_mean_test(
+  mu = 90,
+  x_bar = 94.1,
+  sd = 17,
+  n = 80,
+  test = "right",
+  type = "t"
+)
+
+
+kevin_ho_prop_test(
+  p = .12,
+  p_hat = 33/200,
+  n = 200,
+  test = "right"
+)
+
+121/700
+```
+
+
+```{r}
+a = c(0,    0.1, 0.2,  0.3, 0.4,  0.5, 0.6,  0.7, 0.8,  0.9, 1)
+b = c(0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75)
+
+l = lm(b ~ a)
+coefficients(l)
+plot(b, a)
+lines(l)
+
+.5 * .9 + 0.25
+.9 * .25 + .5
 ```
 
