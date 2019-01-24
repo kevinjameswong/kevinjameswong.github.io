@@ -11,7 +11,7 @@ I like to make Excel / R / Java files in my free time. Here are my favorites!
 
 # Excel Projects
 
-* [Running Data](Running_Kevin_Wong_1_20_19.xlsx){target="_blank"} Last updated: January 20, 2019
+* [Running Data](Running_Kevin_Wong_1_20_19.xlsx){target="_blank"} I am running a half-marathon in April 2019! Here is my training data! Last updated: January 20, 2019
 
 * [Sleep Data](Sleep_Kevin_Wong_1_19_19.xlsx){target="_blank"} Last updated: January 19, 2019
 

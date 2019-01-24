@@ -145,20 +145,11 @@ kevin_geom = function(trials, prob, type, ...) {
 ```
 
 ```{r ci mean GOOD}
-ci_mean = function(x_bar, sd, confidence_level, n, average, sum, ...) {
+kevin_ci_mean = function(x_bar, sd, confidence_level, n, type, ...) {
   x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c("x_bar", "mean", "xbar")])[1]))
   sd = as.numeric(data.frame(unlist(as.list(match.call())[c("sd", "sigma")])[1]))
   average = as.numeric(data.frame(unlist(as.list(match.call())[c("average", "avg")])[1]))
-  
-  if (average == TRUE & missing(sum)) {
-    standard_error = sd / sqrt(n)
-  }
-  else if (missing(average) & sum == TRUE) {
-    standard_error = sd * sqrt(n)
-  }
-  else {
-    return(message("ERROR: Either `Average` or `Sum` is needed"))
-  }
+  standard_error = sd / sqrt(n)
   if (confidence_level > 100) {
     return(message ("ERROR: Check confidence level!"))
   }
@@ -166,11 +157,14 @@ ci_mean = function(x_bar, sd, confidence_level, n, average, sum, ...) {
     confidence_level = confidence_level * 100
   }
   alpha = 1 - confidence_level / 100
-  if (n >= 30) {
+  if (type == "Z" | type == "z") {
     crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
   }
-  else {
+  else if (type == "T" | type == "t") {
     crit = - qt(p = alpha / 2, df = n - 1)
+  }
+  else {
+    return(message("Need type to be either t or z!"))
   }
   margin_of_error = crit * standard_error
   lower = x_bar - margin_of_error
@@ -179,12 +173,10 @@ ci_mean = function(x_bar, sd, confidence_level, n, average, sum, ...) {
   names(results) = c("Lower", "Upper")
   return(results)
 }
-
-ci_mean()
 ```
 
 ```{r ci prop GOOD}
-ci_prop = function(p_hat, confidence_level, n, ...) {
+kevin_ci_prop = function(p_hat, confidence_level, n, ...) {
   p_hat = as.numeric(data.frame(unlist(as.list(match.call())[c("p_hat", "mean", "sample_proportion")])[1]))
   
   if (confidence_level > 100) {
