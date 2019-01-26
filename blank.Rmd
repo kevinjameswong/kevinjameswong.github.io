@@ -92,8 +92,12 @@ kevin_ci_prop(mean = 37/98, confidence_level = 90, n = 98)
 
 g = c(114.8, 90.8, 62.1, 149.3, 159.1, 146.5, 83.7, 100.5)
 h = 130
-h
-sum((g - h) ^ 2 / h) / 8
+7 * g / h
+
+62.1 * 19 / 144
+
+
+
 ```
 
 
@@ -131,7 +135,82 @@ kevin_ci_prop(p_hat = 562/814, confidence_level = 90, n = 914)
 ```
 
 
+```{r}
+invT(.995,14)
+128/ 64 + 72/ 36
+
+
+```
+
+```{r}
+kevin_ci_mean(mean = 8.9, sd = 13.5, n = 68, type = "t", confidence_level = 99)
+
+1.645 * 1.645 * .30350806 * .30350806 / 0.015 / 0.015
+
+84
+
+-(5.5^2) * 4 / 5 + (44/5 * 5.5)  - 57/5
+```
 
 
 
+```{r}
+304000 / (1.02 ^ 10)
+
+2.575 * 2.575 * . / (0.01)^2
+
+invNorm(.995)
+```
+
+
+
+```{r}
+37 * 5.7 / 4
+invChi(.975, 19)
+chisqcdf(24.06667, 9999999, 19)
+chisqcdf(-121, 11.875, 19)
+
+```
+
+
+```{r}
+x_bar_aa  = 39.4
+s_aa      = 5
+n_aa      = 40
+
+x_bar_bb  = 37.4
+s_bb      = 6
+n_bb      = 40
+
+kevin_ho_two_sample_mean_test(
+  x_bar_A = x_bar_aa,
+  s_A = s_aa,
+  n_A = n_aa,
+  
+  x_bar_B = x_bar_bb,
+  s_B = s_bb,
+  n_B = n_bb,
+  
+  test = "two"
+)
+
+kevin_ci_2_sample_mean(
+  x_bar_A = x_bar_aa,
+  s_A = s_aa,
+  n_A = n_aa,
+  
+  x_bar_B = x_bar_bb,
+  s_B = s_bb,
+  n_B = n_bb,
+  
+  confidence_level = 90,
+  average = TRUE
+)
+
+90/12 + 8.5
+
+invT(.975, 20)
+
+3 - 2.0859 * 4
+```
 
