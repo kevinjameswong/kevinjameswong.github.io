@@ -1,5 +1,5 @@
 ---
-title: "Contact Me"
+title: "Kevin Wong - Contact Me"
 ---
 
 # Contact Information
@@ -10,6 +10,6 @@ LinkedIn: [linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjame
 
 GitHub: [github.com/kevinjameswong](https://github.com/kevinjameswong){target="_blank"}
 
-Here is my resume! [Resume](Resume_11-20-18_Wong.docx){target="_blank"}
+Here is my resume! [Resume](Resume_02-06-19_Wong.docx){target="_blank"}
 
 
