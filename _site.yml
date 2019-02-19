@@ -14,9 +14,9 @@ navbar:
       href: index.html
     - text: "Work Experience"
       href: work.html
+    - text: "Excel Projects"
+      href: excel.html
     - text: "Schoolwork"
       href: schoolwork.html
-    - text: "Running Data"
-      href: running.html
     - text: "Contact Me"
       href: contact.html

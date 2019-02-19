@@ -18,8 +18,8 @@ output:
 <center>
   <h4>
   <a class="swag1">[Work Experience](work.html)</a>
+  <a class="swag1">[Excel Projects](excel.html)</a>
   <a class="swag1">[Schoolwork](schoolwork.html)</a>
-  <a class="swag1">[Running Data](running.html)</a>
   <a class="swag1">[Contact Me!](contact.html)</a>
   </h4>
 </center>
