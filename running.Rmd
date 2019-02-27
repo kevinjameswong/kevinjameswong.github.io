@@ -13,6 +13,39 @@ I am a enjoy running in my freetime!
 
 ***
 
+```{r}
+read_data = read.csv("Running_KevinWong_2_25_19_RawData.csv")
+a = read_data[, c(1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 25)]
+
+names(a) = c("Location", "Weekday", "Month Number", "Day Number", "Date", "Run Calories", "Run Distance", "Run Minutes", "Run Seconds", "Walk Calories", "Walk Distance", "Walk Minutes", "Walk Seconds", "Start Time")
+
+running = a[c(2:393), ]
+
+View(running)
+
+str(running)
+```
+
+```{r}
+running$`Month Number` = as.integer(running$`Month Number`)
+running$`Day Number` = as.integer(running$`Day Number`)
+running$`Run Calories` = as.integer(running$`Run Calories`)
+running$`Run Distance` = as.numeric(running$`Run Distance`)
+running$`Run Minutes` = as.integer(running$`Run Minutes`)
+running$`Run Seconds` = as.integer(running$`Run Seconds`)
+running$`Walk Calories` = as.integer(running$`Walk Calories`)
+running$`Walk Distance` = as.numeric(running$`Walk Distance`)
+running$`Walk Minutes` = as.integer(running$`Walk Minutes`)
+running$`Walk Seconds` = as.integer(running$`Walk Seconds`)
+```
+
+```{r}
+str(running)
+View(running)
+sum(running$`Run Distance`)
+```
+
+
 ```{r echo = FALSE}
 # <!-- Global site tag (gtag.js) - Google Analytics -->
 # <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>

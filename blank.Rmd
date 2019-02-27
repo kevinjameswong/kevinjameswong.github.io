@@ -5,7 +5,5 @@ output:
     theme: readable
 ---
 
-```{r}
-yeet = 2
-```
+
 
