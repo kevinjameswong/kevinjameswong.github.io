@@ -56,3 +56,27 @@ Mathematics / Statistics Tutor
 * Guide student-athletes through their coursework, set goals for skill-development, and monitored their academic progress
 * Develop learning strategies and action plans to overcome learning barriers and foster success
 
+
+
+
+
+
+
+
+
+
+
+
+
+```{r echo = FALSE, eval = FALSE}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120232594-1');
+</script>
+```
+

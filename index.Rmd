@@ -5,11 +5,12 @@ output:
 ---
 
 <center>Hello, I am Kevin Wong. Welcome to my website!</center>
+
 <center>I am a Statistics student at the University of Illinois at Urbana-Champaign.</center>
 
 <br>
 
-<center>I will be graduating from the Univ. of Illinois in Spring $2019$. My college GPA is currently $3.87$.</center>
+<center>I will be graduating from the Univ. of Illinois in May $2019$ with a GPA of $3.89$.</center>
 
 <center></center>
 
@@ -18,8 +19,23 @@ output:
 <center>
   <h4>
   <a class="swag1">[Work Experience](work.html)</a>
-  <a class="swag1">[Excel Projects](excel.html)</a>
+  <a class="swag1">[Data Analysis Projects](data.html)</a>
   <a class="swag1">[Schoolwork](schoolwork.html)</a>
   <a class="swag1">[Contact Me!](contact.html)</a>
   </h4>
 </center>
+
+
+```{r echo = FALSE, eval = FALSE}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120232594-1');
+</script>
+```
+
+

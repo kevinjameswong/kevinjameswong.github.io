@@ -13,3 +13,15 @@ GitHub: [github.com/kevinjameswong](https://github.com/kevinjameswong){target="_
 Here is my resume! [Resume](Resume_02-06-19_Wong.docx){target="_blank"}
 
 
+
+```{r echo = FALSE, eval = FALSE}
+# <!-- Global site tag (gtag.js) - Google Analytics -->
+# <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
+# <script>
+#   window.dataLayer = window.dataLayer || [];
+#   function gtag(){dataLayer.push(arguments);}
+#   gtag('js', new Date());
+# 
+#   gtag('config', 'UA-120232594-1');
+# </script>
+```

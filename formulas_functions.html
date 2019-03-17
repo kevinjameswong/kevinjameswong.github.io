@@ -209,14 +209,26 @@ $(document).ready(function () {
 <li>
   <a href="work.html">Work Experience</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="running.html">Running Data</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel Projects</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="schoolwork.html">Schoolwork</a>
 </li>
 <li>
   <a href="contact.html">Contact Me</a>
-</li>
-<li>
-  <a href="fullsite.html">All</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -432,14 +444,26 @@ $(document).ready(function () {
 <li>
   <a href="work.html">Work Experience</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="running.html">Running Data</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel Projects</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="schoolwork.html">Schoolwork</a>
 </li>
 <li>
   <a href="contact.html">Contact Me</a>
-</li>
-<li>
-  <a href="fullsite.html">All</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -486,7 +510,7 @@ $(document).ready(function () {
   if (missing(mean) | missing(sd) | missing(mean) &amp; missing(sd)) {
     mean = 0
     sd = 1
-    message(&quot;Using 0 as mean and 1 as sd&quot;)
+    message(&quot;Hi Kevin. Using 0 as mean and 1 as sd&quot;)
   }
   
   qnorm(p = area, mean = mean, sd = sd)
@@ -502,14 +526,20 @@ $(document).ready(function () {
 <pre class="r"><code>invT = function(area, df) {
   qt(p = area, df)
 }
-
-# invT(area = .975, df = 20)</code></pre>
+invT(.975, 55)</code></pre>
+<pre><code>## [1] 2.004045</code></pre>
+<pre class="r"><code># invT(area = .975, df = 20)</code></pre>
 <pre class="r"><code>chisqcdf = function(lower_bound, upper_bound, df) {
   pchisq(q = upper_bound, df = df) - pchisq(q = lower_bound, df = df)
 }
 
-chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
-<pre><code>## [1] 0.5541934</code></pre>
+# chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
+<pre class="r"><code>invChi = function(area, df) {
+  qchisq(p = area, df)
+}
+invChi(.05, 149)</code></pre>
+<pre><code>## [1] 121.787</code></pre>
+<pre class="r"><code># invT(area = .975, df = 20)</code></pre>
 <pre class="r"><code>kevin_binom = function(trials, prob, type, successes, ...) {
   trials = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;trials&quot;, &quot;n&quot;)])[1]))
   prob = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;prob&quot;, &quot;p&quot;)])[1]))
@@ -518,42 +548,58 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   if (trials &lt; successes) {
     return(message(&quot;ERROR: Check n or k!&quot;))
   }
-  if (type == &quot;less&quot; | type == &quot;less than&quot; | type == &quot;&lt;&quot;) {
-    results = pbinom(q = successes - 1, size = trials, prob = prob)
-  }
-  else if (type == &quot;less than or equal&quot; | type == &quot;less than or&quot; | type == &quot;less or&quot; | type == &quot;less or equal&quot; | type == &quot;at most&quot; | type == &quot;or less&quot; | type == &quot;&lt;=&quot;) {
-    results = pbinom(q = successes, size = trials, prob = prob)
-  }
-  else if (type == &quot;equal&quot; | type == &quot;equal to&quot; | type == &quot;exact&quot; | type == &quot;exactly&quot; | type == &quot;=&quot;) {
-    results = pbinom(q = successes, size = trials, prob = prob) - pbinom(q = successes - 1, size = trials, prob = prob)
-  }
-  else if (type == &quot;greater&quot; | type == &quot;great&quot; | type == &quot;greater than&quot; | type == &quot;more&quot; | type == &quot;more than&quot; | type == &quot;&gt;&quot;) {
-    results = 1 - pbinom(q = successes, size = trials, prob = prob)
-  }
-  else if (type == &quot;greater than or equal&quot; | type == &quot;greater than or&quot; | type == &quot;greater or&quot; | type == &quot;greater or equal&quot; | type == &quot;at least&quot; | type == &quot;or more&quot; | type == &quot;&gt;=&quot;) {
-    results = 1 - pbinom(q = successes - 1, size = trials, prob = prob)
-  }
-  else if (type == &quot;between&quot; | type == &quot;in between&quot;) {
-    if (length(successes) ==  2) {
-      successes = unlist(successes)
-      results = pbinom(q = successes[length(successes)], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
-    }
-    else if (length(successes) == 1) {
-      return(message(&quot;ERROR: Check type!&quot;))
-    }
-    else {
-      return(message(&quot;ERROR: Check k successes!&quot;))
-    }
-  }
-  else {
-    return(message(&quot;ERROR: Check TYPE&quot;))
-  }
-  names(results) = NULL
+  prob_less = pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_at_most = pbinom(q = successes[1], size = trials, prob = prob)
+  prob_equal = pbinom(q = successes[1], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_greater = 1 - pbinom(q = successes[1], size = trials, prob = prob)
+  prob_at_least = 1 - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_between = pbinom(q = successes[2], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  
+  results = list(trials, successes, prob, prob_less, prob_at_most, prob_equal, prob_at_least, prob_greater, prob_between)
+  names(results) = c(
+    &quot;Trials&quot;,
+    &quot;Successes&quot;,
+    &quot;Probability of Each Success&quot;,
+    paste(&quot;Less Than &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;At Most &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;Equal To &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;At Least &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;Greater Than &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;Between &quot;, successes[1], &quot; and &quot;, successes[2], &quot; Successes&quot;, sep = &quot;&quot;)
+  )
   return(results)
 }
 
-# kevin_binom(n = 9, prob = .75, type = &quot;equal&quot;, k = 7)
-# kevin_binom(n = 4, prob = .75, type = &quot;at least&quot;, k = 3)</code></pre>
+# kevin_binom(n = 12, prob = .5, k = 11)</code></pre>
+<pre class="r"><code>kevin_binom(n = 4, prob = .75, k = list(3,6))</code></pre>
+<pre><code>## Warning in if (trials &lt; successes) {: the condition has length &gt; 1 and only
+## the first element will be used</code></pre>
+<pre><code>## $Trials
+## [1] 4
+## 
+## $Successes
+## [1] 3 6
+## 
+## $`Probability of Each Success`
+## [1] 0.75
+## 
+## $`Less Than 3 Successes`
+## [1] 0.2617188
+## 
+## $`At Most 3 Successes`
+## [1] 0.6835937
+## 
+## $`Equal To 3 Successes`
+## [1] 0.421875
+## 
+## $`At Least 3 Successes`
+## [1] 0.7382812
+## 
+## $`Greater Than 3 Successes`
+## [1] 0.3164063
+## 
+## $`Between 3 and 6 Successes`
+## [1] 0.7382812</code></pre>
 <pre class="r"><code>kevin_geom = function(trials, prob, type, ...) {
   trials = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;trials&quot;, &quot;attempts&quot;, &quot;n&quot;)])[1]))
   prob = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;prob&quot;, &quot;p&quot;)])[1]))
@@ -584,20 +630,11 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
 }
 
 # kevin_geom(trials = 3, prob = .1, type = &quot;equal&quot;)</code></pre>
-<pre class="r"><code>ci_mean = function(x_bar, sd, confidence_level, n, average, sum, ...) {
+<pre class="r"><code>kevin_ci_mean = function(x_bar, sd, confidence_level, n, type, ...) {
   x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar&quot;, &quot;mean&quot;, &quot;xbar&quot;)])[1]))
   sd = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;)])[1]))
   average = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;average&quot;, &quot;avg&quot;)])[1]))
-  
-  if (average == TRUE &amp; missing(sum)) {
-    standard_error = sd / sqrt(n)
-  }
-  else if (missing(average) &amp; sum == TRUE) {
-    standard_error = sd * sqrt(n)
-  }
-  else {
-    return(message(&quot;ERROR: Either `Average` or `Sum` is needed&quot;))
-  }
+  standard_error = sd / sqrt(n)
   if (confidence_level &gt; 100) {
     return(message (&quot;ERROR: Check confidence level!&quot;))
   }
@@ -605,11 +642,14 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
     confidence_level = confidence_level * 100
   }
   alpha = 1 - confidence_level / 100
-  if (n &gt;= 30) {
+  if (type == &quot;Z&quot; | type == &quot;z&quot;) {
     crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
   }
-  else {
+  else if (type == &quot;T&quot; | type == &quot;t&quot;) {
     crit = - qt(p = alpha / 2, df = n - 1)
+  }
+  else {
+    return(message(&quot;Need type to be either t or z!&quot;))
   }
   margin_of_error = crit * standard_error
   lower = x_bar - margin_of_error
@@ -618,7 +658,7 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
   return(results)
 }</code></pre>
-<pre class="r"><code>ci_prop = function(p_hat, confidence_level, n, ...) {
+<pre class="r"><code>kevin_ci_prop = function(p_hat, confidence_level, n, ...) {
   p_hat = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat&quot;, &quot;mean&quot;, &quot;sample_proportion&quot;)])[1]))
   
   if (confidence_level &gt; 100) {
@@ -663,11 +703,13 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
   return(results)
 }</code></pre>
-<pre class="r"><code>kevin_ho_mean_test = function(mu, x_bar, n, test, sd, alpha, ...) {
+<pre class="r"><code>kevin_ho_mean_test = function(mu, x_bar, n, test, sd, alpha, type, ...) {
   mu = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;null_mean&quot;, &quot;mu&quot;)])[1]))
   x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar&quot;, &quot;sample_mean&quot;)])[1]))
   sd = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;, &quot;s&quot;)])[1]))
-  alpha = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+  z = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;z&quot;, &quot;Z&quot;)])[1]))
+  t = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;t&quot;, &quot;T&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
   
   if (missing(alpha)) {
     alpha = .05
@@ -679,58 +721,67 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
     alpha = alpha / 100
   }
   test_stat = (x_bar - mu) / (sd / sqrt(n))
-  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;&gt;&quot;) {
-    if (n &gt;= 30) {
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; | test == &quot;&gt;&quot;) {
+    if (type == &quot;z&quot;) {
       critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
       p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
       problem = &quot;One-Sided, Right Tailed Z Test&quot;
     }
-    else {
+    else if (type == &quot;t&quot;) {
       critical_value = qt(p = 1 - alpha, df = n - 1)
       p_value = 1 - pt(q = test_stat, df = n - 1)
       problem = &quot;One-Sided, Right Tailed T Test&quot;
     }
+    else {
+      return(message(&quot;ERROR: Check type!&quot;))
+    }
   }
   else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
-    if (n &gt;= 30) {
+    if (type == &quot;z&quot;) {
       critical_value = qnorm(p = alpha, mean = 0, sd = 1)
       p_value = pnorm(q = test_stat, mean = 0, sd = 1)
       problem = &quot;One-Sided, Left Tailed Z Test&quot;
     }
-    else {
+    else if (type == &quot;t&quot;) {
       critical_value = qt(p = alpha, df = n - 1)
       p_value = pt(q = test_stat, df = n - 1)
       problem = &quot;One-Sided, Left Tailed T Test&quot;
     }
+    else {
+      return(message(&quot;ERROR: Check type!&quot;))
+    }
   }
-  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot;) {
-    if (n &gt;= 30) {
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (type == &quot;z&quot;) {
       if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
-        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - alpha / 2, mean = 0, sd = 1)
         p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
       }
       else if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
-        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
         p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
       }
       problem = &quot;Two-Sided Z Test&quot;
       critical_value = c(critical_value_low, critical_value_high)
     }
-    else {
+    else if (type == &quot;t&quot;) {
       if (pt(q = test_stat, df = n - 1) &gt; .5) {
-        critical_value_low = qt(p = alpha, df = n - 1)
-        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        critical_value_low = qt(p = alpha / 2, df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
         p_value = 2 * (1 - pt(q = test_stat, df = n - 1))
       }
       else if (pt(q = test_stat, df = n - 1) &lt; .5) {
-        critical_value_low = qt(p = alpha, df = n - 1)
-        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        critical_value_low = qt(p = alpha / 2 , df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
         p_value = 2 * pt(q = test_stat, df = n - 1)
       }
       problem = &quot;Two-Sided T Test&quot;
       critical_value = c(critical_value_low, critical_value_high)
+    }
+    else {
+      return(message(&quot;ERROR: Check type!&quot;))
     }
   }
   else {
@@ -751,6 +802,7 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
 <pre class="r"><code>kevin_ho_prop_test = function(p, p_hat, alpha, n, test, ...) {
   p = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;null_prop&quot;, &quot;p&quot;, &quot;po&quot;)])[1]))
   p_hat = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat&quot;, &quot;sample_prop&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
 
   if (missing(alpha)) {
     alpha = .05
@@ -761,27 +813,33 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   if (alpha &gt;= 1) {
     alpha = alpha / 100
   }
+  if (p &gt; 1) {
+    return(message (&quot;ERROR: Check p!&quot;))
+  }
+  if (p_hat &gt; 1) {
+    return(message (&quot;ERROR: Check p!&quot;))
+  }
   test_stat = (p_hat - p) / sqrt(p * (1 - p) / n)
-  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;&gt;&quot;) {
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; | test == &quot;&gt;&quot;) {
     p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
-    critical_value = pnorm(q = 1 - alpha, mean = 0, sd = 1)
+    critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
     problem = &quot;One-Sided, Right Tailed Z Test&quot;
   }
   else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
     p_value = pnorm(q = test_stat, mean = 0, sd = 1)
-    critical_value = pnorm(q = alpha, mean = 0, sd = 1)
+    critical_value = qnorm(p = alpha, mean = 0, sd = 1)
     problem = &quot;One-Sided, Left Tailed Z Test&quot;
   }
-  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot;) {
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
     if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
       p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
     }
-    if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+    else if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
       p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
     }
     problem = &quot;Two-Sided Z Test&quot;
-    critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-    critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
     critical_value = c(critical_value_low, critical_value_high)
   }
   else {
@@ -790,7 +848,59 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   if (p_value &lt; alpha) {
     decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
   }
-  if (p_value &gt; alpha) {
+  else if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ho_var_test = function(ssquared, sigmasquared, n, alpha, test, ...) {
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+  
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  
+  test_stat = (n - 1) * ssquared / sigmasquared
+  
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; | test == &quot;&gt;&quot;) {
+    p_value = 1 - pchisq(q = test_stat, df = n - 1)
+    critical_value = qchisq(p = 1 - alpha, df = n - 1)
+    problem = &quot;One-Sided, Right Tailed Chi Squared Test&quot;
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    p_value = pchisq(q = test_stat, df = n - 1)
+    critical_value = qchisq(p = alpha, df = n - 1)
+    problem = &quot;One-Sided, Left Tailed Chi Squared Test&quot;
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (pchisq(q = test_stat, df = n - 1) &gt; .5) {
+      p_value = 2 * (1 - pchisq(q = test_stat, df = n - 1))
+    }
+    else if (pchisq(q = test_stat, df = n - 1) &lt; .5) {
+      p_value = 2 * pchisq(q = test_stat, df = n - 1)
+    }
+    problem = &quot;Two-Sided Chi Squared Test&quot;
+    critical_value_low = qchisq(p = alpha / 2, df = n - 1)
+    critical_value_high = qchisq(p = 1 - (alpha / 2), df = n - 1)
+    critical_value = c(critical_value_low, critical_value_high)
+  }
+  else {
+    return(message(&quot;ERROR: Check Test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  else if (p_value &gt; alpha) {
     decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
   }
   names(test_stat) = NULL
@@ -827,7 +937,7 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
     n = n_A + n_B - 2
     test_stat = ((x_bar_A - x_bar_B) - C) / sqrt(s_pooled_sq * ((1 / n_A) + (1 / n_B)))
   }
-  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;&gt;&quot;) {
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; |test == &quot;&gt;&quot;) {
     if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
       critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
       p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
@@ -851,16 +961,16 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
       problem = &quot;One-Sided, Left Tailed T Test&quot;
     }
   }
-  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot;) {
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
     if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
       if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
-        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
         p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
       }
       else if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
-        critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-        critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
         p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
       }
       problem = &quot;Two-Sided Z Test&quot;
@@ -868,13 +978,13 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
     }
     else {
       if (pt(q = test_stat, df = n - 1) &gt; .5) {
-        critical_value_low = qt(p = alpha, df = n - 1)
-        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        critical_value_low = qt(p = alpha / 2, df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
         p_value = 2 * (1 - pt(q = test_stat, df = n - 1))
       }
       else if (pt(q = test_stat, df = n - 1) &lt; .5) {
-        critical_value_low = qt(p = alpha, df = n - 1)
-        critical_value_high = qt(p = 1 - alpha, df = n - 1)
+        critical_value_low = qt(p = alpha / 2, df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
         p_value = 2 * pt(q = test_stat, df = n - 1)
       }
       problem = &quot;Two-Sided T Test&quot;
@@ -903,7 +1013,7 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   names(results) = c(&quot;Problem&quot;, &quot;Degrees_of_Freedom&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
   return(results)
 }</code></pre>
-<pre class="r"><code>ci_2_sample_mean = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, average, sum, confidence_level, ...) {
+<pre class="r"><code>kevin_ci_2_sample_mean = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, average, sum, confidence_level, ...) {
   x_bar_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_A&quot;, &quot;mean_A&quot;, &quot;xbar_A&quot;, &quot;xbarA&quot;)])[1]))
   x_bar_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_B&quot;, &quot;mean_B&quot;, &quot;xbar_B&quot;, &quot;xbarB&quot;)])[1]))
   s_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_A&quot;, &quot;sA&quot;, &quot;sd_A&quot;, &quot;sdA&quot;, &quot;sigma_A&quot;, &quot;sigmaA&quot;)])[1]))
@@ -946,6 +1056,7 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_B&quot;, &quot;sample_prop_B&quot;)])[1]))
   n_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_A&quot;, &quot;nA&quot;)])[1]))
   n_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_B&quot;, &quot;nB&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
 
   if (missing(C)) {
     C = 0
@@ -955,7 +1066,7 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   x_B = p_hat_B * n_B
   
   p_hat = (x_A + x_B) / (n_A + n_B)
-  test_stat = ((p_hat_A - p_hat_B) - C) / sqrt(p_hat * (1 - p_hat) / (n_A + n_B))
+  test_stat = ((p_hat_A - p_hat_B) - C) / sqrt(p_hat * (1 - p_hat) * (1 / n_A + 1 / n_B))
   
   if (missing(alpha)) {
     alpha = .05
@@ -966,17 +1077,17 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   if (alpha &gt;= 1) {
     alpha = alpha / 100
   }
-  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;&gt;&quot;) {
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; |test == &quot;&gt;&quot;) {
     p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
-    critical_value = pnorm(q = 1 - alpha, mean = 0, sd = 1)
+    critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
     problem = &quot;One-Sided, Right Tailed Z Test&quot;
   }
   else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
     p_value = pnorm(q = test_stat, mean = 0, sd = 1)
-    critical_value = pnorm(q = alpha, mean = 0, sd = 1)
+    critical_value = qnorm(p = alpha, mean = 0, sd = 1)
     problem = &quot;One-Sided, Left Tailed Z Test&quot;
   }
-  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot;) {
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
     if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
       p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
     }
@@ -984,8 +1095,8 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
       p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
     }
     problem = &quot;Two-Sided Z Test&quot;
-    critical_value_low = qnorm(p = alpha, mean = 0, sd = 1)
-    critical_value_high = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
     critical_value = c(critical_value_low, critical_value_high)
   }
   else {
@@ -1003,7 +1114,7 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
   names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
   return(results)
 }</code></pre>
-<pre class="r"><code>ci_2_sample_prop = function(p_hat_A, p_hat_B, confidence_level, n_A, n_B, ...) {
+<pre class="r"><code>kevin_ci_2_sample_prop = function(p_hat_A, p_hat_B, confidence_level, n_A, n_B, ...) {
   p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_A&quot;, &quot;mean_A&quot;, &quot;sample_proportion_A&quot;)])[1]))
   p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_B&quot;, &quot;mean_B&quot;, &quot;sample_proportion_B&quot;)])[1]))
   
@@ -1085,6 +1196,104 @@ chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
 }
 
 # kevin_bivar_prob(expression = &quot;6X + 4Y &gt; 1500&quot;, muX = 170, sdX = 10, muY = 125, sdY = 8, independence = TRUE)</code></pre>
+<pre class="r"><code>boott = function(k) {
+  p = k + 3
+  l = paste(&quot;Yeet&quot;, k, sep = &quot;&quot;)
+  names(p) = c(l)
+  return(p)
+}
+boott(2)</code></pre>
+<pre><code>## Yeet2 
+##     5</code></pre>
+<pre class="r"><code>dfun = function(s1, s2, n1, n2) {
+  p = (s1^2/n1 + s2^2/n2)^2 / ((s1^2 / n1) ^ 2 / (n1 - 1) + (s2^2 / n2) ^ 2 / (n2 - 1))
+  return(p)
+}
+
+dfun(s1 = 78.39, s2 = 104.24, n1 = 57, n2 = 93)</code></pre>
+<pre><code>## [1] 141.7872</code></pre>
+<pre class="r"><code>kevin_ho_f_test = function(var_A, var_B, s_A, s_B, n_A, n_B, test, C, ...) {
+  p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_A&quot;, &quot;sample_prop_A&quot;)])[1]))
+  p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_B&quot;, &quot;sample_prop_B&quot;)])[1]))
+  n_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_A&quot;, &quot;nA&quot;)])[1]))
+  n_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_B&quot;, &quot;nB&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+
+  if (missing(C)) {
+    C = 0
+  }
+  
+  x_A = p_hat_A * n_A
+  x_B = p_hat_B * n_B
+  
+  p_hat = (x_A + x_B) / (n_A + n_B)
+  test_stat = ((p_hat_A - p_hat_B) - C) / sqrt(p_hat * (1 - p_hat) * (1 / n_A + 1 / n_B))
+  
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; |test == &quot;&gt;&quot;) {
+    p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Right Tailed Z Test&quot;
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = qnorm(p = alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Left Tailed Z Test&quot;
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
+      p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+    }
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+      p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+    }
+    problem = &quot;Two-Sided Z Test&quot;
+    critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
+    critical_value = c(critical_value_low, critical_value_high)
+  }
+  else {
+    return(message(&quot;ERROR: Check Test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>ints = function(int, slope, xg, xbar, sd, se, n, confidence_level) {
+  pe = int + slope * xg
+  
+  lower_pred = pe - qt(confidence_level / 100 + (100 - confidence_level) / 200, df = n - 2) * se * sqrt(1 + 1 / n + (xg - xbar)^2 / ((n - 1) * sd ^ 2))
+  upper_pred = pe + qt(confidence_level / 100 + (100 - confidence_level) / 200, df = n - 2) * se * sqrt(1 + 1 / n + (xg - xbar)^2 / ((n - 1) * sd ^ 2))
+  
+  lower_conf = pe - qt(confidence_level / 100 + (100 - confidence_level) / 200, df = n - 2) * se * sqrt(1 / n + (xg - xbar)^2 / ((n - 1) * sd ^ 2))
+  upper_conf = pe + qt(confidence_level / 100 + (100 - confidence_level) / 200, df = n - 2) * se * sqrt(1 / n + (xg - xbar)^2 / ((n - 1) * sd ^ 2))
+  
+  pred = c(lower_pred, upper_pred)
+  conf = c(lower_conf, upper_conf)
+  names(pred) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  names(conf) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  
+  ci = list(pred, conf)
+  
+  names(ci) = c(&quot;Pred&quot;, &quot;Conf&quot;)
+  return(ci)
+}</code></pre>
 
 <!DOCTYPE html>
 
@@ -1273,14 +1482,26 @@ $(document).ready(function () {
 <li>
   <a href="work.html">Work Experience</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="running.html">Running Data</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel Projects</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="schoolwork.html">Schoolwork</a>
 </li>
 <li>
   <a href="contact.html">Contact Me</a>
-</li>
-<li>
-  <a href="fullsite.html">All</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -1297,7 +1518,7 @@ $(document).ready(function () {
 
 <hr />
 <center>
-Copyright © <span class="math inline">\(2018\)</span> Kevin Wong, Inc. All rights reserved.
+Copyright © <span class="math inline">\(2019\)</span> Kevin Wong, Inc. All rights reserved.
 </center>
 
 
