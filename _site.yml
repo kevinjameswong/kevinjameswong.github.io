@@ -1,5 +1,6 @@
 name: "kevins-website"
 output_dir: "."
+google_analytics: "UA-120232594-1"
 output:
   html_document:
     css: style.css

@@ -5,6 +5,15 @@ output:
     toc: yes
 ---
 
+<style type="text/css">
+
+.swag {
+   font-family: Tahoma;
+   color: black;
+}
+
+</style>
+
 ***
 
 <h1>Kevin's Schoolwork</h1>
@@ -57,10 +66,10 @@ My GPA in Business Courses at U of I is $4.00$.
 
 # School Projects
 
-[R$33$M Video](https://www.youtube.com/watch?v=SG5-_hInODw){target="_blank"}
+<h3 class="swag">R33M Video</h3>
 
-
-
+<iframe width="420" height="315" class="center" src="https://www.youtube.com/watch?v=SG5-_hInODw">
+</iframe>
 
 
 
