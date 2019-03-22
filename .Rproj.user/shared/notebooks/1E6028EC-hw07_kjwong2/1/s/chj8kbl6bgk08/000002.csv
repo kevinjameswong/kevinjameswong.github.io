@@ -1,7 +1,0 @@
-"0","resid5000 = sample(resid(nutritmod), 5000)"
-"0","hist((resid5000),"
-"0","     xlab   = ""Residuals"","
-"0","     main   = ""kjwong2's Histogram of Residuals of Nutritmod"","
-"0","     col    = ""darkred"","
-"0","     border = ""gold"","
-"0","     breaks = 6)"

@@ -1,6 +1,0 @@
-"0","core.player ="
-"0","  joined_df %>%"
-"0","  select(""id"", ""first_name"", ""last_name"", ""dob"", ""position"", ""retired"") %>%"
-"0","  rowwise() %>%"
-"0","  mutate(uid = ug()) %>%"
-"0","  as.data.frame()"

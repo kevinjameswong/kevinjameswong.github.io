@@ -1,4 +1,0 @@
-"0","tcdf = function(lower_bound, upper_bound, df) {"
-"0","  pt(q = upper_bound, df = df) - pt(q = lower_bound, df = df)"
-"0","}"
-"0","# tcdf(lower_bound = 2, upper_bound = 4, df = 20)"

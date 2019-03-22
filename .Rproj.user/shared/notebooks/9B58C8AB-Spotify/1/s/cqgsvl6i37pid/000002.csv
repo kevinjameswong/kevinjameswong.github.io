@@ -1,6 +1,0 @@
-"0","spotify %>%"
-"0","  group_by(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6) %>%"
-"0","  arrange(Song) %>%"
-"0","  count(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6, Total = sum(Score)) %>%"
-"0","  rename(Appearances = n) %>%"
-"0","  arrange(desc(Total), desc(Appearances))"

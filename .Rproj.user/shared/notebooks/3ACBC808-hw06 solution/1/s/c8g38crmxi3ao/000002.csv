@@ -1,4 +1,0 @@
-"0","plot_qq = function(model, pointcol = ""dodgerblue"", linecol = ""darkorange"") {"
-"0","  qqnorm(resid(model), col = pointcol, pch = 20, cex = 1.5)"
-"0","  qqline(resid(model), col = linecol, lwd = 2)"
-"0","}"

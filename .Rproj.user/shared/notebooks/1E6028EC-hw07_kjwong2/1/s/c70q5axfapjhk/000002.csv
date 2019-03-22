@@ -1,2 +1,0 @@
-"0","plot(fitted(nutritmod), resid(nutritmod), col = ""darkred"", pch = 20,"
-"0","     xlab = ""Fitted"", ylab = ""Residuals"", main = ""kjwong2's Data from Nutritmod"")"

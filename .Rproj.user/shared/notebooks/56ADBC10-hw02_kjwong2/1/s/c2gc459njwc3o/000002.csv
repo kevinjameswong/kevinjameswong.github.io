@@ -1,4 +1,0 @@
-"0","get_sd_est = function(model_resid, mle = FALSE) {"
-"0","  n = length(model_resid) - 2 * !mle"
-"0","  sqrt(sum(model_resid ^ 2) / n)"
-"0","}"

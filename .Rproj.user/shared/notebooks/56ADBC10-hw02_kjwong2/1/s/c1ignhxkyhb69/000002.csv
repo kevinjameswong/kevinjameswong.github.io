@@ -1,7 +1,0 @@
-"0","plot(eruptions ~ waiting, data = faithful,"
-"0","     xlab = ""Waiting Time (minutes)"","
-"0","     ylab = ""Eruption Length (minutes)"","
-"0","     main = ""kjwong2's Scattorplot: Eruption Length vs Waiting Time"","
-"0","     pch  = 20,"
-"0","     cex  = 1,"
-"0","     col  = ""maroon"")"
