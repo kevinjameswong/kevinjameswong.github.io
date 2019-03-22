@@ -1,6 +1,5 @@
 name: "kevins-website"
 output_dir: "."
-google_analytics: "UA-120232594-1"
 output:
   html_document:
     css: style.css
@@ -19,6 +18,8 @@ navbar:
       menu:
       - text: "Running Data"
         href: running.html
+      - text: "Sleeping Data"
+        href: sleep.html        
       - text: "Excel Projects"
         href: excel.html
     - text: "Schoolwork"

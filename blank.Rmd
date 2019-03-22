@@ -1,25 +1,31 @@
 ---
-title: "Kevin Wong"
+title: "Kevin Wong - Blank"
 output:
   html_document:
-    theme: readable
+    toc: yes
 ---
 
 ```{r}
-exp(2.4 + 0.06 * 9)
-
-center = 2
-dL = 1.21
-dU = 1.75
-
-4 - dL
-4 - dU
-
-sqrt(12.25)
-
-3.5 - 6
-
-(4 + 9 + 4 + 6.25) / (25 + 49 + 16 + 36 + 12.25)
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(stringr)
 ```
+
+```{r}
+a = c(1, 2, 3, 4)
+b = c(2, 3, 4, "a")
+
+d = data.frame(
+  a = a,
+  b = b
+)
+
+kable(d, format = "html", align = "c") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive"))
+
+which(b == c(2, 3))
+```
+
 
 
