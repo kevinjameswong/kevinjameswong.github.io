@@ -1,0 +1,8 @@
+"0","library(knitr)"
+"0","library(kableExtra)"
+"0","library(dplyr)"
+"0","library(stringr)"
+"0","Start_Date = as.Date(""2/7/2017"", format = ""%m/%d/%Y"")"
+"0","percent = function(x, digits = 2, format = ""f"", ...) {"
+"0","  formatC(100 * x, format = format, digits = digits, ...) %>% paste(""%"", sep = """")"
+"0","}"

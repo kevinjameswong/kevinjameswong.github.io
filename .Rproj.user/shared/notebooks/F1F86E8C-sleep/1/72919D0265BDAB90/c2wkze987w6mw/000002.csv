@@ -1,0 +1,1 @@
+"0","sleep$Sleep.Notes %>% str_detect(pattern = ""Took a nap \\(1 hour\\)"") %>% sum(na.rm = TRUE) + sleep$Sleep.Notes %>% str_detect(pattern = ""Took a nap \\(1.5 hours\\)"") %>% sum(na.rm = TRUE) + sleep$Sleep.Notes %>% str_detect(pattern = ""Took a nap \\(2 hours\\)"") %>% sum(na.rm = TRUE) +"

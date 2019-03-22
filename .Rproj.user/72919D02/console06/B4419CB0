@@ -1,0 +1,28 @@
+]0;~/Documents/Kevin's Stuff/website/Website Files/Kevin Wong[?1034hKevins-MacBook-Pro-3:Kevin Wong KevinWong$ [KKevins-MacBook-Pro-3:Kevin Wong KevinWong$ 
+]0;~/Documents/Kevin Stuff/Not Work/website/Website Files/Kevin Wong website[?1034hKevins-MBP-3:Kevin Wong website KevinWong$ 
+[KKevins-MBP-3:Kevin Wong website KevinWong$ git cong[Kfig --local --list
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+core.ignorecase=true
+core.precomposeunicode=true
+remote.origin.url=https://github.com/kevinjameswong/kevinjameswong.github.io.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+branch.master.remote=origin
+branch.master.merge=refs/heads/master
+]0;~/Documents/Kevin Stuff/Not Work/website/Website Files/Kevin Wong websiteKevins-MBP-3:Kevin Wong website KevinWong$ git config user.an[K[Kname "Kevin Wong:[K"
+]0;~/Documents/Kevin Stuff/Not Work/website/Website Files/Kevin Wong websiteKevins-MBP-3:Kevin Wong website KevinWong$ git config user.email "kevi[K[K[Kjwong2@illinois.edu:[K"
+]0;~/Documents/Kevin Stuff/Not Work/website/Website Files/Kevin Wong websiteKevins-MBP-3:Kevin Wong website KevinWong$ git remote add origin kevinjameswong.github.io
+fatal: remote origin already exists.
+]0;~/Documents/Kevin Stuff/Not Work/website/Website Files/Kevin Wong websiteKevins-MBP-3:Kevin Wong website KevinWong$ git pull origin master
+remote: Enumerating objects: 5, done.[K
+remote: Counting objects:  20% (1/5)   [Kremote: Counting objects:  40% (2/5)   [Kremote: Counting objects:  60% (3/5)   [Kremote: Counting objects:  80% (4/5)   [Kremote: Counting objects: 100% (5/5)   [Kremote: Counting objects: 100% (5/5), done.[K
+remote: Compressing objects:  33% (1/3)   [Kremote: Compressing objects:  66% (2/3)   [Kremote: Compressing objects: 100% (3/3)   [Kremote: Compressing objects: 100% (3/3), done.[K
+remote: Total 4 (delta 1), reused 0 (delta 0), pack-reused 0[K
+Unpacking objects:  25% (1/4)   Unpacking objects:  50% (2/4)   Unpacking objects:  75% (3/4)   Unpacking objects: 100% (4/4)   Unpacking objects: 100% (4/4), done.
+From https://github.com/kevinjameswong/kevinjameswong.github.io
+ * branch            master     -> FETCH_HEAD
+   7c38bb2..5981cde  master     -> origin/master
+Already up to date!
+[KKevins-MBP-3:Kevin Wong website KevinWong$ 

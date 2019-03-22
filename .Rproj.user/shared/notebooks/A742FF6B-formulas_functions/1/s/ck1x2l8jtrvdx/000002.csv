@@ -1,0 +1,4 @@
+"0","chisqcdf = function(lower_bound, upper_bound, df) {"
+"0","  pchisq(q = upper_bound, df = df) - pchisq(q = lower_bound, df = df)"
+"0","}"
+"0","# chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)"

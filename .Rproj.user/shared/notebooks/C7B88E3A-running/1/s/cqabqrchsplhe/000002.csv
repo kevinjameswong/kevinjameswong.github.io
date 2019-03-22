@@ -1,0 +1,118 @@
+"0","groupby_weekday = running %>%"
+"0","  group_by(Weekday) %>%"
+"0","  summarise(Total_Runs = sum(RunDistance > 0),"
+"0","            "
+"0","            Distance = sum(RunDistance),"
+"0","            "
+"0","            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,"
+"0","                                yes = paste(""0"", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = """"),"
+"0","                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),"
+"0","                         "
+"0","                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,"
+"0","                                yes = paste(""0"", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = """"),"
+"0","                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),"
+"0","                         "
+"0","                         ifelse(test = sum(RunSeconds) %% 60 <= 9,"
+"0","                                yes = paste(""0"", sum(RunSeconds) %% 60, sep = """"),"
+"0","                                no = as.character(sum(RunSeconds) %% 60)), sep = "":""),"
+"0","            "
+"0","            Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,"
+"0","            "
+"0","            Pace = paste(((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60) / sum(RunDistance)) %/% 60,"
+"0","                         ifelse(test = ceiling(((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60) / sum(RunDistance)) %% 60) <= 9,"
+"0","                                yes = paste(""0"", ceiling(((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60) / sum(RunDistance)) %% 60), sep = """"),"
+"0","                                no = as.character(ceiling(((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60) / sum(RunDistance)) %% 60))), sep = "":""),"
+"0","            "
+"0","            MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,"
+"0","            "
+"0","            Calories = sum(RunCalories)"
+"0","            )"
+"0","names(groupby_weekday) = c(""Weekday"", ""Total Runs"", ""Distance"", ""Time"", ""Miles Per Run"", ""Pace"", ""MPH"", ""Calories"")"
+"0","kable(groupby_weekday, format = ""html"") %>%"
+"0","  kable_styling(bootstrap_options = c(""hover"", ""responsive""))"
+"1","<table class=""table table-hover table-responsive"" style=""margin-left: auto; margin-right: auto;"">
+ <thead>
+  <tr>
+   <th style=""text-align:left;""> Weekday </th>
+   <th style=""text-align:right;""> Total Runs </th>
+   <th style=""text-align:right;""> Distance </th>
+   <th style=""text-align:left;""> Time </th>
+   <th style=""text-align:right;""> Miles Per Run </th>
+   <th style=""text-align:left;""> Pace </th>
+   <th style=""text-align:right;""> MPH </th>
+   <th style=""text-align:right;""> Calories </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style=""text-align:left;""> Monday </td>
+   <td style=""text-align:right;""> 28 </td>
+   <td style=""text-align:right;""> 120.31 </td>
+   <td style=""text-align:left;""> 16:27:13 </td>
+   <td style=""text-align:right;""> 4.29 </td>
+   <td style=""text-align:left;""> 8:13 </td>
+   <td style=""text-align:right;""> 7.312 </td>
+   <td style=""text-align:right;""> 13473 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Tuesday </td>
+   <td style=""text-align:right;""> 35 </td>
+   <td style=""text-align:right;""> 159.30 </td>
+   <td style=""text-align:left;""> 22:03:56 </td>
+   <td style=""text-align:right;""> 4.55 </td>
+   <td style=""text-align:left;""> 8:19 </td>
+   <td style=""text-align:right;""> 7.219 </td>
+   <td style=""text-align:right;""> 18447 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Wednesday </td>
+   <td style=""text-align:right;""> 35 </td>
+   <td style=""text-align:right;""> 148.13 </td>
+   <td style=""text-align:left;""> 20:33:24 </td>
+   <td style=""text-align:right;""> 4.23 </td>
+   <td style=""text-align:left;""> 8:20 </td>
+   <td style=""text-align:right;""> 7.205 </td>
+   <td style=""text-align:right;""> 17442 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Thursday </td>
+   <td style=""text-align:right;""> 38 </td>
+   <td style=""text-align:right;""> 170.44 </td>
+   <td style=""text-align:left;""> 23:27:08 </td>
+   <td style=""text-align:right;""> 4.48 </td>
+   <td style=""text-align:left;""> 8:16 </td>
+   <td style=""text-align:right;""> 7.267 </td>
+   <td style=""text-align:right;""> 19911 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Friday </td>
+   <td style=""text-align:right;""> 48 </td>
+   <td style=""text-align:right;""> 192.78 </td>
+   <td style=""text-align:left;""> 26:26:17 </td>
+   <td style=""text-align:right;""> 4.01 </td>
+   <td style=""text-align:left;""> 8:14 </td>
+   <td style=""text-align:right;""> 7.291 </td>
+   <td style=""text-align:right;""> 21549 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Saturday </td>
+   <td style=""text-align:right;""> 40 </td>
+   <td style=""text-align:right;""> 158.47 </td>
+   <td style=""text-align:left;""> 22:10:31 </td>
+   <td style=""text-align:right;""> 3.96 </td>
+   <td style=""text-align:left;""> 8:24 </td>
+   <td style=""text-align:right;""> 7.146 </td>
+   <td style=""text-align:right;""> 17794 </td>
+  </tr>
+  <tr>
+   <td style=""text-align:left;""> Sunday </td>
+   <td style=""text-align:right;""> 44 </td>
+   <td style=""text-align:right;""> 215.71 </td>
+   <td style=""text-align:left;""> 29:36:11 </td>
+   <td style=""text-align:right;""> 4.90 </td>
+   <td style=""text-align:left;""> 8:15 </td>
+   <td style=""text-align:right;""> 7.286 </td>
+   <td style=""text-align:right;""> 24137 </td>
+  </tr>
+</tbody>
+</table>"

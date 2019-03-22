@@ -1,0 +1,18 @@
+"0","lm(eruptions ~ 0 + waiting, data = faithful)"
+"1","
+Call:
+"
+"1","lm(formula = eruptions ~ 0 + waiting, data = faithful)"
+"1","
+
+"
+"1","Coefficients:
+"
+"1","waiting  "
+"1","
+"
+"1","0.05013  "
+"1","
+"
+"1","
+"

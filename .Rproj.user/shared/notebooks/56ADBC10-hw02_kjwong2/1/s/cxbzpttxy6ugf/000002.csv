@@ -1,0 +1,3 @@
+"0","get_beta_no_int = function(x, y) {"
+"0","  sum(x * y) / sum(x^2)"
+"0","}"

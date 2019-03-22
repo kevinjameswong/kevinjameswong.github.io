@@ -1,0 +1,2200 @@
+"0","sapply(c(""C"", ""CB"", ""DB"", ""DI"", ""DL"", ""ED"", ""FB"", ""G"", ""HB"", ""K"", ""LB"", ""LS"", ""OL"", ""P"", ""QB"", ""RB"", ""C"", ""S"", ""ST"", ""T"", ""TE"", ""WR""), getName)
+"
+"1","$C
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<environment: 0x11df42318>
+"
+"1","
+"
+"1","$CB
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x11df42548>
+"
+"1","
+"
+"1","$DB
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115455a40>
+"
+"1","
+"
+"1","$DI
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115455c70>
+"
+"1","
+"
+"1","$DL
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115455ea0>
+"
+"1","
+"
+"1","$ED
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x1154560d0>
+"
+"1","
+"
+"1","$FB
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115455358>
+"
+"1","
+"
+"1","$G
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115455588>
+"
+"1","
+"
+"1","$HB
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x1154557b8>
+"
+"1","
+"
+"1","$K
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115454240>
+"
+"1","
+"
+"1","$LB
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115454470>
+"
+"1","
+"
+"1","$LS
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x1154546a0>
+"
+"1","
+"
+"1","$OL
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x1154548d0>
+"
+"1","
+"
+"1","$P
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115453b58>
+"
+"1","
+"
+"1","$QB
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115453d88>
+"
+"1","
+"
+"1","$RB
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115453fb8>
+"
+"1","
+"
+"1","$C
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115453240>
+"
+"1","
+"
+"1","$S
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115453470>
+"
+"1","
+"
+"1","$ST
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x1154536a0>
+"
+"1","
+"
+"1","$T
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x1154538d0>
+"
+"1","
+"
+"1","$TE
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115452b58>
+"
+"1","
+"
+"1","$WR
+"
+"1","function (pos) 
+"
+"1","{
+"
+"1","    if (pos == ""C"") 
+"
+"1","        prob = c(1, 1, 8)
+"
+"1","    else if (pos == ""CB"") 
+"
+"1","        probs = c(0, 9.5, 0, 0.5)
+"
+"1","    else if (pos == ""DB"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DI"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""DL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""ED"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""FB"") 
+"
+"1","        probs = c(0, 6, 0, 4)
+"
+"1","    else if (pos == ""G"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""HB"") 
+"
+"1","        probs = c(0.5, 6, 0.5, 3)
+"
+"1","    else if (pos == ""K"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""LB"") 
+"
+"1","        probs = c(0, 7.5, 0, 2.5)
+"
+"1","    else if (pos == ""LS"") 
+"
+"1","        probs = c(1, 1, 1, 7)
+"
+"1","    else if (pos == ""OL"") 
+"
+"1","        probs = c(0.5, 7, 0.5, 2)
+"
+"1","    else if (pos == ""P"") 
+"
+"1","        probs = c(0, 0.5, 0.5, 9)
+"
+"1","    else if (pos == ""QB"") 
+"
+"1","        probs = c(1, 1, 0, 8)
+"
+"1","    else if (pos == ""RB"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""S"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else if (pos == ""ST"") 
+"
+"1","        probs = c(1, 0.5, 0.5, 8)
+"
+"1","    else if (pos == ""T"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""TE"") 
+"
+"1","        probs = c(0.5, 4, 0.5, 5)
+"
+"1","    else if (pos == ""WR"") 
+"
+"1","        probs = c(0, 9, 0, 1)
+"
+"1","    else probs = c(1, 1, 1, 1)
+"
+"1","}
+"
+"1","<bytecode: 0x11e8c8c68>
+"
+"1","<environment: 0x115452d88>
+"
+"1","
+"
