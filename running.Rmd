@@ -17,8 +17,6 @@ Start_Date = as.Date("1/28/2018", format = "%m/%d/%Y")
 Update_Date = as.Date("3/16/2019", format = "%m/%d/%Y")
 ```
 
-Last updated: March 16, 2019
-
 ***
 
 ```{r echo = FALSE}
@@ -67,6 +65,10 @@ body, p {
 </style>
 
 <h1>Kevin's Running Data</h1>
+
+Last updated: March 16, 2019
+
+***
 
 I am a enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r length(running$RunDistance)` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
 
