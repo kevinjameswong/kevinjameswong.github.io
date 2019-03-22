@@ -10,18 +10,5 @@ LinkedIn: [linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjame
 
 GitHub: [github.com/kevinjameswong](https://github.com/kevinjameswong){target="_blank"}
 
-Here is my resume! [Resume](Resume_02-06-19_Wong.docx){target="_blank"}
+Here is my resume! [Resume](Resume_02_21_19_Wong.pdf){target="_blank"}
 
-
-
-```{r echo = FALSE, eval = FALSE}
-# <!-- Global site tag (gtag.js) - Google Analytics -->
-# <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
-# <script>
-#   window.dataLayer = window.dataLayer || [];
-#   function gtag(){dataLayer.push(arguments);}
-#   gtag('js', new Date());
-# 
-#   gtag('config', 'UA-120232594-1');
-# </script>
-```

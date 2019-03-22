@@ -73,7 +73,7 @@ body, p {
 
 </style>
 
-I have been tracking my sleeping stats since February 6, 2017 using the [Sleep Cycle](https://www.sleepcycle.com) app. It's a phenomenal app. Over the past `r nrow(sleep)` days, here are statistics on my past `r nrow(sleep) - (is.na(sleep$Sleep.quality) %>% sum())` sleeps.
+I have been tracking my sleeping stats since February 6, 2017 using the [Sleep Cycle](https://www.sleepcycle.com){target="_blank"} app. It's a phenomenal app. Over the past `r nrow(sleep)` days, here are statistics on my past `r nrow(sleep) - (is.na(sleep$Sleep.quality) %>% sum())` sleeps.
 
 ***
 
