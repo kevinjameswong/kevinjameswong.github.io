@@ -1,0 +1,8 @@
+---
+title: "Kevin Wong - Math 234 Study Guide"
+output:
+  html_document:
+    toc: yes
+---
+
+Hi student-athletes!

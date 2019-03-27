@@ -5,27 +5,4 @@ output:
     toc: yes
 ---
 
-```{r}
-library(knitr)
-library(kableExtra)
-library(dplyr)
-library(stringr)
-```
-
-```{r}
-a = c(1, 2, 3, 4)
-b = c(2, 3, 4, "a")
-
-d = data.frame(
-  a = a,
-  b = b
-)
-
-kable(d, format = "html", align = "c") %>%
-  kable_styling(bootstrap_options = c("hover", "responsive"))
-
-which(b == c(2, 3))
-```
-
-
 
