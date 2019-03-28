@@ -5,11 +5,28 @@ output:
     toc: yes
 ---
 
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr)
+library(stringr)
+Update_Months = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+```
+
+```{r echo = FALSE}
+Update_Date = as.Date("3/26/2019", format = "%m/%d/%Y")
+```
+
 <style type="text/css">
 
-.swag {
+.r33m_vid {
    font-family: Tahoma;
    color: black;
+}
+
+body, p {
+   font-family: "Times New Roman";
+   font-size: 18px;
 }
 
 </style>
@@ -18,7 +35,9 @@ output:
 
 <h1>Kevin's Schoolwork</h1>
 
-I am a *Statistics* major at the **University of Illinois**. I am also minoring in *Leadership Studies* and *Business*. My GPA is $3.89$.
+Last updated: `r paste(Update_Months[str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric()], " ", str_extract(string = Update_Date, pattern = "-[0-9]{2}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}"), ", ", str_extract(string = Update_Date, pattern = "[0-9]{4}"), sep = "")`
+
+I am a *Statistics* major at the **University of Illinois**. I am also minoring in *Leadership Studies* and *Business*. My GPA is 3.89.
 
 # Courses Taken
 
@@ -28,47 +47,48 @@ I am a *Statistics* major at the **University of Illinois**. I am also minoring 
 
 Some of the Statistics Courses I have taken include:  
 
-- **STAT $385$**: Statistics Programming Methods            (Grade: A+)
-- **STAT $400$**: Statistics and Probability I              (Grade: A)
-- **STAT $410$**: Statistics and Probability II             (Grade: A-)
-- **STAT $420$**: Methods of Applied Statistics             (Grade: A)
-- **STAT $425$**: Applied Regression and Design             (Grade: A)
-- **STAT $432$**: Basics of Statistical Learning            (Grade: A)
-- **STAT $440$**: Statistical Data Management               (Grade: A)
-- **STAT $448$**: Advanced Data Analysis                    (Grade: A)
+- **STAT** 385: Statistics Programming Methods            (Grade: A+)
+- **STAT** 400: Statistics and Probability I              (Grade: A)
+- **STAT** 410: Statistics and Probability II             (Grade: A-)
+- **STAT** 420: Methods of Applied Statistics             (Grade: A)
+- **STAT** 425: Applied Regression and Design             (Grade: A)
+- **STAT** 432: Basics of Statistical Learning            (Grade: A)
+- **STAT** 440: Statistical Data Management               (Grade: A)
+- **STAT** 448: Advanced Data Analysis                    (Grade: A)
 
-My GPA in STAT courses at U of I is $3.96$.
+My GPA in STAT courses at U of I is 3.96.
 
 ## Leadership Studies
 
 Some of the Leadership Studies Courses I have taken include:  
 
-- **AGED $230$**: Leadership Communications            (Grade: A)
-- **AGED $260$**: Introduction to Leadership Studies   (Grade: A+)
-- **AGED $380$**: Leadership in Groups and Teams       (Grade: A+)
-- **AGED $480$**: Collaborative Leadership             (Grade: A)
+- **AGED** 230: Leadership Communications            (Grade: A)
+- **AGED** 260: Introduction to Leadership Studies   (Grade: A+)
+- **AGED** 380: Leadership in Groups and Teams       (Grade: A+)
+- **AGED** 480: Collaborative Leadership             (Grade: A)
 
-My GPA in Leadership courses at U of I is $4.00$.
+My GPA in Leadership courses at U of I is 4.00.
 
 ## Business
 
 Some of the Business Courses I have taken include:  
 
-- **BADM $310$**: Management and Organizational Behavior  (Grade: A)
-- **BADM $320$**: Principles of Marketing                 (Grade: TBD)
-- **BADM $340$**: Ethical Dilemmas of Business            (Grade: A+)
-- **ACCY $200$**: Fundamentals of Accounting              (Grade: A)
-- **FIN $221$**: Corporate Finance                        (Grade: A)
+- **BADM** 310: Management and Organizational Behavior  (Grade: A)
+- **BADM** 320: Principles of Marketing                 (Grade: TBD)
+- **BADM** 340: Ethical Dilemmas of Business            (Grade: A+)
+- **ACCY** 200: Fundamentals of Accounting              (Grade: A)
+- **FIN** 221: Corporate Finance                        (Grade: A)
 
-My GPA in Business Courses at U of I is $4.00$.
+My GPA in Business Courses at U of I is 4.00.
 
 ***
 
 # School Projects
 
-<h3 class="swag">R33M Video</h3>
+<h3 class="r33m_vid">R33M Video</h3>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SG5-_hInODw" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+<iframe width="672" height="378" src="https://www.youtube.com/embed/SG5-_hInODw" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+
 
 
 

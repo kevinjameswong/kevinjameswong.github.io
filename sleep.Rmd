@@ -1,38 +1,4 @@
 ---
-title: "Kevin Wong - Math 234 Study Guide"
-output:
-  html_document:
-    toc: yes
----
-
-```{r echo = FALSE, warning = FALSE, message = FALSE}
-library(knitr)
-library(kableExtra)
-library(dplyr)
-library(stringr)
-Update_Months = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-```
-
-```{r echo = FALSE}
-Update_Date = as.Date("3/26/2019", format = "%m/%d/%Y")
-```
-
-<h1>Math 234 Yeet</h1>
-
-Last updated: `r paste(Update_Months[str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric()], " ", str_extract(string = Update_Date, pattern = "-[0-9]{2}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}"), ", ", str_extract(string = Update_Date, pattern = "[0-9]{4}"), sep = "")`
-
-
-***
-
-Hi student-athletes!
-
-
-
-
-
-
-
----
 title: "Kevin Wong - Sleeping Data"
 output:
   html_document:
@@ -141,6 +107,7 @@ names(groupby_weekday) = c("Weekday", "Sleeps Recorded", "Sleep Quality (%)", "A
 kable(groupby_weekday, format = "html") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))
 ```
+
 
 
 

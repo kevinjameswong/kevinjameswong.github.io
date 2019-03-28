@@ -1,3 +1,12 @@
+<style type="text/css">
+
+body {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
+
 <hr />
 
-<center>Copyright &copy; $2019$ Kevin Wong, Inc. All rights reserved.</center>
+<center>Copyright &copy; 2019 Kevin Wong, Inc. All rights reserved.</center>
