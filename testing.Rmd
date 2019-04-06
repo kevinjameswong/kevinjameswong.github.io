@@ -1,0 +1,51 @@
+---
+title: "Kevin Wong - Testing"
+output:
+  html_document:
+    toc: yes
+---
+
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#yeet"> Click for Advanced Stats/Hide </button>  
+<div id="yeet" class="collapse in">  
+
+
+```{r echo = FALSE}
+groupby_weekday = running %>%
+  group_by(Weekday) %>%
+  summarise(Total_Runs = sum(RunDistance > 0),
+            
+            Distance = sum(RunDistance),
+            
+            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
+                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
+                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
+                         
+                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
+                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
+                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
+                         
+                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
+                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
+                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            
+            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
+                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
+                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
+            
+            # Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
+            
+            #MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            
+            #Calories = sum(RunCalories)
+            #)
+
+names(groupby_weekday) = c("Weekday", "Total Runs", "Miles", "Time", "Pace")#, "MPH", "Calories")
+
+# names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
+
+kable(groupby_weekday, format = "html", align = "l") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive"))
+```
+
+
+</div>
