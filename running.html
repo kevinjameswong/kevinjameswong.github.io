@@ -501,17 +501,35 @@ $(document).ready(function () {
 </ul>
 </div>
 
+<hr />
 <script>
-function myFunction() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
+function myFunction1() {
+  var x = document.getElementById("myDIV1");
+  if (x.style.display === "block") {
     x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+function myFunction2() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+function myFunction3() {
+  var x = document.getElementById("myDIV3");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
   }
 }
 </script>
-<hr />
 <style type="text/css">
 
 td, tr {
@@ -528,9 +546,9 @@ body, p {
 <h1>
 Kevin’s Running Data
 </h1>
-<p>Last updated: March 29, 2019</p>
+<p>Last updated: April 06, 2019</p>
 <hr />
-<p>I am a enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past 424 days, I have jogged 1253.87 miles across 291 different runs.</p>
+<p>I am a enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past 432 days, I have jogged 1284.42 miles across 299 different runs.</p>
 <hr />
 <div id="yearly-stats" class="section level1">
 <h1>Yearly Stats</h1>
@@ -540,16 +558,16 @@ Kevin’s Running Data
 <th style="text-align:left;">
 Year
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Total Runs
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Miles
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Time
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Pace
 </th>
 </tr>
@@ -559,16 +577,16 @@ Pace
 <td style="text-align:left;">
 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 231
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1000.07
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 138:02:40
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:17
 </td>
 </tr>
@@ -576,21 +594,143 @@ Pace
 <td style="text-align:left;">
 2019
 </td>
-<td style="text-align:left;">
-60
+<td style="text-align:right;">
+68
 </td>
-<td style="text-align:left;">
-253.80
+<td style="text-align:right;">
+284.35
 </td>
-<td style="text-align:left;">
-34:54:30
+<td style="text-align:right;">
+38:51:30
 </td>
-<td style="text-align:left;">
-8:16
+<td style="text-align:right;">
+8:12
 </td>
 </tr>
 </tbody>
 </table>
+<button onclick="myFunction1()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
+Click to Show Advanced Yearly Stats
+</button>
+<div id="myDIV1" class="collapse">
+<p><br /></p>
+<h3>
+Advanced Yearly Stats
+</h3>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:100%; overflow-x: scroll; width:100%; ">
+<table class="table table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Year
+</th>
+<th style="text-align:right;">
+Total Runs
+</th>
+<th style="text-align:right;">
+Days Off
+</th>
+<th style="text-align:right;">
+Miles
+</th>
+<th style="text-align:right;">
+Time
+</th>
+<th style="text-align:right;">
+Pace
+</th>
+<th style="text-align:right;">
+Miles Per Run
+</th>
+<th style="text-align:right;">
+Miles Per Day
+</th>
+<th style="text-align:right;">
+Yearly Mile Rate
+</th>
+<th style="text-align:right;">
+MPH
+</th>
+<th style="text-align:right;">
+Total Calories Burned
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2018
+</td>
+<td style="text-align:right;">
+231
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+1000.07
+</td>
+<td style="text-align:right;">
+138:02:40
+</td>
+<td style="text-align:right;">
+8:17
+</td>
+<td style="text-align:right;">
+4.32
+</td>
+<td style="text-align:right;">
+2.97
+</td>
+<td style="text-align:right;">
+1086.38
+</td>
+<td style="text-align:right;">
+7.244
+</td>
+<td style="text-align:right;">
+113920
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+284.35
+</td>
+<td style="text-align:right;">
+38:51:30
+</td>
+<td style="text-align:right;">
+8:12
+</td>
+<td style="text-align:right;">
+4.18
+</td>
+<td style="text-align:right;">
+2.96
+</td>
+<td style="text-align:right;">
+1081.12
+</td>
+<td style="text-align:right;">
+7.317
+</td>
+<td style="text-align:right;">
+32699
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <hr />
 </div>
 <div id="monthly-stats" class="section level1">
@@ -601,16 +741,16 @@ Pace
 <th style="text-align:left;">
 Month
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Total Runs
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Miles
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Time
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Pace
 </th>
 </tr>
@@ -620,16 +760,16 @@ Pace
 <td style="text-align:left;">
 January 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 1
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 4.51
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 00:42:39
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 9:28
 </td>
 </tr>
@@ -637,16 +777,16 @@ January 2018
 <td style="text-align:left;">
 February 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 24
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 101.10
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 14:17:09
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:29
 </td>
 </tr>
@@ -654,16 +794,16 @@ February 2018
 <td style="text-align:left;">
 March 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 23
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 95.13
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 13:04:22
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:15
 </td>
 </tr>
@@ -671,16 +811,16 @@ March 2018
 <td style="text-align:left;">
 April 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 22
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 107.51
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 14:17:47
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 7:59
 </td>
 </tr>
@@ -688,16 +828,16 @@ April 2018
 <td style="text-align:left;">
 May 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 10
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 35.06
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 04:52:26
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:21
 </td>
 </tr>
@@ -705,16 +845,16 @@ May 2018
 <td style="text-align:left;">
 June 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 14
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 54.21
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 07:40:42
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:30
 </td>
 </tr>
@@ -722,16 +862,16 @@ June 2018
 <td style="text-align:left;">
 July 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 17
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 73.52
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 10:36:40
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:40
 </td>
 </tr>
@@ -739,16 +879,16 @@ July 2018
 <td style="text-align:left;">
 August 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 18
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 69.62
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 10:06:00
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:43
 </td>
 </tr>
@@ -756,16 +896,16 @@ August 2018
 <td style="text-align:left;">
 September 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 26
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 99.74
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 13:17:30
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:00
 </td>
 </tr>
@@ -773,16 +913,16 @@ September 2018
 <td style="text-align:left;">
 October 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 24
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 112.00
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 15:04:00
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:05
 </td>
 </tr>
@@ -790,16 +930,16 @@ October 2018
 <td style="text-align:left;">
 November 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 26
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 124.59
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 17:01:25
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:12
 </td>
 </tr>
@@ -807,16 +947,16 @@ November 2018
 <td style="text-align:left;">
 December 2018
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 26
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 123.08
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 17:02:00
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:19
 </td>
 </tr>
@@ -824,16 +964,16 @@ December 2018
 <td style="text-align:left;">
 January 2019
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 22
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 101.63
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 14:17:00
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:26
 </td>
 </tr>
@@ -841,16 +981,16 @@ January 2019
 <td style="text-align:left;">
 February 2019
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 17
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 70.19
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 09:19:00
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 7:58
 </td>
 </tr>
@@ -858,21 +998,650 @@ February 2019
 <td style="text-align:left;">
 March 2019
 </td>
-<td style="text-align:left;">
-21
+<td style="text-align:right;">
+23
 </td>
-<td style="text-align:left;">
-81.98
+<td style="text-align:right;">
+88.88
 </td>
-<td style="text-align:left;">
-11:18:30
+<td style="text-align:right;">
+12:12:30
 </td>
+<td style="text-align:right;">
+8:15
+</td>
+</tr>
+<tr>
 <td style="text-align:left;">
-8:17
+April 2019
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+23.65
+</td>
+<td style="text-align:right;">
+03:03:00
+</td>
+<td style="text-align:right;">
+7:45
 </td>
 </tr>
 </tbody>
 </table>
+<button onclick="myFunction2()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
+Click to Show Advanced Monthly Stats
+</button>
+<div id="myDIV2" class="collapse">
+<p><br /></p>
+<h3>
+Advanced Monthly Stats
+</h3>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:100%; overflow-x: scroll; width:100%; ">
+<table class="table table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Month
+</th>
+<th style="text-align:right;">
+Total Runs
+</th>
+<th style="text-align:right;">
+Days Off
+</th>
+<th style="text-align:right;">
+Miles
+</th>
+<th style="text-align:right;">
+Time
+</th>
+<th style="text-align:right;">
+Pace
+</th>
+<th style="text-align:right;">
+Miles Per Run
+</th>
+<th style="text-align:right;">
+Miles Per Day
+</th>
+<th style="text-align:right;">
+Yearly Mile Rate
+</th>
+<th style="text-align:right;">
+MPH
+</th>
+<th style="text-align:right;">
+Total Calories Burned
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+January 2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4.51
+</td>
+<td style="text-align:right;">
+00:42:39
+</td>
+<td style="text-align:right;">
+9:28
+</td>
+<td style="text-align:right;">
+4.51
+</td>
+<td style="text-align:right;">
+4.51
+</td>
+<td style="text-align:right;">
+1646.15
+</td>
+<td style="text-align:right;">
+6.344
+</td>
+<td style="text-align:right;">
+595
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+February 2018
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+101.10
+</td>
+<td style="text-align:right;">
+14:17:09
+</td>
+<td style="text-align:right;">
+8:29
+</td>
+<td style="text-align:right;">
+4.21
+</td>
+<td style="text-align:right;">
+3.48
+</td>
+<td style="text-align:right;">
+1272.46
+</td>
+<td style="text-align:right;">
+7.076
+</td>
+<td style="text-align:right;">
+11687
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+March 2018
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+95.13
+</td>
+<td style="text-align:right;">
+13:04:22
+</td>
+<td style="text-align:right;">
+8:15
+</td>
+<td style="text-align:right;">
+4.13
+</td>
+<td style="text-align:right;">
+3.06
+</td>
+<td style="text-align:right;">
+1120.07
+</td>
+<td style="text-align:right;">
+7.276
+</td>
+<td style="text-align:right;">
+10470
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+April 2018
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+107.51
+</td>
+<td style="text-align:right;">
+14:17:47
+</td>
+<td style="text-align:right;">
+7:59
+</td>
+<td style="text-align:right;">
+4.88
+</td>
+<td style="text-align:right;">
+3.58
+</td>
+<td style="text-align:right;">
+1308.03
+</td>
+<td style="text-align:right;">
+7.520
+</td>
+<td style="text-align:right;">
+12349
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+May 2018
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+35.06
+</td>
+<td style="text-align:right;">
+04:52:26
+</td>
+<td style="text-align:right;">
+8:21
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+1.13
+</td>
+<td style="text-align:right;">
+412.80
+</td>
+<td style="text-align:right;">
+7.193
+</td>
+<td style="text-align:right;">
+3961
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+June 2018
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+54.21
+</td>
+<td style="text-align:right;">
+07:40:42
+</td>
+<td style="text-align:right;">
+8:30
+</td>
+<td style="text-align:right;">
+3.87
+</td>
+<td style="text-align:right;">
+1.80
+</td>
+<td style="text-align:right;">
+659.55
+</td>
+<td style="text-align:right;">
+7.060
+</td>
+<td style="text-align:right;">
+6054
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+July 2018
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+73.52
+</td>
+<td style="text-align:right;">
+10:36:40
+</td>
+<td style="text-align:right;">
+8:40
+</td>
+<td style="text-align:right;">
+4.32
+</td>
+<td style="text-align:right;">
+2.37
+</td>
+<td style="text-align:right;">
+865.63
+</td>
+<td style="text-align:right;">
+6.928
+</td>
+<td style="text-align:right;">
+7648
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+August 2018
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+69.62
+</td>
+<td style="text-align:right;">
+10:06:00
+</td>
+<td style="text-align:right;">
+8:43
+</td>
+<td style="text-align:right;">
+3.86
+</td>
+<td style="text-align:right;">
+2.24
+</td>
+<td style="text-align:right;">
+819.71
+</td>
+<td style="text-align:right;">
+6.893
+</td>
+<td style="text-align:right;">
+7559
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+September 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+99.74
+</td>
+<td style="text-align:right;">
+13:17:30
+</td>
+<td style="text-align:right;">
+8:00
+</td>
+<td style="text-align:right;">
+3.83
+</td>
+<td style="text-align:right;">
+3.32
+</td>
+<td style="text-align:right;">
+1213.50
+</td>
+<td style="text-align:right;">
+7.503
+</td>
+<td style="text-align:right;">
+12166
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+October 2018
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+112.00
+</td>
+<td style="text-align:right;">
+15:04:00
+</td>
+<td style="text-align:right;">
+8:05
+</td>
+<td style="text-align:right;">
+4.66
+</td>
+<td style="text-align:right;">
+3.61
+</td>
+<td style="text-align:right;">
+1318.70
+</td>
+<td style="text-align:right;">
+7.433
+</td>
+<td style="text-align:right;">
+13351
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+November 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+124.59
+</td>
+<td style="text-align:right;">
+17:01:25
+</td>
+<td style="text-align:right;">
+8:12
+</td>
+<td style="text-align:right;">
+4.79
+</td>
+<td style="text-align:right;">
+4.15
+</td>
+<td style="text-align:right;">
+1515.84
+</td>
+<td style="text-align:right;">
+7.318
+</td>
+<td style="text-align:right;">
+14326
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+December 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+123.08
+</td>
+<td style="text-align:right;">
+17:02:00
+</td>
+<td style="text-align:right;">
+8:19
+</td>
+<td style="text-align:right;">
+4.73
+</td>
+<td style="text-align:right;">
+3.97
+</td>
+<td style="text-align:right;">
+1449.16
+</td>
+<td style="text-align:right;">
+7.225
+</td>
+<td style="text-align:right;">
+13754
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+January 2019
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+101.63
+</td>
+<td style="text-align:right;">
+14:17:00
+</td>
+<td style="text-align:right;">
+8:26
+</td>
+<td style="text-align:right;">
+4.61
+</td>
+<td style="text-align:right;">
+3.27
+</td>
+<td style="text-align:right;">
+1196.61
+</td>
+<td style="text-align:right;">
+7.115
+</td>
+<td style="text-align:right;">
+11278
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+February 2019
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+70.19
+</td>
+<td style="text-align:right;">
+09:19:00
+</td>
+<td style="text-align:right;">
+7:58
+</td>
+<td style="text-align:right;">
+4.12
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+914.97
+</td>
+<td style="text-align:right;">
+7.533
+</td>
+<td style="text-align:right;">
+8359
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+March 2019
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+88.88
+</td>
+<td style="text-align:right;">
+12:12:30
+</td>
+<td style="text-align:right;">
+8:15
+</td>
+<td style="text-align:right;">
+3.86
+</td>
+<td style="text-align:right;">
+2.86
+</td>
+<td style="text-align:right;">
+1046.49
+</td>
+<td style="text-align:right;">
+7.280
+</td>
+<td style="text-align:right;">
+10249
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+April 2019
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+23.65
+</td>
+<td style="text-align:right;">
+03:03:00
+</td>
+<td style="text-align:right;">
+7:45
+</td>
+<td style="text-align:right;">
+3.94
+</td>
+<td style="text-align:right;">
+3.94
+</td>
+<td style="text-align:right;">
+1438.70
+</td>
+<td style="text-align:right;">
+7.754
+</td>
+<td style="text-align:right;">
+2813
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <hr />
 </div>
 <div id="weekday-stats" class="section level1">
@@ -883,16 +1652,16 @@ March 2019
 <th style="text-align:left;">
 Weekday
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Total Runs
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Miles
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Time
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Pace
 </th>
 </tr>
@@ -902,16 +1671,16 @@ Pace
 <td style="text-align:left;">
 Monday
 </td>
-<td style="text-align:left;">
-30
+<td style="text-align:right;">
+31
 </td>
-<td style="text-align:left;">
-128.85
+<td style="text-align:right;">
+133.15
 </td>
-<td style="text-align:left;">
-17:38:13
+<td style="text-align:right;">
+18:12:13
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:13
 </td>
 </tr>
@@ -919,16 +1688,16 @@ Monday
 <td style="text-align:left;">
 Tuesday
 </td>
-<td style="text-align:left;">
-39
+<td style="text-align:right;">
+40
 </td>
-<td style="text-align:left;">
-174.76
+<td style="text-align:right;">
+177.36
 </td>
-<td style="text-align:left;">
-24:12:56
+<td style="text-align:right;">
+24:32:56
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:19
 </td>
 </tr>
@@ -936,33 +1705,33 @@ Tuesday
 <td style="text-align:left;">
 Wednesday
 </td>
-<td style="text-align:left;">
-39
+<td style="text-align:right;">
+40
 </td>
-<td style="text-align:left;">
-161.72
+<td style="text-align:right;">
+166.02
 </td>
-<td style="text-align:left;">
-22:26:24
+<td style="text-align:right;">
+23:00:24
 </td>
-<td style="text-align:left;">
-8:20
+<td style="text-align:right;">
+8:19
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Thursday
 </td>
-<td style="text-align:left;">
-42
+<td style="text-align:right;">
+43
 </td>
-<td style="text-align:left;">
-183.35
+<td style="text-align:right;">
+185.80
 </td>
-<td style="text-align:left;">
-25:14:08
+<td style="text-align:right;">
+25:34:08
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:16
 </td>
 </tr>
@@ -970,16 +1739,16 @@ Thursday
 <td style="text-align:left;">
 Friday
 </td>
-<td style="text-align:left;">
-53
+<td style="text-align:right;">
+54
 </td>
-<td style="text-align:left;">
-213.23
+<td style="text-align:right;">
+217.53
 </td>
-<td style="text-align:left;">
-29:09:47
+<td style="text-align:right;">
+29:43:47
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:13
 </td>
 </tr>
@@ -987,59 +1756,82 @@ Friday
 <td style="text-align:left;">
 Saturday
 </td>
-<td style="text-align:left;">
-43
+<td style="text-align:right;">
+45
 </td>
-<td style="text-align:left;">
-173.89
+<td style="text-align:right;">
+181.99
 </td>
-<td style="text-align:left;">
-24:19:31
+<td style="text-align:right;">
+25:20:31
 </td>
-<td style="text-align:left;">
-8:24
+<td style="text-align:right;">
+8:22
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Sunday
 </td>
-<td style="text-align:left;">
-45
+<td style="text-align:right;">
+46
 </td>
-<td style="text-align:left;">
-218.07
+<td style="text-align:right;">
+222.57
 </td>
-<td style="text-align:left;">
-29:56:11
+<td style="text-align:right;">
+30:30:11
 </td>
-<td style="text-align:left;">
-8:15
+<td style="text-align:right;">
+8:14
 </td>
 </tr>
 </tbody>
 </table>
-<button onclick="myFunction()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
-Click for Advanced Stats
+<button onclick="myFunction3()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
+Click to Show Advanced Weekday Stats
 </button>
-<div id="myDIV" class="collapse">
+<div id="myDIV3" class="collapse">
+<p><br /></p>
+<h3>
+Advanced Weekday Stats
+</h3>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-y: scroll; height:100%; overflow-x: scroll; width:100%; ">
 <table class="table table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
 Weekday
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Total Runs
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
+Days Off
+</th>
+<th style="text-align:right;">
 Miles
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Time
 </th>
-<th style="text-align:left;">
+<th style="text-align:right;">
 Pace
+</th>
+<th style="text-align:right;">
+Miles Per Run
+</th>
+<th style="text-align:right;">
+Miles Per Day
+</th>
+<th style="text-align:right;">
+Yearly Mile Rate
+</th>
+<th style="text-align:right;">
+MPH
+</th>
+<th style="text-align:right;">
+Total Calories Burned
 </th>
 </tr>
 </thead>
@@ -1048,123 +1840,250 @@ Pace
 <td style="text-align:left;">
 Monday
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
 30
 </td>
-<td style="text-align:left;">
-128.85
+<td style="text-align:right;">
+133.15
 </td>
-<td style="text-align:left;">
-17:38:13
+<td style="text-align:right;">
+18:12:13
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
 8:13
+</td>
+<td style="text-align:right;">
+4.29
+</td>
+<td style="text-align:right;">
+2.18
+</td>
+<td style="text-align:right;">
+796.71
+</td>
+<td style="text-align:right;">
+7.314
+</td>
+<td style="text-align:right;">
+14947
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Tuesday
 </td>
-<td style="text-align:left;">
-39
+<td style="text-align:right;">
+40
 </td>
-<td style="text-align:left;">
-174.76
+<td style="text-align:right;">
+21
 </td>
-<td style="text-align:left;">
-24:12:56
+<td style="text-align:right;">
+177.36
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
+24:32:56
+</td>
+<td style="text-align:right;">
 8:19
+</td>
+<td style="text-align:right;">
+4.43
+</td>
+<td style="text-align:right;">
+2.90
+</td>
+<td style="text-align:right;">
+1061.25
+</td>
+<td style="text-align:right;">
+7.224
+</td>
+<td style="text-align:right;">
+20536
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Wednesday
 </td>
-<td style="text-align:left;">
-39
+<td style="text-align:right;">
+40
 </td>
-<td style="text-align:left;">
-161.72
+<td style="text-align:right;">
+22
 </td>
-<td style="text-align:left;">
-22:26:24
+<td style="text-align:right;">
+166.02
 </td>
-<td style="text-align:left;">
-8:20
+<td style="text-align:right;">
+23:00:24
+</td>
+<td style="text-align:right;">
+8:19
+</td>
+<td style="text-align:right;">
+4.15
+</td>
+<td style="text-align:right;">
+2.67
+</td>
+<td style="text-align:right;">
+977.37
+</td>
+<td style="text-align:right;">
+7.216
+</td>
+<td style="text-align:right;">
+19511
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Thursday
 </td>
-<td style="text-align:left;">
-42
+<td style="text-align:right;">
+43
 </td>
-<td style="text-align:left;">
-183.35
+<td style="text-align:right;">
+19
 </td>
-<td style="text-align:left;">
-25:14:08
+<td style="text-align:right;">
+185.80
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
+25:34:08
+</td>
+<td style="text-align:right;">
 8:16
+</td>
+<td style="text-align:right;">
+4.32
+</td>
+<td style="text-align:right;">
+2.99
+</td>
+<td style="text-align:right;">
+1093.82
+</td>
+<td style="text-align:right;">
+7.266
+</td>
+<td style="text-align:right;">
+21708
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Friday
 </td>
-<td style="text-align:left;">
-53
+<td style="text-align:right;">
+54
 </td>
-<td style="text-align:left;">
-213.23
+<td style="text-align:right;">
+8
 </td>
-<td style="text-align:left;">
-29:09:47
+<td style="text-align:right;">
+217.53
 </td>
-<td style="text-align:left;">
+<td style="text-align:right;">
+29:43:47
+</td>
+<td style="text-align:right;">
 8:13
+</td>
+<td style="text-align:right;">
+4.02
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+1280.62
+</td>
+<td style="text-align:right;">
+7.316
+</td>
+<td style="text-align:right;">
+24427
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Saturday
 </td>
-<td style="text-align:left;">
-43
+<td style="text-align:right;">
+45
 </td>
-<td style="text-align:left;">
-173.89
+<td style="text-align:right;">
+18
 </td>
-<td style="text-align:left;">
-24:19:31
+<td style="text-align:right;">
+181.99
 </td>
-<td style="text-align:left;">
-8:24
+<td style="text-align:right;">
+25:20:31
+</td>
+<td style="text-align:right;">
+8:22
+</td>
+<td style="text-align:right;">
+4.04
+</td>
+<td style="text-align:right;">
+2.88
+</td>
+<td style="text-align:right;">
+1054.38
+</td>
+<td style="text-align:right;">
+7.181
+</td>
+<td style="text-align:right;">
+20537
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Sunday
 </td>
-<td style="text-align:left;">
-45
+<td style="text-align:right;">
+46
 </td>
-<td style="text-align:left;">
-218.07
+<td style="text-align:right;">
+15
 </td>
-<td style="text-align:left;">
-29:56:11
+<td style="text-align:right;">
+222.57
 </td>
-<td style="text-align:left;">
-8:15
+<td style="text-align:right;">
+30:30:11
+</td>
+<td style="text-align:right;">
+8:14
+</td>
+<td style="text-align:right;">
+4.83
+</td>
+<td style="text-align:right;">
+3.64
+</td>
+<td style="text-align:right;">
+1331.77
+</td>
+<td style="text-align:right;">
+7.296
+</td>
+<td style="text-align:right;">
+24953
 </td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 

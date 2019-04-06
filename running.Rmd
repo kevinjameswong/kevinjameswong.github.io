@@ -4,18 +4,6 @@ output:
   html_document:
     toc: yes
 ---
-<script>
-function myFunction() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-</script>
-
-
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(knitr)
@@ -26,9 +14,9 @@ Start_Date = as.Date("1/28/2018", format = "%m/%d/%Y")
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("3/29/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("4/6/2019", format = "%m/%d/%Y")
 
-read_data = read.csv("Running_03_29_18.csv", skip = 1)
+read_data = read.csv("Running_04_06_19.csv", skip = 1)
 ```
 
 ***
@@ -61,6 +49,35 @@ running$Weekday = factor(x = running$Weekday_Read,
 
 running = select(running, - Weekday_Read, - Month_Number_Read)
 ```
+
+<script>
+function myFunction1() {
+  var x = document.getElementById("myDIV1");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+function myFunction2() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+function myFunction3() {
+  var x = document.getElementById("myDIV3");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
 
 <style type="text/css">
 
@@ -110,21 +127,67 @@ groupby_year = running %>%
             Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
                           yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
                           no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
-            
-            # Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
-            
-            #MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
-            
-            #Calories = sum(RunCalories)
-            #)
 
-names(groupby_year) = c("Year", "Total Runs", "Miles", "Time", "Pace")#, "MPH", "Calories")
+names(groupby_year) = c("Year", "Total Runs", "Miles", "Time", "Pace")
 
-# names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
-
-kable(groupby_year, format = "html", align = "l") %>%
+kable(groupby_year, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))
 ```
+
+
+<button onclick="myFunction1()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Yearly Stats </button>
+
+<div id="myDIV1" class="collapse">  
+
+<br />
+
+<h3>Advanced Yearly Stats</h3>
+
+```{r echo = FALSE}
+groupby_year = running %>%
+  group_by(Year) %>%
+  summarise(Total_Runs = sum(RunDistance > 0),
+            
+            Days_Off = sum(RunDistance == 0),
+            
+            Distance = sum(RunDistance),
+            
+            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
+                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
+                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
+                         
+                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
+                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
+                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
+                         
+                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
+                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
+                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            
+            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
+                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
+                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"),
+            
+            Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
+            
+            Miles_Per_Day = floor(sum(RunDistance) * 100 / sum(RunDistance >= 0)) / 100,
+            
+            Yearly_Mile_Rate = floor(sum(RunDistance) * 100 * 365 / sum(RunDistance >= 0)) / 100,
+            
+            MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            
+            Calories = sum(RunCalories)
+            )
+
+names(groupby_year) = c("Year", "Total Runs", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+
+kable(x = groupby_year, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
+```
+
+</div>
+
 
 ***
 
@@ -152,24 +215,73 @@ groupby_yearmonth = running %>%
             Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
                           yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
                           no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
-            
-            # Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
-            
-            #MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
-            
-            #Calories = sum(RunCalories)
-            #)
 
 groupby_yearmonth$yearmonth = paste(groupby_yearmonth$Month, groupby_yearmonth$Year, sep = " ")
 groupby_yearmonth = select(as.data.frame(select(groupby_yearmonth, - Month)), - Year)
 groupby_yearmonth = groupby_yearmonth[, c(5, 1:4)]
-names(groupby_yearmonth) = c("Month", "Total Runs", "Miles", "Time", "Pace")#, "MPH", "Calories")
+names(groupby_yearmonth) = c("Month", "Total Runs", "Miles", "Time", "Pace")
 
-# names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
-
-kable(groupby_yearmonth, format = "html", align = "l") %>%
+kable(groupby_yearmonth, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))
 ```
+
+<button onclick="myFunction2()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Monthly Stats </button>
+
+<div id="myDIV2" class="collapse">  
+
+<br />
+
+<h3>Advanced Monthly Stats</h3>
+
+```{r echo = FALSE}
+groupby_yearmonth = running %>%
+  group_by(Year, Month) %>%
+  summarise(Total_Runs = sum(RunDistance > 0),
+            
+            Days_Off = sum(RunDistance == 0),
+            
+            Distance = sum(RunDistance),
+            
+            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
+                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
+                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
+                         
+                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
+                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
+                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
+                         
+                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
+                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
+                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            
+            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
+                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
+                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"),
+            
+            Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
+            
+            Miles_Per_Day = floor(sum(RunDistance) * 100 / sum(RunDistance >= 0)) / 100,
+            
+            Yearly_Mile_Rate = floor(sum(RunDistance) * 100 * 365 / sum(RunDistance >= 0)) / 100,
+            
+            MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            
+            Calories = sum(RunCalories)
+            )
+
+groupby_yearmonth$yearmonth = paste(groupby_yearmonth$Month, groupby_yearmonth$Year, sep = " ")
+groupby_yearmonth = select(as.data.frame(select(groupby_yearmonth, - Month)), - Year)
+groupby_yearmonth = groupby_yearmonth[, c(ncol(groupby_yearmonth), 1:(ncol(groupby_yearmonth) - 1))]
+
+names(groupby_yearmonth) = c("Month", "Total Runs", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+
+kable(x = groupby_yearmonth, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
+```
+
+</div>
+
 
 ***
 
@@ -209,20 +321,25 @@ names(groupby_weekday) = c("Weekday", "Total Runs", "Miles", "Time", "Pace")#, "
 
 # names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
 
-kable(groupby_weekday, format = "html", align = "l") %>%
+kable(groupby_weekday, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))
 ```
 
 
+<button onclick="myFunction3()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Weekday Stats </button>
 
+<div id="myDIV3" class="collapse">  
 
-<button onclick="myFunction()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click for Advanced Stats </button>  
-<div id="myDIV" class="collapse">  
+<br />
+
+<h3>Advanced Weekday Stats</h3>
 
 ```{r echo = FALSE}
 groupby_weekday = running %>%
   group_by(Weekday) %>%
   summarise(Total_Runs = sum(RunDistance > 0),
+            
+            Days_Off = sum(RunDistance == 0),
             
             Distance = sum(RunDistance),
             
@@ -240,24 +357,28 @@ groupby_weekday = running %>%
             
             Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
                           yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
-                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
+                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"),
             
-            # Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
+            Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
             
-            #MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            Miles_Per_Day = floor(sum(RunDistance) * 100 / sum(RunDistance >= 0)) / 100,
             
-            #Calories = sum(RunCalories)
-            #)
+            Yearly_Mile_Rate = floor(sum(RunDistance) * 100 * 365 / sum(RunDistance >= 0)) / 100,
+            
+            MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            
+            Calories = sum(RunCalories)
+            )
 
-names(groupby_weekday) = c("Weekday", "Total Runs", "Miles", "Time", "Pace")#, "MPH", "Calories")
+names(groupby_weekday) = c("Weekday", "Total Runs", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
 
-# names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
-
-kable(groupby_weekday, format = "html", align = "l") %>%
-  kable_styling(bootstrap_options = c("hover", "responsive"))
+kable(x = groupby_weekday, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
 ```
 
 </div>
+
 
 
 

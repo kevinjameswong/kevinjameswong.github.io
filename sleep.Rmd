@@ -92,7 +92,7 @@ groupby_weekday = sleep %>%
 
 names(groupby_weekday) = c("Weekday", "Sleeps Recorded", "Sleep Quality (%)", "Average Time in Bed")#, "Average Footsteps")
 
-kable(groupby_weekday, format = "html", align = "l") %>%
+kable(groupby_weekday, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))
 ```
 
@@ -104,25 +104,8 @@ groupby_weekday = sleep %>%
 
 names(groupby_weekday) = c("Weekday", "Sleeps Recorded", "Sleep Quality (%)", "Average Time in Bed", "Average Footsteps")
 
-kable(groupby_weekday, format = "html") %>%
+kable(groupby_weekday, format = "html", align = "lrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
