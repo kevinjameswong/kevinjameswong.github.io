@@ -5,32 +5,13 @@ output:
     toc: yes
 ---
 
-```{r}
-library(dplyr)
+```{r echo = FALSE}
+t = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/test csv/sleepdataaa.csv")
 ```
 
 
-
-
-<script>
-function myFunction() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-</script>
-
-
-
-<button onclick="myFunction()"> Click for Advanced Stats/Hide </button>  
-<div id="myDIV" class="collapse">  
 
 ```{r echo = FALSE}
-5
+names(t)
 ```
-
-</div>
 
