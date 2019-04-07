@@ -24,7 +24,10 @@ Update_Date = as.Date("3/20/2019", format = "%m/%d/%Y")
 ```
 
 ```{r echo = FALSE}
-sleep = read.csv("sleepdata.csv", sep = ";")
+sleep = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/sleepdata.csv", sep = ";")
+```
+
+```{r echo = FALSE}
 sleep$Sleep.quality = str_extract(string = sleep$Sleep.quality, pattern = "[0-9]{1,3}") %>% as.integer()
 sleep$Time.in.bed = paste(str_extract(string = sleep$Time.in.bed, pattern = "[0-9]{1,2}") %>% as.integer(),
                           ifelse(
@@ -88,11 +91,11 @@ groupby_weekday = sleep %>%
                                 ifelse(str_extract(string = Time.in.bed, pattern = "[0-9]{1,2}") %>% as.numeric() %>% "*"(60) %>% "+"(str_extract(string = Time.in.bed, pattern = ":[0-9]{1,2}") %>% str_extract(pattern = "[0-9]{1,2}") %>% as.numeric()) %>% mean(na.rm = TRUE) %>% floor() <= 9,
                                        yes = paste("0", str_extract(string = Time.in.bed, pattern = "[0-9]{1,2}") %>% as.numeric() %>% "*"(60) %>% "+"(str_extract(string = Time.in.bed, pattern = ":[0-9]{1,2}") %>% str_extract(pattern = "[0-9]{1,2}") %>% as.numeric()) %>% mean(na.rm = TRUE) %>% floor() %% 60, sep = ""),
                                        no = paste(str_extract(string = Time.in.bed, pattern = "[0-9]{1,2}") %>% as.numeric() %>% "*"(60) %>% "+"(str_extract(string = Time.in.bed, pattern = ":[0-9]{1,2}") %>% str_extract(pattern = "[0-9]{1,2}") %>% as.numeric()) %>% mean(na.rm = TRUE) %>% floor() %% 60)), sep = ":")
-            #nap_prob = paste((Sleep.Notes %>% str_detect(pattern = "Took a nap \\(1 hour\\)") %>% sum(na.rm = TRUE) + Sleep.Notes %>% str_detect(pattern = "Took a nap \\(1.5 hours\\)") %>% sum(na.rm = TRUE) + Sleep.Notes %>% str_detect(pattern = "Took a nap \\(2 hours\\)") %>% sum(na.rm = TRUE)) %>% "/"(Sleep.quality %>% ">="(0) %>% sum(na.rm = TRUE)) %>% "*"(10000) %>% floor() %>% "/"(100), "%", sep = ""),
+           # nap_prob = paste((Sleep.Notes %>% str_detect(pattern = "Took a nap \\(1 hour\\)") %>% sum(na.rm = TRUE) + Sleep.Notes %>% str_detect(pattern = "Took a nap \\(1.5 hours\\)") %>% sum(na.rm = TRUE) + Sleep.Notes %>% str_detect(pattern = "Took a nap \\(2 hours\\)") %>% sum(na.rm = TRUE)) %>% "/"(Sleep.quality %>% ">="(0) %>% sum(na.rm = TRUE)) %>% "*"(10000) %>% floor() %>% "/"(100), "%", sep = "")
             #avg_footsteps = Activity..steps. %>% mean(na.rm = TRUE) %>% floor()
             )
 
-names(groupby_weekday) = c("Weekday", "Sleeps Recorded", "Sleep Quality (%)", "Average Time in Bed")#, "Average Footsteps")
+names(groupby_weekday) = c("Weekday", "Sleeps Recorded", "Sleep Quality (%)", "Average Time in Bed")#"Yeet")#, "Average Footsteps")
 
 kable(groupby_weekday, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))
