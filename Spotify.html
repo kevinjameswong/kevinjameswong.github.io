@@ -507,7 +507,7 @@ $(document).ready(function () {
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>spotify = read.csv(&quot;Spotify_Wrapped.csv&quot;)</code></pre>
+<pre class="r"><code>spotify = read.csv(&quot;~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Spotify_Wrapped.csv&quot;)</code></pre>
 <pre class="r"><code>spotify = spotify %&gt;% group_by(Year) %&gt;% mutate(Score = max(row_number()) + 1 - row_number())</code></pre>
 <pre class="r"><code>spotify %&gt;%
   group_by(Album)   %&gt;%
@@ -882,9 +882,17 @@ $(document).ready(function () {
 </div>
 
 
+<style type="text/css">
+
+body {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
 <hr />
 <center>
-Copyright © <span class="math inline">\(2019\)</span> Kevin Wong, Inc. All rights reserved.
+Copyright © 2019 Kevin Wong, Inc. All rights reserved.
 </center>
 
 

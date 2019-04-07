@@ -10,7 +10,7 @@ library(dplyr)
 ```
 
 ```{r}
-spotify = read.csv("Spotify_Wrapped.csv")
+spotify = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Spotify_Wrapped.csv")
 ```
 
 ```{r}
