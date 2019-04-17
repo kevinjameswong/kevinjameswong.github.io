@@ -40,14 +40,23 @@ running$WalkSeconds  = running$`Walk Seconds`  %>% as.character() %>% as.integer
 running = running[ , c(1, 2, 3, 5, 14:23)]
 
 running$Month = factor(running$Month_Number_Read)
-levels(running$Month) = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+levels(running$Month) = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Total")
 
-running$Year = as.factor(paste("20", (str_sub(running$Date, start = 7, end = 8)), sep = ""))
+running$Year = factor(x = as.factor(paste("20", (str_sub(running$Date, start = 7, end = 8)), sep = "")),
+                      levels = c(2018, 2019, "Total"))
 
 running$Weekday = factor(x = running$Weekday_Read,
-                         levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
+                         levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Total"))
 
 running = select(running, - Weekday_Read, - Month_Number_Read)
+```
+
+```{r echo = FALSE}
+total_row = c("Total",
+              sum(running$RunDistance > 0),
+              sum(running$RunDistance),
+              "ok",
+              "pace")
 ```
 
 <script>
@@ -99,7 +108,7 @@ Last updated: `r paste(levels(running$Month)[str_extract(string = Update_Date, p
 
 ***
 
-I am a enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r length(running$RunDistance)` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
+I enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r length(running$RunDistance)` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
 
 *** 
 
@@ -128,10 +137,13 @@ groupby_year = running %>%
                           yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
                           no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
 
+# groupby_year = rbind(groupby_year, total_row)
+
 names(groupby_year) = c("Year", "Total Runs", "Miles", "Time", "Pace")
 
 kable(groupby_year, format = "html", align = "lrrrr") %>%
-  kable_styling(bootstrap_options = c("hover", "responsive"))
+  kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
+  #row_spec(row = nrow(groupby_year), bold = TRUE, font_size = 21)
 ```
 
 
@@ -218,11 +230,15 @@ groupby_yearmonth = running %>%
 
 groupby_yearmonth$yearmonth = paste(groupby_yearmonth$Month, groupby_yearmonth$Year, sep = " ")
 groupby_yearmonth = select(as.data.frame(select(groupby_yearmonth, - Month)), - Year)
-groupby_yearmonth = groupby_yearmonth[, c(5, 1:4)]
+groupby_yearmonth = groupby_yearmonth[, c(ncol(groupby_yearmonth), 1:ncol(groupby_yearmonth) - 1)]
+
+# groupby_yearmonth = rbind(groupby_yearmonth, total_row)
+
 names(groupby_yearmonth) = c("Month", "Total Runs", "Miles", "Time", "Pace")
 
 kable(groupby_yearmonth, format = "html", align = "lrrrr") %>%
-  kable_styling(bootstrap_options = c("hover", "responsive"))
+  kable_styling(bootstrap_options = c("hover", "responsive")) #%>%
+  #row_spec(row = nrow(groupby_yearmonth), bold = TRUE, font_size = 21)
 ```
 
 <button onclick="myFunction2()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Monthly Stats </button>
@@ -317,12 +333,15 @@ groupby_weekday = running %>%
             #Calories = sum(RunCalories)
             #)
 
+# groupby_weekday = rbind(groupby_weekday, total_row)
+
 names(groupby_weekday) = c("Weekday", "Total Runs", "Miles", "Time", "Pace")#, "MPH", "Calories")
 
 # names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
 
 kable(groupby_weekday, format = "html", align = "lrrrr") %>%
-  kable_styling(bootstrap_options = c("hover", "responsive"))
+  kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
+  #row_spec(row = nrow(groupby_weekday), bold = TRUE, font_size = 21)
 ```
 
 
@@ -392,6 +411,7 @@ location = running %>%
 location = location[order(location$Distance, decreasing = TRUE), ] %>%
   head()
 ```
+
 
 
 
