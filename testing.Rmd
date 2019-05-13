@@ -5,13 +5,10 @@ output:
     toc: yes
 ---
 
-```{r echo = FALSE}
-t = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/test csv/sleepdataaa.csv")
-```
 
 
 
-```{r echo = FALSE}
-names(t)
-```
+
+
+
 

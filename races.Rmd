@@ -1,0 +1,12 @@
+---
+title: "Kevin Wong - Kevin's Races"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r out.width = "300px", fig.align = "center", echo = FALSE}
+library(knitr)
+include_graphics("images/halfhd.jpg")
+```
+

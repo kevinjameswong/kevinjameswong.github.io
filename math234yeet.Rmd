@@ -25,3 +25,5 @@ Last updated: `r paste(Update_Months[str_extract(string = Update_Date, pattern =
 ***
 
 Hi student-athletes!
+
+[Yeet Review Sheet](Resume_02_21_19_Wong.pdf){target="_blank"}

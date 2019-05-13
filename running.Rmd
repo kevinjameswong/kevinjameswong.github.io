@@ -8,21 +8,22 @@ output:
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(knitr)
 library(kableExtra)
-library(dplyr)
+library(tidyverse)
 library(stringr)
+library(ggplot2)
 Start_Date = as.Date("1/28/2018", format = "%m/%d/%Y")
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("4/6/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("5/12/2019", format = "%m/%d/%Y")
 
-read_data = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_04_07_19.csv", skip = 1)
+read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_5_12_2019.csv", skip = 1)
 ```
 
 ***
 
 ```{r echo = FALSE}
-read_data = read_data[c(1:(Update_Date - Start_Date)-1), ]
+read_data = read_data[c(1:(Update_Date - Start_Date) - 1), ]
 
 running = read_data[, c(1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 25)]
 
@@ -106,9 +107,42 @@ body, p {
 
 Last updated: `r paste(levels(running$Month)[str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric()], " ", str_extract(string = Update_Date, pattern = "-[0-9]{2}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric(), ", ", str_extract(string = Update_Date, pattern = "[0-9]{4}") %>% as.numeric(), sep = "")`
 
+```{r echo = FALSE, eval = FALSE}
+levels(running$Month) = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Total")
+
+cp = str_extract(string = Start_Date, pattern = "[0-9]{4}") %>% as.integer()
+pp = str_extract(string = Update_Date, pattern = "[0-9]{4}") %>% as.integer()
+
+
+ppp = str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.integer()
+
+for (i in 1:((pp - cp) * 12 + ppp)) {
+  l[i] = rep(Update_Months)
+}
+l
+Update_Months
+```
+
 ***
 
 I enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r length(running$RunDistance)` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
+
+```{r echo = FALSE, eval = FALSE}
+HM = c("Illinois Half Marathon",
+          "Distance",
+          "April 27, 2019",
+          "1:43:29",
+          "7:54",
+          "364/3098",
+          "275/1430",
+          "36/193")
+names(HM) = c("Event", "13.1 Miles", "Date", "Time", "Pace", "Rank", "Rank (Males)", "Rank (Males 20-24)")
+HM = as.data.frame(HM)
+kable(x = HM, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
+```
+
 
 *** 
 
@@ -141,11 +175,20 @@ groupby_year = running %>%
 
 names(groupby_year) = c("Year", "Total Runs", "Miles", "Time", "Pace")
 
+groupby_year = groupby_year[order(groupby_year$Year), ]
+
 kable(groupby_year, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
   #row_spec(row = nrow(groupby_year), bold = TRUE, font_size = 21)
 ```
 
+```{r echo = FALSE}
+ggplot(data = groupby_year, aes(x = Year, y = Miles)) +
+  geom_bar(stat = "identity", fill = "darkblue") +
+  geom_text(aes(label = groupby_year$Miles), vjust = 1.6, color = "white", size = 5) +
+  ggtitle("Year vs. Miles") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
 <button onclick="myFunction1()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Yearly Stats </button>
 
@@ -241,6 +284,14 @@ kable(groupby_yearmonth, format = "html", align = "lrrrr") %>%
   #row_spec(row = nrow(groupby_yearmonth), bold = TRUE, font_size = 21)
 ```
 
+```{r echo = FALSE, eval = FALSE}
+ggplot(data = groupby_yearmonth, aes(x = Month, y = Miles %>% as.numeric())) +
+  geom_bar(stat = "identity", fill = "darkblue") +
+  geom_text(aes(label = groupby_yearmonth$Miles), vjust = 1.6, color = "white", size = 2) +
+  ggtitle("Month vs. Miles") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
 <button onclick="myFunction2()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Monthly Stats </button>
 
 <div id="myDIV2" class="collapse">  
@@ -298,7 +349,6 @@ kable(x = groupby_yearmonth, format = "html", align = "lrrrrrrrrrrrrrr") %>%
 
 </div>
 
-
 ***
 
 # Weekday Stats
@@ -344,6 +394,13 @@ kable(groupby_weekday, format = "html", align = "lrrrr") %>%
   #row_spec(row = nrow(groupby_weekday), bold = TRUE, font_size = 21)
 ```
 
+```{r echo = FALSE}
+ggplot(data = groupby_weekday, aes(x = Weekday, y = Miles)) +
+  geom_bar(stat = "identity", fill = "darkblue") +
+  geom_text(aes(label = groupby_weekday$Miles), vjust = 1.6, color = "white", size = 5) +
+  ggtitle("Weekday vs. Miles") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
 
 <button onclick="myFunction3()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Weekday Stats </button>
 
@@ -411,6 +468,17 @@ location = running %>%
 location = location[order(location$Distance, decreasing = TRUE), ] %>%
   head()
 ```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
