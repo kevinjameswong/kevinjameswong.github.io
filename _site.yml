@@ -20,7 +20,7 @@ navbar:
         href: running.html
       - text: "Sleeping Data"
         href: sleep.html        
-      - text: "Excel Projects"
+      - text: "Excel/VBA Projects"
         href: excel.html
     - text: "Schoolwork"
       href: schoolwork.html
