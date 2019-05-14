@@ -89,6 +89,5 @@ My GPA in Business Courses at U of I is 4.00.
 
 <iframe width="672" height="378" src="https://www.youtube.com/embed/SG5-_hInODw" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
 
-[BADM 350 Project](https://docs.google.com/presentation/d/1YLhamsY9HKmgFHV3MwSXUDBS5xgYYh0fp1DBntPSEdg/edit?usp=sharing){target="_blank"} 
 
 
