@@ -1,0 +1,25 @@
+---
+title: "Kevin Wong - Kevin's Test Page"
+output:
+  html_document:
+    toc: yes
+---
+
+
+
+
+
+```{r}
+?month.name
+LETTERS
+format(ISOdate(2000, 1:12, 1), "%b")
+```
+
+
+
+```{r}
+output = paste(month.name, rep(meow %>% levels(), each = length(month.name)))[1:(Update_Date %>% str_extract(pattern = "-[0-9]{2}-") %>% str_extract(pattern = "[0-9]{2}") %>% as.integer() + (Update_Date %>% str_extract(pattern = "[0-9]{4}") %>% as.integer() - Start_Date %>% str_extract(pattern = "[0-9]{4}") %>% as.integer()) %>% "*"(12))]
+output
+```
+
+

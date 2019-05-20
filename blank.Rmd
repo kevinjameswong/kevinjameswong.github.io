@@ -5,5 +5,36 @@ output:
     toc: yes
 ---
 
+```{r}
+for (i in 1:10) {
+  set.seed(3)
+  
+}
+
+function(n = number of attempts, max = max number)
+
+
+This is your 1st try out of 10 attempts. You have 9 tries left.
+This is your 2nd try out of 10 attempts. You have 9 tries left.
+This is your 1st try out of 10 attempts. You have 9 tries left.
+This is your 2nd try out of 10 attempts. You have 9 tries left.
+```
+
+
+```{r}
+set.seed(3)
+t = runif(1, min = 0, max = 100) %>% ceiling()
+
+t
+```
+
+
+
+
+```{r}
+k = k %>%
+  group_by(t) %>%
+  summarise(n_count = n()); k
+```
 
 
