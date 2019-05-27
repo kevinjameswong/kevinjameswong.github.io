@@ -15,17 +15,15 @@ Start_Date = as.Date("1/28/2018", format = "%m/%d/%Y")
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("5/12/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("5/27/2019", format = "%m/%d/%Y")
 
-read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_5_12_2019.csv", skip = 1)
+read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_5_27_2019.csv", skip = 1)
 ```
 
 ***
 
 ```{r echo = FALSE}
-read_data = read_data[c(1:(Update_Date - Start_Date) - 1), ]
-
-running = read_data[, c(1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 25)]
+running = head(x = read_data, n = (Update_Date - Start_Date - 1) %>% as.integer())[, c(1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 25)]
 
 names(running) = c("Location", "Weekday_Read", "Month_Number_Read", "Day Number", "Date", "Run Calories", "Run Distance", "Run Minutes", "Run Seconds", "Walk Calories", "Walk Distance", "Walk Minutes", "Walk Seconds", "StartTime")
 
@@ -41,15 +39,23 @@ running$WalkSeconds  = running$`Walk Seconds`  %>% as.character() %>% as.integer
 running = running[ , c(1, 2, 3, 5, 14:23)]
 
 running$Month = factor(running$Month_Number_Read)
-levels(running$Month) = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Total")
+levels(running$Month) = c(month.name, "Total")
 
-running$Year = factor(x = as.factor(paste("20", (str_sub(running$Date, start = 7, end = 8)), sep = "")),
-                      levels = c(2018, 2019, "Total"))
+running$Year = paste("20", (str_sub(running$Date, start = 7, end = 8)), sep = "") %>% factor(levels = c(unique(paste("20", (str_sub(running$Date, start = 7, end = 8)), sep = "")), "Total"))
 
 running$Weekday = factor(x = running$Weekday_Read,
                          levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Total"))
 
+running$YearMonth = paste(running$Month, " ", running$Year, sep = "") %>% factor(levels = paste(month.name, rep(running$Year %>% levels(), each = length(month.name)))[1:(Update_Date %>% str_extract(pattern = "-[0-9]{2}-") %>% str_extract(pattern = "[0-9]{2}") %>% as.integer() + (Update_Date %>% str_extract(pattern = "[0-9]{4}") %>% as.integer() - Start_Date %>% str_extract(pattern = "[0-9]{4}") %>% as.integer()) %>% "*"(12))])
+
 running = select(running, - Weekday_Read, - Month_Number_Read)
+```
+
+```{r echo = FALSE, eval = FALSE}
+shiny_data = write.csv(x = running,
+                       file = "/Users/KevinWong/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/shiny_data.csv")
+
+meow = read.csv(file = "/Users/KevinWong/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/shiny_data.csv")
 ```
 
 ```{r echo = FALSE}
@@ -105,10 +111,10 @@ body, p {
 
 <h1>Kevin's Running Data</h1>
 
-Last updated: `r paste(levels(running$Month)[str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric()], " ", str_extract(string = Update_Date, pattern = "-[0-9]{2}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric(), ", ", str_extract(string = Update_Date, pattern = "[0-9]{4}") %>% as.numeric(), sep = "")`
+Last updated: `r paste(month.name[str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric()], " ", str_extract(string = Update_Date, pattern = "-[0-9]{2}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}"), ", ", str_extract(string = Update_Date, pattern = "[0-9]{4}"), sep = "")`
 
 ```{r echo = FALSE, eval = FALSE}
-levels(running$Month) = c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Total")
+levels(running$Month) = c(month.name, "Total")
 
 cp = str_extract(string = Start_Date, pattern = "[0-9]{4}") %>% as.integer()
 pp = str_extract(string = Update_Date, pattern = "[0-9]{4}") %>% as.integer()
@@ -186,7 +192,9 @@ kable(groupby_year, format = "html", align = "lrrrr") %>%
 ggplot(data = groupby_year, aes(x = Year, y = Miles)) +
   geom_bar(stat = "identity", fill = "darkblue") +
   geom_text(aes(label = groupby_year$Miles), vjust = 1.6, color = "white", size = 5) +
-  ggtitle("Year vs. Miles") +
+  xlab(label = "Year") +
+  ylab(label = "Miles") +
+  ggtitle(label = "Miles by Year") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
@@ -250,7 +258,7 @@ kable(x = groupby_year, format = "html", align = "lrrrrrrrrrrrrrr") %>%
 
 ```{r echo = FALSE}
 groupby_yearmonth = running %>%
-  group_by(Year, Month) %>%
+  group_by(YearMonth) %>%
   summarise(Total_Runs = sum(RunDistance > 0),
             
             Distance = sum(RunDistance),
@@ -271,10 +279,10 @@ groupby_yearmonth = running %>%
                           yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
                           no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
 
-groupby_yearmonth$yearmonth = paste(groupby_yearmonth$Month, groupby_yearmonth$Year, sep = " ")
-groupby_yearmonth = select(as.data.frame(select(groupby_yearmonth, - Month)), - Year)
-groupby_yearmonth = groupby_yearmonth[, c(ncol(groupby_yearmonth), 1:ncol(groupby_yearmonth) - 1)]
-
+# groupby_yearmonth$yearmonth = paste(groupby_yearmonth$Month, groupby_yearmonth$Year, sep = " ")
+# groupby_yearmonth = select(as.data.frame(select(groupby_yearmonth, - Month)), - Year)
+# groupby_yearmonth = groupby_yearmonth[, c(ncol(groupby_yearmonth), 1:ncol(groupby_yearmonth) - 1)]
+# 
 # groupby_yearmonth = rbind(groupby_yearmonth, total_row)
 
 names(groupby_yearmonth) = c("Month", "Total Runs", "Miles", "Time", "Pace")
@@ -302,7 +310,7 @@ ggplot(data = groupby_yearmonth, aes(x = Month, y = Miles %>% as.numeric())) +
 
 ```{r echo = FALSE}
 groupby_yearmonth = running %>%
-  group_by(Year, Month) %>%
+  group_by(YearMonth) %>%
   summarise(Total_Runs = sum(RunDistance > 0),
             
             Days_Off = sum(RunDistance == 0),
@@ -335,10 +343,6 @@ groupby_yearmonth = running %>%
             
             Calories = sum(RunCalories)
             )
-
-groupby_yearmonth$yearmonth = paste(groupby_yearmonth$Month, groupby_yearmonth$Year, sep = " ")
-groupby_yearmonth = select(as.data.frame(select(groupby_yearmonth, - Month)), - Year)
-groupby_yearmonth = groupby_yearmonth[, c(ncol(groupby_yearmonth), 1:(ncol(groupby_yearmonth) - 1))]
 
 names(groupby_yearmonth) = c("Month", "Total Runs", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
 

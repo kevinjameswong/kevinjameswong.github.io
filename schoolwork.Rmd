@@ -8,8 +8,10 @@ output:
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(knitr)
 library(kableExtra)
-library(dplyr)
+library(tidyverse)
 library(stringr)
+library(ggplot2)
+library(dplyr)
 ```
 
 ```{r echo = FALSE}
@@ -35,6 +37,8 @@ body, p {
 <h1>Kevin's Schoolwork</h1>
 
 Last updated: `r paste(month.name[str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric()], " ", str_extract(string = Update_Date, pattern = "-[0-9]{2}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}"), ", ", str_extract(string = Update_Date, pattern = "[0-9]{4}"), sep = "")`
+
+***
 
 I am a *Statistics* major at the **University of Illinois**. I am also minoring in *Leadership Studies* and *Business*. My GPA is 3.88.
 
