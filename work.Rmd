@@ -5,6 +5,10 @@ output:
     toc: yes
 ---
 
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 <h1>Work Experience</h1>
 
 <hr />
@@ -18,7 +22,7 @@ include_graphics("images/cougarslogo.png")
 
 <h3 style="text-align:left;">
 Class-A Affilate of MLB Arizona Diamondbacks
-<span style="float:right;">Geneva, IL</span>
+<span style="float:right;"><i class="fa fa-map-marker" style="font-size:24px"></i> Geneva, IL</span>
 </h3>
 
 <h4 style="text-align:left;">
@@ -46,7 +50,7 @@ include_graphics("images/irwin.jpg")
 
 <h3 style="text-align:left;">
 University of Illinois at Urbana-Champaign
-<span style="float:right;">Champaign, IL</span>
+<span style="float:right;"><i class="fa fa-map-marker" style="font-size:24px"></i> Champaign, IL</span>
 </h3>
 
 <h4 style="text-align:left;">
