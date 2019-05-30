@@ -1,5 +1,6 @@
 name: "kevins-website"
 output_dir: "."
+permalink: 404.html
 output:
   html_document:
     css: style.css
