@@ -2,12 +2,10 @@
 title: "Kevin Wong"
 ---
 
-<style type="text/css">
-div.main-container {
-	max-width: 1800px;
-	margin-left: auto;
-	margin-right: auto;
-}
+<style>
+  .main-container {
+    max-width: 1200px !important;
+  }
 </style>
 
 
@@ -26,7 +24,7 @@ div.main-container {
 <center>I will be graduating from the Univ. of Illinois in May 2019 with an overall GPA of 3.88.</center>
 -->
 
-<center>Now I am a Data Analyst for Compass Mortgage in Warrenville, IL. Div try</center>
+<center>Now I am a Data Analyst for Compass Mortgage in Warrenville, IL. Imp try</center>
 
 <hr />
 
