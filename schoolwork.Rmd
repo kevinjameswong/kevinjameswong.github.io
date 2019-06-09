@@ -36,7 +36,7 @@ body, p {
 
 <h1>Kevin's Schoolwork</h1>
 
-Last updated: `r paste(month.name[str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric()], " ", str_extract(string = Update_Date, pattern = "-[0-9]{2}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}"), ", ", str_extract(string = Update_Date, pattern = "[0-9]{4}"), sep = "")`
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
 
 ***
 
