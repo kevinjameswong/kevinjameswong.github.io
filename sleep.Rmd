@@ -5,6 +5,13 @@ output:
     toc: yes
 ---
 
+<style>
+body {
+  background-color: #FF8200;
+}
+</style>
+
+
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(knitr)
 library(kableExtra)
@@ -27,17 +34,17 @@ round_down_2_decimals = function(x, digits = 2, format = "f", ...) {
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("5/13/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("6/28/2019", format = "%m/%d/%Y")
 
 # The morning of the last sleep
 
-sleep = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/sleepdata_5_13_2019.csv", sep = ";")
+sleep = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/sleepdata_6_28_2019.csv", sep = ";")
 ```
 
 ```{r echo = FALSE}
 minutes_to_time = function(insert_min) {
   hours = insert_min %/% 60 %>% as.character()
-  minutes = strptime(insert_min %% 60, format="%M") %>% str_extract(pattern = ":[0-9]{1,2}:") %>% str_extract(pattern = "[0-9]{1,2}")
+  minutes = strptime(insert_min %% 60, format = "%M") %>% str_extract(pattern = ":[0-9]{1,2}:") %>% str_extract(pattern = "[0-9]{1,2}")
   return(paste(hours, ":", minutes, sep = ""))
 }
 ```
@@ -122,7 +129,7 @@ body, p {
 
 </style>
 
-I have been tracking my sleeping stats since February 6, 2017 using the [Sleep Cycle](https://www.sleepcycle.com){target="_blank"} app. It's a phenomenal app. Over the past `r nrow(sleep)` days, here are statistics on my past `r nrow(sleep) - (is.na(sleep$Sleep.quality) %>% sum())` sleeps.
+I have been tracking my sleeping stats since February 6, 2017 using the [Sleep Cycle](https://www.sleepcycle.com){target="_blank"} app. Over the past `r nrow(sleep)` days, here are statistics on my past `r nrow(sleep) - (is.na(sleep$Sleep.quality) %>% sum())` sleeps.
 
 ***
 

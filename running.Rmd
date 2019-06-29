@@ -5,7 +5,14 @@ output:
     toc: yes
 ---
 
+<style>
+body {
+  background-color: #FF8200;
+}
+</style>
+
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(lubridate)
 library(knitr)
 library(kableExtra)
 library(tidyverse)
@@ -15,9 +22,9 @@ Start_Date = as.Date("1/28/2018", format = "%m/%d/%Y")
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("5/27/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("6/23/2019", format = "%m/%d/%Y")
 
-read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_5_27_2019.csv", skip = 1)
+read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_6_23_2019.csv", skip = 1)
 ```
 
 ***
@@ -27,6 +34,7 @@ running = head(x = read_data, n = (Update_Date - Start_Date - 1) %>% as.integer(
 
 names(running) = c("Location", "Weekday_Read", "Month_Number_Read", "Day Number", "Date", "Run Calories", "Run Distance", "Run Minutes", "Run Seconds", "Walk Calories", "Walk Distance", "Walk Minutes", "Walk Seconds", "StartTime")
 
+running$Date         = running$Date            %>% as.Date(format = "%m/%d/%y")
 running$DayNumber    = running$`Day Number`    %>% as.character() %>% as.integer()
 running$RunCalories  = running$`Run Calories`  %>% as.character() %>% as.integer()
 running$RunDistance  = running$`Run Distance`  %>% as.character() %>% as.numeric()
@@ -41,15 +49,94 @@ running = running[ , c(1, 2, 3, 5, 14:23)]
 running$Month = factor(running$Month_Number_Read)
 levels(running$Month) = c(month.name, "Total")
 
-running$Year = paste("20", (str_sub(running$Date, start = 7, end = 8)), sep = "") %>% factor(levels = c(unique(paste("20", (str_sub(running$Date, start = 7, end = 8)), sep = "")), "Total"))
+running$Year = running$Date %>% format(format = "%Y") %>% factor(levels = c(unique(running$Date %>% format(format = "%Y"))))
 
 running$Weekday = factor(x = running$Weekday_Read,
                          levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Total"))
 
-running$YearMonth = paste(running$Month, " ", running$Year, sep = "") %>% factor(levels = paste(month.name, rep(running$Year %>% levels(), each = length(month.name)))[1:(Update_Date %>% str_extract(pattern = "-[0-9]{2}-") %>% str_extract(pattern = "[0-9]{2}") %>% as.integer() + (Update_Date %>% str_extract(pattern = "[0-9]{4}") %>% as.integer() - Start_Date %>% str_extract(pattern = "[0-9]{4}") %>% as.integer()) %>% "*"(12))])
+running$YearMonth = paste(running$Month, " ", running$Year, sep = "") %>% factor(levels = paste(month.name, rep(running$Year %>% levels(), each = length(month.name)))[1:(Update_Date %>% format(format = "%m") %>% as.integer() %>% "+"(1) - Start_Date %>% format(format = "%m") %>% as.integer() + (Update_Date %>% format(format = "%y") %>% as.integer() - Start_Date %>% format(format = "%y") %>% as.integer()) %>% "*"(12))])
 
 running = select(running, - Weekday_Read, - Month_Number_Read)
 ```
+
+```{r echo = FALSE, eval = FALSE}
+running$Treadmill = ifelse(running$Location == "Arc" | running$Location == "Ike" | running$Location == "CRCE", 1, 0)
+pace_calculator = function(distance, minutes, seconds) {
+  pace = (minutes * 60 + seconds) / distance
+}
+
+sum((running$Location == "Ike" | running$Location == "Arc" | running$Location == "CRCE") & running$Year == 2018)
+sum((running$Location == "Ike" | running$Location == "Arc" | running$Location == "CRCE") & running$Year == 2019)
+```
+
+```{r echo = FALSE}
+pace_calculator = function(distance, minutes, seconds) {
+  m = ((minutes * 60 + seconds) / distance) %>% ceiling() %>% "%/%"(60)
+  s = ((minutes * 60 + seconds) / distance) %>% ceiling() %>% "%%"(60)
+  pace = paste(m %>% as.numeric() %>% as.character(),
+               ":",
+               s %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16),
+               sep = "")
+  return(pace)
+}
+
+yearly_mileage_pace = function(distance) {
+  l = (distance / n()) %>% "*"(365) %>% "*"(100) %>% floor() %>% "/"(100)
+  return(l)
+}
+
+total_time = function(minutes, seconds) {
+  h = (minutes * 60 + seconds) %>% sum() %>% "%/%"(60) %>% "%/%"(60)
+  m = (minutes * 60 + seconds) %>% sum() %>% "%/%"(60) %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
+  s = (minutes * 60 + seconds) %>% sum() %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
+  t = paste(h, ":", m, ":", s, sep = "")
+  return(t)
+}
+
+miles_per_run = function(distance) {
+  t = (distance %>% sum() / (distance > 0) %>% sum()) %>% "*"(100) %>% floor() %>% "/"(100)
+  return(t)
+}
+
+miles_per_day = function(distance) {
+  t = (distance %>% sum() / (n())) %>% "*"(100) %>% floor() %>% "/"(100)
+  return(t)
+}
+
+miles_per_hour = function(distance, minutes, seconds) {
+  t = (distance %>% sum() * 60 * 60 / (minutes * 60 + seconds)) %>% "*"(1000) %>% floor() %>% "/"(1000)
+  return(t)
+}
+```
+
+
+
+```{r echo = FALSE, eval = FALSE}
+test = running %>%
+  group_by(Year) %>%
+  summarise(Total_Runs = sum(RunDistance > 0),
+            
+            Distance = sum(RunDistance),
+            
+            Pace = pace_calculator(distance = RunDistance %>% sum(),
+                                   minutes = RunMinutes %>% sum(),
+                                   seconds = RunSeconds %>% sum()
+                                  )
+            )
+
+
+
+names(test) = c("Year", "Total Runs", "Miles", "Pace")
+
+kable(test, format = "html", align = "lrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
+  #row_spec(row = nrow(groupby_year), bold = TRUE, font_size = 21)
+```
+
+
+
+
+
 
 ```{r echo = FALSE, eval = FALSE}
 shiny_data = write.csv(x = running,
@@ -113,25 +200,10 @@ body, p {
 
 Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
 
-```{r echo = FALSE, eval = FALSE}
-levels(running$Month) = c(month.name, "Total")
-
-cp = str_extract(string = Start_Date, pattern = "[0-9]{4}") %>% as.integer()
-pp = str_extract(string = Update_Date, pattern = "[0-9]{4}") %>% as.integer()
-
-
-ppp = str_extract(string = Update_Date, pattern = "-[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.integer()
-
-for (i in 1:((pp - cp) * 12 + ppp)) {
-  l[i] = rep(Update_Months)
-}
-l
-Update_Months
-```
-
 ***
 
-I enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r length(running$RunDistance)` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
+I enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r Update_Date - Start_Date - 1` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
+
 
 ```{r echo = FALSE, eval = FALSE}
 HM = c("Illinois Half Marathon",
@@ -161,21 +233,17 @@ groupby_year = running %>%
             
             Distance = sum(RunDistance),
             
-            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
-                         
-                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
-                         
-                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
-                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
-                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
-                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
-                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            )
+            )
 
 # groupby_year = rbind(groupby_year, total_row)
 
@@ -191,7 +259,7 @@ kable(groupby_year, format = "html", align = "lrrrr") %>%
 ```{r echo = FALSE}
 ggplot(data = groupby_year, aes(x = Year, y = Miles)) +
   geom_bar(stat = "identity", fill = "darkblue") +
-  geom_text(aes(label = groupby_year$Miles), vjust = 1.6, color = "white", size = 5) +
+  geom_text(aes(label = groupby_year$Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
   xlab(label = "Year") +
   ylab(label = "Miles") +
   ggtitle(label = "Miles by Year") +
@@ -215,29 +283,34 @@ groupby_year = running %>%
             
             Distance = sum(RunDistance),
             
-            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
-                         
-                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
-                         
-                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
-                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
-                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
-                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
-                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"),
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
+            Miles_Per_Run = miles_per_run(
+              distance = RunDistance
+            ),
             
-            Miles_Per_Day = floor(sum(RunDistance) * 100 / sum(RunDistance >= 0)) / 100,
+            Miles_Per_Day = miles_per_day(
+              distance = RunDistance %>% sum()
+            ),
             
-            Yearly_Mile_Rate = floor(sum(RunDistance) * 100 * 365 / sum(RunDistance >= 0)) / 100,
-            
-            MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            Yearly_Mileage_Rate = yearly_mileage_pace(
+              distance = RunDistance %>% sum()
+            ),
+
+            MPH = miles_per_hour(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
             Calories = sum(RunCalories)
             )
@@ -263,21 +336,17 @@ groupby_yearmonth = running %>%
             
             Distance = sum(RunDistance),
             
-            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
-                         
-                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
-                         
-                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
-                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
-                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
-                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
-                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            )
+  )
 
 # groupby_yearmonth$yearmonth = paste(groupby_yearmonth$Month, groupby_yearmonth$Year, sep = " ")
 # groupby_yearmonth = select(as.data.frame(select(groupby_yearmonth, - Month)), - Year)
@@ -295,7 +364,7 @@ kable(groupby_yearmonth, format = "html", align = "lrrrr") %>%
 ```{r echo = FALSE, eval = FALSE}
 ggplot(data = groupby_yearmonth, aes(x = Month, y = Miles %>% as.numeric())) +
   geom_bar(stat = "identity", fill = "darkblue") +
-  geom_text(aes(label = groupby_yearmonth$Miles), vjust = 1.6, color = "white", size = 2) +
+  geom_text(aes(label = groupby_yearmonth$Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 2) +
   ggtitle("Month vs. Miles") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
@@ -317,29 +386,34 @@ groupby_yearmonth = running %>%
             
             Distance = sum(RunDistance),
             
-            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
-                         
-                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
-                         
-                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
-                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
-                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
-                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
-                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"),
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
+            Miles_Per_Run = miles_per_run(
+              distance = RunDistance
+            ),
             
-            Miles_Per_Day = floor(sum(RunDistance) * 100 / sum(RunDistance >= 0)) / 100,
+            Miles_Per_Day = miles_per_day(
+              distance = RunDistance %>% sum()
+            ),
             
-            Yearly_Mile_Rate = floor(sum(RunDistance) * 100 * 365 / sum(RunDistance >= 0)) / 100,
-            
-            MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            Yearly_Mileage_Rate = yearly_mileage_pace(
+              distance = RunDistance %>% sum()
+            ),
+
+            MPH = miles_per_hour(
+                distance = RunDistance %>% sum(),
+                minutes = RunMinutes %>% sum(),
+                seconds = RunSeconds %>% sum()
+            ),
             
             Calories = sum(RunCalories)
             )
@@ -364,21 +438,17 @@ groupby_weekday = running %>%
             
             Distance = sum(RunDistance),
             
-            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
-                         
-                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
-                         
-                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
-                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
-                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
-                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
-                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"))
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            )
+  )
             
             # Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
             
@@ -401,7 +471,7 @@ kable(groupby_weekday, format = "html", align = "lrrrr") %>%
 ```{r echo = FALSE}
 ggplot(data = groupby_weekday, aes(x = Weekday, y = Miles)) +
   geom_bar(stat = "identity", fill = "darkblue") +
-  geom_text(aes(label = groupby_weekday$Miles), vjust = 1.6, color = "white", size = 5) +
+  geom_text(aes(label = groupby_weekday$Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
   ggtitle("Weekday vs. Miles") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
@@ -423,29 +493,34 @@ groupby_weekday = running %>%
             
             Distance = sum(RunDistance),
             
-            Time = paste(ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60)),
-                         
-                         ifelse(test = (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60 <= 9,
-                                yes = paste("0", (sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60, sep = ""),
-                                no = as.character((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60)),
-                         
-                         ifelse(test = sum(RunSeconds) %% 60 <= 9,
-                                yes = paste("0", sum(RunSeconds) %% 60, sep = ""),
-                                no = as.character(sum(RunSeconds) %% 60)), sep = ":"),
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Pace = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %/% 60, ifelse(test = (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60 <= 9,
-                          yes = paste("0", (ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60, sep = ""),
-                          no = paste((ceiling((sum(RunMinutes) * 60 + sum(RunSeconds)) / sum(RunDistance))) %% 60)), sep = ":"),
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
-            Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
+            Miles_Per_Run = miles_per_run(
+              distance = RunDistance
+            ),
             
-            Miles_Per_Day = floor(sum(RunDistance) * 100 / sum(RunDistance >= 0)) / 100,
+            Miles_Per_Day = miles_per_day(
+              distance = RunDistance %>% sum()
+            ),
             
-            Yearly_Mile_Rate = floor(sum(RunDistance) * 100 * 365 / sum(RunDistance >= 0)) / 100,
-            
-            MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            Yearly_Mileage_Rate = yearly_mileage_pace(
+              distance = RunDistance %>% sum()
+            ),
+
+            MPH = miles_per_hour(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
             
             Calories = sum(RunCalories)
             )
