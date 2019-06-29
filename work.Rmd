@@ -45,7 +45,15 @@ Data Analyst
 </h4>
 
 <ul>
-  <li>TBD</li>
+  <li>Responsible for managing data organization, the design and implementation of data, and database development</li>
+  <li>Manage data by creating, updating, and organizing data</li>
+  <li>Design and implement data structures and user interfaces</li>
+  <!-- <li>Develop databases using data access languages</li> -->
+  <li>Develop data schemas to support information delivery and consumption</li>
+  <!-- <li>Prepare reports and analysis</li> -->
+  <!-- <li>Troubleshoot the reporting database</li> -->
+  <!-- <li>Train end users on new reports and/or dashboards</li> -->
+  <!-- <li>Create and iterate on deliverables</li> -->
 </ul>
 
 <!--
