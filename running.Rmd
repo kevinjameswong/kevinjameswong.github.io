@@ -11,6 +11,13 @@ body {
 }
 </style>
 
+```{r echo = FALSE, eval = FALSE}
+Add 12 month difference green if higher red if lower
+Add Year to Year difference
+Add 
+```
+
+
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(lubridate)
 library(knitr)
@@ -22,15 +29,30 @@ Start_Date = as.Date("1/28/2018", format = "%m/%d/%Y")
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("6/23/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("8/18/2019", format = "%m/%d/%Y")
 
-read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_6_23_2019.csv", skip = 1)
+read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_8_18_19.csv", skip = 1)
 ```
 
 ***
 
 ```{r echo = FALSE}
-running = head(x = read_data, n = (Update_Date - Start_Date - 1) %>% as.integer())[, c(1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 25)]
+running = read_data %>%
+  select(Location,
+         Day,
+         Month,
+         Day.1,
+         Date,
+         Run.Calories,
+         Run.Distance,
+         Run.Minutes,
+         Run.Seconds,
+         Walk.Calories,
+         Walk.Distance,
+         Walk.Minutes,
+         Walk.Seconds,
+         Start.Time) %>%
+  slice(1:(Update_Date - Start_Date - 1) %>% as.integer())
 
 names(running) = c("Location", "Weekday_Read", "Month_Number_Read", "Day Number", "Date", "Run Calories", "Run Distance", "Run Minutes", "Run Seconds", "Walk Calories", "Walk Distance", "Walk Minutes", "Walk Seconds", "StartTime")
 
@@ -44,12 +66,33 @@ running$WalkCalories = running$`Walk Calories` %>% as.character() %>% as.integer
 running$WalkDistance = running$`Walk Distance` %>% as.character() %>% as.numeric()
 running$WalkMinutes  = running$`Walk Minutes`  %>% as.character() %>% as.integer()
 running$WalkSeconds  = running$`Walk Seconds`  %>% as.character() %>% as.integer()
-running = running[ , c(1, 2, 3, 5, 14:23)]
+
+running = running %>%
+  select(Location,
+         Weekday_Read,
+         Month_Number_Read,
+         Date,
+         StartTime,
+         DayNumber,
+         RunCalories,
+         RunDistance,
+         RunMinutes,
+         RunSeconds,
+         WalkCalories,
+         WalkDistance,
+         WalkMinutes,
+         WalkSeconds)
 
 running$Month = factor(running$Month_Number_Read)
 levels(running$Month) = c(month.name, "Total")
 
-running$Year = running$Date %>% format(format = "%Y") %>% factor(levels = c(unique(running$Date %>% format(format = "%Y"))))
+running$Year = running$Date %>%
+  format(format = "%Y") %>%
+  factor(levels = running$Date %>%
+           format(format = "%Y") %>%
+           unique() %>%
+           sort()
+         )
 
 running$Weekday = factor(x = running$Weekday_Read,
                          levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Total"))
@@ -108,8 +151,6 @@ miles_per_hour = function(distance, minutes, seconds) {
   return(t)
 }
 ```
-
-
 
 ```{r echo = FALSE, eval = FALSE}
 test = running %>%
