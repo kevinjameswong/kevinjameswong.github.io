@@ -23,7 +23,7 @@ body .main-container {
 <center>I will be graduating from the Univ. of Illinois in May 2019 with an overall GPA of 3.88.</center>
 -->
 
-<center>Now I am living the dream as a Data Analyst for Compass Mortgage in Warrenville, IL.</center>
+<center>Now I am a Data Analyst for Compass Mortgage in Warrenville, IL.</center>
 
 <hr />
 
