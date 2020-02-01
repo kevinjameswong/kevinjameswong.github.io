@@ -45,11 +45,16 @@ Data Analyst
 </h4>
 
 <ul>
-  <li>Responsible for managing data organization, the design and implementation of data, and database development</li>
-  <li>Manage data by creating, updating, and organizing data</li>
-  <li>Design and implement data structures and user interfaces</li>
+  <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
+  <li>Wrote and executed SQL queries to provide custom reports and analysis for senior management</li>
+  <li>Clean, transform, and model data to ensure and improve accuracy of metrics calculations</li>
+  <li>Develop, maintain and perform processes to continuously monitor data quality and integrity in platform applications</li>
+  <li>Analyze and interpret data to identify trends, patterns, and opportunities for the business</li>
+  <li>Managed Salesforce CRM data structures and synchronization of custom objects
+  <!-- <li>Manage data by creating, updating, and organizing data</li> -->
+  <!-- <li>Design and implement data structures and user interfaces</li> -->
   <!-- <li>Develop databases using data access languages</li> -->
-  <li>Develop data schemas to support information delivery and consumption</li>
+  <!-- <li>Develop data schemas to support information delivery and consumption</li> -->
   <!-- <li>Prepare reports and analysis</li> -->
   <!-- <li>Troubleshoot the reporting database</li> -->
   <!-- <li>Train end users on new reports and/or dashboards</li> -->
