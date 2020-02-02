@@ -14,7 +14,16 @@ body {
 ```{r echo = FALSE, eval = FALSE}
 Add 12 month difference green if higher red if lower
 Add Year to Year difference
-Add 
+
+Add miles needed to beat last year/last month
+
+Add run intensity.
+
+Fuseball example. Rankings system. Win Loss ranking. ID number for each person. If Kevin who is 3-0 beats Bob who is 1-2, computer projects score to be Kevin 10 - Bob 3.7. If Kevin wins, his win/loss ranking goes up. Bobs goes down. However, if Kevin wins 10-8, Kevin''s win/loss ranking goes up but his ELO scoring goes down.
+
+Making new table into aggregate table like Compass Mortgage grouped by day. Continue to use miles per hour formula to calculate pace. But need to use group by a little bit more.
+
+2-1-2020: Actually don't use group by. Use table as is but use indicator "flags" and sum those
 ```
 
 
@@ -29,9 +38,11 @@ Start_Date = as.Date("1/28/2018", format = "%m/%d/%Y")
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("8/18/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("1/1/2020", format = "%m/%d/%Y")
 
-read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_8_18_19.csv", skip = 1)
+ # read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_10_12_2019.csv", skip = 1)
+
+read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Book4.csv", skip = 1)
 ```
 
 ***
@@ -52,7 +63,8 @@ running = read_data %>%
          Walk.Minutes,
          Walk.Seconds,
          Start.Time) %>%
-  slice(1:(Update_Date - Start_Date - 1) %>% as.integer())
+  # slice(1:(Update_Date - Start_Date - 1) %>% as.integer())
+  slice(1:713 %>% as.integer())
 
 names(running) = c("Location", "Weekday_Read", "Month_Number_Read", "Day Number", "Date", "Run Calories", "Run Distance", "Run Minutes", "Run Seconds", "Walk Calories", "Walk Distance", "Walk Minutes", "Walk Seconds", "StartTime")
 
@@ -100,17 +112,22 @@ running$Weekday = factor(x = running$Weekday_Read,
 running$YearMonth = paste(running$Month, " ", running$Year, sep = "") %>% factor(levels = paste(month.name, rep(running$Year %>% levels(), each = length(month.name)))[1:(Update_Date %>% format(format = "%m") %>% as.integer() %>% "+"(1) - Start_Date %>% format(format = "%m") %>% as.integer() + (Update_Date %>% format(format = "%y") %>% as.integer() - Start_Date %>% format(format = "%y") %>% as.integer()) %>% "*"(12))])
 
 running = select(running, - Weekday_Read, - Month_Number_Read)
+
+running$Treadmill = ifelse(running$Location == "Arc" | running$Location == "Ike" | running$Location == "CRCE" | running$Location == "Lifetime Fitness" | running$Location == "Lifetime", 1, 0)
+running$CumRunDistance = cumsum(running$RunDistance)
+
+running$run_Count = ifelse(running$RunDistance > 0, 1, 0)
+
+# running$unique_run_count = ifelse(running$RunDistance == running %>% group_by(Date) %>% mutate(max(RunDistance)), 1, 0)
 ```
 
-```{r echo = FALSE, eval = FALSE}
-running$Treadmill = ifelse(running$Location == "Arc" | running$Location == "Ike" | running$Location == "CRCE", 1, 0)
-pace_calculator = function(distance, minutes, seconds) {
-  pace = (minutes * 60 + seconds) / distance
-}
+```{r echo = FALSE}
+# 2 - 1 - 2020: There has to be a better way to do this but it's whatever. this will do
+running = running %>% group_by(Date) %>% mutate(y = max(RunDistance))
 
-sum((running$Location == "Ike" | running$Location == "Arc" | running$Location == "CRCE") & running$Year == 2018)
-sum((running$Location == "Ike" | running$Location == "Arc" | running$Location == "CRCE") & running$Year == 2019)
+running$unique_run_count = ifelse(running$RunDistance == running$y & running$y != 0, 1, 0)
 ```
+
 
 ```{r echo = FALSE}
 pace_calculator = function(distance, minutes, seconds) {
@@ -152,39 +169,6 @@ miles_per_hour = function(distance, minutes, seconds) {
 }
 ```
 
-```{r echo = FALSE, eval = FALSE}
-test = running %>%
-  group_by(Year) %>%
-  summarise(Total_Runs = sum(RunDistance > 0),
-            
-            Distance = sum(RunDistance),
-            
-            Pace = pace_calculator(distance = RunDistance %>% sum(),
-                                   minutes = RunMinutes %>% sum(),
-                                   seconds = RunSeconds %>% sum()
-                                  )
-            )
-
-
-
-names(test) = c("Year", "Total Runs", "Miles", "Pace")
-
-kable(test, format = "html", align = "lrrrr") %>%
-  kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
-  #row_spec(row = nrow(groupby_year), bold = TRUE, font_size = 21)
-```
-
-
-
-
-
-
-```{r echo = FALSE, eval = FALSE}
-shiny_data = write.csv(x = running,
-                       file = "/Users/KevinWong/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/shiny_data.csv")
-
-meow = read.csv(file = "/Users/KevinWong/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/shiny_data.csv")
-```
 
 ```{r echo = FALSE}
 total_row = c("Total",
@@ -272,6 +256,8 @@ groupby_year = running %>%
   group_by(Year) %>%
   summarise(Total_Runs = sum(RunDistance > 0),
             
+            Total_Days_Runs = sum(unique_run_count),
+            
             Distance = sum(RunDistance),
             
             Time = total_time(
@@ -288,7 +274,7 @@ groupby_year = running %>%
 
 # groupby_year = rbind(groupby_year, total_row)
 
-names(groupby_year) = c("Year", "Total Runs", "Miles", "Time", "Pace")
+names(groupby_year) = c("Year", "Total Runs", "Total Run Days", "Miles", "Time", "Pace")
 
 groupby_year = groupby_year[order(groupby_year$Year), ]
 
@@ -319,6 +305,8 @@ ggplot(data = groupby_year, aes(x = Year, y = Miles)) +
 groupby_year = running %>%
   group_by(Year) %>%
   summarise(Total_Runs = sum(RunDistance > 0),
+            
+            Total_Days_Runs = sum(unique_run_count),
             
             Days_Off = sum(RunDistance == 0),
             
@@ -356,7 +344,7 @@ groupby_year = running %>%
             Calories = sum(RunCalories)
             )
 
-names(groupby_year) = c("Year", "Total Runs", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+names(groupby_year) = c("Year", "Total Runs", "Total Run Days", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
 
 kable(x = groupby_year, format = "html", align = "lrrrrrrrrrrrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive")) %>%
@@ -373,7 +361,9 @@ kable(x = groupby_year, format = "html", align = "lrrrrrrrrrrrrrr") %>%
 ```{r echo = FALSE}
 groupby_yearmonth = running %>%
   group_by(YearMonth) %>%
-  summarise(Total_Runs = sum(RunDistance > 0),
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
             
             Distance = sum(RunDistance),
             
@@ -395,7 +385,7 @@ groupby_yearmonth = running %>%
 # 
 # groupby_yearmonth = rbind(groupby_yearmonth, total_row)
 
-names(groupby_yearmonth) = c("Month", "Total Runs", "Miles", "Time", "Pace")
+names(groupby_yearmonth) = c("Month", "Total Runs", "Total Run Days", "Miles", "Time", "Pace")
 
 kable(groupby_yearmonth, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive")) #%>%
@@ -421,7 +411,9 @@ ggplot(data = groupby_yearmonth, aes(x = Month, y = Miles %>% as.numeric())) +
 ```{r echo = FALSE}
 groupby_yearmonth = running %>%
   group_by(YearMonth) %>%
-  summarise(Total_Runs = sum(RunDistance > 0),
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
             
             Days_Off = sum(RunDistance == 0),
             
@@ -459,7 +451,7 @@ groupby_yearmonth = running %>%
             Calories = sum(RunCalories)
             )
 
-names(groupby_yearmonth) = c("Month", "Total Runs", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+names(groupby_yearmonth) = c("Month", "Total Runs", "Total Run Days", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
 
 kable(x = groupby_yearmonth, format = "html", align = "lrrrrrrrrrrrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive")) %>%
@@ -475,7 +467,9 @@ kable(x = groupby_yearmonth, format = "html", align = "lrrrrrrrrrrrrrr") %>%
 ```{r echo = FALSE}
 groupby_weekday = running %>%
   group_by(Weekday) %>%
-  summarise(Total_Runs = sum(RunDistance > 0),
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
             
             Distance = sum(RunDistance),
             
@@ -500,7 +494,7 @@ groupby_weekday = running %>%
 
 # groupby_weekday = rbind(groupby_weekday, total_row)
 
-names(groupby_weekday) = c("Weekday", "Total Runs", "Miles", "Time", "Pace")#, "MPH", "Calories")
+names(groupby_weekday) = c("Weekday", "Total Runs", "Total Run Days", "Miles", "Time", "Pace")#, "MPH", "Calories")
 
 # names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
 
@@ -528,7 +522,9 @@ ggplot(data = groupby_weekday, aes(x = Weekday, y = Miles)) +
 ```{r echo = FALSE}
 groupby_weekday = running %>%
   group_by(Weekday) %>%
-  summarise(Total_Runs = sum(RunDistance > 0),
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
             
             Days_Off = sum(RunDistance == 0),
             
@@ -566,7 +562,7 @@ groupby_weekday = running %>%
             Calories = sum(RunCalories)
             )
 
-names(groupby_weekday) = c("Weekday", "Total Runs", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+names(groupby_weekday) = c("Weekday", "Total Runs", "Total Run Days", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
 
 kable(x = groupby_weekday, format = "html", align = "lrrrrrrrrrrrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive")) %>%
