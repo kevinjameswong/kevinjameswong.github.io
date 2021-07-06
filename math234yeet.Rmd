@@ -5,3 +5,14 @@ output:
     toc: yes
 ---
 
+```{r}
+a = "https://open.spotify.com/track/161pnfRpiTTMZC1NWmjwh4"
+library(rvest)
+a %>% read_html() %>% 
+```
+
+```{r}
+rleid(b)
+diff(b) %>% diff()
+```
+

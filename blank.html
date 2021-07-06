@@ -223,7 +223,7 @@ $(document).ready(function () {
       <a href="sleep.html">Sleeping Data</a>
     </li>
     <li>
-      <a href="excel.html">Excel Projects</a>
+      <a href="excel.html">Excel/VBA Projects</a>
     </li>
   </ul>
 </li>
@@ -470,7 +470,7 @@ $(document).ready(function () {
       <a href="sleep.html">Sleeping Data</a>
     </li>
     <li>
-      <a href="excel.html">Excel Projects</a>
+      <a href="excel.html">Excel/VBA Projects</a>
     </li>
   </ul>
 </li>
@@ -494,7 +494,36 @@ $(document).ready(function () {
 </div>
 
 
+<pre class="r"><code>for (i in 1:10) {
+  set.seed(3)
+  
+}
 
+function(n = number of attempts, max = max number)
+
+
+This is your 1st try out of 10 attempts. You have 9 tries left.
+This is your 2nd try out of 10 attempts. You have 9 tries left.
+This is your 1st try out of 10 attempts. You have 9 tries left.
+This is your 2nd try out of 10 attempts. You have 9 tries left.</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>set.seed(3)
+t = runif(1, min = 0, max = 100) %&gt;% ceiling()
+
+t</code></pre>
+<pre><code>## [1] 17</code></pre>
+<pre class="r"><code>library(dplyr)
+k = k %&gt;%
+  group_by(t) %&gt;%
+  summarise(n_count = n()); k</code></pre>
 
 <!DOCTYPE html>
 
@@ -697,7 +726,7 @@ $(document).ready(function () {
       <a href="sleep.html">Sleeping Data</a>
     </li>
     <li>
-      <a href="excel.html">Excel Projects</a>
+      <a href="excel.html">Excel/VBA Projects</a>
     </li>
   </ul>
 </li>
@@ -730,7 +759,7 @@ body {
 </style>
 <hr />
 <center>
-Copyright © 2019 Kevin Wong, Inc. All rights reserved.
+Copyright © 2020 Kevin Wong, Inc. All rights reserved.
 </center>
 
 

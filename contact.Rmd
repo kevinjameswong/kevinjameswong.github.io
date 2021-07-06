@@ -4,10 +4,10 @@ title: "Kevin Wong - Contact Me"
 
 # Contact Information
 
-Email: <kevinwong@compmort.com> 
+Email: <kjwong2@illinois.edu> 
 
 LinkedIn: [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"} 
 
 GitHub: [www.github.com/kevinjameswong](https://www.github.com/kevinjameswong){target="_blank"}
 
-Here is my resume! [Resume](Resume_04_03_20_Wong.pdf){target="_blank"}
+Here is my resume! [Resume](Resume_07_05_21_Wong.pdf){target="_blank"}

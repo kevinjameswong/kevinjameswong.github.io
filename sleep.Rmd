@@ -4,15 +4,25 @@ output:
   html_document:
     toc: yes
 ---
-
+<!--
 <style>
-body {
-  background-color: #FF8200;
+body .main-container {
+  max-width: 900px !important;
 }
 </style>
 
+-->
+<!--
+<style>
+body .main-container {
+  background-color: #FF8200 !important;
+  max-width: 900px !important;
+}
+</style>
+-->
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(lubridate)
 library(knitr)
 library(kableExtra)
 library(tidyverse)
@@ -42,9 +52,17 @@ sleep = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/more we
 ```
 
 ```{r echo = FALSE}
+total_time = function(seconds) {
+  h = seconds %>% sum() %>% "%/%"(60) %>% "%/%"(60)
+  m = seconds %>% sum() %>% "%/%"(60) %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
+  s = seconds %>% sum() %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
+  t = paste(h, ":", m, ":", s, sep = "")
+  return(t)
+}
+
 minutes_to_time = function(insert_min) {
-  hours = insert_min %/% 60 %>% as.character()
-  minutes = strptime(insert_min %% 60, format = "%M") %>% str_extract(pattern = ":[0-9]{1,2}:") %>% str_extract(pattern = "[0-9]{1,2}")
+  hours = insert_min %>% sum() %>% "%/%"(60) %>% floor()
+  minutes = insert_min %>% sum() %>% "%%"(60) %>% floor() %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
   return(paste(hours, ":", minutes, sep = ""))
 }
 ```
@@ -62,7 +80,7 @@ add_on = cbind(matrix(setdiff(c(as.Date(1:(Update_Date - Start_Date), origin = S
               matrix(NA,
                      nrow = length(setdiff(c(as.Date(1:(Update_Date - Start_Date), origin = Start_Date)), str_extract(string = sleep$End, pattern = "[0-9]{4}-[0-9]{2}-[0-9]{2}") %>% as.Date())),
                      ncol = ncol(sleep) - 1)) %>% as.data.frame()
-add_on$V1 = as.Date(add_on$V1, origin = "1970-01-01")
+add_on$V1 = as.Date(add_on$V1, origin = "1970-01-01", tz = "CDT")
 names(add_on) = names(sleep)
 add_on$enddates = add_on$Start
 add_on$Start = add_on$End
@@ -73,6 +91,46 @@ sleep = sleep[order(sleep$enddates, decreasing = FALSE), ]
 
 sleep$Weekday = factor(x = rep(c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"), len = nrow(sleep)),
                        levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Total", "Average"))
+
+sleep$theo_startdates = sleep$enddates - 1
+
+sleep$Year = sleep$theo_startdates %>%
+  format(format = "%Y") %>%
+  factor(levels = sleep$theo_startdates %>%
+           format(format = "%Y") %>%
+           unique() %>%
+           sort()
+         )
+
+sleep$Month = sleep$theo_startdates %>%
+  format(format = "%m") %>%
+  factor(levels = sleep$theo_startdates %>%
+           format(format = "%m") %>%
+           unique() %>%
+           sort()
+         )
+
+sleep$YearMonth = paste(sleep$Month, " ", sleep$Year, sep = "") %>% factor(levels = paste(month.name, rep(sleep$Year %>% levels(), each = length(month.name)))[1:(Update_Date %>% format(format = "%m") %>% as.integer() %>% "+"(1) - Start_Date %>% format(format = "%m") %>% as.integer() + (Update_Date %>% format(format = "%y") %>% as.integer() - Start_Date %>% format(format = "%y") %>% as.integer()) %>% "*"(12))])
+
+sleep$Start = sleep$Start %>% as.POSIXct(format = "%Y-%m-%d %H:%M:%S")
+sleep$End = sleep$End %>% as.POSIXct(format = "%Y-%m-%d %H:%M:%S")
+
+sleep$duration = difftime(time1 = sleep$End, time2 = sleep$Start, units = "sec") #%>% "/"(60)
+
+sleep$sa3_sleep_start = difftime(time1 = sleep$Start, time2 = str_extract(string = sleep$theo_startdates, pattern = "[0-9]{4}-[0-9]{2}-[0-9]{2}") %>% paste(" 18:00:00 PM", sep = "") %>% as.POSIXct(format = "%Y-%m-%d %H:%M:%S"), units = "sec")
+sleep$sb3_sleep_end = difftime(time1 = str_extract(string = sleep$enddates, pattern = "[0-9]{4}-[0-9]{2}-[0-9]{2}") %>% paste(" 18:00:00 PM", sep = "") %>% as.POSIXct(format = "%Y-%m-%d %H:%M:%S"), time2 = sleep$End, units = "sec")
+```
+
+```{r echo = FALSE}
+to_bed_time = function(s) {
+  k = (today() %>% paste(" 18:00:00 PM", sep = "") %>% as.POSIXct(format = "%Y-%m-%d %H:%M:%S %p") + s) %>% strftime(format = "%r")
+  return(k)
+}
+
+wake_ups_time = function(s) {
+  k = (today() %>% paste(" 18:00:00 PM", sep = "") %>% as.POSIXct(format = "%Y-%m-%d %H:%M:%S %p") - s) %>% strftime(format = "%r")
+  return(k)
+}
 ```
 
 ```{r echo = FALSE}
@@ -133,12 +191,59 @@ I have been tracking my sleeping stats since February 6, 2017 using the [Sleep C
 
 ***
 
+# Yearly Stats
+
 ```{r echo = FALSE}
+options(dplyr.summarise.inform = FALSE)
+
+groupby_year = sleep %>%
+  group_by(Year) %>%
+  summarise(total = Sleep.quality %>% ">="(0) %>% sum(na.rm = TRUE),
+            avg_quality = Sleep.quality %>% mean(na.rm = TRUE) %>% round_down_2_decimals(),
+            time_in_bed = mean(Time.in.bed, na.rm = TRUE) %>% minutes_to_time(),
+            to_bed = sa3_sleep_start %>% mean(na.rm = TRUE) %>% to_bed_time(),
+            wake_ups_time_litty = sb3_sleep_end %>% mean(na.rm = TRUE) %>% wake_ups_time()
+           # nap_prob = paste((Sleep.Notes %>% str_detect(pattern = "Took a nap \\(1 hour\\)") %>% sum(na.rm = TRUE) + Sleep.Notes %>% str_detect(pattern = "Took a nap \\(1.5 hours\\)") %>% sum(na.rm = TRUE) + Sleep.Notes %>% str_detect(pattern = "Took a nap \\(2 hours\\)") %>% sum(na.rm = TRUE)) %>% "/"(Sleep.quality %>% ">="(0) %>% sum(na.rm = TRUE)) %>% "*"(10000) %>% floor() %>% "/"(100), "%", sep = "")
+            #avg_footsteps = Activity..steps. %>% mean(na.rm = TRUE) %>% floor()
+            )
+```
+
+```{r echo = FALSE, warning = FALSE}
+names(groupby_year) = c("Year", "Total Nights", "Sleep Quality (%)", "Average Time in Bed", "Asleep Time", "Wake Up Time")
+
+kable(groupby_year, format = "html", align = "lrrcrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive"))
+```
+
+```{r echo = FALSE, warning = FALSE}
+ggplot(data = groupby_year, aes(x = Year, y = `Sleep Quality (%)` %>% as.numeric())) +
+  geom_bar(stat = "identity", fill = "darkblue") +
+  geom_text(aes(label = percent(`Sleep Quality (%)`)), vjust = 1.6, color = "white", size = 5) +
+  ggtitle(label = "Sleep Quality vs. Year") +
+  xlab(label = "Year") +
+  ylab(label = "Sleep Quality") +
+  coord_cartesian(ylim = c(85, 90.25)) + 
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.text.x = element_text(size = 13, color = "black"),
+        axis.text.y = element_text(size = 13, color = "black"),
+        axis.title.x = element_text(size = 14, color = "black"),
+        axis.title.y = element_text(size = 14, color = "black"))
+```
+
+***
+
+# Weekday Stats
+
+```{r echo = FALSE, warning = FALSE}
+# options(dplyr.summarise.inform = FALSE)
+
 groupby_weekday = sleep %>%
   group_by(Weekday) %>%
   summarise(total = Sleep.quality %>% ">="(0) %>% sum(na.rm = TRUE),
             avg_quality = Sleep.quality %>% mean(na.rm = TRUE) %>% round_down_2_decimals(),
-            time_in_bed = mean(Time.in.bed, na.rm = TRUE) %>% minutes_to_time()
+            time_in_bed = mean(Time.in.bed, na.rm = TRUE) %>% minutes_to_time(),
+            to_bed = sa3_sleep_start %>% mean(na.rm = TRUE) %>% to_bed_time(),
+            wake_ups_time_litty = sb3_sleep_end %>% mean(na.rm = TRUE) %>% wake_ups_time()
             #bed_time = (ifelse(test = str_extract(string = Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60) <= 60 * 60 * 12, yes = str_extract(string = Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60) %>% "+"(60 * 60 *24), no = str_extract(string = Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60)) + str_extract(string = Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = ":[0-9]{2}:") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) + str_extract(string = Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = ":[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() - (60 * 60 * 12)) %>% as.numeric() %>% mean(na.rm = TRUE) %>% seconds_to_time(),
             #wake_time = (ifelse(test = str_extract(string = End, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60) <= 60 * 60 * 12, yes = str_extract(string = End, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60) %>% "+"(60 * 60 *24), no = str_extract(string = End, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60)) + str_extract(string = End, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = ":[0-9]{2}:") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) + str_extract(string = End, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = ":[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() - (60 * 60 * 12)) %>% as.numeric() %>% mean(na.rm = TRUE) %>% seconds_to_time()
            # nap_prob = paste((Sleep.Notes %>% str_detect(pattern = "Took a nap \\(1 hour\\)") %>% sum(na.rm = TRUE) + Sleep.Notes %>% str_detect(pattern = "Took a nap \\(1.5 hours\\)") %>% sum(na.rm = TRUE) + Sleep.Notes %>% str_detect(pattern = "Took a nap \\(2 hours\\)") %>% sum(na.rm = TRUE)) %>% "/"(Sleep.quality %>% ">="(0) %>% sum(na.rm = TRUE)) %>% "*"(10000) %>% floor() %>% "/"(100), "%", sep = "")
@@ -147,13 +252,8 @@ groupby_weekday = sleep %>%
 ```
 
 ```{r echo = FALSE, eval = FALSE}
-(ifelse(test = str_extract(string = sleep$Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60) <= 60 * 60 * 12, yes = str_extract(string = sleep$Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60) %>% "+"(60 * 60 *24), no = str_extract(string = sleep$Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) %>% "*"(60)) + str_extract(string = sleep$Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = ":[0-9]{2}:") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() %>% "*"(60) + str_extract(string = sleep$Start, pattern = "[0-9]{2}:[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = ":[0-9]{2}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{1}:[0-9]{2}") %>% str_extract(pattern = "[0-9]{2}") %>% as.numeric() - (60 * 60 * 12)) %>% as.numeric() %>% seconds_to_time()
-```
-
-```{r echo = FALSE}
 total_count = sum(sleep$Sleep.quality >= 0, na.rm = TRUE)
 total_avg_sleep = mean(sleep$Sleep.quality, na.rm = TRUE) %>% round_down_2_decimals()
-
 total_avg_bed = sleep$Time.in.bed %>% mean(na.rm = TRUE) %>% minutes_to_time()
 
 total_row = c("Total", total_count, total_avg_sleep, total_avg_bed)#, 1, 2)
@@ -162,14 +262,14 @@ groupby_weekday = rbind(groupby_weekday, total_row)
 ```
 
 ```{r echo = FALSE}
-names(groupby_weekday) = c("Weekday", "Sleeps Recorded", "Sleep Quality (%)", "Average Time in Bed")#, "Sec", "Wake")#"Yeet")#, "Average Footsteps")
+names(groupby_weekday) = c("Day", "Total Nights", "Sleep Quality (%)", "Average Time in Bed", "Avg Asleep Time", "Avg Wake Up Time")
 
-kable(groupby_weekday, format = "html", align = "lrrr") %>%
-  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
-  row_spec(row = nrow(groupby_weekday), bold = TRUE, font_size = 21)
+kable(groupby_weekday, format = "html", align = "lcccccc") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
+  #row_spec(row = nrow(groupby_weekday), bold = TRUE, font_size = 21)
 ```
 
-```{r echo = FALSE}
+```{r echo = FALSE, eval = FALSE}
 groupby_weekday = groupby_weekday[1:(nrow(groupby_weekday) - 1), ]
 
 avg_row = c("Average", total_count, total_avg_sleep, total_avg_bed)
@@ -178,21 +278,28 @@ groupby_weekday = rbind(groupby_weekday, avg_row)
 ```
 
 ```{r echo = FALSE}
-ggplot(data = groupby_weekday, aes(x = Weekday, y = `Sleep Quality (%)` %>% as.numeric())) +
+
+options(dplyr.summarise.inform = FALSE)
+
+ggplot(data = groupby_weekday, aes(x = Day, y = `Sleep Quality (%)` %>% as.numeric())) +
   geom_bar(stat = "identity", fill = "darkblue") +
-  geom_text(aes(label = percent(groupby_weekday$`Sleep Quality (%)`)), vjust = 1.6, color = "white", size = 3) +
+  geom_text(aes(label = percent(`Sleep Quality (%)`)), vjust = 1.6, color = "white", size = 4) +
   ggtitle(label = "Sleep Quality vs. Weekday") +
   xlab(label = "Weekday") +
   ylab(label = "Sleep Quality") +
   coord_cartesian(ylim = c(85, 90.25)) + 
-  theme(plot.title = element_text(hjust = 0.5))
+  theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+        axis.text.x = element_text(size = 12, color = "black"),
+        axis.text.y = element_text(size = 12, color = "black"),
+        axis.title.x = element_text(size = 14, color = "black"),
+        axis.title.y = element_text(size = 14, color = "black"))
 ```
 
 
+<a href="#top">Back to top</a>
 
 
-
-
-
-
+```{r echo = FALSE, eval = FALSE}
+If you want to create a drop down element, you have to look into `html forms` and `select option`.
+```
 

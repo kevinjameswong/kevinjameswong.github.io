@@ -229,6 +229,11 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 I enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r Update_Date - Start_Date - 1` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
 
+```{r out.height = "150px", out.width = "200px", fig.align = "center", echo = FALSE}
+include_graphics("images/halfhd.jpg")
+```
+
+This is me during the 2019 Illinois Half Marathon! I ran 13.1 miles in 1:43:29.
 
 ```{r echo = FALSE, eval = FALSE}
 HM = c("Illinois Half Marathon",
@@ -251,7 +256,9 @@ kable(x = HM, format = "html", align = "lrrrrrrrrrrrrrr") %>%
 
 # Yearly Stats
 
-```{r echo = FALSE}
+```{r echo = FALSE, warning = FALSE}
+options(dplyr.summarise.inform = FALSE)
+
 groupby_year = running %>%
   group_by(Year) %>%
   summarise(Total_Runs = sum(RunDistance > 0),
@@ -286,7 +293,7 @@ kable(groupby_year, format = "html", align = "lrrrr") %>%
 ```{r echo = FALSE}
 ggplot(data = groupby_year, aes(x = Year, y = Miles)) +
   geom_bar(stat = "identity", fill = "darkblue") +
-  geom_text(aes(label = groupby_year$Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
+  geom_text(aes(label = Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
   xlab(label = "Year") +
   ylab(label = "Miles") +
   ggtitle(label = "Miles by Year") +
@@ -393,9 +400,10 @@ kable(groupby_yearmonth, format = "html", align = "lrrrr") %>%
 ```
 
 ```{r echo = FALSE, eval = FALSE}
+
 ggplot(data = groupby_yearmonth, aes(x = Month, y = Miles %>% as.numeric())) +
   geom_bar(stat = "identity", fill = "darkblue") +
-  geom_text(aes(label = groupby_yearmonth$Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 2) +
+  geom_text(aes(label = Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 2) +
   ggtitle("Month vs. Miles") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
@@ -506,7 +514,7 @@ kable(groupby_weekday, format = "html", align = "lrrrr") %>%
 ```{r echo = FALSE}
 ggplot(data = groupby_weekday, aes(x = Weekday, y = Miles)) +
   geom_bar(stat = "identity", fill = "darkblue") +
-  geom_text(aes(label = groupby_weekday$Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
+  geom_text(aes(label = Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
   ggtitle("Weekday vs. Miles") +
   theme(plot.title = element_text(hjust = 0.5))
 ```

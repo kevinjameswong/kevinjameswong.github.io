@@ -1,0 +1,40 @@
+---
+title: "Kevin Wong - Testing"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r}
+s = 1:length(t)
+t = c(3.49, 3.07, 3.58, 1.13, 1.81, 2.37, 2.25, 3.32, 3.61, 4.15, 3.97, 3.28, 2.51, 2.87, 3.23, 2.36, 3.61)
+pie = data.frame(
+  s = s, t = t
+)
+```
+
+
+```{r}
+po = lm(t ~ s, data = pie)
+summary(po)
+```
+
+```{r}
+ggplot(data = pie, aes(x = s, y = t)) + geom_point()
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+x = c(-2, -1, 0, 1, 3)
+k = 3*x^4 - 6*x^2 + 1; k
+```
+

@@ -22,6 +22,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -493,12 +495,29 @@ $(document).ready(function () {
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#yearly-stats">Yearly Stats</a></li>
+<li><a href="#weekday-stats">Weekday Stats</a></li>
+</ul>
+</div>
 
+<!--
 <style>
-body {
-  background-color: #FF8200;
+body .main-container {
+  max-width: 900px !important;
 }
 </style>
+
+-->
+<!--
+<style>
+body .main-container {
+  background-color: #FF8200 !important;
+  max-width: 900px !important;
+}
+</style>
+-->
 <h1>
 Kevin’s Sleeping Data
 </h1>
@@ -519,20 +538,119 @@ body, p {
 </style>
 <p>I have been tracking my sleeping stats since February 6, 2017 using the <a href="https://www.sleepcycle.com" target="_blank">Sleep Cycle</a> app. Over the past 872 days, here are statistics on my past 849 sleeps.</p>
 <hr />
+<div id="yearly-stats" class="section level1">
+<h1>Yearly Stats</h1>
 <table class="table table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
-Weekday
+Year
 </th>
 <th style="text-align:right;">
-Sleeps Recorded
+Total Nights
 </th>
 <th style="text-align:right;">
 Sleep Quality (%)
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 Average Time in Bed
+</th>
+<th style="text-align:right;">
+Asleep Time
+</th>
+<th style="text-align:right;">
+Wake Up Time
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2017
+</td>
+<td style="text-align:right;">
+311
+</td>
+<td style="text-align:right;">
+85.98
+</td>
+<td style="text-align:center;">
+8:24
+</td>
+<td style="text-align:right;">
+12:21:28 AM
+</td>
+<td style="text-align:right;">
+08:46:50 AM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018
+</td>
+<td style="text-align:right;">
+362
+</td>
+<td style="text-align:right;">
+88.77
+</td>
+<td style="text-align:center;">
+8:34
+</td>
+<td style="text-align:right;">
+12:31:50 AM
+</td>
+<td style="text-align:right;">
+09:07:07 AM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+88.68
+</td>
+<td style="text-align:center;">
+8:20
+</td>
+<td style="text-align:right;">
+11:57:07 PM
+</td>
+<td style="text-align:right;">
+08:18:02 AM
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="sleep_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="weekday-stats" class="section level1">
+<h1>Weekday Stats</h1>
+<table class="table table-hover table-responsive" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Day
+</th>
+<th style="text-align:center;">
+Total Nights
+</th>
+<th style="text-align:center;">
+Sleep Quality (%)
+</th>
+<th style="text-align:center;">
+Average Time in Bed
+</th>
+<th style="text-align:center;">
+Avg Asleep Time
+</th>
+<th style="text-align:center;">
+Avg Wake Up Time
 </th>
 </tr>
 </thead>
@@ -541,117 +659,147 @@ Average Time in Bed
 <td style="text-align:left;">
 Monday
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 124
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 87.67
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 8:20
+</td>
+<td style="text-align:center;">
+12:26:37 AM
+</td>
+<td style="text-align:center;">
+08:48:06 AM
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Tuesday
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 124
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 87.25
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 8:26
+</td>
+<td style="text-align:center;">
+12:23:29 AM
+</td>
+<td style="text-align:center;">
+08:50:54 AM
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Wednesday
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 120
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 87.09
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 8:26
+</td>
+<td style="text-align:center;">
+12:26:54 AM
+</td>
+<td style="text-align:center;">
+08:54:15 AM
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Thursday
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 123
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 85.69
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 8:11
+</td>
+<td style="text-align:center;">
+12:31:34 AM
+</td>
+<td style="text-align:center;">
+08:43:45 AM
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Friday
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 117
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 87.64
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 8:33
+</td>
+<td style="text-align:center;">
+12:19:30 AM
+</td>
+<td style="text-align:center;">
+08:53:39 AM
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Saturday
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 119
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 89.80
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 8:45
+</td>
+<td style="text-align:center;">
+12:03:27 AM
+</td>
+<td style="text-align:center;">
+08:49:37 AM
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Sunday
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 122
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 89.02
 </td>
-<td style="text-align:right;">
+<td style="text-align:center;">
 8:32
 </td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;font-size: 21px;">
-Total
+<td style="text-align:center;">
+12:13:42 AM
 </td>
-<td style="text-align:right;font-weight: bold;font-size: 21px;">
-849
-</td>
-<td style="text-align:right;font-weight: bold;font-size: 21px;">
-87.73
-</td>
-<td style="text-align:right;font-weight: bold;font-size: 21px;">
-8:28
+<td style="text-align:center;">
+08:46:33 AM
 </td>
 </tr>
 </tbody>
 </table>
-<p><img src="sleep_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="sleep_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><a href="#top">Back to top</a></p>
+</div>
 
 <!DOCTYPE html>
 
@@ -887,7 +1035,7 @@ body {
 </style>
 <hr />
 <center>
-Copyright © 2019 Kevin Wong, Inc. All rights reserved.
+Copyright © 2021 Kevin Wong, Inc. All rights reserved.
 </center>
 
 

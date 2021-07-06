@@ -4,24 +4,18 @@ output:
   html_document:
     toc: yes
 ---
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+Update_Date = as.Date("07/05/2021", format = "%m/%d/%Y")
+library(tidyverse)
+```
 
-
-<!--
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
--->
 <h1>Work Experience</h1>
+
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
 
 <hr />
 
 ## Compass Mortgage
-
-```{r out.height = "150px", out.width = "200px", fig.align = "center", echo = FALSE}
-# library(knitr)
-# include_graphics("images/cougarslogo.png")
-```
 
 <p></p>
 <center>
@@ -45,12 +39,13 @@ Data Analyst
 </h4>
 
 <ul>
+<!--
   <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
   <li>Wrote and executed SQL queries to provide custom reports and analysis for senior management</li>
   <li>Clean, transform, and model data to ensure and improve accuracy of metrics calculations</li>
   <li>Develop, maintain and perform processes to continuously monitor data quality and integrity in platform applications</li>
   <li>Analyze and interpret data to identify trends, patterns, and opportunities for the business</li>
-  <li>Managed Salesforce CRM data structures and synchronization of custom objects
+  <li>Managed Salesforce CRM data structures and synchronization of custom objects --!>
   <!-- <li>Manage data by creating, updating, and organizing data</li> -->
   <!-- <li>Design and implement data structures and user interfaces</li> -->
   <!-- <li>Develop databases using data access languages</li> -->
@@ -59,6 +54,18 @@ Data Analyst
   <!-- <li>Troubleshoot the reporting database</li> -->
   <!-- <li>Train end users on new reports and/or dashboards</li> -->
   <!-- <li>Create and iterate on deliverables</li> -->
+  
+  <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
+  <li>Write and execute SQL queries to provide custom reports and analysis for senior management</li>
+  <li>Design analysis and development of data architectures for SQL relational database</li>
+  <li>Clean, transform, and model data to ensure and improve accuracy of metrics calculations</li>
+  <li>Develop, maintain and perform processes to continuously monitor data quality and integrity in platform
+applications</li>
+  <li>Analyze and interpret data to identify trends, patterns, and opportunities for the business</li>
+  <li>Manage Salesforce CRM data structures and synchronization of custom objects</li>
+  <li>Received 3 moments of recognition for outstanding achievement of statistical analysis and overall employee
+performance: November 2019, January 2020, March 2021</li>
+
 </ul>
 
 <!--

@@ -1,8 +1,14 @@
-<script>
-  alert('"Help");
-</script>
+<!DOCTYPE html>
+<html lang="en-US">
 
-```{r}
-# test
-```
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Today's Date</title>
+</head>
 
+<body>
+
+</body>
+
+</html>
