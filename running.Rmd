@@ -5,11 +5,11 @@ output:
     toc: yes
 ---
 
-<style>
-body {
-  background-color: #FF8200;
-}
-</style>
+<!-- <style> -->
+<!-- body { -->
+<!--   background-color: #FF8200; -->
+<!-- } -->
+<!-- </style> -->
 
 ```{r echo = FALSE, eval = FALSE}
 Add 12 month difference green if higher red if lower
@@ -42,7 +42,7 @@ Update_Date = as.Date("1/1/2020", format = "%m/%d/%Y")
 
  # read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_10_12_2019.csv", skip = 1)
 
-read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Book4.csv", skip = 1)
+read_data = read.csv(file = "~/Documents/KevinWebsite/kevinjameswong.github.io/Book4.csv", skip = 1)
 ```
 
 ***

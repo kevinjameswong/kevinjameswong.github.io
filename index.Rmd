@@ -27,7 +27,7 @@ body .main-container {
 <center>Now I am a Data Analyst for Compass Mortgage in Warrenville, IL.</center>
 -->
 
-<center>Now I am a Data Analyst for CDW Corporation in Lincolnshire, IL.</center>
+<center>Now I am a Data Analyst for CDW in Lincolnshire, IL.</center>
 
 <hr />
 
