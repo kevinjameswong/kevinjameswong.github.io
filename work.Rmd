@@ -5,7 +5,7 @@ output:
     toc: yes
 ---
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-Update_Date = as.Date("08/01/2021", format = "%m/%d/%Y")
+Update_Date = as.Date("04/01/2022", format = "%m/%d/%Y")
 library(tidyverse)
 ```
 
@@ -112,8 +112,7 @@ performance: November 2019, January 2020, March 2021</li> -->
   <li>Developed, maintained, and performed processes to continuously monitor data quality and integrity in platform applications</li>
   <li>Analyzed and interpreted data to identify trends, patterns, and opportunities for the business</li>
   <li>Managed Salesforce CRM data structures and synchronization of custom objects</li>
-  <li>Received 3 moments of recognition for outstanding achievement of statistical analysis and overall employee
-performance: November 2019, January 2020, March 2021</li>
+  <li>Received 3 moments of recognition for outstanding achievement of statistical analysis and overall employee performance: November 2019, January 2020, March 2021</li>
 
 </ul>
 
