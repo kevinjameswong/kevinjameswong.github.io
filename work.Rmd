@@ -5,7 +5,7 @@ output:
     toc: yes
 ---
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-Update_Date = as.Date("04/01/2022", format = "%m/%d/%Y")
+Update_Date = as.Date("08-01-2022", format = "%m-%d-%Y")
 library(tidyverse)
 ```
 
@@ -34,7 +34,7 @@ Lincolnshire, IL
 </h3>
 
 <h4 style="text-align:left;">
-Data Analyst
+Data Analyst - PPM Analytics
 <span style="float:right;">August 2021 - Present</span>
 </h4>
 
@@ -77,21 +77,20 @@ Data Analyst
 </h4>
 
 <ul>
-<!--
-  <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
+  <!-- <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
   <li>Wrote and executed SQL queries to provide custom reports and analysis for senior management</li>
   <li>Clean, transform, and model data to ensure and improve accuracy of metrics calculations</li>
   <li>Develop, maintain and perform processes to continuously monitor data quality and integrity in platform applications</li>
   <li>Analyze and interpret data to identify trends, patterns, and opportunities for the business</li>
-  <li>Managed Salesforce CRM data structures and synchronization of custom objects --!>
-  <!-- <li>Manage data by creating, updating, and organizing data</li> -->
-  <!-- <li>Design and implement data structures and user interfaces</li> -->
-  <!-- <li>Develop databases using data access languages</li> -->
-  <!-- <li>Develop data schemas to support information delivery and consumption</li> -->
-  <!-- <li>Prepare reports and analysis</li> -->
-  <!-- <li>Troubleshoot the reporting database</li> -->
-  <!-- <li>Train end users on new reports and/or dashboards</li> -->
-  <!-- <li>Create and iterate on deliverables</li> -->
+  <li>Managed Salesforce CRM data structures and synchronization of custom objects</li> 
+  <li>Manage data by creating, updating, and organizing data</li>
+  <li>Design and implement data structures and user interfaces</li>
+  <li>Develop databases using data access languages</li>
+  <li>Develop data schemas to support information delivery and consumption</li>
+  <li>Prepare reports and analysis</li>
+  <li>Troubleshoot the reporting database</li>
+  <li>Train end users on new reports and/or dashboards</li>
+  <li>Create and iterate on deliverables</li> -->
   
  <!-- resume as of 7/31/2021
   <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
@@ -187,7 +186,7 @@ Champaign, IL
 </h3>
 
 <h4 style="text-align:left;">
-Mathematics / Statistics Tutor
+Student-Athlete Tutor
 <span style="float:right;">August 2017 - May 2019</span>
 </h4>
 
