@@ -1,3 +1,5 @@
+<link rel="shortcut icon" href="icon.ico" />
+
 <center><h1>Kevin Wong</h1></center>
 
 ```{r out.height = "150px", out.width = "150px", fig.align = "center", echo = FALSE}
