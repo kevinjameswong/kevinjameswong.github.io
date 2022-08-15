@@ -1,4 +1,12 @@
-<link rel="shortcut icon" href="icon.ico" />
+---
+title: "Kevin Wong - Header"
+output:
+  html_document:
+    toc: yes
+---
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="icon.ico">
+</head>
 
 <center><h1>Kevin Wong</h1></center>
 
