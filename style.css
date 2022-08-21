@@ -19,6 +19,7 @@
   		body {
   			background-color: #e6faff;
   			color: black;
+  			margin-top: 0;
  		  }
  		  #homebutton {
 			  position: relative;
@@ -67,10 +68,40 @@
 		    text-align: right;
 		  }
 		  .titlebar {
-			  color: white;
+			  color: green;
 		  }
 		  .navbar {
-			  color: black;
+			  background-color: white;
+			  /* font-family: "Times New Roman"; */
+			  /* --min-height: 80px; */
+			  /* font-size: 10px; */
+		  }
+		  .navbar-brand {
+		    /* font-size: 93%; */
+		    font-size: 1.75rem;
+		    color: black;
+		    /* This adjusts "Kevin's Website" in the navbar, tested and works */
+		  }
+		  .navbar-nav {
+		    /* font-size: 82%; */
+		    font-size: 1.5rem;
+		  }
+
+		  .navbar-header {
+		    /* font-size: 125%; */
+		    color: black;
+		    /* This adjusts "Kevin's Website" in the navbar, tested and works */
+		  }
+		  <!--.navbar-toggle { -->
+        <!--display: block; -->
+		  <!-- } -->
+		  nav .site-nav a {
+		    color:black;
+		    font-size: 15px; 
+		    /*etc*/
+		  }
+		  .nav {
+			  color: green;
 		  }
 		  realtitle {
 		    color: green;

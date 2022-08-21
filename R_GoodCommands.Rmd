@@ -1,0 +1,1188 @@
+---
+title: "Kevin Wong - Betting Data"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+Start_Date = as.Date("1/28/2018", format = "%m/%d/%Y")
+
+read.csv
+select
+view_data
+names
+levels
+kable()
+head
+summarise()
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c("Problem", "Critical_Value", "Test_Statistic", "Alpha", "P_Value", "Decision")
+  c()
+           Date,
+         Sport,
+         Legs,
+         Wager,
+         End,
+         Payout,
+         Description,
+         Notes,
+         Boost,
+         Before,
+         After,
+         To.Win,
+         To.Profit,
+         Influence,
+         Live,
+         Sportsbook
+         )
+
+names(prod_data1) = c("ID", "Person", "Date", "Sport", "Legs", "Wager_num", "End", "Payout_num", "Description", "Notes", "Boost", "Before", "After", "ToWin_num", "ToProfit_num", "Influencer", "Live_Boole", "Sportsbook")
+
+structure(prod_data1)
+```
+
+
+
+```{r}
+abline – Add straight lines to plot.
+abs – Compute the absolute value of a numeric data object.
+addmargins – Put margins on tables or arrays.
+addNA – Turn NA values into a factor level.
+aggregate – Compute summary statistics of subgroups of a data set.
+alist – Create a list object containing function arguments.
+all.equal – Test if two objects are nearly equal.
+all_equal [dplyr] – Compare two data frames.
+all_groups_identical [groupdata2] – Test if groupings of two factors are identical.
+all – Check whether all values of a logical vector are TRUE.
+anti_join [dplyr] – Anti join two data frames.
+any – Check whether any values of a logical vector are TRUE.
+apply – Apply function by rows or columns of a data frame.
+approx – Return a list of values that linearly interpolate given data points.
+approxfun – Return a function that performs linear interpolation.
+apropos – Return character vector with names of objects that contain the input.
+arrange [dplyr] – Order data frames and tibbles.
+as.data.frame – Coerce object to data frame.
+as.Date – Convert character strings to Date class.
+as.double – Convert integer to double class.
+as.factor – Convert a data object to the class factor.
+as.function – Convert an object to a function.
+as.name – Convert character string to name class object.
+as.numeric – Convert a data object to the class numeric.
+as.ordered – Create ordered factor.
+as.POSIXct – Manipulate date and time objects.
+as.POSIXlt – Manipulate date and time objects.
+as.single – Convert double-precision vector to single.
+as.tbl [dplyr] – Convert data.frame to tibble.
+attach – Give access to variables of a data.frame.
+attr – Return or set a specific attribute of a data object.
+attributes – Return or set all attributes of a data object.
+ave – Calculate averages.
+axis – Create user-defined axis ticks.
+barplot – Create a barplot.
+beep [beepr] – Play sound at the end of an R script.
+between [dplyr] – Test whether a numeric value falls into a specified range.
+bind_cols [dplyr] – Bind columns and vectors.
+bind_rows [dplyr] – Bind rows of data sets.
+body – Print and change the body of a function.
+box – Draw a border around a plot.
+boxplot – Create a boxplot.
+break – Break for-loop in R.
+browser – Inspect the currently used environment.
+call – Create objects of the class call.
+case_when [dplyr] – Distinguish between cases based on logical conditions.
+casefold – Translate character to lower or upper case.
+cases [memisc] – Distinguish between cases based on logical conditions.
+cat – Return character string in readable format.
+cbind – Combine vectors, matrices and/or data frames by column.
+ceiling – Round numeric up to the next higher integer.
+charmatch – Return position of first match between two data objects.
+chartr – Translate characters of string to lower and/or upper case.
+chol – Conduct a Choleski decomposition.
+choose.files – Interactively choose a file.
+clip – Specify the clipping region of a graphic.
+coalesce [dplyr] – Replace missing values.
+colMeans – Compute the mean of each column of a numeric data frame, matrix or array.
+colMedians [robustbase] – Compute the median of each column of a numeric matrix.
+colnames – Retrieve or set the column names of a data frame or matrix.
+colSums – Compute the sum of each column of a numeric data frame, matrix or array.
+combine [dplyr] – Combine values.
+combn [combinat] – Generate all possible combinations of vector object.
+comment – Query or set a comment attribute.
+complete.cases – Return a logical vector that indicates which cases have no missing values.
+cor – Calculate correlation coefficients.
+crossprod – Calculate matrix cross products.
+cumall [dplyr] – Apply cumulative version of all Function.
+cumany [dplyr] – Apply cumulative version of any Function.
+cume_dist [dplyr] – Rank a vector.
+cummax – Calculate cumulative maxima.
+cummean [dplyr] – Apply cumulative version of mean Function.
+cummin – Calculate cumulative minima.
+cumprod – Calculate cumulative products.
+cumsum – Calculate the cumulative sum of the elements of a numeric vector.
+cut – Convert numeric values into factorial ranges.
+data.frame – Create data frames.
+date – Return the current system date and time.
+dbern – Return corresponding value of bernoulli PDF.
+dbeta – Return corresponding value of beta density.
+dbinom – Return corresponding value of binomial density.
+dcauchy – Return corresponding value of cauchy density.
+dchisq – Return corresponding value of chi-square PDF.
+dense_rank [dplyr] – Rank a vector.
+density – Draw Kernel Density Plot.
+deparse – Convert an expression to the character class.
+deriv – Compute the derivative of an expression.
+det – Calculate the determinant of a matrix.
+detach – Remove the attachment of a data.frame or unload a package.
+determinant – Calculate the modulus of the determinant on the logarithm scale.
+dexp – Return corresponding value of exponential density.
+df – Return corresponding value of F PDF.
+dgamma – Return corresponding value of gamma density.
+dgeom – Return corresponding value of geometric PDF.
+dhyper – Return corresponding value of hypergeometric PDF.
+diag – Modify the diagonal of a matrix.
+diff – Compute difference between pairs of consecutive elements of a vector.
+difftime – Calculate the time difference of two date or time objects.
+digits [TeachingDemos] – Add straight lines to plot.
+dim – Return the dimension (e.g. the number of columns and rows) of a matrix, array or data frame.
+dimnames – Get and set the dimnames of a data object.
+dir – Return a character vector of file and/or folder names within a directory.
+dist – Compute distance matrices.
+distCosine [geosphere] – Calculate the Law of Cosines great circle distance.
+distHaversine [geosphere] – Calculate the Haversine great circle distance.
+distinct [dplyr] – Retain only unique rows of data set.
+distMeeus [geosphere] – Calculate the Meeus great circle distance.
+distRhumb [geosphere] – Calculate a distance along a rhumb line.
+distVincentyEllipsoid [geosphere] – Calculate the Vincenty Ellipsoid great circle distance.
+distVincentySphere [geosphere] – Calculate the Vincenty Sphere great circle distance.
+dlnorm – Return corresponding value of log normal PDF.
+dlogis – Return corresponding value of logistic PDF.
+dnbinom – Return corresponding value of negative binomial density.
+dnorm – Create standard normal distribution.
+do.call – Execute function by its name and a list of corresponding arguments.
+download.file – Download file from internet.
+dpois – Return value of poisson density.
+drop – Remove redundant dimension information.
+droplevels – Remove unused levels of a factor.
+dsignrank – Return corresponding PDF value of wilcoxon signedank statistic.
+dt – Return corresponding value of Student t PDF.
+dtukey – Return corresponding value of studentized range PDF.
+dunif – Return corresponding value of uniform PDF.
+duplicated – Determine duplicate elements.
+dweibull – Return corresponding value of weibull density.
+dwilcox – Return corresponding PDF value of wilcoxon rank sum statistic.
+ecdf – Compute the Empirical Cumulative Distribution Function (ECDF).
+eval – Evaluate an expression and return the result.
+everything [tidyselect] – Select all variables of a data set.
+exists – Check whether an object is defined in the R environment.
+exp – Compute exponentials.
+expand.grid – Get all combinations of two variables.
+expression – Create an R object of the expression class.
+extract [tidyr] – Split the columns of a data set.
+file.choose – Interactively choose a file.
+file.copy – Copy files between directories.
+file.path – Construct the path to a file from components in a platform-independent way.
+file_path_sans_ext – Get file name without extension.
+filter [dplyr] – Subset rows by logical condition.
+find – Return location where objects of a given name can be found.
+first [dplyr] – Extract first value from vector.
+fivenum – Calculate the Tukey five-number summaries.
+floor – Round numeric down to the next lower integer.
+format – Encode data objects into common formats.
+formatC – Format numbers.
+full_join [dplyr] – Full join two data frames.
+gap.plot [plotrix] – Break axis of plot.
+gather [tidyr] – Reshape data frame from wide to long format in R.
+gc – Collect garbage to clean up memory.
+geom_bar – Create a barplot.
+geom_boxplot [ggplot2] – Create a boxplot.
+geom_curve [ggplot2] – Add curve to ggplot2 plot.
+geom_histogram [ggplot2] – Draw a histogram.
+geom_line [ggplot2] – Draw a line graph.
+geom_segment [ggplot2] – Add line segment to ggplot2 plot.
+geometric.mean [psych] – Compute the geometric mean.
+get – Search and call a data object.
+get0 – Call an existing data object or return an alternative value.
+getwd – Return filepath of the current working directory.
+ggpairs [GGally] – Return a matrix of plots based on a given data set.
+gl – Generate a factor variable.
+gregexpr – Search for match of certain character pattern.
+grep – Search for match of certain character pattern and return indices.
+grepl – Search for match of certain character pattern and return logical.
+grid – Add a grid to a Base R plot.
+gsub – Replace all matches in character string.
+harmonic.mean [psych] – Compute the harmonic mean.
+hasName – Check whether a data frame object contains a certain variable name.
+head – Return the first part of a data object.
+heatmap – Create heatmap in Base R.
+hist – Create histogram.
+identical – Test objects for exact equality.
+identity – Return a data object.
+if_else [dplyr] – Conditionally select an element.
+ifelse – Select elements conditionally.
+inner_join [dplyr] – Inner join two data frames.
+integrate – Integrate a user-defined function.
+interactive – Check if R runs interactively.
+intersect – Return the intersection of two data objects.
+invisible – Change the print mode to of a data object to invisible.
+IQR – Compute the Interquartile Range.
+is.data.frame – Test if object is a data frame.
+is.double – Test whether a data object has the double class.
+is.function – Test if an object is a function.
+is.na – Return a logical vector or matrix indicating which elements are missing.
+is.name – Test whether a data object has the class name.
+is.nan – Return a logical vector or matrix indicating which elements are not a number.
+is.null – Return a logical value indicating whether a data object is of the data class NULL.
+is.ordered – Test if data object has ordered factor class.
+is.primitive – Test if an object is a primitive function.
+is.tbl [dplyr] – Check if data object is a tibble.
+is.unsorted – Check whether an input is unsorted.
+ISOdate – Convert numeric values to date and time objects.
+ISOdatetime – Convert numeric values to date and time objects.
+isprime [matlab] – Check for prime number.
+jitter – Add noise to a numeric vector.
+julian – Return the number of days between two date objects.
+lag [dplyr] – Lag a vector.
+lapply – Apply function to all list elements.
+last [dplyr] – Extract last value from vector.
+last_col [tidyselect] – Select the last variable of a data set.
+layout – Specify complex plot arrangements.
+lead [dplyr] – Lead a vector.
+left_join [dplyr] – Left join two data frames.
+length – Return the length of data objects such as vectors or lists.
+libPath – Get or set directory path of installed packages.
+license – Get the license terms under which R is distributed.
+list.dirs – Obtain list of directories.
+list.files – List files with specific extension in working directory.
+load – Load RData workspace file into R.
+log – Compute logarithms of numeric values.
+log10 – Compute logarithms of numeric values with base of 10.
+log2 – Compute logarithms of numeric values with base of 2.
+lower.tri – Modify the lower triangular part of a matrix.
+lowess – Compute the lowess smoother.
+ls – Return the names of data objects in an environment.
+mad – Compute the median absolute deviation.
+make.names – Create syntactically valid names.
+mapply – Apply function to multiple data groups.
+match.call – Match arguments of a function.
+match.fun – Extract the syntax of a function.
+match – Return position of first match between two data objects.
+max – Compute the maximum value of a vector or column.
+mean – Compute the arithmetic mean.
+median – Compute the median.
+melt [reshape2] – Reshape data frame from wide to long format in R.
+merge – Merge data frames.
+message – Generate diagnostic message.
+mget – Search and call several data objects.
+min_rank [dplyr] – Rank a vector.
+min – Compute the minimum value of a vector or column.
+missing – Check if a value was set as an argument to a function.
+Mode [DescTools] – Compute the mode.
+months – Return the corresponding month of a date.
+mtext – Write text to the margins of a graphic.
+mutate [dplyr] – Add new variable to data set.
+n.readLines [reader] – Skip ahead in a file and read text lines.
+na.omit – Remove incomplete cases of a data object.
+na_if [dplyr] – Replace NA values.
+names – Return or set the names of a data object.
+nchar – Return the number of elements (e.g. letters) of a character object.
+ncol – Return the number of columns of a matrix or data frame.
+near [dplyr] – Compare numeric vectors.
+next – Skip certain parts of for-loop in R.
+norm – Compute the norm of a matrix.
+nrow – Return the number of rows of a matrix or data frame.
+nth [dplyr] – Extract certain values from vector.
+ntile [dplyr] – Rank a vector.
+object.size – Report the space allocated for an object.
+objects – Return the names of data objects in an environment.
+OlsonNames – Get a list of known time zones.
+optim – Apply general-purpose optimization.
+optimize – Perform one dimensional optimization.
+order – Return position of each input element in ascending or descending order.
+ordered – Create ordered factor.
+outer – Apply a function to two arrays.
+packageVersion – Find out the currently loaded version of an R package.
+pairs – Return a plot matrix consisting of scatterplots for each variable-combination of a data frame.
+par – Set or Query graphical parameters.
+parse – Convert a character to the expression class.
+paste – Concatenate inputs to string.
+paste0 – Concatenate inputs to string with given separator.
+pbern – Return corresponding value of bernoulli CDF.
+pbeta – Return corresponding value of beta cumulative distribution function.
+pbinom – Return corresponding value of binomial cumulative distribution function.
+pcauchy – Return corresponding value of cauchy cumulative distribution function.
+pchisq – Return corresponding value of chi-square CDF.
+percent [formattable] – Format number as percentage.
+percent [scales] – Format number as percentage.
+percent_rank [dplyr] – Rank a vector.
+permn [combinat] – Generate all possible permutatins of vector object.
+pexp – Return corresponding value of exponential cumulative distribution function.
+pf – Return corresponding value of F CDF.
+pgamma – Return corresponding value of gamma cumulative distribution function.
+pgeom – Return corresponding value of geometric CDF.
+phyper – Return corresponding value of hypergeometric CDF.
+pivot_longer [tidyr] – Reshape data from wide to long format.
+pivot_wider [tidyr] – Reshape data from long to wide format.
+plnorm – Return corresponding value of log normal CDF.
+plogis – Return corresponding value of logistic CDF.
+plot – Draw a scatterplot or density plot.
+pmatch – Return position of first match between two data objects.
+pmax – Return the parallel maxima of two or more vectors.
+pmin – Return the parallel minima of two or more vectors.
+pnbinom – Return corresponding value of negative binomial cumulative distribution function.
+pnorm – Return value of distribution function.
+polygon – Draw a polygon to a plot.
+ppois – Return value of poisson cumulative distribution function.
+pretty – Compute a sequence of equally spaced round values.
+print – Return data object to the R (or RStudio) console.
+prop.table – Create a proportions table.
+psignrank – Return corresponding CDF value of wilcoxon signedank statistic.
+pt – Return corresponding value of Student t CDF.
+ptukey – Return corresponding value of studentized range CDF.
+pull [dplyr] – Extract columns of data frame or tibble.
+punif – Return corresponding value of uniform CDF.
+pweibull – Return corresponding value of weibull CDF.
+pwilcox – Return corresponding CDF value of wilcoxon rank sum statistic.
+qbern – Return corresponding value of bernoulli quantile function.
+qbeta – Return corresponding value of beta quantile function.
+qbinom – Return corresponding value of binomial quantile function.
+qcauchy – Return corresponding value of cauchy quantile function.
+qchisq – Return corresponding value of chi-square quantile function.
+qexp – Return corresponding value of exponential quantile function.
+qf – Return corresponding value of F quantile function.
+qgamma – Return corresponding value of gamma quantile function.
+qgeom – Return corresponding value of geometric quantile function.
+qhyper – Return corresponding value of hypergeometric quantile function.
+qlnorm – Return corresponding value of log normal quantile function.
+qlogis – Return corresponding value of logistic quantile function.
+qnbinom – Return corresponding value of negative binomial quantile function.
+qnorm – Return value of quantile function.
+qpois – Return value of poisson quantile function.
+qqline – Add theoretical line to QQplot.
+qqnorm – Create a normal QQplot.
+qqplot – Create QQplot of two data sets.
+qr – Perform a QR matrix decomposition.
+qsignrank – Return corresponding quantile function value of wilcoxon signedank statistic.
+qt – Return corresponding value of Student t quantile function.
+qtukey – Return corresponding value of studentized range quantile function.
+quantile – Compute sample quantiles.
+quarters – Return the corresponding quarter of a date.
+quit – Terminate an R session.
+qunif – Return corresponding value of uniform quantile function.
+qweibull – Return corresponding value of weibull quantile function.
+qwilcox – Return corresponding quantile function value of wilcoxon rank sum statistic.
+R.Version – Get current R version.
+range – Get the minimum and maximum of a data object.
+rank – Return ranking position of input.
+rbern – Return bernoulli distributed random number.
+rbeta – Draw random number from beta density.
+rbind.fill [plyr] – Row-bind matrices or data frames with different columns.
+rbind – Combine vectors, matrices and/or data frames by row.
+rbinom – Draw random number from binomial density.
+rcauchy – Draw random number from cauchy density.
+rchisq – Return chi-square distributed random number.
+read.xlsx [openxlsx Package] – Read Excel File in R.
+read.xlsx [xlsx Package] – Read Excel File in R.
+read_excel [readxl Package] – Read Excel File in R.
+readline – Interactively read a line from the terminal.
+readLines – Read text lines from an input file.
+readRDS – Load RData workspace file into R.
+recode [dplyr] – Replace certain values of a vector.
+recode_factor [dplyr] – Replace certain values of a factor vector.
+regexec – Search for match of certain character pattern.
+regexpr – Search for match of certain character pattern.
+remove – Clear specific data object from R workspace.
+rename [dplyr] – Rename variables of data frame or tibble.
+rep – Replicate elements of vectors and lists.
+replace – Exchanges values in data object.
+replicate – Perform a repeated evaluation of an expression.
+return – Return output of user-defined R function.
+rev – Return a reversed version of vectors or other data objects.
+rexp – Draw random number from exponential density.
+rf – Return F distributed random number.
+rgamma – Draw random number from gamma density.
+rgeom – Return geometrically distributed random number.
+rhyper – Return hypergeometrically distributed random number.
+right_join [dplyr] – Right join two data frames.
+rlnorm – Return log normally distributed random number.
+rlogis – Return logistically distributed random number.
+rm – Clear specific data object from R workspace.
+rnbinom – Draw random number from negative binomial density.
+rnorm – Draw normally distributed random number.
+rollmax [zoo] – Calculate moving maximum.
+rollmean [zoo] – Calculate moving average.
+rollmedian [zoo] – Calculate moving median.
+rollsum [zoo] – Calculate moving sum.
+round_any [plyr] – Round to multiple of any number.
+round – Round numeric to specified number of decimal places.
+row.names – Get or set row names of data frame or matrix.
+row_number [dplyr] – Rank a vector.
+row – Return row indices and labels.
+rowMeans – Compute the mean of each row of a numeric data frame, matrix or array.
+rowMedians [robustbase] – Compute the median of each row of a numeric matrix.
+rowSums – Compute the sum of each row of a numeric data frame, matrix or array.
+rpois – Draw random value of poisson density.
+rsignrank – Return random number according to wilcoxon signedank statistic.
+rt – Return Student t distributed random number.
+rtukey – Return studentized range distributed random number.
+runif – Return uniformly distributed random number.
+rweibull – Draw random value of weibull density.
+rwilcox – Return random number according to wilcoxon rank sum statistic.
+sample.int – Draw set of random integers in range.
+sample_frac [dplyr] – Take a sample of a certain fraction of a data set.
+sample_n [dplyr] – Take a sample of N cases of a data set.
+sample – Take a random sample or permutation of a data object.
+sapply – Apply function to all list elements and convert output to vector.
+save.image – Save global R environment as RData workspace file.
+save – Save R data objects as RData workspace file.
+saveRDS – Save single R data object as RData workspace file.
+scale_colour_brewer [ggplot2] – Change color palette in ggplot2 plot.
+scale_fill_brewer [ggplot2] – Change palette of filling colors in ggplot2 plot.
+scale – Standardize data.
+scan – Read data into vector or list from file or R console.
+sd – Compute standard deviation.
+search – Return a list of attached packages and objects.
+searchpaths – Return a list of paths to attached packages and data objects.
+segments – Draw a line segment between two pairs of points.
+select [dplyr] – Select variables of data frame or tibble.
+semi_join [dplyr] – Semi join two data frames.
+seq – Generate sequence of numeric values.
+set.seed – Set a random seed.
+setdiff – Identify which elements of a data object X are not existent in a data object Y.
+setnames [data.table] – Change names of a data.frame or data.table by reference.
+setNames [stats] – Set names of a data object and return the object.
+setwd – Specify new working directory.
+shapiro.test – Perform Shapiro-Wilk normality test.
+sign – Return the signs of numeric elements.
+signif – Round numeric to specified number of digits.
+single – Create a single-precision vector.
+sink – Export R output to external file.
+slice [dplyr] – Extract certain rows of data set.
+solve – Solve system of equations.
+sort.int – Return input in ascending or descending order.
+sort.list – Return position of each element of a single input.
+sort – Return input in ascending or descending order.
+split – Divide data into groups.
+sprintf – Return character containing a formatted combination of input values.
+sqrt – Compute the square root of a numeric data object.
+stat_qq [ggplot2] – Create a QQplot.
+stat_qq_line [ggplot2] – Add theoretical line to QQplot.
+std.error [plotrix] – Compute standard error in R.
+stop – Generate error message and stop executing the current R code.
+stopifnot – Check if all expressions are TRUE.
+str_c [stringr] – Combine several inputs into a single character vector.
+str_count [stringr] – Count number of matches in a character string.
+str_detect [stringr] – Detect presence or absence of pattern in character string.
+str_dup [stringr] – Duplicate and concatenate strings within a character vector.
+str_ends [stringr] – Detect the presence or absence of a pattern at the end of a character string.
+str_extract [stringr] – Extract matching patterns from character string .
+str_flatten [stringr] – Flatten a character string.
+str_length [stringr] – Return the length of a string.
+str_locate [stringr] – Locate the first position of patterns in a character string.
+str_locate_all [stringr] – Locate the position of patterns in a character string.
+str_match [stringr] – Extract first matched groups from a string.
+str_match_all [stringr] – Extract matched groups from a string.
+str_order [stringr] – Order a vector of character strings.
+str_remove [stringr] – Remove first matched patterns in a character string.
+str_remove_all [stringr] – Remove all matched patterns in a character string.
+str_replace [stringr] – Replace first matched patterns in character strings.
+str_replace_all [stringr] – Replace all matched patterns in character strings.
+str_replace_na [stringr] – Replace NA values in a character string.
+str_sort [stringr] – Sort a vector of character strings.
+str_split [stringr] – Split up a string into pieces.
+str_split_fixed [stringr] – Split up a string into a fixed amount of pieces.
+str_starts [stringr] – Detect the presence or absence of a pattern at the beginning of a character string.
+str_sub [stringr] – Extract or replace substring from character string.
+str_subset [stringr] – Extract character strings matching a pattern.
+str_trim [stringr] – Trim whitespace from a character string.
+str_trunc [stringr] – Truncate character strings.
+str_which [stringr] – Identify positions in a character string matching a pattern.
+str_wrap [stringr] – Wrap a character string into nicely formatted paragraphs.
+str – Compactly display the structure of a data object.
+strftime – Convert time objects to characters.
+strptime – Convert characters to time objects.
+strsplit – Split elements of a character string.
+structure – Set additional attributes of a data object.
+sub – Replace first match in character string.
+substr – Extract or replace a substring in a character vector.
+substring – Extract or replace a substring in a character vector.
+sum – Compute the sum of a numeric input vector.
+summary – Compute summary statistics of data and model objects.
+suppressWarnings – Suppress warning messages temporarily.
+sweep – Apply an operation (e.g. + or -) to a matrix by row or column.
+switch – Run a specific code block and return its result.
+Sys.chmod – Change file permissions.
+Sys.Date – Return the current system date.
+Sys.getenv – Obtain the values of environment variables.
+Sys.getlocale – Query aspects of the locale.
+Sys.getpid – Get the process ID of an R session.
+Sys.glob – Conduct a wildcard expansion on file paths.
+Sys.info – Return system and user information.
+Sys.localeconv – Find details about the numerical and monetary representations in the current locale.
+Sys.setFileTime – Change the time of a file.
+Sys.setlocale – Set aspects of the locale.
+Sys.time – Return the current system time.
+Sys.timezone – Get the name of the current time zone.
+system.file – Find the names of system files.
+t – Transpose data frame.
+tail – Return the last part of a data object.
+tapply – Apply function to multiple data groups.
+tcrossprod – Calculate cross product of transpose of matrix.
+text – Draw text elements to plots.
+textxy – Add text labels to a plot.
+theme_bw [ggplot2] – Change theme of ggplot2 Plot to theme_bw.
+theme_classic [ggplot2] – Change theme of ggplot2 Plot to theme_classic.
+theme_dark [ggplot2] – Change theme of ggplot2 Plot to theme_dark.
+theme_economist [ggthemes] – Change theme of ggplot2 Plot to theme_economist.
+theme_gray [ggplot2] – Change theme of ggplot2 Plot to theme_gray.
+theme_light [ggplot2] – Change theme of ggplot2 Plot to theme_light.
+theme_linedraw [ggplot2] – Change theme of ggplot2 Plot to theme_linedraw.
+theme_minimal [ggplot2] – Change theme of ggplot2 Plot to theme_minimal.
+theme_test [ggplot2] – Change theme of ggplot2 Plot to theme_test.
+theme_void [ggplot2] – Change theme of ggplot2 Plot to theme_void.
+tolower – Translate character to lower case.
+top_frac [dplyr] – Extract certain fraction at the top of data.
+top_n [dplyr] – Extract first n rows of data.
+toupper – Translate character to upper case.
+tracemem – Return memory address of data object.
+transform – Modify data frames easily.
+transmute [dplyr] – Create new variable based on data set.
+trimws – Trim Leading and Trailing Whitespace.
+trunc – Cut off decimal places of a numeric input.
+tryCatch – Check expressions for error and warning messages.
+type.convert – Convert data object to appropriate class.
+tz [lubridate] – Set and query the time zone of a date and time object.
+unclass – Manipulate Data Classes.
+union – Return values that appear in at least one of two data objects.
+unique – Remove duplicates from data objects.
+uniroot – Find a one dimensional root.
+unit [grid] – Create data object with the class unit.
+unlist – Convert a list to a single vector.
+unsplit – Reverse output of split function.
+upper.tri – Modify the lower triangular part of a matrix.
+url.show – Display a text URL.
+vapply – Apply function to all list elements and convert output to vector.
+var – Compute sample variance.
+View – Open a spreadsheet-style data viewer.
+warning – Generate warning message.
+weekdays – Return the corresponding weekday of a date.
+weighted.mean – Compute the weighted arithmetic mean.
+weightedMean [matrixStats] – Compute the weighted arithmetic mean.
+which – Return indices of certain values based on logical condition.
+which.max – Determine location of first maximum.
+which.min – Determine location of first minimum.
+window – Extract a time series subset.
+with – Evaluates expression in environment constructed based on data frame.
+within – Evaluates expression in environment and modify data frame.
+write – Write data to files.
+write_clip – Copy data to the clipboard.
+write.xlsx [xlsx] – Export data frame from R to Excel workbook.
+wt.mean [SDMTools] – Compute the weighted arithmetic mean.
+x11 – Start a graphics device driver for the X Window System.
+xtfrm – Produce numeric vector which sorts in same order as input.
+xyplot [lattice] – Create scatterplot.
+```
+```
+
+```{r echo = FALSE}
+prod_data1 = read_data %>%
+  drop_na(Legs) %>%
+  select(Kevin,
+         Person,
+         Date,
+         Sport,
+         Legs,
+         Wager,
+         End,
+         Payout,
+         Description,
+         Notes,
+         Boost,
+         Before,
+         After,
+         To.Win,
+         To.Profit,
+         Influence,
+         Live,
+         Sportsbook
+         )
+
+names(prod_data1) = c("ID", "Person", "Date", "Sport", "Legs", "Wager_num", "End", "Payout_num", "Description", "Notes", "Boost", "Before", "After", "ToWin_num", "ToProfit_num", "Influencer", "Live_Boole", "Sportsbook")
+
+view(prod_data1)
+```
+
+```{r}
+df <- tibble(x = c(1, 2, NA), y = c("a", NA, "b"))
+df
+df %>% drop_na(x)
+```
+
+***
+
+```{r echo = FALSE}
+running = read_data %>%
+  select(Location,
+         Day,
+         Month,
+         Day.1,
+         Date,
+         Run.Calories,
+         Run.Distance,
+         Run.Minutes,
+         Run.Seconds,
+         Walk.Calories,
+         Walk.Distance,
+         Walk.Minutes,
+         Walk.Seconds,
+         Start.Time) %>%
+  # slice(1:(Update_Date - Start_Date - 1) %>% as.integer())
+  slice(1:713 %>% as.integer())
+
+names(running) = c("Location", "Weekday_Read", "Month_Number_Read", "Day Number", "Date", "Run Calories", "Run Distance", "Run Minutes", "Run Seconds", "Walk Calories", "Walk Distance", "Walk Minutes", "Walk Seconds", "StartTime")
+
+running$Date         = running$Date            %>% as.Date(format = "%m/%d/%y")
+running$DayNumber    = running$`Day Number`    %>% as.character() %>% as.integer()
+running$RunCalories  = running$`Run Calories`  %>% as.character() %>% as.integer()
+running$RunDistance  = running$`Run Distance`  %>% as.character() %>% as.numeric()
+running$RunMinutes   = running$`Run Minutes`   %>% as.character() %>% as.integer()
+running$RunSeconds   = running$`Run Seconds`   %>% as.character() %>% as.integer()
+running$WalkCalories = running$`Walk Calories` %>% as.character() %>% as.integer()
+running$WalkDistance = running$`Walk Distance` %>% as.character() %>% as.numeric()
+running$WalkMinutes  = running$`Walk Minutes`  %>% as.character() %>% as.integer()
+running$WalkSeconds  = running$`Walk Seconds`  %>% as.character() %>% as.integer()
+
+running = running %>%
+  select(Location,
+         Weekday_Read,
+         Month_Number_Read,
+         Date,
+         StartTime,
+         DayNumber,
+         RunCalories,
+         RunDistance,
+         RunMinutes,
+         RunSeconds,
+         WalkCalories,
+         WalkDistance,
+         WalkMinutes,
+         WalkSeconds)
+
+running$Month = factor(running$Month_Number_Read)
+levels(running$Month) = c(month.name, "Total")
+
+running$Year = running$Date %>%
+  format(format = "%Y") %>%
+  factor(levels = running$Date %>%
+           format(format = "%Y") %>%
+           unique() %>%
+           sort()
+         )
+
+running$Weekday = factor(x = running$Weekday_Read,
+                         levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Total"))
+
+running$YearMonth = paste(running$Month, " ", running$Year, sep = "") %>% factor(levels = paste(month.name, rep(running$Year %>% levels(), each = length(month.name)))[1:(Update_Date %>% format(format = "%m") %>% as.integer() %>% "+"(1) - Start_Date %>% format(format = "%m") %>% as.integer() + (Update_Date %>% format(format = "%y") %>% as.integer() - Start_Date %>% format(format = "%y") %>% as.integer()) %>% "*"(12))])
+
+running = select(running, - Weekday_Read, - Month_Number_Read)
+
+running$Treadmill = ifelse(running$Location == "Arc" | running$Location == "Ike" | running$Location == "CRCE" | running$Location == "Lifetime Fitness" | running$Location == "Lifetime", 1, 0)
+running$CumRunDistance = cumsum(running$RunDistance)
+
+running$run_Count = ifelse(running$RunDistance > 0, 1, 0)
+
+# running$unique_run_count = ifelse(running$RunDistance == running %>% group_by(Date) %>% mutate(max(RunDistance)), 1, 0)
+```
+
+```{r echo = FALSE}
+# 2 - 1 - 2020: There has to be a better way to do this but it's whatever. this will do
+running = running %>% group_by(Date) %>% mutate(y = max(RunDistance))
+
+running$unique_run_count = ifelse(running$RunDistance == running$y & running$y != 0, 1, 0)
+```
+
+
+```{r echo = FALSE}
+pace_calculator = function(distance, minutes, seconds) {
+  m = ((minutes * 60 + seconds) / distance) %>% ceiling() %>% "%/%"(60)
+  s = ((minutes * 60 + seconds) / distance) %>% ceiling() %>% "%%"(60)
+  pace = paste(m %>% as.numeric() %>% as.character(),
+               ":",
+               s %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16),
+               sep = "")
+  return(pace)
+}
+
+yearly_mileage_pace = function(distance) {
+  l = (distance / n()) %>% "*"(365) %>% "*"(100) %>% floor() %>% "/"(100)
+  return(l)
+}
+
+total_time = function(minutes, seconds) {
+  h = (minutes * 60 + seconds) %>% sum() %>% "%/%"(60) %>% "%/%"(60)
+  m = (minutes * 60 + seconds) %>% sum() %>% "%/%"(60) %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
+  s = (minutes * 60 + seconds) %>% sum() %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
+  t = paste(h, ":", m, ":", s, sep = "")
+  return(t)
+}
+
+miles_per_run = function(distance) {
+  t = (distance %>% sum() / (distance > 0) %>% sum()) %>% "*"(100) %>% floor() %>% "/"(100)
+  return(t)
+}
+
+miles_per_day = function(distance) {
+  t = (distance %>% sum() / (n())) %>% "*"(100) %>% floor() %>% "/"(100)
+  return(t)
+}
+
+miles_per_hour = function(distance, minutes, seconds) {
+  t = (distance %>% sum() * 60 * 60 / (minutes * 60 + seconds)) %>% "*"(1000) %>% floor() %>% "/"(1000)
+  return(t)
+}
+```
+
+
+```{r echo = FALSE}
+total_row = c("Total",
+              sum(running$RunDistance > 0),
+              sum(running$RunDistance),
+              "ok",
+              "pace")
+```
+
+<script>
+function myFunction1() {
+  var x = document.getElementById("myDIV1");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+function myFunction2() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+function myFunction3() {
+  var x = document.getElementById("myDIV3");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+
+<style type="text/css">
+
+td, tr {
+   font-family: "Times New Roman";
+   font-size: 20px;
+}
+
+body, p {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
+
+<h1>Kevin's Running Data</h1>
+
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+
+***
+
+I enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r Update_Date - Start_Date - 1` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
+
+```{r out.height = "150px", out.width = "200px", fig.align = "center", echo = FALSE}
+include_graphics("images/halfhd.jpg")
+```
+
+This is me during the 2019 Illinois Half Marathon! I ran 13.1 miles in 1:43:29.
+
+```{r echo = FALSE, eval = FALSE}
+HM = c("Illinois Half Marathon",
+          "Distance",
+          "April 27, 2019",
+          "1:43:29",
+          "7:54",
+          "364/3098",
+          "275/1430",
+          "36/193")
+names(HM) = c("Event", "13.1 Miles", "Date", "Time", "Pace", "Rank", "Rank (Males)", "Rank (Males 20-24)")
+HM = as.data.frame(HM)
+kable(x = HM, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
+```
+
+
+*** 
+
+# Yearly Stats
+
+```{r echo = FALSE, warning = FALSE}
+options(dplyr.summarise.inform = FALSE)
+
+groupby_year = running %>%
+  group_by(Year) %>%
+  summarise(Total_Runs = sum(RunDistance > 0),
+            
+            Total_Days_Runs = sum(unique_run_count),
+            
+            Distance = sum(RunDistance),
+            
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            )
+            )
+
+# groupby_year = rbind(groupby_year, total_row)
+
+names(groupby_year) = c("Year", "Total Runs", "Total Run Days", "Miles", "Time", "Pace")
+
+groupby_year = groupby_year[order(groupby_year$Year), ]
+
+kable(groupby_year, format = "html", align = "lrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
+  #row_spec(row = nrow(groupby_year), bold = TRUE, font_size = 21)
+```
+
+```{r echo = FALSE}
+ggplot(data = groupby_year, aes(x = Year, y = Miles)) +
+  geom_bar(stat = "identity", fill = "darkblue") +
+  geom_text(aes(label = Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
+  xlab(label = "Year") +
+  ylab(label = "Miles") +
+  ggtitle(label = "Miles by Year") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+<button onclick="myFunction1()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Yearly Stats </button>
+
+<div id="myDIV1" class="collapse">  
+
+<br />
+
+<h3>Advanced Yearly Stats</h3>
+
+```{r echo = FALSE}
+groupby_year = running %>%
+  group_by(Year) %>%
+  summarise(Total_Runs = sum(RunDistance > 0),
+            
+            Total_Days_Runs = sum(unique_run_count),
+            
+            Days_Off = sum(RunDistance == 0),
+            
+            Distance = sum(RunDistance),
+            
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Miles_Per_Run = miles_per_run(
+              distance = RunDistance
+            ),
+            
+            Miles_Per_Day = miles_per_day(
+              distance = RunDistance %>% sum()
+            ),
+            
+            Yearly_Mileage_Rate = yearly_mileage_pace(
+              distance = RunDistance %>% sum()
+            ),
+
+            MPH = miles_per_hour(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Calories = sum(RunCalories)
+            )
+
+names(groupby_year) = c("Year", "Total Runs", "Total Run Days", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+
+kable(x = groupby_year, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
+```
+
+</div>
+
+
+***
+
+# Monthly Stats
+
+```{r echo = FALSE}
+groupby_yearmonth = running %>%
+  group_by(YearMonth) %>%
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
+            
+            Distance = sum(RunDistance),
+            
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            )
+  )
+
+# groupby_yearmonth$yearmonth = paste(groupby_yearmonth$Month, groupby_yearmonth$Year, sep = " ")
+# groupby_yearmonth = select(as.data.frame(select(groupby_yearmonth, - Month)), - Year)
+# groupby_yearmonth = groupby_yearmonth[, c(ncol(groupby_yearmonth), 1:ncol(groupby_yearmonth) - 1)]
+# 
+# groupby_yearmonth = rbind(groupby_yearmonth, total_row)
+
+names(groupby_yearmonth) = c("Month", "Total Runs", "Total Run Days", "Miles", "Time", "Pace")
+
+kable(groupby_yearmonth, format = "html", align = "lrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) #%>%
+  #row_spec(row = nrow(groupby_yearmonth), bold = TRUE, font_size = 21)
+```
+
+```{r echo = FALSE, eval = FALSE}
+
+ggplot(data = groupby_yearmonth, aes(x = Month, y = Miles %>% as.numeric())) +
+  geom_bar(stat = "identity", fill = "darkblue") +
+  geom_text(aes(label = Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 2) +
+  ggtitle("Month vs. Miles") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+<button onclick="myFunction2()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Monthly Stats </button>
+
+<div id="myDIV2" class="collapse">  
+
+<br />
+
+<h3>Advanced Monthly Stats</h3>
+
+```{r echo = FALSE}
+groupby_yearmonth = running %>%
+  group_by(YearMonth) %>%
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
+            
+            Days_Off = sum(RunDistance == 0),
+            
+            Distance = sum(RunDistance),
+            
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Miles_Per_Run = miles_per_run(
+              distance = RunDistance
+            ),
+            
+            Miles_Per_Day = miles_per_day(
+              distance = RunDistance %>% sum()
+            ),
+            
+            Yearly_Mileage_Rate = yearly_mileage_pace(
+              distance = RunDistance %>% sum()
+            ),
+
+            MPH = miles_per_hour(
+                distance = RunDistance %>% sum(),
+                minutes = RunMinutes %>% sum(),
+                seconds = RunSeconds %>% sum()
+            ),
+            
+            Calories = sum(RunCalories)
+            )
+
+names(groupby_yearmonth) = c("Month", "Total Runs", "Total Run Days", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+
+kable(x = groupby_yearmonth, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
+```
+
+</div>
+
+***
+
+# Weekday Stats
+
+```{r echo = FALSE}
+groupby_weekday = running %>%
+  group_by(Weekday) %>%
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
+            
+            Distance = sum(RunDistance),
+            
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            )
+  )
+            
+            # Miles_Per_Run = floor(sum(RunDistance) * 100 / sum(RunDistance > 0)) / 100,
+            
+            #MPH = floor(sum(RunDistance) / (((((sum(RunMinutes) + sum(RunSeconds) %/% 60) %/% 60) * 60 * 60 + ((sum(RunMinutes) + sum(RunSeconds) %/% 60) %% 60) * 60 + sum(RunSeconds) %% 60)) / (60 * 60)) * 1000) / 1000,
+            
+            #Calories = sum(RunCalories)
+            #)
+
+# groupby_weekday = rbind(groupby_weekday, total_row)
+
+names(groupby_weekday) = c("Weekday", "Total Runs", "Total Run Days", "Miles", "Time", "Pace")#, "MPH", "Calories")
+
+# names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
+
+kable(groupby_weekday, format = "html", align = "lrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
+  #row_spec(row = nrow(groupby_weekday), bold = TRUE, font_size = 21)
+```
+
+```{r echo = FALSE}
+ggplot(data = groupby_weekday, aes(x = Weekday, y = Miles)) +
+  geom_bar(stat = "identity", fill = "darkblue") +
+  geom_text(aes(label = Miles %>% round(digits = 2) %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
+  ggtitle("Weekday vs. Miles") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+<button onclick="myFunction3()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Advanced Weekday Stats </button>
+
+<div id="myDIV3" class="collapse">  
+
+<br />
+
+<h3>Advanced Weekday Stats</h3>
+
+```{r echo = FALSE}
+groupby_weekday = running %>%
+  group_by(Weekday) %>%
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
+            
+            Days_Off = sum(RunDistance == 0),
+            
+            Distance = sum(RunDistance),
+            
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Miles_Per_Run = miles_per_run(
+              distance = RunDistance
+            ),
+            
+            Miles_Per_Day = miles_per_day(
+              distance = RunDistance %>% sum()
+            ),
+            
+            Yearly_Mileage_Rate = yearly_mileage_pace(
+              distance = RunDistance %>% sum()
+            ),
+
+            MPH = miles_per_hour(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Calories = sum(RunCalories)
+            )
+
+names(groupby_weekday) = c("Weekday", "Total Runs", "Total Run Days", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+
+kable(x = groupby_weekday, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
+```
+
+</div>
+
+
+
+
+
+```{r echo = FALSE, eval = FALSE}
+location = running %>%
+  group_by(Location) %>%
+  summarise(Distance = sum(RunDistance),
+            Time = sum(RunMinutes))
+
+location = location[order(location$Distance, decreasing = TRUE), ] %>%
+  head()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

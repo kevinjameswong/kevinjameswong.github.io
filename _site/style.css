@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<style>
+		  .swag1 {
+		    color: red;
+		  }
+		  h1 {
+ 			  color: black;
+ 		  }
+ 		  h2 {
+ 			  color: black;
+  		}
+  		p {
+  			text-align: justify;
+  			color: black;
+  		}
+  		body {
+  			background-color: #e6faff;
+  			color: black;
+  			margin-top: 0;
+ 		  }
+ 		  #homebutton {
+			  position: relative;
+			  left: 0px;
+			  top: 0px;
+		  }
+		  #contactbutton {
+			  position: relative;
+			  left: 0px;
+			  top: 0px;
+		  }
+		  #titleimg {
+			  float: left;
+			  height: 30px;
+			  top: 5px;
+			  position: relative;
+		  }
+		  #titlebar {
+			  border: 2px solid;
+			  border-color: grey;
+			  height: 40px;
+		  }
+		  .title.toc-ignore {
+		    display: none;
+		  }
+		  .realtitle {
+		    font-size: 500%;
+		  }
+		  body .main-container {
+		    max-width: 750px;
+		    
+		  }
+		  h1.realtitle {
+		    margin-top: 4px;
+		  }
+		  .creatednav {
+		    padding-right: 10px;
+		    padding-left: 10px;
+		  }
+		  .swag1 {
+		    padding-right: 20px;
+		    padding-left: 20px;
+		    color: green;
+		  }
+		  .right1 {
+		    text-align: right;
+		  }
+		  .titlebar {
+			  color: green;
+		  }
+		  .navbar {
+			  background-color: white;
+			  font: "Times New Roman";
+		  }
+		  .nav {
+			  color: green;
+		  }
+		  realtitle {
+		    color: green;
+		  }
+		</style>
+	</head>
+</html>

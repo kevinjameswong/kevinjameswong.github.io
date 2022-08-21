@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Kevin Wong" />
+
+<meta name="date" content="2018-12-19" />
+
+<title>Spotify</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="work.html">Work Experience</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="running.html">Running Data</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel Projects</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">Schoolwork</a>
+</li>
+<li>
+  <a href="contact.html">Contact Me</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<center>
+<h1>
+Kevin Wong
+</h1>
+</center>
+<p><img src="images/kevin%20wong.jpg" width="150px" height="150px" style="display: block; margin: auto;" /></p>
+<hr />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120232594-1');
+</script>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="work.html">Work Experience</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="running.html">Running Data</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel Projects</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">Schoolwork</a>
+</li>
+<li>
+  <a href="contact.html">Contact Me</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Spotify</h1>
+<h4 class="author"><em>Kevin Wong</em></h4>
+<h4 class="date"><em>12/19/2018</em></h4>
+
+</div>
+
+
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>spotify = read.csv(&quot;~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Spotify_Wrapped.csv&quot;)</code></pre>
+<pre class="r"><code>spotify = spotify %&gt;% group_by(Year) %&gt;% mutate(Score = max(row_number()) + 1 - row_number())</code></pre>
+<pre class="r"><code>spotify %&gt;%
+  group_by(Album)   %&gt;%
+  count(Album)      %&gt;%
+  rename(Count = n) %&gt;%
+  arrange(desc(Count))</code></pre>
+<pre><code>## # A tibble: 238 x 2
+## # Groups:   Album [238]
+##    Album                                                    Count
+##    &lt;fct&gt;                                                    &lt;int&gt;
+##  1 Foreword                                                     4
+##  2 If You&#39;re Reading This It&#39;s Too Late                         4
+##  3 Unbreakable Smile                                            4
+##  4 21                                                           3
+##  5 a girl a bottle a boat                                       3
+##  6 All American                                                 3
+##  7 No Label II                                                  3
+##  8 Simple Gospel (Live)                                         3
+##  9 Spectacular! (Music from the Nickelodeon Original Movie)     3
+## 10 Tha Carter IV (Deluxe)                                       3
+## # ... with 228 more rows</code></pre>
+<pre class="r"><code>spotify %&gt;%
+  group_by(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6) %&gt;%
+  count(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6, Total = sum(Score)) %&gt;%
+  rename(Appearances = n) %&gt;%
+  arrange(desc(Total), desc(Appearances))</code></pre>
+<pre><code>## # A tibble: 268 x 9
+## # Groups:   Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5,
+## #   Artist.6 [268]
+##    Song      Artist.1   Artist.2 Artist.3 Artist.4 Artist.5 Artist.6 Total
+##    &lt;fct&gt;     &lt;fct&gt;      &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;    &lt;dbl&gt;
+##  1 Far Away  Nickelback &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         185
+##  2 Sweater … The Neigh… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         162
+##  3 Love Me … Ariana Gr… The Wee… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         133
+##  4 Here Wit… 3 Doors D… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         131
+##  5 Kiss Me … Parachute  &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         130
+##  6 What Abo… Daughtry   &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         126
+##  7 Give Me … Elevation… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         124
+##  8 Somewher… Keane      &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         123
+##  9 The Stand Hillsong … &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         120
+## 10 Cough Sy… Young the… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;         118
+## # ... with 258 more rows, and 1 more variable: Appearances &lt;int&gt;</code></pre>
+<pre class="r"><code>a1 = spotify %&gt;%
+  count(Artist.1) %&gt;%
+  rename(Total = n, Artist = Artist.1)
+a2 = spotify %&gt;%
+  count(Artist.2) %&gt;%
+  rename(Total = n, Artist = Artist.2)
+a3 = spotify %&gt;%
+  count(Artist.3) %&gt;%
+  rename(Total = n, Artist = Artist.3)
+a4 = spotify %&gt;%
+  count(Artist.4) %&gt;%
+  rename(Total = n, Artist = Artist.4)
+a5 = spotify %&gt;%
+  count(Artist.5) %&gt;%
+  rename(Total = n, Artist = Artist.5)
+a6 = spotify %&gt;%
+  count(Artist.6) %&gt;%
+  rename(Total = n, Artist = Artist.6)
+
+bind_rows(a1, a2, a3, a4, a5, a6) %&gt;%
+  arrange(Artist) %&gt;%
+  group_by(Artist) %&gt;%
+  summarize(Total = sum(Total)) %&gt;%
+  arrange(desc(Total)) %&gt;%
+  tail(n = -1)</code></pre>
+<pre><code>## # A tibble: 229 x 2
+##    Artist              Total
+##    &lt;chr&gt;               &lt;int&gt;
+##  1 Drake                  15
+##  2 Lil Wayne              10
+##  3 Tori Kelly              8
+##  4 Against The Current     5
+##  5 ATC                     5
+##  6 Jonas Brothers          5
+##  7 Lifehouse               5
+##  8 The Weeknd              5
+##  9 Alex Goot               4
+## 10 Elevation Worship       4
+## # ... with 219 more rows</code></pre>
+<pre class="r"><code>spotify %&gt;%
+  filter(Year == 2016 | Year == 2017) %&gt;%
+  arrange(Song) %&gt;%
+  group_by(Song, Artist.1) %&gt;%
+  count(Song, Total = sum(Score)) %&gt;%
+  rename(Appearances = n) %&gt;%
+  filter(Appearances == 2) %&gt;%
+  arrange(desc(Total))</code></pre>
+<pre><code>## # A tibble: 19 x 4
+## # Groups:   Song, Artist.1 [19]
+##    Song                                 Artist.1         Total Appearances
+##    &lt;fct&gt;                                &lt;fct&gt;            &lt;dbl&gt;       &lt;int&gt;
+##  1 Far Away                             Nickelback       185             2
+##  2 Sweater Weather                      The Neighbourho… 162             2
+##  3 Love Me Harder                       Ariana Grande    133             2
+##  4 Here Without You                     3 Doors Down     131             2
+##  5 Kiss Me Slowly                       Parachute        130             2
+##  6 What About Now                       Daughtry         126             2
+##  7 Give Me Faith                        Elevation Worsh… 124             2
+##  8 The Stand                            Hillsong Youth … 120             2
+##  9 Cough Syrup                          Young the Giant  118             2
+## 10 The Funeral                          Band of Horses   117             2
+## 11 How To Love                          Lil Wayne        116             2
+## 12 Paper Hearts                         Tori Kelly       113             2
+## 13 Wasted                               MKTO             109             2
+## 14 Come Home                            OneRepublic      106             2
+## 15 No Faith in Brooklyn (feat. Jhameel) Hoodie Allen      92.0           2
+## 16 Someone Like You                     Adele             67.0           2
+## 17 Red                                  Against The Cur…  52.0           2
+## 18 Eye of the Needle                    Sia               16.0           2
+## 19 Safe And Sound                       Capital Cities    16.0           2</code></pre>
+<pre class="r"><code>spotify %&gt;%
+  filter(Year == 2017 | Year == 2018) %&gt;%
+  arrange(Song) %&gt;%
+  group_by(Song, Artist.1) %&gt;%
+  count(Song, Total = sum(Score)) %&gt;%
+  rename(Appearances = n) %&gt;%
+  filter(Appearances == 2) %&gt;%
+  arrange(desc(Total))</code></pre>
+<pre><code>## # A tibble: 6 x 4
+## # Groups:   Song, Artist.1 [6]
+##   Song                               Artist.1            Total Appearances
+##   &lt;fct&gt;                              &lt;fct&gt;               &lt;dbl&gt;       &lt;int&gt;
+## 1 Flexicution                        Logic               118             2
+## 2 Only Just A Call Away              The Struts          104             2
+## 3 Pompeii                            Josh Golden          94.0           2
+## 4 Cocoon                             Catfish and the Bo…  80.0           2
+## 5 All In                             Lifehouse            75.0           2
+## 6 Love Is On Its Way - The 3D Conce… Jonas Brothers       69.0           2</code></pre>
+<pre class="r"><code>spotify %&gt;%
+  filter(Year == 2016 | Year == 2018) %&gt;%
+  arrange(Song) %&gt;%
+  group_by(Song, Artist.1) %&gt;%
+  count(Song, Total = sum(Score)) %&gt;%
+  rename(Appearances = n) %&gt;%
+  filter(Appearances == 2) %&gt;%
+  arrange(desc(Total))</code></pre>
+<pre><code>## # A tibble: 7 x 4
+## # Groups:   Song, Artist.1 [7]
+##   Song                   Artist.1  Total Appearances
+##   &lt;fct&gt;                  &lt;fct&gt;     &lt;dbl&gt;       &lt;int&gt;
+## 1 Somewhere Only We Know Keane     123             2
+## 2 Fight Night            Migos     115             2
+## 3 Lights Down Low        Maejor    110             2
+## 4 Tapout                 Rich Gang 103             2
+## 5 Headlines              Drake      88.0           2
+## 6 Right Above It         Lil Wayne  53.0           2
+## 7 Got Money              Lil Wayne  34.0           2</code></pre>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="work.html">Work Experience</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="running.html">Running Data</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel Projects</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">Schoolwork</a>
+</li>
+<li>
+  <a href="contact.html">Contact Me</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<style type="text/css">
+
+body {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
+<hr />
+<center>
+Copyright © 2019 Kevin Wong, Inc. All rights reserved.
+</center>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

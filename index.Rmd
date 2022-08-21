@@ -4,7 +4,8 @@ title: "Kevin Wong"
 
 <style>
 body .main-container {
-  max-width: 900px !important;
+  max-width: 85rem !important;
+  <!-- max-width: 900px !important; -->
 }
 </style>
 
@@ -33,10 +34,10 @@ body .main-container {
 
 <center>
   <h4>
-  <a class="swag1">[Work Experience](work.html)</a>
-  <a class="swag1">[Data Analysis Projects](data.html)</a>
-  <a class="swag1">[Schoolwork](schoolwork.html)</a>
-  <a class="swag1">[Contact Me!](contact.html)</a>
+    <a class="swag1">[Work Experience](work.html)</a>
+    <a class="swag1">[Data Analysis Projects](data.html)</a>
+    <a class="swag1">[Schoolwork](schoolwork.html)</a>
+    <a class="swag1">[Contact Me!](contact.html)</a>
   </h4>
 </center>
 
