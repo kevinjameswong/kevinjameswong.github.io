@@ -36,12 +36,14 @@ body .main-container {
   <h4>
     <a class="swag1">[Work Experience](work.html)</a>
     <br class="mobile-break">
+    <br class="mobile-break">
     <a class="swag1">[Data Analysis Projects](data.html)</a>
+    <br class="mobile-break">
     <br class="mobile-break">
     <a class="swag1">[Schoolwork](schoolwork.html)</a>
     <br class="mobile-break">
-    <a class="swag1">[Contact Me!](contact.html)</a>
     <br class="mobile-break">
+    <a class="swag1">[Contact Me!](contact.html)</a>
   </h4>
 </center>
 
