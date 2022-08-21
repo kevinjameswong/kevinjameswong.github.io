@@ -24,18 +24,23 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 </center>
 
 <h3 style="text-align:left;">
+<br class="mobile-break">
 People Who Get IT <!-- PEOPLE WHO GET IT -->
 <span style="float:right;">
 <!--
 <i class="fa fa-map-marker" style="font-size:24px"></i>
 -->
+<br class="mobile-break">
 Lincolnshire, IL
 </span>
 </h3>
 
 <h4 style="text-align:left;">
+<br class="mobile-break">
 Data Analyst - PPM Analytics
+<br class="mobile-break">
 <span style="float:right;">August 2021 - Present</span>
+<br class="mobile-break">
 </h4>
 
 <ul>
@@ -62,17 +67,21 @@ Data Analyst - PPM Analytics
 </center>
 
 <h3 style="text-align:left;">
+<br class="mobile-break">
 Home to a Better Mortgage Experience
 <span style="float:right;">
 <!--
 <i class="fa fa-map-marker" style="font-size:24px"></i>
 -->
+<br class="mobile-break">
 Warrenville, IL
 </span>
 </h3>
 
 <h4 style="text-align:left;">
+<br class="mobile-break">
 Data Analyst
+<br class="mobile-break">
 <span style="float:right;">June 2019 - August 2021</span>
 </h4>
 
@@ -136,15 +145,19 @@ performance: November 2019, January 2020, March 2021</li> -->
 
 <h3 style="text-align:left;">
 Class-A Affilate of MLB Arizona Diamondbacks
+<br class="mobile-break">
 <span style="float:right;">
 <!--
 <i class="fa fa-map-marker" style="font-size:24px"></i>
 -->
-Geneva, IL</span>
+Geneva, IL
+<br class="mobile-break">
+</span>
 </h3>
 
 <h4 style="text-align:left;">
 Accounting Intern
+<br class="mobile-break">
 <span style="float:right;">Summer 2018</span>
 </h4>
 
@@ -177,17 +190,23 @@ Accounting Intern
 
 <h3 style="text-align:left;">
 University of Illinois at Urbana-Champaign
+<br class="mobile-break">
 <span style="float:right;">
 <!--
 <i class="fa fa-map-marker" style="font-size:24px"></i>
 -->
 Champaign, IL
+<br class="mobile-break">
 </span>
 </h3>
 
 <h4 style="text-align:left;">
 Student-Athlete Tutor
-<span style="float:right;">August 2017 - May 2019</span>
+<br class="mobile-break">
+<span style="float:right;">
+August 2017 - May 2019
+<br class="mobile-break">
+</span>
 </h4>
 
 <ul>
