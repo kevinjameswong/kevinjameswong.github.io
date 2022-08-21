@@ -84,7 +84,7 @@
 		  }
 		  .navbar-nav {
 		    /* font-size: 82%; */
-		    font-size: 1.6rem;
+		    font-size: 1.7rem;
 		  }
 
 		  .navbar-header {
@@ -105,6 +105,18 @@
 		  }
 		  realtitle {
 		    color: green;
+		  }
+		  /* Float to the right on screens that are equal to or less than 768px wide */
+		  @media (max-width: 768px) {
+		    .float-right-sm {
+		      float: right;
+		    }
+		  }
+		  /* Float to the right on screens that are equal to or greater than 769px wide */
+		  @media (min-width: 769px) {
+		    .float-right-lg {
+		      float: right;
+		    }
 		  }
 		</style>
 	</head>
