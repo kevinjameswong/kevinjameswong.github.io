@@ -9,4 +9,4 @@ output:
 library(knitr)
 include_graphics("images/halfhd.jpg")
 ```
-
+z
