@@ -1,0 +1,324 @@
+---
+title: "hw04: Can you see me now?"
+author: 'STAT 385, Spring 2018 - Kevin Wong - kjwong2'
+date: 'Due: Monday, March 12th, 2018 at 11:59 PM'
+output:
+  html_document:
+    theme: readable
+    toc: yes
+---
+
+# Overview 
+
+Please see the [homework policy](http://stat385.thecoatlessprofessor.com/homework-policy/)
+for detailed instructions and some grading notes. Failure to follow instructions
+will result in point reductions. In particular, make sure to commit each 
+exercise as you complete them. 
+
+> "There are three types of lies -- lies, damn lies, and statistics."
+>
+> --- Benjamin Disraeli
+
+## Objectives 
+
+The objectives behind this homework assignment are as follows:
+
+- Visualizing Data;
+- Critiquing visualizations;
+- Interpeting what a graph shows;
+- Applying visualization techniques to real world data sets.
+
+## Grading
+
+The rubric CAs will use to grade this assignment is:
+
+| Task                                                   | pts |
+|:-------------------------------------------------------|----:|
+| Link to GitHub Repository   	                         | 2   |
+| At least one commit per exercise (more is better!)     | 5   |
+| Commit messages that describe what changed	           | 5   |
+| How to Lie with Statistics - Histogram Edition         | 14  |
+| How to Lie with Statistics - General Edition           | 30  |
+| Ugly Graphs                                            | 20  |
+| Your Choice                                            | 34  |
+| Total                                                  | 110 |
+
+## Note on Graphing with `ggplot2`
+
+You may wish to refer to our lectures on [EDA](http://stat385.thecoatlessprofessor.com/lectures/11-eda/11-eda.pdf) and [Advanced Graphics](http://stat385.thecoatlessprofessor.com/lectures/12-adv-graphics/12-adv-graphics.pdf).
+In addition, consider visiting these community generated resources: [`ggplot2`](http://ggplot2.tidyverse.org/reference/index.html)'s
+website, the [r graph gallery](https://www.r-graph-gallery.com/), or
+[ggplot2 extensions gallery](http://www.ggplot2-exts.org/). 
+
+
+## Note on assignment graphs
+
+We are focusing on graphing with `ggplot2` within this exercise. Please avoid
+using _Base R_ graphics.
+
+-----
+
+## (12 Points) Exercise 0: Homework Tsar
+
+- **[2 Points] (a)** Place a link to your `hw04` GitHub repository here.
+
+[Kevin's link to hw04 GitHup repository](https://github.com/stat385-sp2018/hw04-KevinWong2)
+
+- **[5 Points] (b)** Commit every exercise as you finish them. 
+- **[5 Points] (c)** Make each commit message _meaningful_. 
+    - The bare minimum for a "meaningful" commit is a length of 15 characters.
+    - Inside the commit message, please make sure to appropriate describe 
+      what is happening.
+          - Simply stating, "Exercise 3" or "Ex3" is not sufficient.
+    - Provide detail on the state. 
+      
+## (14 Points) Exercise 1: How to Lie with Statistics - Histogram Edition
+
+- **[2 Points] (a)** Use the following piece of code to create a random sampling:
+
+```{r gen_numbers}
+set.seed(5175)
+lie_to_me = data.frame(sample_data = rpois(100, 15))
+```
+
+- **[2 Points] (b)** Next, create a histogram plot of the `sample_data` variable
+   inside the `lie_to_me` `data.frame` using `ggplot2` without setting the bin width.
+
+```{r ex1b-ggplot2}
+#install.packages("ggplot2")
+library(ggplot2)
+ggplot(data = lie_to_me, mapping = aes(lie_to_me$sample_data)) +
+  geom_histogram()
+```
+
+- **[2 Points] (c)** Why a **Histogram** the appropriate graph to use in this 
+  situation in comparison to a **Bar Plot**?
+  
+- Bar plots are used for categorical data, histograms are used for continuous numerical data. The `sample_data` is a list of numerical values.
+
+- **[2 Points] (d)** Create a new ggplot by changing the bin width based on 
+  one of the 
+  [binning formulas](https://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width) to
+  determine $k$, e.g.
+
+$$\underbrace {{\text{Bin Width}}}_h = \frac{{\max \left( x \right) - \min \left( x \right)}}{{\underbrace {{\text{Number of Bins}}}_k}}$$
+
+```{r hist-with-binwidth}
+k = (max(lie_to_me$sample_data) - min(lie_to_me$sample_data))/5
+ggplot(data = lie_to_me, mapping = aes(lie_to_me$sample_data)) +
+  geom_histogram(binwidth = k)
+```
+
+- **[4 Points] (e)** How does the bin width selected by one of the binning formulas change 
+  the histogram when compared to `ggplot2`'s default? Comment on the following:
+    - symmetry (e.g. right or left skew?);
+    - multi-modal (e.g are there multiple peaks?);
+    - outliers (e.g. points far away from main body?)
+
+- With the current binwidth of 3, the graph appears to be skewed left. There is only one peak, at about 15. In the default binwidth graph, there may be high outliers and low outliers, but with the binwidth of 3, it is much harder to tell outliers because the data has larger bins. Both are centered around 15 or 16.
+
+- **[2 Points] (f)** Compare the default binwidth, formula selected binwidth, 
+  binwidths that are small (e.g. < 1) and large (e.g. 25+).
+  
+```{r different-binwidths}
+ggplot(data = lie_to_me, mapping = aes(lie_to_me$sample_data)) +
+  geom_histogram(binwidth = 0.75)
+ggplot(data = lie_to_me, mapping = aes(lie_to_me$sample_data)) +
+  geom_histogram(binwidth = 2.5)
+ggplot(data = lie_to_me, mapping = aes(lie_to_me$sample_data)) +
+  geom_histogram(binwidth = 30)
+```
+
+- With larger binwidths, it is much harder for to tell if observations are outliers. Also, the binwidth of 30 is very hard to tell what is going on in the histogram because the bins are too large. I believe that for this particular data set, 2.5 is the perfect binwidth because we can see the shape of the histogram along with the multiple modes.
+
+## (22 Points) Exercise 2: How to Lie with Statistics - General Edition
+
+- **[4 Points] (a)** Construct a bar plot based on the `color` variable in `wine`
+  data set, which is found in the [`ucidata`](https://github.com/coatless/ucidata) package.
+
+```{r load-ex2-data}
+#install.packages("devtools")
+library(devtools)
+#devtools::install_github("coatless/ucidata")
+library(ucidata)
+```
+
+```{r geom-bar-wine}
+ggplot(data = wine, mapping = aes(x = color)) + 
+  geom_bar( )
+```
+
+- **[2 Points] (b)** Determine the frequency of each type of wine using _R_. Write
+  this information in a _dynamic_ way.
+
+```{r levels-wine}
+levels(wine$color)
+```
+
+There are `r summary(wine$color)[1]` observations of wine that are `r levels(wine$color)[1]` and `r summary(wine$color)[1]` obsevations of wine that are `r levels(wine$color)[2]`.
+
+- **[2 Points] (c)** Construct a second bar plot so that the `Red` colored wine seems miniscule in size
+  when compared to `White` colored wine. To do so, you will want to manipulate
+  the `y-axis` limits. (Psst: See
+  [`ggplot2`'s coordinate system documentation](http://ggplot2.tidyverse.org/reference/index.html#section-coordinate-systems).
+  Pay particular attention to the [Cartesian coordinates](http://ggplot2.tidyverse.org/reference/coord_cartesian.html) portion.) 
+
+```{r poor-scaled-bar}
+ggplot(data = wine, mapping = aes(x = color)) + 
+  geom_bar( ) +
+    coord_cartesian(ylim = c(1700, 5000), expand = TRUE) +
+      labs(x = "Color", y = "Count")
+```
+
+- **[2 Points] (d)** What lesson can we take away from the prior graph on how
+  visualizations can mislead the general public?
+
+- It's very important to pay attention to the scales of the axes and labels when looking at graphs.
+  
+- **[2 Points] (e)** Construct a scatterplot based on the `wine` data set's `quality`
+  and `total_sulfur_dioxide` variables. Color the points by setting the `aes()`
+  `color` parameter equal to the `color` variable in `wine`. 
+
+```{r point-no-jitter}
+ggplot(data = wine, mapping = aes(x = quality, y = total_sulfur_dioxide, color = color)) + 
+  geom_point( ) +
+    labs(x = "Quality", y = "Total Sulfur Dioxide")
+```
+
+- **[2 Points] (f)** Comment as to why the graph appears to be showing values
+  in striations instead of a true point plot. 
+
+- The `quality` variable is measured as an integer, meaning that there are no points in the spaces between each integer.
+
+- **[2 Points] (g)** Construct a second scatterplot where the points are jittered
+   based on the `wine` data set's `quality` and 
+  `total_sulfur_dioxide` variables. Color the points by setting the `aes()`
+   `color` parameter equal to the `color` variable in `wine`. 
+
+```{r point-jitter-plot}
+ggplot(data = wine, mapping = aes(x = quality, y = total_sulfur_dioxide, color = color)) + 
+  geom_point( ) +
+    labs(x = "Quality", y = "Total Sulfur Dioxide") +
+      geom_jitter( )
+```
+
+- **[2 Points] (h)** Comment as to why the jitter graph appears to show something
+  vastly different.
+
+- The jitter expands the points around the integer x values to show the density of points. In the previous scatterplot, there were many points stacked on top of each other.
+
+- **[4 Points] (i)** Create a boxplot based on the `wine` data set's `color` and 
+  `total_sulfur_dioxide`. Split the graph into subgraphs based on the value
+   in `quality`.
+
+```{r boxplot-wine}
+ggplot(data = wine, mapping = aes(x = color, y = total_sulfur_dioxide)) + 
+  geom_boxplot( ) +
+    labs(x = "Color", y = "Total Sulfur Dioxide") +
+      facet_wrap(~quality)
+```
+
+## (20 Points) Exercise 3: Ugly Graphs
+
+- **[2 Points] (a)** Find an "ugly" graph that is posted on the [dataisugly subreddit](https://www.reddit.com/r/dataisugly/) and include it in your _RMarkdown_
+  document.
+  
+![Ugly Pie Chart (2017 Line-Of-Duty Deaths)](Ugly Pie Chart.jpg)
+
+- **[5 Points] (b)** Describe why the graph is considered "ugly". 
+    - What was wrong with the original graphic?
+    - Colors? Layout? Too much information? Too little? Chart junk?
+    
+- They used a pie chart to describe a quantitative metric. 2017-Line-Of-Duty deaths is a counting metric, so a bar plot would have been a better choice. Also, phyiscal deaths is described as 03.
+    
+- **[10 Points] (c)** Create a new graph that improves the clarity of what is
+  being displayed.
+
+```{r better-graph}
+bet_names = c("Physical", "Gunfire", "Traffic Related", "Other")
+bet_num = c(3, 45, 40, 10)
+better_data = data.frame(bet_names, bet_num)
+ggplot(data = better_data, mapping = aes(bet_names, bet_num)) + 
+  geom_col( ) +
+    coord_cartesian(ylim = c(0, 50), expand = TRUE) +
+      labs(x = "Types of Deaths", y = "Number of Deaths", title = "2017 Line-Of-Duty Deaths")
+```
+
+- **[3 Points] (d)** What story is your new visualization able to tell in
+  comparison to the old?
+
+- Earlier we saw that the biggest piece of the pie chart occured from "Traffic Related" deaths, although "Gun Fire" caused more deaths. However, a pie chart wouldn't necessarily be best; this bar graph can allow us to visualize the different types of deaths and how they stack up against each other.
+
+## (34 Points) Exercise 4: Your Choice.
+
+- **[2 Points] (a)** Specify the name of the dataset, source, and location (e.g. URL) of the data
+   that you wish to use. You **must** select a data set that is unique to other
+   students. Guidelines for selecting a data set:
+    - The data set should have at least **100 observations** and **10 variables**.
+    - Do _not_ pick any data set found on _Kaggle_, _UC Irvine's ML repo_, or in an existing _R_ package (e.g. `.rda` files)
+    - Possible data sources to find datasets at include: <https://data.gov>, <https://data.cityofchicago.org/>, <http://data.cuuats.org/>
+    - **Failure to have a unique data set will result in a 0 for this exercise.**
+    
+- **[2 Points] (b)** Load the data into _R_ using the appropriate `read.*()` 
+  function.
+
+```{r load-data}
+cfb_data = read.csv("CFB_Game_Info.csv")
+```
+  
+- **[10 Points] (c)** Perform quantitative EDA techniques on the data to:
+   - Verify the number of observations
+   - Obtain the variable names of the imported data
+   - Structure of the data. 
+   - Numerical summaries of the data.
+   - Check if any abnormalities exist at the start or end of the data set.
+  
+```{r data-information}
+nrow(cfb_data)
+ncol(cfb_data)
+variable.names(cfb_data)
+str(cfb_data)
+summary(cfb_data)
+head(cfb_data)
+tail(cfb_data)
+```
+
+- I am a pretty big college football fan. I am using college football game information data obtained from the 2016-2017 season. There are `r nrow(cfb_data)` observations in this dataset, meaning that there were `r nrow(cfb_data)` games played this season. There are `r ncol(cfb_data)` variables in this dataset. There are 10 factor variables and 6 Integer variables. At the end of the dataset, there are 50 observations with a of NA values because these games had not been played yet.
+
+3. **[10 Points] (d)** Use visual EDA techniques by creating **at least three 
+   different graphs** that tell the story best of your data.
+   - You must use **at least three** different graphs.
+   - These graphs should use _different_ `geom_*()` objects.
+   - One of the three graphs should make use of either `facet_wrap()` or `facet_grid()`.
+   - All graphs must be legible.
+
+```{r home-score-histogram}
+ggplot(data = cfb_data, mapping = aes(x = Home_score)) + 
+  geom_histogram(binwidth = 5) + 
+    labs(x = "Home Score")
+```
+
+```{r week-bar-graph}
+ggplot(data = cfb_data, mapping = aes(x = Week)) + 
+  geom_bar( ) + 
+    labs(x = "Week", y = "Number of Games") + 
+      facet_wrap(~GameStatus)
+```
+
+```{r away-home-score-scatterplot}
+ggplot(data = cfb_data, mapping = aes(x = visitor_score, y = Home_score)) + 
+  geom_point( ) + 
+    labs(x = "Visitor Score", y = "Home Score")
+```
+
+4. **[10 Points] (e)** Provide an interpretation of information found on 
+   **each** graph in paragraph form. 
+   - There should be at least **3** paragraphs that summarize information on a 
+   given plot. For help writing the content, please recall the questions we 
+   discussed in the [EDA lecture on slide 10](http://stat385.thecoatlessprofessor.com/lectures/11-eda/11-eda.pdf#page=10)
+
+- From the first graph, we have a histogram of the different amount of points that the home teams have scored in their games. This appears to be slightly skewed right because there are teams that occasionally score high amount of points. The minimum of this histogram is 0 because you can never score less than 0 points in a football game. The center of this graph is about 30. There are many observations where the home team scored in a bin between 15-40 points, which is a typical amount of points a team would score in a football game.
+
+- The second graph gives us a bar graph of the number of games played in a particular week. Although week is an integer, the `Week` variable works here on the X-axis because it can used to categorize the data into different weeks of the season. (We are using an integer as a categorical variable). We used the `facet_wrap` argument to compare it with `GameStatus`. As you can see, many of the `Completed` games occurred in Weeks 0-12. A lot of the `Upcoming` games were in weeks 13 and beyond. In the `Cancelled` bar graph, a lot of those observations were in earlier weeks, where non-conference games occur, because those games are less meaningful and do not matter as much. Overall, the vast majority of the games in this dataset were `Completed`.
+
+- Lastly, we have a scatterplot of `visitor_score` vs. `Home_score`. There were `r nrow(cfb_data)` in this dataset, so that's why there are many points everywhere. Something that I noticed is that there are a lot of points on the X and Y axes. If a point lies on the X axis, that means that the Home team was shut out (they scored 0 points). If a point lies on the Y axis, that means that the Away team was shut out (they scored 0 points). There are many more points on the Y axis than the X axis because it is rare to see a home team fail to score any points in front of their home fans. It occurs more often that a road team gets shut out than the home team. With this scatterplot, we can see outliers. For example, there are observations where the home team managed to score over 80 points while holding their opponent under 25. Overall, there appears to be no true correlation between `visitor_score` and `Home_score`.

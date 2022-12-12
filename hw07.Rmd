@@ -1,0 +1,432 @@
+---
+title: "hw07: Scotty Functionize Me!"
+author: 'STAT 385, Spring 2018'
+date: 'Due: Wednesday, May 2nd, 2018 at 11:59 PM'
+output:
+  html_document:
+    theme: readable
+    toc: yes
+---
+
+# Overview 
+
+Please see the [homework policy](http://stat385.thecoatlessprofessor.com/homework-policy/)
+for detailed instructions and some grading notes. Failure to follow instructions
+will result in point reductions. In particular, make sure to commit each 
+exercise as you complete them. 
+
+> "There are no routine statistical question; only questionable statistical routines." 
+>
+> --- **D.R. Cox** quoted in Chatfield, C. 1991. Avoiding statistical pitfalls. Statistical Science 6: 240-268.
+
+## Objectives 
+
+The objectives behind this homework assignment are as follows:
+
+1. Writing a Functions
+1. Looping
+1. Simulations
+
+## Grading
+
+The rubric CAs will use to grade this assignment is:
+
+| Task                                                   | pts |
+|:-------------------------------------------------------|----:|
+| Link to GitHub Repository   	                         | 2   |
+| At least one commit per exercise (more is better!)     | 5   |
+| Commit messages that describe what changed	           | 5   |
+| It's a Mad, Mad, Mad, Mad Computational World          | 24  |
+| A Friday Night In Chambana                             | 22  |
+| Total                                                  | 58  |
+
+## Package usage
+
+For this homework assignment, you may only use the following _R_ packages:
+
+```{r}
+pkg_list = c("ggplot2", "dplyr", "benchmark", "microbenchmark")
+mia_pkgs = pkg_list[!(pkg_list %in% installed.packages()[,"Package"])]
+if(length(mia_pkgs) > 0) install.packages(mia_pkgs)
+loaded_pkgs = lapply(pkg_list, require, character.only=TRUE)
+```
+
+-----
+
+## (12 Points) Exercise 0: [Well life will pass me by if I don't open up to GitHub!](https://www.youtube.com/watch?v=IcrbM1l_BoI)
+
+**NB** When cloning this repository, you should opt-in to using the
+"base" template of the STAT 385 Workspace on RStudio Cloud.
+
+- **[2 Points] (a)** Place a link to your `hw07` GitHub repository here.
+
+[Kevin's link to hw07 GitHup repository](https://github.com/stat385-sp2018/hw07-KevinWong2)
+
+- **[5 Points] (b)** Commit every exercise as you finish them. 
+- **[5 Points] (c)** Make each commit message _meaningful_. 
+    - The bare minimum for a "meaningful" commit is a length of 15 characters.
+    - Inside the commit message, please make sure to appropriately describe 
+      what is happening.
+        - e.g. stating "Exercise 3" or "Ex3" is **not** sufficient.
+        - Provide details on the state, e.g. "Finished exercise 3" or
+        "Checking in a work in progress attempt on iterating over hockey data."
+          
+## (8 Points) Exercise 1: It's a Mad, Mad, Mad, Mad Computational World
+
+Consider the following equations: 
+
+**Total Sum of Squares (TSS)**
+
+$$TSS = \sum\limits_{i = 1}^n { { {\left( { {y_i} - { {\bar y}} } \right)}^2} }$$
+**Fitted Sum of Squares (FSS)**
+
+$$FSS = \sum\limits_{i = 1}^n { { {\left( { { {\hat y}_i} - \bar y} \right)}^2} }$$
+
+**Residual Sum of Squares (RSS)** 
+
+$$RSS = \sum\limits_{i = 1}^n { { {\left( { {y_i} - \hat y} \right)}^2} }$$
+
+These formulas are particular important in linear regression. Generally,
+they are related to each other under the relationship of:
+
+$$\begin{aligned}
+  TSS &= RSS + FSS \\
+\sum\limits_{i = 1}^n { { {\left( { {y_i} - \bar y} \right)}^2} }  &= \sum\limits_{i = 1}^n { { {\left( { {y_i} - { {\hat y}_i} } \right)}^2} } + \sum\limits_{i = 1}^n { { {\left( { { {\hat y}_i} - \bar y} \right)}^2} } 
+\end{aligned}$$
+
+- **[4 points] a.)** Implement vectorized functions for each of the TSS, RSS, FSS, and the shared relationship formulae.
+   - Use `sum()` and the appropriate vectorized algebraic operators.
+
+```{r creating-tss-rss-fss-functions}
+square_sum_funct = function(a, b) {
+  (a - b) ^ 2 %>%
+    sum()
+}
+
+TSS_fun = square_sum_funct(y, y_bar)
+RSS_fun = square_sum_funct(y_hat, y_bar)
+FSS_fun = square_sum_funct(y, y_hat)
+
+TSS_fun == RSS_fun + FSS_fun
+```
+
+- **[4 points] b.)** Implement their _looped_ (in _R_) counter-parts.
+   - Use an iteration structure like `for`, `while`, or `repeat`.
+
+```{r creating-tss-rss-fss-loops}
+for (i in seq_len(n)) {
+  TSS_loop = (y - y_bar) ^ 2 %>% sum()
+  RSS_loop = (y_hat - y_bar) ^ 2 %>% sum()
+  FSS_loop = (y - y_hat) ^ 2 %>% sum()
+}
+```
+   
+- **[6 points] c.)** Lastly, implement _looped_ R functions in _C++_.
+   - You may find [Extending R with C++: A Brief Introduction to Rcpp](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375990) helpful.
+   - To embed _Rcpp_ code in an _RMarkdown_ document take look at the guest lecture code.
+
+```{Rcpp tss-rss-fss-cpp}
+#include <Rcpp.h> 
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+
+cppFunction("
+ int TSS_Rcpp() {
+    int y;
+    int y_bar;
+    int sum = y - y_bar
+    return sum ** 2
+}")
+  
+cppFunction("
+ int RSS_Rcpp() {
+    int y_hat;
+    int y_bar;
+    int sum = y_hat - y_bar
+    return sum ** 2
+}")
+
+cppFunction("
+ int FSS_Rcpp() {
+    int y;
+    int y_hat;
+    int sum = y - y_hat
+    return sum ** 2
+}")
+
+TSS_Rcpp()
+RSS_Rcpp()
+FSS_Rcpp()
+```
+
+- **[2 points] c.)** Check that the vectorized functions produce output that is
+   equivalent to the looped set of functions. Then, check that the looped 
+   variants provide output that is equivalent to the _C++_ variant.
+   - Please use the simulated data values given below.
+   - Use `all.equal(value1, value2, check.attributes = FALSE)` to compare output.
+   - **Note:** You will have to use `check.attributes = FALSE` to avoid `"names for current but not for target"`
+
+```{r sim_setup, eval = FALSE}
+# Set a seed for reproducibility
+set.seed(5175)
+# Number of Observations
+n = 1000
+# Generate x
+x = seq(0, 1, length.out = n)
+
+# Generate random y
+# Set seed for reproducibility
+set.seed(114)
+y = runif(n)
+
+# Calculate mean
+y_bar = mean(y)
+
+# Obtain y_hat
+y_hat = lm(y~x)$fitted.values
+```
+
+```{r testing-answers}
+all.equal(TSS_fun, TSS_loop, TSS_Rcpp, check.attributes = FALSE)
+all.equal(RSS_fun, RSS_loop, RSS_Rcpp, check.attributes = FALSE)
+all.equal(FSS_fun, FSS_loop, FSS_Rcpp, check.attributes = FALSE)
+```
+
+- **[6 points] d.)** Perform the two different types of benchmarking operations
+   using `rbenchmark` and `microbenchmark` as discussed in class.
+    - Cache the code chunk if you constantly knit to avoid running having
+      to spend a considerable time waiting for the benchmark to finish.
+
+```{r finding-run-times}
+n = 10000
+microbench_times = microbenchmark(tss_fun_time = TSS_fun(n),
+                                  tss_loop_time = tss_loop(n),
+                                  tss_rcpp_time = TSS_Rcpp(n),
+                                  rss_fun_time = RSS_fun(n),
+                                  rss_loop_time = RSS_loop(n),
+                                  rss_rcpp_time = RSS_Rcpp(n),
+                                  fss_fun_time = FSS_fun(n),
+                                  fss_loop_time = FSS_loop(n),
+                                  fss_rcpp_time = FSS_Rcpp(n))
+microbench_times
+
+benchmark_times = benchmark(tss_fun_time = TSS_fun(n),
+                            tss_loop_time = tss_loop(n),
+                            tss_rcpp_time = TSS_Rcpp(n),
+                            rss_fun_time = RSS_fun(n),
+                            rss_loop_time = RSS_loop(n),
+                            rss_rcpp_time = RSS_Rcpp(n),
+                            fss_fun_time = FSS_fun(n),
+                            fss_loop_time = FSS_loop(n),
+                            fss_rcpp_time = FSS_Rcpp(n))
+benchmark_times
+```
+
+- **[2 points] e.)** Interpret the benchmarks performed.
+    - Is there a noticable difference in performance between the functions?
+    - Which set of functions would you recommend to a colleague? 
+
+* There is a noticable difference. The C++ took the shortest amount of time, so I'd recommend to a colleague to use C++ if possible.
+
+## (10 Points) Exercise 2: A Friday Night In Chambana
+
+Monty Python's [Ministry of Silly Walks](https://www.youtube.com/watch?v=iV2ViNJFZC8)
+has called upon you to help study students randomly walking in a silly manner on
+campus from the Department of Statistics located in Illini Hall to the Main
+Library. To walk in a silly random manner, students have been observed taking a
+single step forward with probability $p$ and a step backward with probability $1 - p$.
+There are **three** terminal conditions to a student's silly random walk. The student:
+
+- returns to Illini Hall (e.g. position is less than or equal to 0),
+- reaches the Main Library (final destination), or
+- takes 100 steps.
+
+For a more rigorous definition of the above process, consider:
+
+$$X_1, X_2, \cdots, X_n \mathop  \sim \limits^{iid} \left\{ {\begin{array}{*{20}{c}}
+  { + 1}& {\text{With probability } p} \\
+  { - 1}& {\text{With probability } 1-p}
+\end{array}} \right.$$
+
+Then:
+
+$$\begin{aligned}
+  {Y_0} &= 0 \\
+  {Y_n} &= {Y_{n - 1}} + {X_n} = \sum\limits_{i = 1}^n {{X_i}} \\
+\end{aligned}$$
+
+where $n = 1, 2, \cdots, i, \cdots, 100$
+
+#### Problem history 
+
+In 1906, Karl Pearson coined the term `random walk'. Studying random walks
+resulted in Pearson demonstrating that:
+
+> "the most likely place to find a drunken walker is somewhere near his starting point."
+
+Empirical evidence of this phenomenon is not too hard to find on a Friday night in Champaign.
+
+### [2 points] `random_step()`
+
+Create a function called `random_step()` with a single
+parameter value $p$, which is the probability associated with whether the step
+should be forward ($+1$) or backward ($-1$). 
+
+To decide the direction of the step randomly sample from a binomial distribution
+using `rbinom()`, where `n = 1`, `size = 1`, and `prob = p`. This will
+return either `0` or `1`. Modify the output in the case of `0` to return
+`-1`.
+
+Output from this function is a single value that is either $+1$ or $-1$.
+
+```{r random-step-function}
+random_step = function(p) {
+  ifelse(rbinom(n = 1, size = 1, prob = p) == 0, yes = -1, no = 1)
+}
+```
+
+### [4 points] `silly_walk()`
+
+Next, develop a simulation function called `silly_walk()` will the following
+inputs:
+
+- `p`
+    - a probability that governs the weighting of the step.
+- `initial_distance = 5`
+    - This is the location somewhere between Illini Hall (0) and 
+      the library (`ending_loc`) where we start to track follow them from.
+    - **Note: The initial distance does not have to be 0!**
+    - In particular, the initial distance is _not_ Illini Hall in this case
+      as it is _not_ 0. 
+- `ending_loc = 23`
+    - a ending location
+- `max_steps = 100`
+    - maximum number of steps a student can take, and $p$, the probability
+      of the step direction.
+
+Within this function, compute the cumulative summation or the _running total_ of
+the outputs from `random_step()`. For example, the cumulative sum of `1, 1, 1, -1`
+would be `1, 2, 3, 2`. Recall, _the position a student takes must always be
+greater than 0._ That is, the student has to be making progress toward the
+library. Otherwise, the simulation ends. _Recall `break` and `return`_.
+
+Output from this function is the calculated _cumulative summation_ in `atomic vector`
+form.
+
+```{r silly-walk-function}
+silly_walk_test = apply(FUN = random_step(p), initial_distance = 5, ending_loc = 23, max_steps = 100)
+
+sum = 0
+steps_taken = 0
+silly_walk = function(p, initial_distance = 5, ending_loc = 23, max_steps = 100) {
+  steps_taken = sum(abs(random_step(p)))
+  sum = initial_distance + sum((random_step(p)))
+  if (steps_taken == 100) {
+    return("100 Steps Taken")
+    break
+      if (sum >= ending_loc) {
+        return("Library")
+        break
+      }
+      else if (sum <= 0) {
+        return("Illini Hall")
+        break
+      }
+  }
+}
+
+silly_walk
+```
+
+### [6 points] `simulate_silly_walks()`
+
+Build a simulation runner named `simulate_silly_walks()` that accepts:
+
+- All parameters required by `silly_walk()` and
+- `nsims = 10`,
+    - number of simulations to run (e.g. how many times to call `silly_walks()` )
+
+For _only_ this function, as it will be user-facing, ensure the parameters that 
+are passed in are of the appropriate type and length by crafting assertions
+for each parameter.
+
+This function calls the `silly_walk()` function `nsims` times. This function
+retrieves and stores the _cumulative summation_ for each simulation 
+inside a `matrix`. The layout of the `matrix` should have the simulations 
+stored by column. If the number of entries in a given simulation walk is
+not `max_steps`, pad the end of the vector with `NA` values to ensure the length
+of the vector matches the `max_steps` possible.
+
+Using the _cumulative summation_ provide counts of how many times the student
+reached their destination, ended up back at the starting point, and had to stop
+after `max_steps`.
+
+The output from the function should contain a `list` with the following:
+
+- the **total** number of times the student ...
+    - reached their destination, 
+    - ended up back at the starting point, and 
+    - had to stop after 100 steps,
+- cumulative sum output of `silly_walks()`.
+- the inputs specified above.
+
+```{r simulate-silly-walk-function}
+simulate_silly_walk = function(p, initial_distance = 5, ending_loc = 23, max_steps = 100, nsims = 10) {
+  
+}
+
+for i in 
+```
+
+### [2 points] Running a simulation!
+
+Simulate the outcomes of the five different values of $p = 0.1, 0.3, 0.5, 0.7, 0.9$
+with a seed being set based on the last four digits of your UIN.
+
+This means you should have _five_ different simulation studies with their
+own value of `p` generated from the `simulate_silly_walks()` function.
+
+```{r running-simulation}
+set.seed(5175)
+p = c(0.1, 0.3, 0.5, 0.7, 0.9)
+
+```
+
+### [6 points] Visualizing the Results
+
+Extract the _cumulative sum_ history. Use the following code chunk to 
+translate it to "tidy" form
+
+```{r tidy-transform}
+# Sample data
+nsteps = 20
+nsims = 10
+your_history = matrix(1:(10 * 20), ncol = 10)
+
+colnames(your_history) = paste0("sim", seq_len(ncol(your_history)))
+rownames(your_history) = seq_len(nrow(your_history))
+
+tidied_history = cbind(expand.grid(dimnames(your_history)),
+                       Location = as.vector(your_history))
+colnames(tidied_history) = c("Step", "Simulation", "Location")
+
+head(tidied_history)
+```
+
+Create a _line_ graph that displays the location the student is on the
+_y_ axis and the _step_ count (1 to `max_steps`) on the
+_x_ axis for each of these simulations using `ggplot2`. Color the different
+simulations runs.
+
+```{r ggplot-graph}
+ggplot(data = , mapping = aes(x = )) +
+  geom_line()
+```
+
+## [2 Points] Intepretation
+
+Compare and constrast the difference of the silly walk based
+on the value of `p` supplied.
+
+* As p gets larger to 1, we are more likely to walk towards the Library.

@@ -1,0 +1,368 @@
+---
+title: 'hw02: Missingness, Subsets, and Variables Oh My!'
+author: 'STAT 385, Spring 2018'
+date: 'Due: Friday, February 16th, 2018 at 11:59 PM'
+output:
+  html_document:
+    theme: readable
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Overview 
+
+Please see the [homework policy](http://stat385.thecoatlessprofessor.com/homework-policy/)
+for detailed instructions and some grading notes. Failure to follow instructions
+will result in point reductions. In particular, make sure to commit each 
+exercise as you complete them. 
+
+> "Talk is cheap. Show me the code."
+>
+> --- **Linus Torvalds**, [on lkml](https://lkml.org/lkml/2000/8/25/132) August 25th, 2000
+
+## Objectives 
+
+The objectives behind this homework assignment are as follows:
+
+- Logical expressions;
+- Logical operators;
+- Control structures;
+- Handling _missingness_;
+- Deriving variables;
+- Subsetting data;
+
+## Grading
+
+The rubric CAs will use to grade this assignment is:
+
+| Task                                                   | pts |
+|:-------------------------------------------------------|----:|
+| Link to GitHub Repository   	                         | 2   |
+| At least one commit per exercise (more is better!)     | 5   |
+| Commit messages that describe what changed	           | 5   |
+| Evaluating logical comparisons                         | 10  |   
+| Combining logical comparisons                          | 10  |     
+| Explaining Recycling and Vectorization                 | 20  |
+| Fizzbuzz                                               | 20  |
+| Grade Distributions                                    | 12  |
+| Total                                                  | 84  |
+
+## Note on Markdown
+
+If you need help with markdown syntax, please go to the "Help" menu and select the 
+_Markdown Quick Reference_ guide. This will open in the **Help** tab on
+the _lower-right_ corner of _RStudio_. For more examples, please see 
+[the literate programming slides](http://stat385.thecoatlessprofessor.com/lectures/02-literate-programming/02-literate-programming.pdf#page=26) and the  [in class examples of writing in _RMarkdown_](https://dl.dropboxusercontent.com/s/djhtvrr2f07uyzi/01-22-2018-rmarkdown-sample.Rmd?dl=0).
+
+-----
+
+# Assignment
+
+## (12 Points) Exercise 0: Knowledge is Power
+
+- **[2 Points] (a)** Place a link to your `hw02` GitHub repository here.
+
+[Kevin's link to hw02 GitHup repository](https://github.com/stat385-sp2018/hw02-KevinWong2)
+
+- **[5 Point] (b)** Commit every exercise as you finish them.
+
+- **[5 Point] (c)** Make each commit message _meaningful_. 
+
+## (10 Points) Exercise 1: Truthiness
+
+Consider the following declarations:
+
+```{r numeric-values}
+x = c(5, -2, 9, 3)
+y = c(-1, 7, 9, 0)
+```
+
+For each comparison, fill in the corresponding entry in the following truth table:
+
+| `x` | `y` | `x > y` | `x < y` | `x >= y` | `x <= y` | `x == y` | `x != y` |
+|:---:|:---:|:-------:|:-------:|:--------:|:--------:|:--------:|:--------:|
+|  5  | -1  | TRUE    | FALSE   | TRUE     | FALSE    | FALSE    |  TRUE    |
+| -2  |  7  | FALSE   | TRUE    | FALSE    | TRUE     | FALSE    |  TRUE    |
+|  9  |  9  | FALSE   | FALSE   | TRUE     | TRUE     | TRUE     |  FALSE   |
+|  3  |  0  | TRUE    | FALSE   | TRUE     | FALSE    | FALSE    |  TRUE    |
+
+
+## (10 Points) Exercise 2: Redux Truthiness
+
+Given the following _logical_ values: 
+
+```{r example-logicals, eval = FALSE}
+a = c(TRUE, !FALSE, FALSE, !TRUE)
+b = c(FALSE, !FALSE, TRUE, FALSE)
+```
+
+Given the series of logical statements, please fill in the following truth table:
+
+|  `a`   |  `b`   | `a | b` | `a & b` |  `!a`  |  `!b`  | `!a | !b` | `!(a & b)` | `!(a | b)` | `xor(a, b)` |
+|:------:|:------:|:-------:|:-------:|:------:|:------:|:---------:|:----------:|:----------:|:-----------:|
+| TRUE   | FALSE  | TRUE    | FALSE   | FALSE  | TRUE   | TRUE      | TRUE       | FALSE      | TRUE        |
+| !FALSE | !FALSE | TRUE    | TRUE    | FALSE  | FALSE  | FALSE     | FALSE      | FALSE      | FALSE       |
+| FALSE  | TRUE   | TRUE    | FALSE   | TRUE   | FALSE  | TRUE      | TRUE       | FALSE      | TRUE        |
+| !TRUE  | FALSE  | FALSE   | FALSE   | TRUE   | TRUE   | TRUE      | TRUE       | TRUE       | FALSE       |
+
+Are any of the above truth situations able to be used in connection with
+[De Morgan's Laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws)? If so,
+which ones?
+
+Yes. `!(a & b)` is the same as `!a | !b`.
+Also, `!(a | b)` is the same as `!a & !b`, although there is no column for `!a & !b`.
+
+## (20 Points) Exercise 3: The Recycler
+
+_Hint_ You may wish to consult help documentation for the `rep()` function and
+look at the 
+[Foundations of _R_ lecture slides](http://stat385.thecoatlessprofessor.com/lectures/05-r-foundations/05-r-foundations.pdf)
+and accompanying 
+[code](https://dl.dropbox.com/s/1w7ium97f52vzba/01-31-2018-r-foundations.Rmd?dl=0).
+
+- **[2 Points] (a)** If we define `x = c(10, 2)` and `y = c(44, 6, 2, 9)`,
+   what should the output of `x * y` be?
+   
+```{r exercise-3a}
+x = c(10, 2)
+y = c(44, 6, 2, 9)
+x * y
+```
+
+- **[3 Points] (b)** Why are we receiving this output? 
+    - Please show how _R_ is able to perform the operation by recreating it
+      using `rep()`.
+
+```{r exercise-3b}
+rep(x, 2) * y
+```
+
+- Since `x` is the smaller vector, it is repeated until `x * y` is complete.
+
+- **[6 Points] (c)** What happens to the operation if we set `x` to be
+    `x = c(10, 2, -3, 15, 12)`? Show the process _R_ goes through when evaluating
+    this operation in a diagram.
+
+```{r exercise-3c}
+x = c(10, 2, -3, 15, 12)
+x * y
+```
+
+- In this case, `y` is the smaller vector, and it repeats the remaining inputs of `y` until `x * y` is complete.
+
+- **[3 Points] (d)** Create a vector of length 25 such that successive values
+    alternating between polarity (e.g. 1 and -1). 
+    - For example, the first _four_ values of such a vector would be: 
+      `c(1, -1, 1, -1)`
+
+```{r execerise-3d}
+alt_vec = (-1) * ((-1)^seq(1:25))
+alt_vec
+```
+
+- **[3 Points] (d)** Consider the following matrix `z`:
+
+| a | b |
+|:-:|:-:|
+|  1|  2|
+|  3|  4|
+|  5|  6|
+
+Transform `z` by using addition so that it is:
+
+| a | b |
+|:-:|:-:|
+|  4|  4|
+|  5|  7|
+|  8|  8|
+
+```{r exercise-3d-matrix}
+ex3_d_data = c(1, 2, 3, 4, 5, 6)
+z = matrix(ex3_d_data, nrow = 3, ncol = 2, byrow = TRUE, dimnames = list( c("Row 1", "Row 2", "Row 3"), c("a", "b")))
+z
+
+ex3_add_data = c(3, 2, 2, 3, 3, 2)
+y = matrix(ex3_add_data, nrow = 3, ncol = 2, byrow = TRUE, dimnames = list( c("Row 1", "Row 2", "Row 3"), c("a", "b")))
+y
+
+z + y
+```
+
+- **[3 Points] (e)** Construct the following sequence of length 15
+   `k`: $1, -2, 3, 4, -5, 6, \ldots, -14, 15$.
+
+_Hint_ Look at `seq()` to generate a sequence of numbers from 1 to 15. 
+
+```{r exercise-3e-sequence}
+k = seq(1:15) 
+k[seq(2, 15, 3)] = -k[seq(2, 15, 3)]
+k
+```
+
+## (20 Points) Exercise 4: Fizz, Buzz, or FizzBuzz
+
+_Hint_ You may wish to consult help documentation for both the `ifelse()` and `%%` modulus
+functions. In addition, please look at the 
+[Derived Variables lecture slides](http://stat385.thecoatlessprofessor.com/lectures/07-derived-variables/07-derived-variables.pdf)
+and accompanying 
+[code](https://dl.dropbox.com/s/rwbo07ghc91xyal/02-09-2018-derived-variables.Rmd?dl=0).
+
+The idea behind this exercise is to introduce you to a common interview problem
+posed to programmers. The question was devised to filter out programming
+candidates who have difficulty with foundamental computing theory. 
+As a testament to how popular this question is, there are _many_ solutions 
+available on the web. Having said this, you should _avoid_ looking at them and
+instead work on the problem yourself. 
+
+**Job Prompt:**
+
+> Write a program that saves the numbers from 1 to 25. But for multiples of 
+> three save "Fizz" instead of the number and for the multiples of four save 
+> "Buzz". For numbers which are multiples of both three and four save
+> "FizzBuzz".
+
+- **[5 Points] (a)** List each of the different cases and note if there is
+  any overlap between the logical conditions.
+    - _Hint_: There are _four_ cases (including the `else`).
+    
+- Numbers divisible by 3 AND 4, replace with FizzBuzz
+- Numbers divisible by 3 but NOT 4, replace with Fizz
+- Numbers divisible by 4 but NOT 3, replace with Buzz
+- Numbers not divisible by 3 AND not divisible by 4, keep the number
+
+- **[5 Points] (b)** Translate these comparisons to the `if-else if-else`
+  structure inside the `fizzbuzz(x)` function given below.
+    - _Hint 1_: Recall that modulus operator (`%%`) can be used to check if 
+    `x` is divisible by `y` under the condition that `x mod y == 0`. 
+
+```{r ex-fizz-buzz}
+fizzbuzz = function(x) {
+if( x %% 3 == 0 & x %% 4 == 0 ) {
+    x = "FizzBuzz"
+} else if ( x %% 3 == 0 ) {
+    x = "Fizz"
+} else if ( x %% 4 == 0 ) {
+    x = "Buzz"
+} else {
+  x = x
+}
+return(x)
+}
+```
+
+**NB** `x` is the parameter of this function. Make sure to perform comparisons
+with `x`.
+
+- **[5 Points] (c)** Test the `fizzbuzz(x)` function with four different
+  values of `x` that correspond to each of the conditions. What happens 
+  if `x` contains two values? 
+  
+```{r testing values}
+fizzbuzz(10)
+fizzbuzz(15)
+fizzbuzz(16)
+fizzbuzz(24)
+```
+
+- If `x` contains two values, we receive an error.
+
+- **[5 Points] (d)** Create a `fizzbuzz_vec(x)` function that uses multiple
+  vectorized `ifelse()`, e.g. `ifelse(<condition>, <true-statement>, <false-statement>)`.
+    - _Hint 1_: There are _three_ `ifelse` statements required.
+    - _Hint 2_: Consider using `seq()` to generate a sequence of numbers specified
+     in the job prompt.
+    - **Do _not_ answer this question with any kind of explicit loop.**
+
+```{r fizzbuzz-vec-if-else}
+fizzbuzz_vec = function(x) {
+  ifelse(x %% 3 == 0 & x %% 4 == 0, "Fizzbuzz",
+         ifelse(x %% 3 == 0, "Fizz",
+                ifelse(x %% 4 == 0, "Buzz", x)))
+}
+
+hb = seq(1:25)
+fizzbuzz_vec(hb)
+```
+
+## (12 Points) Exercise 5: What kind of grade distribution does ... have?
+
+Within this exercise, we will explore the "Grade Distribution" data
+at UIUC from Fall 2005 to Summer 2017. This data can be found in a GitHub-only
+data package called `uiucdata` under the name `grade_dist`. To see
+information about the number of observations and variables view the `grade_dist`
+help documentation. 
+
+**[2 Points] (a)** Install the `devtools` and `ggplot2` packages from [CRAN](https://cloud.r-project.org).
+Next, install and load the `uiucdata` package from [GitHub](https://github.com)
+using `devtools::install_github("coatless/uiucdata")`.
+**Comment** out the installation commands in the code chunk. 
+
+**NB:** If you do not comment the installation commands out, then they will be run
+every time you knit your `.Rmd` file. This adds a significant amount of time
+to each knitting and could put you over your ISP's bandwidth cap.
+
+**NB:** When we want to indicate which package a dataset or function comes from, 
+we use `package_name::function_name` or `package_name::data_set`. The `install_github`
+command comes from the `devtools` package. Thus, we are using `devtools::install_github`. 
+In the prior homework assignment, we loaded the `babynames` package and then
+referenced the `babynames` data set instead of using `babynames::babynames`.
+
+```{r install-packages}
+#install.packages("devtools")
+#install.packages("ggplot2")
+library(devtools)
+library(ggplot2)
+library(uiucdata)
+devtools::install_github("coatless/uiucdata")
+```
+
+**[2 Points] (b)** Drop the following three columns from `grade_dist`:
+`course_section`, `sched_type`, and `term`. Save the reduced `data.frame` into
+`grade_dist_reduced`.
+    - _Hint_ You can **drop** columns by specifying a _negative_ integer.
+
+```{r new-data-frame-ex5b}
+grade_dist_reduced = subset(grade_dist, select = -c(course_section, sched_type, term))
+```
+
+**[2 Points] (c)** Create a subset of the `grade_dist_reduced` data that 
+does _not_ contain any missing values and store it in `grade_dist_complete`.
+
+```{r removing-all-na}
+grade_dist_complete = na.omit(grade_dist_reduced, na.rm = TRUE)
+```
+
+**[2 Points] (d)** Without creating another `data.frame`, _dynamically_ state
+how many observations have missing values using the number of observations
+in the subset and the number of observations in the original `data.frame`.
+
+```{r counting-observations}
+dim(grade_dist)[1]
+dim(grade_dist)[1] - dim(grade_dist_complete)[1]
+```
+
+There are `r dim(grade_dist)[1]` obseravtions in the original `data.frame`. However, there are `r dim(grade_dist)[1] - dim(grade_dist_complete)[1]` NA values. 
+
+**[2 Points] (e)** Subset the `grade_dist_complete` to contain only `STAT`
+courses in the `subject` column and save this as `grade_dist_stat`. 
+
+```{r only-stat-dataset}
+grade_dist_stat = subset(grade_dist_complete, subject == "STAT")
+```
+
+**[2 Points] (f)** Load the `ggplot2` package. Specify the data set 
+`grade_dist_stat` in `ggplot()`'s `data = ____` and `a_plus` in `aes(x = ___)`
+where the `______` are.
+
+# Make sure to load the ggplot2 package
+# and change eval to see the plot. 
+
+```{r ggplot2-chunk}
+library(ggplot2)
+ggplot(data = grade_dist_stat , aes(x = a_plus)) + 
+  geom_histogram()
+```
+

@@ -1,0 +1,341 @@
+---
+title: 'hw01: Welcome to the Jungle'
+author: 'Kevin Wong - kjwong2'
+date: 'Due: Friday, February 9th, 2018 at 11:59 PM'
+output:
+  html_document:
+    theme: readable
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Overview 
+
+Please see the [homework policy](http://stat385.thecoatlessprofessor.com/homework-policy/)
+for detailed instructions and some grading notes. Failure to follow instructions
+will result in point reductions. In particular, make sure to commit each 
+exercise as you complete them. 
+
+> Hofstadter's Law: "It always takes longer than you expect, even when you take into account Hofstadter's Law."
+>
+> --- **Douglas Hofstadter**, Gödel, Escher, Bach: An Eternal Golden Braid
+
+## Objectives 
+The objectives behind this homework assignment are as follows:
+
+- Create an _RMarkdown_ document and write using _Markdown_ syntax;
+- Apply the principles of literate programming by embedding code and describing outcomes;
+- Read in data;
+- Provide data overviews;
+- Clone a `git` Repository;
+- Commit and Push changes to a `git` repository;
+- Become familiar with the homework procedures of the course.
+
+## Grading
+
+The rubric CAs will use to grade this assignment is:
+
+| Task                                                   | pts |
+|:-------------------------------------------------------|----:|
+| Link to GitHub Repository   	                         | 2   |
+| Agree to the homework policy	                         | 2   |
+| Verifying computing environment is setup               | 2   |
+| Listing where to get help in person                    | 2   |    
+| Writing in _RMarkdown_                                 | 10  |   
+| Working with Baby Name Data                            | 10  |     
+| Exploring the Excellent Teachers list at UIUC          | 12  |  
+| At least one commit per exercise (more is better!)     | 5   |
+| Commit messages that describe what changed	           | 5   |
+| Total                                                  | 50  |
+
+## Note on Markdown
+
+If you need help with markdown syntax, please go to the "Help" menu and select the 
+_Markdown Quick Reference_ guide. This will open in the **Help** tab on
+the _lower-right_ corner of _RStudio_. For more examples, please see 
+[the literate programming slides](http://stat385.thecoatlessprofessor.com/lectures/02-literate-programming/02-literate-programming.pdf#page=26) and the  [in class examples of writing in _RMarkdown_](https://dl.dropboxusercontent.com/s/djhtvrr2f07uyzi/01-22-2018-rmarkdown-sample.Rmd?dl=0).
+
+
+# Assignment
+
+## (2 points) Exercise 0: Get aboard the GitHub Bus!
+
+Place a link to your `hw01` GitHub repository here.
+
+[Kevin's link to GitHup repository](https://github.com/stat385-sp2018/hw01-welcome-to-the-jungle-KevinWong2)
+
+## (2 points) Exercise 1: Homework Policy
+
+Please uncomment the following statement when you have read and agreed
+to the [homework policy](http://stat385.thecoatlessprofessor.com/homework-policy/).
+To _uncomment_ a statement in _RMarkdown_ delete the `<!-- -->` surrounding
+the content.
+
+I have read and agree to abide by the policies and procedures laid 
+out by the [homework policy](http://stat385.thecoatlessprofessor.com/homework-policy/).
+I understand that:
+
+- I must independently write up solutions to homework problems.
+    - Failure to do so will result in an academic integrity violation due to plagarism and more severe penalties.
+- I must list the names of all collaborators that I work with at the top of
+  my homework assignment.
+- I understand that I can work with **at most** three other students in class. 
+- I will turn in my homework by committing to the GitHub repository that was
+  setup for me via GitHub classrooms.
+    - There is no paper or e-mail turn-in available. 
+- I must make all commits using `git` and _not_ the GitHub web interface.
+    - If I do, I will lose all the points associated with the `git` commits.
+- I will be able to drop one homework assignment over the course of the 
+  semester.
+
+## (2 points) Exercise 2: [Help! I need somebody](https://www.youtube.com/watch?v=CTsB-llTzyc) 
+
+Please answer:
+
+1. Who is part of the STAT 385 instructional staff?
+
+    - James Balamuta
+    - John Lee
+    - Binxiang "Brian" Ni
+    - Xueqing "Wendy" Wang
+
+1. Where are **all** STAT 385's Office Hours?
+
+    - Illini Hall 104
+
+1. When do the office hours take place during the week?
+Answers to these questions can be found on the main page of the course website:
+<http://stat385.thecoatlessprofessor.com/>
+
+    - James Balamuta: Wed & Fri 4:30 PM - 5:30 PM
+    - John Lee: Tue & Thurs	5:00 PM - 6:00 PM
+    - Binxiang "Brian" Ni: Mon & Wed	11:00 AM - 12:00 PM
+    - Xueqing "Wendy" Wang: Tue & Thurs	4:00 PM - 5:00 PM
+
+## (2 Points) Exercise 3: Know Thine Environment
+
+Please take screenshots of the following and include them in your _RMarkdown_ document:
+
+1. the [RStudio Cloud STAT 385 Workspace](https://rstudio.cloud/spaces/960). 
+2. the [STAT 385 Discussion Forum](https://github.com/stat385-sp2018/disc/issues)
+    - To get access to this forum, we _must_ know your GitHub Username.
+    - Please fill out this survey: <https://goo.gl/forms/n0U7Q87walHvNAhi2>
+    - Having issues logging in? Please see the
+      [walkthrough guide](http://stat385.thecoatlessprofessor.com/readings/00-google-forms/00-google-forms.html)
+      or the
+      [FAQ entry](http://stat385.thecoatlessprofessor.com/faq/#technical-google-forms)
+
+To take a screenshot press:
+
+- Windows: [`Windows Key` + `PrtScn`](http://windows.microsoft.com/en-us/windows/take-screen-capture-print-screen#take-screen-capture-print-screen=windows-8) or use the [Snipping tool](http://windows.microsoft.com/en-us/windows/use-snipping-tool-capture-screen-shots#1TC=windows-8)
+- macOS: [`Command` + `Shift` + `3`](https://support.apple.com/en-us/HT201361) or use [`Command` + `Shift` + `4`](https://support.apple.com/en-us/HT201361) for part of your screen.
+
+
+
+![Workspace Image](Workspace.png)
+
+![Discussion Board Image](Discussion Board.png)
+
+## (10 Points) Exercise 4: Who I Am
+
+If you need help with markdown syntax, please go to the "Help" menu and select the 
+_Markdown Quick Reference_ guide. This will open in the **Help** tab on
+the _lower-right_ corner of _RStudio_. For more examples, please see 
+[the literate programming slides](http://stat385.thecoatlessprofessor.com/lectures/02-literate-programming/02-literate-programming.pdf#page=26) and the  [in class examples of writing in _RMarkdown_](https://dl.dropboxusercontent.com/s/djhtvrr2f07uyzi/01-22-2018-rmarkdown-sample.Rmd?dl=0).
+
+- Create a self-portrait of yourself by either taking a picture or sketching it.
+  Include this self-portrait within the _RMarkdown_ document.
+    - Make sure to upload and commit your photo!
+
+![Kevin](fullsizeoutput_15f3.jpeg)
+
+- Make a 7 by 2 table in markdown that has a header row containing "Overview" and "Who I Am". 
+    - Under the "Overview" column, please write entries using bold text for:
+      Full Name, NetID, Birthday, Year in School, Major, and Expected Graduation Date
+    - Under the "Who I Am" column, please fill in your personal information.
+
+**Overview**             | **Who I Am**
+------------------------ | -------------------
+Full Name                | Kevin James Wong
+NetID                    | kjwong2
+Birthday                 | October 30
+Year in School           | Junior
+Major                    | Statistics
+Expected Graduation Date | May 11, 2019
+
+- Compile **ordered** lists for each of your favorite:
+    - foods;
+        1. Cheeseburgers
+        1. Pizza
+        1. Pasta
+    - TV shows;
+        1. Degrassi
+        1. Friday Night Lights
+        1. Stranger Things
+    - movies;
+        1. Invincible
+        1. Remember the Titans
+        1. Brooklyn's Finest
+    - music (add links to music videos on either YouTube or Vimeo).
+        1. [Meek Mill - Dreams and Nightmares (Intro)](https://www.youtube.com/watch?v=S8gfqs1-NuE)
+        1. [Young Thug - With That (ft. Duke)](https://www.youtube.com/watch?v=cTGQrA5HHIU)
+        1. [D-Lo - Get Her Tho (ft. Tyga)](https://www.youtube.com/watch?v=oZ0OUBwtWlY)
+        1. [Fetty Wap - RGF Island](https://www.youtube.com/watch?v=bl5egtkC51Y)
+        1. [Migos - Fight Night](https://www.youtube.com/watch?v=HsVnUpl2IKQ)
+
+- Devise _two_ **unordered** lists that contain your most recent memorable events
+  and where you typically spend your free time.
+
+    - Recent Memorable Events:
+        - Dropping INFO 490
+        - Dropping MATH 453
+        - Getting my wisdom teeth out
+    
+    - Free Time:
+        - Watching ESPN
+        - Working at Irwin Academic Services
+        - Working for the Kane County Cougars
+        - Running
+
+- Write the following formula as an _inline_ equation. 
+    - For help writing in LaTeX, see the following symbol's guide: <https://artofproblemsolving.com/wiki/index.php/LaTeX:Symbols> and see
+      [`lab00` solutions](https://github.com/stat385-sp2018/lab00-coatless/blob/master/rmarkdown-examples/rmarkdown-example.Rmd).
+    
+![LaTeX Formual](http://stat385.thecoatlessprofessor.com/hw/hw01/hw01-formula.png)
+
+$f(k|\lambda) = \frac{\lambda^k exp(-\lambda)}{k!}$
+
+- What is the name of your favorite mathematical formula? Include the
+  formula itself using _display mode_ and a link to its wikipedia entry.
+    - For inspiration, check out [Wikipedia's Mathematical Formula list](https://en.wikipedia.org/wiki/List_of_equations)!
+
+    - **Note:** You _cannot_ select the pythagorean theorem, golden ratio, or
+      quadratic formula as those were given as examples in
+      [`lab00`](https://github.com/stat385-sp2018/lab00/blob/master/rmarkdown-examples/rmarkdown-example.Rmd).
+
+Variance Formula:
+[$$Var(aX + bY) = a^2Var(X) + b^2Var(Y) + 2abCov(X,Y)$$](https://en.wikipedia.org/wiki/Variance#Properties)
+
+Commit and push your work onto GitHub.
+
+## (10 Points) Exercise 5: Got baby?
+
+**[2 Points] (a)** Install and load the `babynames` package. 
+**Comment** out the installation command in your `.Rmd` file. 
+(If you do not comment installation commands out, then they will be run
+every time you knit your `.Rmd` file.) 
+
+```{r install-babynames}
+#install.packages("babynames")
+library(babynames)
+```
+
+**[2 Points] (b)** Open up the help documentation for `babynames` (the data set),
+find where the variables for the data set are listed and write in your
+_RMarkdown_ document _how_ the `prop` variable was created.
+
+```{r help-babynames}
+help(babynames)
+```
+
+`prop` was calculated by `n` divided by total number of applicants in that year, which means proportions are of people of that gender with that name born in that year
+
+
+**[6 Points] (c)** Provide summary information on the `babynames` by:
+
+- writing a sentence that _dynamically_ describes the dimensions of the data;
+- showing the last six observations in the data set; and,
+- providing a summary overview of the data to understand its contents.
+
+```{r babynames-data-description}
+nrow(babynames)
+ncol(babynames)
+tail(babynames)
+```
+
+There are `r ncol(babynames)` variables and `r nrow(babynames)` observations.
+The variables are `year`, `sex`, `name`, `n`, and `prop`.
+
+- `year` - the year the child was born
+- `sex` - male or female
+- `name` the name of the child
+- `n` - the number of children with that name
+- `prop` - `n` divided by total number of applicants in that year, which means proportions are of people of that gender with that name born in that year
+
+##  (12 Points) Exercise 6: Excellency at UIUC
+
+Under this exercise, we will explore the "Teachers Ranked As Excellent" data
+at UIUC from Fall 1993 to Present as compiled by [Wade Fagen-Ulmschneider
+](http://waf.cs.illinois.edu/). Please download the data from:
+
+<https://raw.githubusercontent.com/wadefagen/Teachers-Ranked-As-Excellent-UIUC/master/TRE-UIUC-AllYears.csv> 
+
+This data has a file extension of **CSV** form. Contained in the data are the
+following variables:
+
+- `term`: Two letter semester code (`sp`, `su`, `fa`, or `wi`) followed by a four digit year.
+    - Examples: `sp2017`, `fa2013`, `su2012`.
+- `unit`: The CITL-supplied headers for the unit teaching the course.
+    - Examples: `ACCOUNTANCY`, `SOCIAL WORK`, `LINGUISTICS`, `NUCLEAR, PLASMA & RAD. ENGR.`
+- `lname`: The last name of the teacher.
+    - Examples: `FAGEN-ULMSCHNEIDER`, `FLANAGAN`, `FLECK`
+- `fname`: The first letter of the first name of the teacher.
+    - Examples: `W`, `K`, `M`
+- `role`: `Instructor` or `TA`
+- `ranking`: `Excellent` or `Outstanding`
+- `course`: The course the teacher was ranked as excellent.  If no course is given, the `course` field is set to `?` (this includes cases when the raw data lists the course as `0`, `000`, or `999`).
+    - Examples: `199`, `225`, `560`, `?`
+
+**[2 points] (a)** Import into _R_ the data in `TRE-UIUC-AllYears.csv` with the 
+variable name `tre_data`. As `course` contains a value that is _not_ `NA`, which
+is how _R_ represents missing values, you must use the parameter 
+`na.strings = c("?", "NA")` in the appropriate `read.*()` function. 
+If you need help, please see the appropriate help documentation via `?`.
+
+**NB** The `*` in the `read.*()` statement is a placeholder for the type of file
+you want to read in. 
+
+```{r read-data}
+tre_data = read.csv("https://raw.githubusercontent.com/wadefagen/Teachers-Ranked-As-Excellent-UIUC/master/TRE-UIUC-AllYears.csv", na.strings = c("?", "NA"))
+```
+
+**[2 points] (b)**  Retrieve the dimensional information for this data using
+only one function.
+
+```{r structure-data}
+str(tre_data)
+```
+
+**[4 points] (c)** Perform a summary of the `tre_data`. Are there any summaries
+that are surprising? What might have caused this? 
+
+_Hint_ Consider looking at the structure of `tre_data`. 
+
+```{r summary-data}
+summary(tre_data)
+```
+
+I think that it is interesting that there about over 57,000 Excellent faculty at the U of I. I am also surprised that our biggest department is Music with over 3698 observations. We have over 2301 faculty in the ECE Department, probably because we are a top instituion in that field.
+
+**[4 points] (d)** Fix the following code so that it:
+
+1. doesn't error;
+1. produces a graph; and 
+1. hides the code.
+
+_Hint_ for the last exercise look at different code chunk options.
+
+```{r echo = FALSE, ggplot2-code}
+#install.packages("ggplot2")
+library(ggplot2)
+ggplot(tre_data, aes(ranking)) + 
+  geom_bar() +
+  facet_wrap( ~role) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(y = "Frequency",
+       x = "Excellency Rating")
+```

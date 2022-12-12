@@ -1,0 +1,469 @@
+---
+title: "hw03: You Had Me at Hello World!"
+author: 'STAT 385, Spring 2018'
+date: 'Due: Friday, February 23rd, 2018 at 11:59 PM'
+output:
+  html_document:
+    theme: readable
+    toc: yes
+---
+
+# Overview 
+
+Please see the [homework policy](http://stat385.thecoatlessprofessor.com/homework-policy/)
+for detailed instructions and some grading notes. Failure to follow instructions
+will result in point reductions. In particular, make sure to commit each 
+exercise as you complete them. 
+
+> "How did it get so late so soon?"
+>
+> --- **Dr. Seuss**
+
+## Objectives 
+
+The objectives behind this homework assignment are as follows:
+
+- Sequence generation;
+- Manually entering data;
+- Randomness Generation;
+- LCM Method;
+- Deriving variables;
+- Iteration.
+
+## Grading
+
+The rubric CAs will use to grade this assignment is:
+
+| Task                                                   | pts |
+|:-------------------------------------------------------|----:|
+| Link to GitHub Repository   	                         | 3   |
+| At least one commit per exercise (more is better!)     | 5   |
+| Commit messages that describe what changed	           | 5   |
+| Out of Bounds Scenarios                                | 16  |
+| Manually entrying data                                 | 10  |
+| Deriving the Deriver                                   | 15  |
+| Randomizer                                             | 30  |
+| Divide and Conquer                                     | 16  |
+| Total                                                  | 100 |
+
+## Note on Markdown
+
+If you need help with markdown syntax, please go to the "Help" menu and select the 
+_Markdown Quick Reference_ guide. This will open in the **Help** tab on
+the _lower-right_ corner of _RStudio_. For more examples, please see 
+[the literate programming slides](http://stat385.thecoatlessprofessor.com/lectures/02-literate-programming/02-literate-programming.pdf#page=26) and the  [in class examples of writing in _RMarkdown_](https://dl.dropboxusercontent.com/s/djhtvrr2f07uyzi/01-22-2018-rmarkdown-sample.Rmd?dl=0).
+
+-----
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## (13 Points) Exercise 0: [Mamma Mia Here We Go Again!](https://youtu.be/_zqp8uOMXTI?t=37)
+
+- **[3 Points] (a)** Place a link to your `hw03` GitHub repository here.
+
+[Kevin's link to hw03 GitHup repository](https://github.com/stat385-sp2018/hw03-KevinWong2)
+
+- **[5 Points] (b)** Commit every exercise as you finish them. 
+- **[5 Points] (c)** Make each commit message _meaningful_. 
+
+## (16 Points) Exercise 1: Out of Bounds Woes
+
+_Hint_ You may wish to look at the 
+[Loop the Loops lecture slides](http://stat385.thecoatlessprofessor.com/lectures/09-loop-the-loops/09-loop-the-loops.pdf)
+and accompanying 
+[code](https://dl.dropbox.com/s/thoh6g9n5v8agjt/02-16-2018-loop-the-loops.Rmd?dl=0).
+
+
+> There are _two_ hard problems in computer science: 
+> cache invalidation, naming things, and **off-by-1 errors**. 
+> 
+> -- Leon Bambrick
+
+
+- **[2 Points] (a)** Use the `seq()` or _colon_ operator to generate a sequence 
+  called `seq_vec` that starts at 5 and goes to 1. Make a mental note of
+  the descending behavior.
+  
+```{r 5-to-1-vector}
+seq_vec = seq(from = 5, to = 1)
+seq_vec
+```
+
+- **[2 Points] (b)** Create an empty vector, e.g. a vector with length `0`,
+  called `empty_vec`. Verify by showing the vector's length.
+    - _Hint:_ The functions `numeric()`, `character()`, `integer()`, and
+    `vector()` correspond to some of _R_'s basic data types. These functions
+    accept a length parameter and can generate empty vectors.
+
+```{r empty-vector}
+empty_vec = c()
+length(empty_vec)
+```
+
+- **[2 Points] (c)** Create a sequence using the _colon_ operator that starts 
+  at `1` and goes to the length of `empty_vec`. Is there anything surprising
+  about this sequence?
+
+```{r 1-to-empty-vec-seq}
+seq_ex_1c = 1:length(empty_vec)
+seq_ex_1c
+```
+
+Because the length of the `empty_vec` is 0, the `seq_ex_1c` starts at 1 and descends to 0. However, we do not use the `seq()` function.
+
+- **[2 Points] (d)** Now, create two separate sequences on the empty vector using
+  `seq_along()` and `seq_len()`.
+
+```{r seq-along-seq-len}
+seq_along(empty_vec)
+seq_len(length(empty_vec))
+```
+
+- **[4 Points] (e)** How do the sequences for the empty vector generated
+   with `seq_along()` and `seq_len()` compare to the sequences generated with
+   `seq()` or the _colon_ operator? If you had to make a recommendation to a
+   colleague at work during a code review, what sequence generation technique
+   would you opt for?
+
+The `seq_along()` and `seq_len()` functions both have zero entries in the empty vector. However, `seq_len()` always starts at 1 and goes until the input. I would personally prefer to use `seq()`. We use this often in STAT 420 and STAT 432. 
+
+- **[4 Points] (f)** Within the following code snippet, there is an out of
+  bounds error. Correct the code so that `summed` outputs 0.
+
+```{r summation-broken}
+# Define vector to sum
+x = 0
+
+# Define a variable to hold the result of values added together
+summed = 0
+
+# Sum values together
+for(index in 1:length(x)) {
+  summed = summed + x[index]
+}
+
+# End result of summation
+summed
+```
+
+## (10 Points) Exercise 2: I _Vant_ to Manually Read your Data!
+
+For this exercise, you must _manually_ construct the following data sets in _R_
+using the appropriate data structure. Do _not_ read in the data using a
+`read.*()` function.
+
+- **[5 Points] (a)** A doctor at a world renowned medical institute needs help
+  importing their study data into _R_. Unfortunately, the medical doctor is only
+  able to provide you with a table in _markdown_ instead of a `.csv` file.
+  Convert the following table into a `matrix` in _R_. 
+  - _Hint_ to set row names use `rownames(object_name) = c("row1", "row2", "row3")`.
+    In a similar vein, this can be done to set the column names using `colnames()`.
+
+|       	| Smoker + | 	Smoker - | Total    |
+|:-------:|:--------:|:---------:|:--------:|
+| Male	  | 55	     | 35	       |    90    |
+| Female  | 12	     | 40 	     |    52    |
+| Total	  | 67	     | 75 	     |    142   |
+
+```{r smoking-matrix}
+smoke_plus_col = c(55, 12, 67)
+smoke_neg_col = c(35, 40, 75)
+total_col = c(90, 52, 142)
+
+all_smoke_data = c(smoke_plus_col, smoke_neg_col, total_col)
+row_names = c("Male", "Female", "Total")
+col_names = c("Smoker +", "Smoker -", "Total")
+dim = list(row_names, col_names)
+smoker_matrix = matrix(data = all_smoke_data, nrow = 3, ncol = 3, dimnames = dim, byrow = FALSE)
+smoker_matrix
+```
+
+- **[5 Points] (b)** An educational researcher at a prominent testing service
+ needs to import their data in a `data.frame` in _R_. They have provided you
+ with the following information:
+
+| id|sex    |race             | write| math| science|
+|--:|:------|:----------------|-----:|----:|-------:|
+| 33|male   |Asian            |    11|   37|       3|
+| 21|female |African American |    88|   90|      70|
+| 26|male   |Native American  |    33|   85|      98|
+| 15|female |African American |    78|   89|      94|
+|  9|male   |Caucasian        |    82|   19|      90|
+| 16|male   |African American |    89|    9|      84|
+|  4|female |African American |    88|   84|      83|
+| 12|male   |Caucasian        |    85|   91|      88|
+| 13|female |Native American  |    60|   95|      93|
+| 17|female |Asian            |    55|   87|      89|
+
+```{r 2b-data-frame}
+id = c(33, 21, 26, 15, 9, 16, 4, 12, 13, 17)
+sex = c("male", "female", "male", "female", "male", "male", "female", "male", "female", "female")
+race = c("Asian", "African American", "Native American", "African American", "Caucasian", "African American", "African American", "Caucasian", "Native American", "Asian")
+write = c(11, 88, 33, 78, 82, 89, 88, 85, 60, 55)
+math = c(37, 90, 85, 89, 19, 9, 84, 91, 95, 87)
+science = c(3, 70, 98, 94, 90, 84, 83, 88, 93, 89)
+framed_data = data.frame(id, sex, race, write, math, science)
+framed_data
+```
+
+## (15 Points) Exercise 3: Deriving the Deriver
+
+Within this exercise, we will explore the `bridges` data set from the
+UC Irvine's Machine Learning Repository. This data can be found in a GitHub-only
+data package called `ucidata` under the name `bridges`. To see
+information about the number of observations and variables view the `?bridges`
+help documentation. 
+
+- **[2 Points] (a)** Install the `devtools` and `ggplot2` packages from [CRAN](https://cloud.r-project.org).
+Next, install and load the `ucidata` package from [GitHub](https://github.com)
+using `devtools::install_github("coatless/ucidata")`.
+**Comment** out the installation commands in the code chunk. 
+
+```{r 3a-install-load-packages, warning = FALSE}
+#install.packages("devtools")
+#install.packages("ggplot2")
+library(devtools)
+library(ggplot2)
+devtools::install_github("coatless/ucidata")
+library(ucidata)
+```
+
+- **[5 Points] (b)** Create a new variable in `bridges` called `epoch` that 
+  provides a label based on when the bridge was erected using the following
+  criteria:
+    - before 1890 as "CRAFTS";
+    - between 1891 and 1912 as "INDUSTRIAL";
+    - between 1913 and 1940 as "MATURE";
+    - greater 1940 as "MODERN"
+    - _Hint_ You may wish to use a nested `ifelse()` or a loop that individually
+      checks each observation.
+
+```{r epoch-function}
+bridges$epoch = ifelse(bridges$erected <= 1890, "CRAFTS",
+                       ifelse(bridges$erected >= 1891 & bridges$erected <= 1912, "INDUSTRIAL",
+                              ifelse(bridges$erected >= 1913 & bridges$erected <= 1940, "MATURE",
+                                     ifelse(bridges$erected > 1940, "MODERN", "ERROR"))))
+```
+
+- **[5 Points] (c)** Construct a quality metric called `quality` for each bridge
+  by providing weight to existing variables in `bridges` and summing together 
+  the weights:
+    - `lanes` variable:
+        - for each lane a bridge has give it 1 point.
+        - e.g. 1 lane has 1 point, 2 lanes has 2 points, and so on.
+    - `material` variable contains: 
+        - `"STEEL"`: 8 points
+        - `"IRON"`: 7 points, and
+        - `"WOOD"`: 6 points
+    - `t_or_d` variable:
+        - `"DECK"`: 4 points 
+        - `"THROUGH"`: 5 points
+    - **If any entry contains `NA`, score it with a `0`. Do _not_ remove it from
+        the computation.**
+        - For example, if `lanes` contains an `NA`, then record `0` for that weight 
+          to ensure a final entry is computed.
+    - _Hint 1:_ When dealing with missing values, do _not_ use `NA == value`. Instead,
+      use `is.na(x)`, which returns `TRUE` if missing or `FALSE` if not for each entry.
+    - _Hint 2_: You may wish to make intermediary variables, e.g. `quality_lane`,
+      and then combine the values together.
+    - _Hint 3_: **Recall** that logical values can be used as _indictors_ within
+      a numerical computation. For example, `2*(subject_heights$sex == "F")`
+      provides a value of `2` if the logical comparison is `TRUE` otherwise `0`.
+
+```{r quality-function}
+quality_lane = ifelse(is.na(bridges$lanes), 0, bridges$lanes)
+quality_material = ifelse(is.na(bridges$material), 0, 8 * (bridges$material == "STEEL") + 7 * (bridges$material == "IRON") + 6 * (bridges$material == "WOOD"))
+quality_t_or_d = ifelse(is.na(bridges$t_or_d), 0, 4 * (bridges$t_or_d == "DECK") + 5 * (bridges$t_or_d == "THROUGH"))
+bridges$quality = quality_lane + quality_material + quality_t_or_d
+```
+          
+- **[3 Points] (d)** Construct a graph that splits up the new quality metric by
+  when it was erected on a bar plot. Specify the data set `bridges` in 
+  `ggplot()`'s `data = ____`, `quality` in `aes(x = ___)`, and
+  `epoch` in `facet_wrap(~ ____)`. 
+  
+```{r plot-bridge-derived, echo = FALSE}
+library("ggplot2")
+ggplot(data = bridges, aes(x = quality)) + 
+  geom_bar() +
+  facet_wrap(~ epoch)
+```
+
+## (30 Points) Exercise 4: Randomizer
+
+_Hint_ You may wish to look at the 
+[Randomness and Caches lecture slides](http://stat385.thecoatlessprofessor.com/lectures/08-randomness-and-cache/08-randomness-and-cache.pdf)
+and accompanying 
+[code](https://dl.dropbox.com/s/2xdfrysftvq1n2h/02-12-2018-randomness-and-caches.Rmd?dl=0).
+
+- **[5 Points] (a)** The Linear Congruential Method (LCM) is defined as: $${X_{i + 1}} = \left( {a{X_i} + c} \right)\bmod m$$
+  Calculate _by hand_ `10` values, $X_{1}, X_{2}, \cdots, X_{10}$,
+  using `a = 1664525`, `c = 1013904223`, `m = 2^32`,
+  and the last four digits of your UIN as the `seed`, e.g. $X_{0}$.
+    - Please replace $X_i$, $a$, $c$, $m$, and `???` with the appropriate values.
+
+$$\begin{aligned}
+  {X_{0}}  &= <5175> \\
+  {X_{1}}  &= \left( {1664525 * 5175 + 1013904223} \right) \bmod 2^32  = 1037886506 \\
+  {X_{2}}  &= \left( {1664525 * 1037886506 + 1013904223} \right) \bmod 2^32  = 2879997313 \\
+  {X_{3}}  &= \left( {1664525 * 2879997313 + 1013904223} \right) \bmod 2^32  = 793895148 \\
+  {X_{4}}  &= \left( {1664525 * 793895148 + 1013904223} \right) \bmod 2^32  = 977364827 \\
+  {X_{5}}  &= \left( {1664525 * 977364827 + 1013904223} \right) \bmod 2^32  = 1490187518 \\
+  {X_{6}}  &= \left( {1664525 * 1490187518 + 1013904223} \right) \bmod 2^32  = 109713477 \\
+  {X_{7}}  &= \left( {1664525 * 109713477 + 1013904223} \right) \bmod 2^32  = 4124749024 \\
+  {X_{8}}  &= \left( {1664525 * 4124749024 + 1013904223} \right) \bmod 2^32  = 3142253247 \\
+  {X_{9}}  &= \left( {1664525 * 3142253247 + 1013904223} \right) \bmod 2^32  = 466405650 \\
+  {X_{10}} &= \left( {1664525 * 466405650 + 1013904223} \right) \bmod 2^32  = 3769914697 \\
+  \end{aligned}$$
+
+```{r lcm-method}
+a = 1664525
+c = 1013904223
+m = 2^32
+
+seed = 5175
+
+x[1] = (a * seed + c) %% m
+x[2] = (a * x[1] + c) %% m
+x[3] = (a * x[2] + c) %% m
+x[4] = (a * x[3] + c) %% m
+x[5] = (a * x[4] + c) %% m
+x[6] = (a * x[5] + c) %% m
+x[7] = (a * x[6] + c) %% m
+x[8] = (a * x[7] + c) %% m
+x[9] = (a * x[8] + c) %% m
+x[10] = (a * x[9] + c) %% m
+
+x
+```
+
+- **[10 Points] (b)** Implement LCM in _R_ so that it can generate _n_ values. 
+    - _Hint:_ You will want to define a vector of length `n+1` and then _drop_ 
+    the first observation. 
+
+```{r ex-my-lcm}
+#' Linear Congruential Method (LCM) 
+#' 
+#' Generates random numbers under the LCM method.
+#'
+#' @param n    Number of random numbers to generate
+#' @param a    The multiplier
+#' @param c    The increment
+#' @param m    The modulus
+#' @param seed The starting value for the generation sequence.
+#'
+#' @return A vector of length `n` with random numbers.
+my_lcm = function(n, a, c, m, seed) {
+  y = numeric(n)
+  y[1] = seed
+  i = 2
+  while (i <= (n + 1)) {
+    y[i] = (a * y[i-1] + c) %% m
+    i = i + 1 }
+  final = y[2:(n+1)]
+  final
+}
+```
+
+- **[3 Points] (c)** Test the `my_lcm()` function by generating `10` random
+  numbers using the values in **(a)**. Does the output match your hand derived 
+  answers?
+
+```{r my-lcm-function}
+my_lcm(10, 1664525, 1013904223, 2^32, 5175)
+```
+
+Yes, these numbers generated by my function are the same as the ones I calculated by hand.
+
+- **[10 Points] (d)** Create a random number generator for a uniform distribution
+  that samples numbers from between $[start, end]$. Denote this function as:
+  $$\text{my\_runif}(n, start, end) = start + \frac{R}{{\max \left( R \right)}} \cdot \left[ {{end} - {start}} \right]$$
+  where _R_ is a random number generated from the `my_lcm()` function under 
+  the specified values used previously for the LCM method.
+    - _Hint:_ The $\max \left( R \right)$ is the maximum random number value.
+    
+```{r}
+#' Custom Random Uniform Number Generator
+#' 
+#' Generates random real numbers between an interval.
+#'
+#' @param n      Number of random numbers to generate
+#' @param start  The multiplier
+#' @param end    The increment
+#'
+#' @return A vector of length `n` with random numbers.
+
+my_runif = function(n, start, end) {
+ y = my_lcm(n, 1664525, 1013904223, 2^32, 5175)
+ z = numeric(n)
+ i = 1
+ while (i <= length(y)) {
+    z[i] = start + (y[i] / max(y-1)) * (end - start)
+    i = i + 1
+ }
+ z
+}
+```
+
+- **[2 Points] (e)** Test the `my_runif()` function by generating `10` random
+  real numbers using `start = 20` and `end = 25`. 
+  
+```{r my-runif-function}
+my_runif(10, 20, 25)
+```
+
+## (16 Points) Exercise 5: Divide and Conquer
+
+_Integer division_ discards any _fractional_ or _decimal_ component in favor of
+saving only the integer portion of it. For instance, when calculating `10 %/% 3`
+we receive `r 10 %/% 3` instead of `r 10 / 3`. Thus, the computer is fundamentally
+asking, "How many times does the `3` go into `10`?". Or more precisely, "How many
+times does the `divisor` go into the `dividend`?"
+
+- **[8 Points] (a)** Implement the iterative algorithm to perform _integer_ division
+   as given below:
+    - Create a `counter` variable and set it to `0`.
+        - This variable will keep track of the amount of times the `divisor` goes 
+          into the `dividend`.
+    - Make a `remainder` variable and assign the `dividend` to it.
+    - Check if the `remainder` is **greater than or equal** to the `divisor`
+    - If so, proceed and subtract the amount of the `divisor` from the `remainder`
+      while incrementing the `counter` variable.
+    - At the end of the function, return the `counter` variable.
+
+```{r ex-int-division-algo}
+integer_division = function(dividend, divisor) {
+  counter = 0
+  remainder = dividend
+  while(remainder >= divisor) {
+    counter = counter + 1
+    remainder = remainder - divisor
+  }
+}
+
+integer_division(dividend = 10, divisor = 3)
+```
+
+- **[2 Points] (b)** What kind of iteration structure (e.g. loop) did you 
+   use for this problem? _Why?_ 
+   
+I decided to use a while loop because it will only function when the remainder is larger than the divisor.
+   
+- **[4 Points] (c)** Create an iteration table that shows how the iteration
+   structure is processing the data.
+
+| Start Counter | Start Remainder | Remainder $\ge$ Divisor | End Remainder | End Counter |
+|:-------------:|:---------------:|:-----------------------:|:-------------:|:-----------:|
+|    - 0 -      |     - 10 -      |         - TRUE -        |    - 7 -      |   - 1 -     |
+|    - 1 -      |     - 7 -       |         - TRUE -        |    - 4 -      |   - 2 -     |
+|    - 2 -      |     - 4 -       |         - TRUE -        |    - 1 -      |   - 3 -     |
+|    - 3 -      |     - 1 -       |         - FALSE -       |    - 1 -      |   - 3 -     |
+
+
+- **[2 Points] (d)** At the end of _Integer_ division, what operation does the
+   `remainder` represent?
+
+The final remainder represents a modulus (%%) divisor.
+
