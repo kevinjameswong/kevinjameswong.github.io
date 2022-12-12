@@ -303,3 +303,4 @@ ggplot(data = groupby_weekday, aes(x = Day, y = `Sleep Quality (%)` %>% as.numer
 If you want to create a drop down element, you have to look into `html forms` and `select option`.
 ```
 
+x

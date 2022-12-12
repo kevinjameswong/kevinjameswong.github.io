@@ -38,5 +38,5 @@ k = k %>%
   group_by(t) %>%
   summarise(n_count = n()); k
 ```
-
+s
 
