@@ -2,12 +2,7 @@
 title: "Kevin Wong"
 ---
 
-<style>
-body .main-container {
-  max-width: 85rem !important;
-  <!-- max-width: 900px !important; -->
-}
-</style>
+
 
 <center>Hello, I am Kevin Wong. Welcome to my website!</center>
 
@@ -32,20 +27,19 @@ body .main-container {
 
 <hr />
 
-<center>
-  <h4>
+<!--</center>-->
+<h4>
+  <center>
     <a class="swag1">[Work Experience](work.html)</a>
-    <br class="mobile-break">
-    <br class="mobile-break">
+    <br class="br-mobile-break"><br class="br-mobile-break">
     <a class="swag1">[Data Analysis Projects](data.html)</a>
-    <br class="mobile-break">
-    <br class="mobile-break">
+    <br class="br-mobile-break"><br class="br-mobile-break">
     <a class="swag1">[Schoolwork](schoolwork.html)</a>
-    <br class="mobile-break">
-    <br class="mobile-break">
+    <br class="br-mobile-break"><br class="br-mobile-break">
     <a class="swag1">[Contact Me!](contact.html)</a>
-  </h4>
-</center>
+  </center>
+</h4>
+<!--</center>-->
 
 
 
