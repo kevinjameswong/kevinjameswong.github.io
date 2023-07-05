@@ -23,7 +23,17 @@ title: "Kevin Wong"
 <center>Now I am a Data Analyst for Compass Mortgage in Warrenville, IL.</center>
 -->
 
+<!--
 <center>Now I am a Data Analyst for CDW in Lincolnshire, IL.</center>
+-->
+
+
+<center>Now I am a Data Analyst for CDW in Chicago, IL.</center>
+
+
+<!--
+<center>Now I am a Senior Data Analyst for CDW in Chicago, IL.</center>
+-->
 
 <hr />
 
