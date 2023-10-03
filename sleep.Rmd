@@ -169,7 +169,9 @@ return(f)
 
 <h1>Kevin's Sleeping Data</h1>
 
+<p class="last-updated">
 Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
 
 ***
 

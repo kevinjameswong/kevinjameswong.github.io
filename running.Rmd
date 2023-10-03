@@ -223,7 +223,9 @@ body, p {
 
 <h1>Kevin's Running Data</h1>
 
+<p class="last-updated">
 Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
 
 ***
 

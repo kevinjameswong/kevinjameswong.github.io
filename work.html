@@ -49,7 +49,7 @@
 
 <title>Kevin Wong - Header</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -68,8 +68,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -180,11 +180,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -213,8 +217,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -222,16 +226,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -349,11 +346,37 @@ $(document).ready(function () {
 </div>
 
 
-<center>
+<!--
+---
+title: "Kevin Wong - Header"
+output: html_document
+---
+-->
+<!--
+<style>
+
+.intro {
+    text-align: center;
+    /* color: #7BAFD4; */
+    /* color: #CEB888; */
+    color: #FDF9D8;
+} 
+</style>
+
+<h1 class="intro">Kevin Wong</h1>
+-->
+<!--
+<style>
+    h1 {
+      /* color: #FDF9D8; */
+        color: BLACK;
+        text-align: center;
+  }
+</style>
+-->
 <h1>
 Kevin Wong
 </h1>
-</center>
 <p><img src="images/kevin%20wong.jpg" width="150px" height="160px" style="display: block; margin: auto;" /></p>
 <hr />
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -690,8 +713,7 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
-<li><a href="#cdw-corporation" id="toc-cdw-corporation">CDW
-Corporation</a></li>
+<li><a href="#cdw" id="toc-cdw">CDW</a></li>
 <li><a href="#compass-mortgage" id="toc-compass-mortgage">Compass
 Mortgage</a></li>
 <li><a href="#kane-county-cougars" id="toc-kane-county-cougars">Kane
@@ -702,49 +724,79 @@ Center</a></li>
 </ul>
 </div>
 
+<style>
+.class1 {
+      color: #BFBFBF;
+}
+.new {
+      font-family: Times New Roman;
+      font-size: 18px;
+}
+
+code {
+  color: #BLACK;
+}
+
+</style>
 <h1>
 Work Experience
 </h1>
-<p>Last updated: July 1, 2023</p>
+<p class="last-updated">
+Last updated: October 1, 2023
+</p>
 <hr />
-<div id="cdw-corporation" class="section level2">
-<h2>CDW Corporation</h2>
+<div id="cdw" class="section level2">
+<h2>CDW</h2>
 <p>
 </p>
 <center>
 <!--image -->
-<img src="images/cdw.png" width=160px>
+<img src="images/cdw%20white.png" width=160px>
 <p>
 </p>
 </center>
 <h3>
-<span>People Who Get IT</span> <br class="br-mobile-break"> <span
-class="test222">Lincolnshire, IL</span>
+<!--<span>People Who Get IT</span>Removing 10/2/2023-->
+<span>Make Amazing Happen</span> <br class="br-mobile-break"> <span
+class="test222">Chicago, IL</span>
 </h3>
+<!--
 <h4>
-<span>Data Analyst - PPM Analytics</span> <br class="br-mobile-break">
-<span class="test222">August 2021 - Present</span>
+<span>Senior Data Analyst - Product and Partner Management</span>
+<br class="br-mobile-break">
+<span class="test222">November 2023 - Present</span>
 </h4>
-<ul>
+
+<ul class="new">
+
+  <li>Managed CDW Client reporting and analytics that were presented to VP and shareholders on a weekly basis</li>
+  <li>Coordinated data migration from on-premise database to new cloud environment</li>
+  <li>Forecasted quarterly projections in Power BI for several product categories using historical weekly trends and pending transactions</li>
+  <li>Designed market share analysis report to indicate opportunities for expansions in developed and developing markets</li>
+
+</ul>
+-->
+<h4>
+<span>Data Analyst - Product and Partner Management</span>
+<br class="br-mobile-break"> <span class="test222">August 2021 -
+November 2023</span>
+</h4>
+<ul class="new">
 <li>
-Serve as a conduit/broker for cross-functional collaboration and
-knowledge sharing
+Managed partner finance reporting, transitioning dashboards from Excel
+to self-service BI
 </li>
 <li>
-Design actionable reporting tools that support effective management of
-data quality, open orders and other partner compliance topics
+Selected as team mentor through outstanding leadership to train and
+onboard new employees
 </li>
 <li>
-Produce sound analysis in support of Product and Partner Management
-decision makers to drive tactical and strategic departmental objectives
-and partnership decisions
+Created attach-based reporting to identify trends of correlated
+transactions to increase orders
 </li>
 <li>
-Develop and manage centralized partner and product reporting to support
-various functions including purchasing, promotions, marketing and
-partner relations. Coordinate and guide stakeholders through a process
-of creating reports and data models that successfully address business
-issues. Provide ongoing support for these reports
+Designed actionable reporting tools that supported effective management
+of data quality, open orders, and other partner compliance topics
 </li>
 </ul>
 <!--
@@ -757,7 +809,12 @@ issues. Provide ongoing support for these reports
 <p>
 </p>
 <center>
+<!--
 <img src="images/compass.png" width=500px>
+<img src="images/compass_white.png" width=500px>
+<img id="test" src="images/compass_white.png" width=500px>
+!-->
+<img src="images/compass%20blue.jpeg" height=150px>
 <p>
 </p>
 </center>
@@ -770,7 +827,7 @@ IL</span>
 <span>Data Analyst</span> <br class="br-mobile-break"> <span
 class="test222">June 2019 - August 2021</span>
 </h4>
-<ul>
+<ul class="new">
 <!-- <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
   <li>Wrote and executed SQL queries to provide custom reports and analysis for senior management</li>
   <li>Clean, transform, and model data to ensure and improve accuracy of metrics calculations</li>
@@ -851,7 +908,7 @@ January 2020, March 2021
 <span>Accounting Intern</span> <br class="br-mobile-break"> <span
 class="test222">Summer 2018</span>
 </h4>
-<ul>
+<ul class="new">
 <li>
 Accounting Intern for 2018 MILB Season
 </li>
@@ -897,7 +954,7 @@ accounts for those sales of assets
 <span>Student-Athlete Tutor</span> <br class="br-mobile-break"> <span
 class="test222">August 2017 - May 2019</span>
 </h4>
-<ul>
+<ul class="new">
 <li>
 Met on a weekly basis with student-athletes to review class material of
 mathematics / statistics courses and ensured thorough knowledge of
@@ -929,7 +986,7 @@ barriers and foster success
 
 <title>footer.knit</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -948,8 +1005,8 @@ barriers and foster success
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -1060,11 +1117,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -1093,8 +1154,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -1102,16 +1163,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
