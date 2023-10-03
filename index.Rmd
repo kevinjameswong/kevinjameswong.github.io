@@ -83,7 +83,6 @@ try a:hover
 <!--</center>-->
 <h4>
   <center>
-    <!--
     <a class="swag1">[Work Experience](work.html)</a><a class="br-mobile-break-2">&emsp;</a>
     <br class="br-mobile-break"><br class="br-mobile-break">
     <a class="swag1">[Data Analysis Projects](data.html)</a><a class="br-mobile-break-2">&emsp;</a>
@@ -91,7 +90,6 @@ try a:hover
     <a class="swag1">[Schoolwork](schoolwork.html)</a><a class="br-mobile-break-2">&emsp;</a>
     <br class="br-mobile-break"><br class="br-mobile-break">
     <a class="swag1">[Contact Me!](contact.html)</a>
-    -->
     <!--
     <a class="swag1">[Work Experience](work.html)&emsp;</a>
     <br class="br-mobile-break"><br class="br-mobile-break">
@@ -101,13 +99,6 @@ try a:hover
     <br class="br-mobile-break"><br class="br-mobile-break">
     <a class="swag1">[Contact Me!](contact.html)</a>
     -->
-    <a class="swag1">[Work Experience](work.html)</a>
-    <br class="br-mobile-break"><br class="br-mobile-break">
-    <a class="swag1">[Data Analysis Projects](data.html)</a>
-    <br class="br-mobile-break"><br class="br-mobile-break">
-    <a class="swag1">[Schoolwork](schoolwork.html)</a>
-    <br class="br-mobile-break"><br class="br-mobile-break">
-    <a class="swag1">[Contact Me!](contact.html)</a>
   </center>
 </h4>
 <!--</center>-->
