@@ -1,0 +1,3 @@
+go to settings --> developer settings (bottom) --> personalied tokens --> classic.
+
+make a new token. copy it. that is the password when you push
