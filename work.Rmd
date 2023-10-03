@@ -80,7 +80,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 <h4>
 <span>Data Analyst - Product and Partner Management</span>
 <br class="br-mobile-break">
-<span class="test222">August 2021 - November 2023</span>
+<span class="test222">August 2021 - Present</span>
 </h4>
 
 <ul class="new">
