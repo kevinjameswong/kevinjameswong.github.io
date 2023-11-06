@@ -6,3 +6,4 @@ only check repo
 
 copy it. that is the password when you push
 
+test
