@@ -1,28 +1,108 @@
 ---
-title: "Spotify"
-author: "Kevin Wong"
-date: "12/19/2018"
-output: html_document
+title: "Kevin Wong - Music Data"
+output:
+  html_document:
+    toc: yes
 ---
 
-```{r}
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+Update_Date = as.Date("11-01-2023", format = "%m-%d-%Y")
+#Update_Date
+
+library(tidyverse)
 library(dplyr)
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(stringr)
+library(ggplot2)
 ```
+
+
+
+<h1>Music Data</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+<hr />
+
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+spotify = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/Spotify Wrapped - Spotify Wrapped.csv")
+```
+
+```{r echo = FALSE}
+spotify = spotify %>% group_by(Year) %>% mutate(Score = max(row_number()) + 1 - row_number(), Kevin = 1) %>% filter(Song != "")
+
+View(spotify)
+
+
+```
+
 
 ```{r}
-spotify = read.csv("~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Spotify_Wrapped.csv")
+spotify %>% group_by(Song) %>% summarise(
+  score = sum(Score)
+)
 ```
 
-```{r}
-spotify = spotify %>% group_by(Year) %>% mutate(Score = max(row_number()) + 1 - row_number())
-```
-
-```{r Most Popular Albums}
+```{r echo = FALSE, eval = FALSE}
 spotify %>%
   group_by(Album)   %>%
   count(Album)      %>%
   rename(Count = n) %>%
   arrange(desc(Count))
+
+groupby_yearmonth = running %>%
+  group_by(YearMonth) %>%
+  summarise(Total_Runs = sum(run_Count),
+            
+            Total_Days_Runs = sum(unique_run_count),
+            
+            Days_Off = sum(RunDistance == 0),
+            
+            Distance = sum(RunDistance),
+            
+            Time = total_time(
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Pace = pace_calculator(
+              distance = RunDistance %>% sum(),
+              minutes = RunMinutes %>% sum(),
+              seconds = RunSeconds %>% sum()
+            ),
+            
+            Miles_Per_Run = miles_per_run(
+              distance = RunDistance
+            ),
+            
+            Miles_Per_Day = miles_per_day(
+              distance = RunDistance %>% sum()
+            ),
+            
+            Yearly_Mileage_Rate = yearly_mileage_pace(
+              distance = RunDistance %>% sum()
+            ),
+
+            MPH = miles_per_hour(
+                distance = RunDistance %>% sum(),
+                minutes = RunMinutes %>% sum(),
+                seconds = RunSeconds %>% sum()
+            ),
+            
+            Calories = sum(RunCalories)
+            )
+
+names(groupby_yearmonth) = c("Month", "Total Runs", "Total Run Days", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
+
+kable(x = groupby_yearmonth, format = "html", align = "lrrrrrrrrrrrrrr") %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  scroll_box(width = "100%", height = "100%")
 ```
 
 ```{r Most Popular Songs}

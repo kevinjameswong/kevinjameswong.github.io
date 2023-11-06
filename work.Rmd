@@ -6,6 +6,35 @@ output:
 ---
 
 
+
+
+```{r echo = FALSE, eval = FALSE}
+Cougars
+Kyle Mzz
+Amy bzzromann
+Doug Czzzurylo
+Lance Bzzuhmann
+
+
+Irwin
+Alex Fzzrawley
+2 grad aszzsistants taht I dont remember
+Cassie Rzzynott
+
+
+Compass Mzzortgage
+Justin Vzzenhousen
+Tom Szzimmons
+
+CDW
+Jeff Pzzartyka
+Vic Ozzmiecinski
+Ben Gzzabrek
+```
+
+
+
+
 <style>
 .class1 {
 	  color: #BFBFBF;
@@ -22,7 +51,7 @@ code {
 </style>
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-Update_Date = as.Date("10-01-2023", format = "%m-%d-%Y")
+Update_Date = as.Date("11-01-2023", format = "%m-%d-%Y")
 #Update_Date
 
 library(tidyverse)
@@ -60,7 +89,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 </h3>
 
 
-<!--
+
 <h4>
 <span>Senior Data Analyst - Product and Partner Management</span>
 <br class="br-mobile-break">
@@ -75,12 +104,12 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
   <li>Designed market share analysis report to indicate opportunities for expansions in developed and developing markets</li>
 
 </ul>
--->
+
 
 <h4>
 <span>Data Analyst - Product and Partner Management</span>
 <br class="br-mobile-break">
-<span class="test222">August 2021 - Present</span>
+<span class="test222">August 2021 - November 2023</span>
 </h4>
 
 <ul class="new">
