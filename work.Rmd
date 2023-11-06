@@ -98,7 +98,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 <ul class="new">
 
-  <li>Managed CDW Client reporting and analytics that were presented to VP and shareholders on a weekly basis</li>
+  <li>Managed Client reporting and analytics that were presented to VP and shareholders on a weekly basis</li>
   <li>Coordinated data migration from on-premise database to new cloud environment</li>
   <li>Forecasted quarterly projections in Power BI for several product categories using historical weekly trends and pending transactions</li>
   <li>Designed market share analysis report to indicate opportunities for expansions in developed and developing markets</li>
