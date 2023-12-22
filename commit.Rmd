@@ -1,9 +1,13 @@
 go to github. settings --> developer settings (bottom) --> personalied access tokens --> classic.
 
-make a new token.
-set expiration date to tomorrow
-only check repo
 
-copy it. that is the password when you push
+generate new token (classic)
 
-test
+Note: Kevin Test whatever lol
+Expiration: custom: 1 day
+check Repo only
+Click Generate Token
+
+Copy it. that is the password when you push
+
+

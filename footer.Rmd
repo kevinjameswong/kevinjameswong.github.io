@@ -9,4 +9,4 @@ body {
 
 <hr />
 
-<center>Copyright &copy; 2023 Kevin Wong, Inc. All rights reserved.</center>
+<center>Copyright &copy; 2024 Kevin Wong, Inc. All rights reserved.</center>
