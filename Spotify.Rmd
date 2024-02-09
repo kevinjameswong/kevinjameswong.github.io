@@ -31,13 +31,12 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-spotify = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/Spotify Wrapped - Spotify Wrapped.csv")
+spotify = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/files/Spotify Wrapped - Spotify Wrapped.csv")
 ```
 
 ```{r echo = FALSE}
 spotify = spotify %>% group_by(Year) %>% mutate(Score = max(row_number()) + 1 - row_number(), Kevin = 1) %>% filter(Song != "")
 
-View(spotify)
 
 
 ```

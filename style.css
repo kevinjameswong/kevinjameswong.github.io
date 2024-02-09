@@ -129,14 +129,17 @@
 		  }
 		  .navbar-brand {
 		    /* font-size: 93%; */
-		    font-size: 2.25rem;
+		    /* font-size: 2.25rem; */
+		    font-size: 2.10rem;
 		    color: #FFFFFF;
 		    /* This adjusts "Kevin's Website" in the navbar, tested and works */
 		  }
 		  .navbar-nav {
 		    /* font-size: 82%; */
-		    font-size: 1.7rem;
-		    color: red;
+		    /* font-size: 1.7rem; */
+		    font-size: 1.55rem;
+		    color: dodgerblue; /*color doesn't work */
+		    /* This adjusts "Kevin's Website" in the navbar, tested and works */
 		  }
 		  .navbar-header {
 		    /* font-size: 125%; */
@@ -144,7 +147,7 @@
 		    /* This adjusts "Kevin's Website" in the navbar, tested and works */
 		  }
 		  .navbar-light .nav-link {
-		    color: red;
+		    color: dodgerblue;
 		  }
 		  <!--.navbar-toggle { -->
         <!--display: block; -->

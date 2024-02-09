@@ -1,0 +1,55 @@
+---
+title: "Kevin Wong - Awards"
+output:
+  html_document:
+    toc: no
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(knitr)
+library(kableExtra)
+library(rlang)
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r echo = FALSE}
+Update_Date = as.Date("02-28-2024", format = "%m-%d-%Y")
+Today_Date = Sys.Date()
+```
+
+<style type="text/css">
+
+.r33m_vid {
+   font-family: Tahoma;
+   color: black;
+}
+
+body, p {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
+
+
+<h1>Awards & Certificates</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+***
+
+Coming soon...
+
+
+
+```{r echo = FALSE, eval = FALSE}
+# Salesforce
+```
+
+
+

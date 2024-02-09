@@ -30,7 +30,7 @@ library(stringr)
 library(ggplot2)
 library(dplyr)
 
-Start_Date = as.Date("2/7/2017", format = "%m/%d/%Y")
+Start_Date = as.Date("02-07-2017", format = "%m-%d-%Y")
 
 percent = function(x, digits = 2, format = "f", ...) {
   formatC(x, format = format, digits = digits, ...) %>% paste("%", sep = "")
@@ -44,11 +44,11 @@ round_down_2_decimals = function(x, digits = 2, format = "f", ...) {
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("6/28/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("06-28-2019", format = "%m-%d-%Y")
 
 # The morning of the last sleep
 
-sleep = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/sleepdata_6_28_2019.csv", sep = ";")
+sleep = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/files/sleepdata_6_28_2019.csv", sep = ";")
 ```
 
 ```{r echo = FALSE}

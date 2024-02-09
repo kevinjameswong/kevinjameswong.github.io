@@ -16,7 +16,7 @@ library(dplyr)
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("5/18/2019", format = "%m/%d/%Y")
+Update_Date = as.Date("05-18-2019", format = "%m-%d-%Y")
 ```
 
 <style type="text/css">
@@ -43,7 +43,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 ***
 
-I am a *Statistics* major at the **University of Illinois**. I am also minoring in *Leadership Studies* and *Business*. My GPA is 3.88.
+I am a *Statistics* major at the University of Illinois. I am also minoring in *Leadership Studies* and *Business*. My GPA is 3.88.
 
 # Courses Taken
 

@@ -17,8 +17,11 @@ navbar:
     - text: "Work Experience"
       icon: fa-briefcase
       href: work.html
+    - text: "Awards & Cerificates"
+      icon: fa-certificate
+      href: awards.html
     - text: "Data Analysis Projects"
-      icon: fa-area-chart
+      icon: fa-line-chart
       menu:
       - text: "Running Data"
         href: running.html

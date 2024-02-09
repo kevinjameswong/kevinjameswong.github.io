@@ -5,9 +5,19 @@ output:
     toc: yes
 ---
 
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(knitr)
+library(kableExtra)
+library(rlang)
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+```
+
 ```{r}
-s = 1:length(t)
 t = c(3.49, 3.07, 3.58, 1.13, 1.81, 2.37, 2.25, 3.32, 3.61, 4.15, 3.97, 3.28, 2.51, 2.87, 3.23, 2.36, 3.61)
+s = 1:length(t)
 pie = data.frame(
   s = s, t = t
 )
@@ -21,9 +31,33 @@ summary(po)
 
 ```{r}
 ggplot(data = pie, aes(x = s, y = t)) + geom_point()
+
+
+
+
+
 ```
 
 
+
+
+
+
+
+
+
+
+```{r}
+a = "https://open.spotify.com/track/161pnfRpiTTMZC1NWmjwh4"
+library(rvest)
+a %>% read_html()
+```
+
+```{r}
+rleid(a)
+??rleid
+diff(b) %>% diff()
+```
 
 
 
@@ -37,4 +71,193 @@ ggplot(data = pie, aes(x = s, y = t)) + geom_point()
 x = c(-2, -1, 0, 1, 3)
 k = 3*x^4 - 6*x^2 + 1; k
 ```
+
+
+
+
+
+
+
+
+
+
+
+---
+title: "Compass Mortgage"
+author: "Kevin Wong"
+---
+
+```{r}
+library(rvest)
+```
+
+```{r}
+get_opponent_data = function(year, nchild, url = "https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/") {
+    paste0(url, year) %>%
+    read_html() %>%
+    html_nodes(css = paste0("#gbg_opp td:nth-child(", nchild, ")"))
+}
+```
+
+```{r}
+url = "https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/"
+co_id = "2611"
+```
+
+```{r}
+paste(url, co_id, sep = "") %>%
+  read_html() %>%
+  html_nodes("p")
+```
+
+
+```{r}
+url_ex2 = "http://xkcd.com/"
+xkcd_website = read_html(url_ex2)
+xkcd_website
+```
+
+```{r}
+xkcd_website %>%
+    html_node(css = ".company")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+title: "Kevin Wong - Running Data"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r cars, echo = FALSE, warning = FALSE, message = FALSE}
+library(lubridate)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(stringr)
+library(dplyr)
+library(ggplot2)
+#summary(cars)
+
+#View(cars)
+
+#str(cars)
+
+
+
+# is how you comment
+# command + shift + enter = run entire chunk
+# shift + enter = run one line of chunk
+```
+
+
+```{r eval = FALSE}
+str()
+View()
+```
+
+# Test
+## Including Plots
+<!--
+this is how you can create tabs for table of contents
+-->
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+```{r}
+test = function(distance, minutes) {
+  m = 2
+  s = 2 * distance + minutes
+  return(s)
+}
+
+test(distance = 2, minutes = 5)
+```
+
+
+
+
+```{r}
+test2 = function(distance, minutes) {
+  m = 2
+  s = 2 * distance + minutes
+  return(s)
+}
+
+
+test2 = function(distance, minutes) {
+  m = 2
+  s = 2 * distance + minutes
+  return(s)
+}
+
+test3 = function(x){
+  k = sample(x, 1)
+  return(k)
+}
+
+test3(x = 9)
+```
+
+```{r eval = FALSE}
+for (i in 1:10) {
+  set.seed(3)
+  
+}
+
+function(n = number of attempts, max = max number)
+
+
+This is your 1st try out of 10 attempts. You have 9 tries left.
+This is your 2nd try out of 10 attempts. You have 9 tries left.
+This is your 1st try out of 10 attempts. You have 9 tries left.
+This is your 2nd try out of 10 attempts. You have 9 tries left.
+```
+
+
+```{r}
+library(dplyr)
+set.seed(3)
+t = runif(1, min = 0, max = 100) %>% ceiling()
+
+t
+```
+
+
+
+
+```{r eval = FALSE}
+library(dplyr)
+k = k %>%
+  group_by(t) %>%
+  summarise(n_count = n()); k
+```
+
+
+
+
 

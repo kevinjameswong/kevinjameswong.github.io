@@ -11,9 +11,9 @@ I like to make Excel / VBA / Java files in my free time. Here are my favorites!
 
 # Excel Projects
 
-* [Running Data](Running_5_12_2019_Kevin_Wong.xlsm){target="_blank"} I am running a full marathon in April 2020! Here is my training data! Last updated: January 1, 2020
+* [Running Data](files/Running_5_12_2019_Kevin_Wong.xlsm){target="_blank"} I am running a full marathon in April 2020! Here is my training data! Last updated: January 1, 2020
 
-* [Sleep Data](Sleep_Kevin_Wong_1_19_19.xlsx){target="_blank"} Last updated: June 28, 2019
+* [Sleep Data](files/Sleep_Kevin_Wong_1_19_19.xlsx){target="_blank"} Last updated: June 28, 2019
 
 ***
 

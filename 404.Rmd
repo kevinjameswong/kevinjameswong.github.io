@@ -16,6 +16,8 @@ h3 {
 <h4>Did you mean to look for these? (ABC order)</h4>
 
 <h4>
+* [Awards & Certificates](awards.html)
+
 * [Contact Me](contact.html)
 
 * [Excel Projects](excel.html)
