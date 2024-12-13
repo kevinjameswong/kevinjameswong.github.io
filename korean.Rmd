@@ -32,6 +32,11 @@ body, p {
    font-size: 18px;
 }
 
+.korean {
+  font-family: "Helvetica";
+  font-size: 18px;
+  color: white;
+}
 </style>
 
 
@@ -43,8 +48,9 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 ***
 
+<p class="korean">
 안녕하세요! 저는 케빈입니다.
-
+</p>
 
 ```{r echo = FALSE, eval = FALSE}
 # Salesforce s
