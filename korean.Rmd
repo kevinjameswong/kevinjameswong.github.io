@@ -1,0 +1,54 @@
+---
+title: "Kevin Wong - Korean"
+output:
+  html_document:
+    toc: no
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(knitr)
+library(kableExtra)
+library(rlang)
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r echo = FALSE}
+Update_Date = as.Date("1-1-2025", format = "%m-%d-%Y")
+Today_Date = Sys.Date()
+```
+
+<style type="text/css">
+
+.r33m_vid {
+   font-family: Tahoma;
+   color: black;
+}
+
+body, p {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
+
+
+<h1>Languages</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+***
+
+안녕하세요! 저는 케빈입니다.
+
+
+```{r echo = FALSE, eval = FALSE}
+# Salesforce s
+```
+
+
+

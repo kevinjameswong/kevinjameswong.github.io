@@ -286,7 +286,7 @@ names(groupby_year) = c("Year", "Total Runs", "Total Run Days", "Miles", "Time",
 
 groupby_year = groupby_year[order(groupby_year$Year), ]
 
-kable(groupby_year, format = "html", align = "lrrrr") %>%
+kable(x = groupby_year, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
   #row_spec(row = nrow(groupby_year), bold = TRUE, font_size = 21)
 ```
@@ -395,7 +395,7 @@ groupby_yearmonth = running %>%
 
 names(groupby_yearmonth) = c("Month", "Total Runs", "Total Run Days", "Miles", "Time", "Pace")
 
-kable(groupby_yearmonth, format = "html", align = "lrrrr") %>%
+kable(x = groupby_yearmonth, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive")) #%>%
   #row_spec(row = nrow(groupby_yearmonth), bold = TRUE, font_size = 21)
 ```
@@ -507,7 +507,7 @@ names(groupby_weekday) = c("Weekday", "Total Runs", "Total Run Days", "Miles", "
 
 # names(groupby_weekday) = c("Weekday", "Total Runs", "Distance", "Time", "Pace", "Miles Per Run", "MPH", "Calories")
 
-kable(groupby_weekday, format = "html", align = "lrrrr") %>%
+kable(x = groupby_weekday, format = "html", align = "lrrrr") %>%
   kable_styling(bootstrap_options = c("hover", "responsive"))# %>%
   #row_spec(row = nrow(groupby_weekday), bold = TRUE, font_size = 21)
 ```

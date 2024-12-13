@@ -54,7 +54,6 @@ try a:hover
 
 <center>I graduated from the University of Illinois at Urbana-Champaign (BS in Statistics) in May 2019 with a 3.88 GPA.</center>
 
-
 <br>
 
 <!--

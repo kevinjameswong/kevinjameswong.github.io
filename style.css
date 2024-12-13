@@ -87,7 +87,9 @@
   		  /* light blue */
   			/* background-color: #e6faff;
   			color: black; */
-  			background-color: #3C4043; /* dark gray */
+  			/* background-color: #3C4043; /* dark gray.... removing 12/8/2024.going with gradient backgorund instead*/
+  			background-image: linear-gradient(to right bottom, #121314, #1a1b1c, #212325, #292b2e, #313437, #313437, #313437, #313437, #292b2e, #212325, #1a1b1c, #121314);
+  			/* visit https://mycolor.space/gradient3?ori=to+right+bottom&hex=%23121314&hex2=%233C4043&hex3=%23121314&submit=submit to get background color */
   			color: white;
   			margin-top: 0;
  		  }
@@ -121,7 +123,8 @@
 		  .navbar {
 			  /* background-color: white; */
 			  /* background-color: #000000; */
-			  background-color: #292C2E;
+			 /*background-color: #292C2E;*/
+			 background-color: #3C4043;
 			  color: red;
 			  /* font-family: "Times New Roman"; */
 			  /* --min-height: 80px; */
