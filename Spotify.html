@@ -571,158 +571,30 @@ $(document).ready(function () {
 </div>
 
 
+<pre class="r"><code>library(shiny)
+
+ui = fluidPage(
+  &quot;Hello, world!&quot;
+)
+server &lt;- function(input, output, session) {
+}
+shinyApp(ui, server)</code></pre>
+<pre><code>## PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.</code></pre>
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 <h1>
 Music Data
 </h1>
 <p class="last-updated">
-Last updated: November 1, 2023
+Last updated: January 1, 2025
 </p>
 <hr />
-<pre class="r"><code>spotify %&gt;% group_by(Song) %&gt;% summarise(
-  score = sum(Score)
-)</code></pre>
-<pre><code>## # A tibble: 572 × 2
-##    Song                                      score
-##    &lt;chr&gt;                                     &lt;dbl&gt;
-##  1 0 To 100 / The Catch Up                      58
-##  2 1,2 Many                                     44
-##  3 10 Bands                                    172
-##  4 10,000 Hours (with Justin Bieber)            99
-##  5 10,000 Hours (with Justin Bieber) - Piano     5
-##  6 1201 (feat. Deno Taylor)                     27
-##  7 1234                                         50
-##  8 1AM                                          66
-##  9 2 Bitches                                    26
-## 10 2 Soon                                       97
-## # ℹ 562 more rows</code></pre>
-<pre class="r"><code>spotify %&gt;%
-  group_by(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6) %&gt;%
-  count(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6, Total = sum(Score)) %&gt;%
-  rename(Appearances = n) %&gt;%
-  arrange(desc(Total), desc(Appearances))</code></pre>
-<pre><code>## # A tibble: 581 × 9
-## # Groups:   Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6
-## #   [581]
-##    Song  Artist.1 Artist.2 Artist.3 Artist.4 Artist.5 Artist.6 Total Appearances
-##    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;       &lt;int&gt;
-##  1 Give… Elevati… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           6
-##  2 Only… The Str… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           6
-##  3 Some… Keane    &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           6
-##  4 7 Su… Morgan … &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           4
-##  5 I Wa… Lenachka &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           4
-##  6 Make… Mosaic … &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           4
-##  7 Phot… Ed Shee… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           4
-##  8 Real… Colbie … &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           4
-##  9 You … The Fray &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           4
-## 10 All … He Is We &quot;Owl Ci… &quot;&quot;       &quot;&quot;       &quot;&quot;       &quot;&quot;       42397           3
-## # ℹ 571 more rows</code></pre>
-<pre class="r"><code>a1 = spotify %&gt;%
-  count(Artist.1) %&gt;%
-  rename(Total = n, Artist = Artist.1)
-a2 = spotify %&gt;%
-  count(Artist.2) %&gt;%
-  rename(Total = n, Artist = Artist.2)
-a3 = spotify %&gt;%
-  count(Artist.3) %&gt;%
-  rename(Total = n, Artist = Artist.3)
-a4 = spotify %&gt;%
-  count(Artist.4) %&gt;%
-  rename(Total = n, Artist = Artist.4)
-a5 = spotify %&gt;%
-  count(Artist.5) %&gt;%
-  rename(Total = n, Artist = Artist.5)
-a6 = spotify %&gt;%
-  count(Artist.6) %&gt;%
-  rename(Total = n, Artist = Artist.6)
-
-bind_rows(a1, a2, a3, a4, a5, a6) %&gt;%
-  arrange(Artist) %&gt;%
-  group_by(Artist) %&gt;%
-  summarize(Total = sum(Total)) %&gt;%
-  arrange(desc(Total)) %&gt;%
-  tail(n = -1)</code></pre>
-<pre><code>## # A tibble: 450 × 2
-##    Artist            Total
-##    &lt;chr&gt;             &lt;int&gt;
-##  1 Gone West            28
-##  2 Drake                25
-##  3 Morgan Wallen        25
-##  4 Lil Wayne            19
-##  5 Georgia Webster      15
-##  6 The Fray             11
-##  7 Hillsong UNITED      10
-##  8 Elevation Worship     8
-##  9 Jonas Brothers        8
-## 10 Luke Combs            8
-## # ℹ 440 more rows</code></pre>
-<pre class="r"><code>spotify %&gt;%
-  filter(Year == 2016 | Year == 2017) %&gt;%
-  arrange(Song) %&gt;%
-  group_by(Song, Artist.1) %&gt;%
-  count(Song, Total = sum(Score)) %&gt;%
-  rename(Appearances = n) %&gt;%
-  filter(Appearances == 2) %&gt;%
-  arrange(desc(Total))</code></pre>
-<pre><code>## # A tibble: 19 × 4
-## # Groups:   Song, Artist.1 [19]
-##    Song                                 Artist.1              Total Appearances
-##    &lt;chr&gt;                                &lt;chr&gt;                 &lt;dbl&gt;       &lt;int&gt;
-##  1 Come Home                            OneRepublic           10201           2
-##  2 Cough Syrup                          Young the Giant       10201           2
-##  3 Eye of the Needle                    Sia                   10201           2
-##  4 Far Away                             Nickelback            10201           2
-##  5 Give Me Faith                        Elevation Worship     10201           2
-##  6 Here Without You                     3 Doors Down          10201           2
-##  7 How To Love                          Lil Wayne             10201           2
-##  8 Kiss Me Slowly                       Parachute             10201           2
-##  9 Love Me Harder                       Ariana Grande         10201           2
-## 10 No Faith in Brooklyn (feat. Jhameel) Hoodie Allen          10201           2
-## 11 Paper Hearts                         Tori Kelly            10201           2
-## 12 Red                                  Against The Current   10201           2
-## 13 Safe And Sound                       Capital Cities        10201           2
-## 14 Someone Like You                     Adele                 10201           2
-## 15 Sweater Weather                      The Neighbourhood     10201           2
-## 16 The Funeral                          Band of Horses        10201           2
-## 17 The Stand                            Hillsong Young &amp; Free 10201           2
-## 18 Wasted                               MKTO                  10201           2
-## 19 What About Now                       Daughtry              10201           2</code></pre>
-<pre class="r"><code>spotify %&gt;%
-  filter(Year == 2017 | Year == 2018) %&gt;%
-  arrange(Song) %&gt;%
-  group_by(Song, Artist.1) %&gt;%
-  count(Song, Total = sum(Score)) %&gt;%
-  rename(Appearances = n) %&gt;%
-  filter(Appearances == 2) %&gt;%
-  arrange(desc(Total))</code></pre>
-<pre><code>## # A tibble: 6 × 4
-## # Groups:   Song, Artist.1 [6]
-##   Song                                           Artist.1      Total Appearances
-##   &lt;chr&gt;                                          &lt;chr&gt;         &lt;dbl&gt;       &lt;int&gt;
-## 1 All In                                         Lifehouse     10100           2
-## 2 Cocoon                                         Catfish and … 10100           2
-## 3 Flexicution                                    Logic         10100           2
-## 4 Love Is On Its Way - The 3D Concert Experience Jonas Brothe… 10100           2
-## 5 Only Just A Call Away                          The Struts    10100           2
-## 6 Pompeii                                        Josh Golden   10100           2</code></pre>
-<pre class="r"><code>spotify %&gt;%
-  filter(Year == 2016 | Year == 2018) %&gt;%
-  arrange(Song) %&gt;%
-  group_by(Song, Artist.1) %&gt;%
-  count(Song, Total = sum(Score)) %&gt;%
-  rename(Appearances = n) %&gt;%
-  filter(Appearances == 2) %&gt;%
-  arrange(desc(Total))</code></pre>
-<pre><code>## # A tibble: 7 × 4
-## # Groups:   Song, Artist.1 [7]
-##   Song                   Artist.1  Total Appearances
-##   &lt;chr&gt;                  &lt;chr&gt;     &lt;dbl&gt;       &lt;int&gt;
-## 1 Fight Night            Migos     10201           2
-## 2 Got Money              Lil Wayne 10201           2
-## 3 Headlines              Drake     10201           2
-## 4 Lights Down Low        Maejor    10201           2
-## 5 Right Above It         Lil Wayne 10201           2
-## 6 Somewhere Only We Know Keane     10201           2
-## 7 Tapout                 Rich Gang 10201           2</code></pre>
+<pre class="r"><code>ui = fluidPage(
+  &quot;Hello, world!&quot;
+)
+server = function(input, output, session) {
+}
+shinyApp(ui, server)</code></pre>
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 
 <!DOCTYPE html>
 

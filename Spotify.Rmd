@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-Update_Date = as.Date("11-01-2023", format = "%m-%d-%Y")
+Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
 #Update_Date
 
 library(tidyverse)
@@ -17,9 +17,8 @@ library(kableExtra)
 library(tidyverse)
 library(stringr)
 library(ggplot2)
+library(shiny)
 ```
-
-
 
 <h1>Music Data</h1>
 
@@ -31,11 +30,42 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-spotify = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/files/Spotify Wrapped - Spotify Wrapped.csv")
+spotify = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/files/SpotifyWrapped.csv")
+
+spotify =
+  spotify %>%
+  select(Year,
+         Ranking,
+         Song,
+         Album,
+         Artist.1,
+         Artist.2,
+         Artist.3,
+         Artist.4,
+         Artist.5,
+         Artist.6,
+         Approx.Genre)
+
+spotify = spotify %>%
+  group_by(Year) %>%
+  mutate(
+    Score = max(row_number()) + 1 - row_number(),
+    Count = 1,
+    RecordInt = row_number()
+  ) %>%
+  filter(Song != "")
+
+
+names(spotify) = c("Year", "Ranking", "Song", "Album", "Artist1", "Artist2", "Artist3", "Artist4", "Artist5", "Artist6", "Genre", "Score", "Count", "RecordInt")
 ```
 
 ```{r echo = FALSE}
-spotify = spotify %>% group_by(Year) %>% mutate(Score = max(row_number()) + 1 - row_number(), Kevin = 1) %>% filter(Song != "")
+AllArtists_AllYears = spotify %>%
+  group_by(Artist1)   %>%
+  summarize(xt = sum(Score),
+            xt2 = n()) %>%
+  rename("Score" = xt, "Artist" = Artist1, "TT" = xt2) %>%
+  arrange(desc(Score))
 
 
 
@@ -43,59 +73,26 @@ spotify = spotify %>% group_by(Year) %>% mutate(Score = max(row_number()) + 1 - 
 
 
 ```{r}
+ui = fluidPage(
+  "Hello, world!"
+)
+server = function(input, output, session) {
+}
+shinyApp(ui, server)
+```
+
+```{r echo = FALSE, eval = FALSE}
 spotify %>% group_by(Song) %>% summarise(
   score = sum(Score)
 )
 ```
 
-```{r echo = FALSE, eval = FALSE}
+```{r echo = FALSE, echo = FALSE, eval = FALSE}
 spotify %>%
   group_by(Album)   %>%
   count(Album)      %>%
   rename(Count = n) %>%
   arrange(desc(Count))
-
-groupby_yearmonth = running %>%
-  group_by(YearMonth) %>%
-  summarise(Total_Runs = sum(run_Count),
-            
-            Total_Days_Runs = sum(unique_run_count),
-            
-            Days_Off = sum(RunDistance == 0),
-            
-            Distance = sum(RunDistance),
-            
-            Time = total_time(
-              minutes = RunMinutes %>% sum(),
-              seconds = RunSeconds %>% sum()
-            ),
-            
-            Pace = pace_calculator(
-              distance = RunDistance %>% sum(),
-              minutes = RunMinutes %>% sum(),
-              seconds = RunSeconds %>% sum()
-            ),
-            
-            Miles_Per_Run = miles_per_run(
-              distance = RunDistance
-            ),
-            
-            Miles_Per_Day = miles_per_day(
-              distance = RunDistance %>% sum()
-            ),
-            
-            Yearly_Mileage_Rate = yearly_mileage_pace(
-              distance = RunDistance %>% sum()
-            ),
-
-            MPH = miles_per_hour(
-                distance = RunDistance %>% sum(),
-                minutes = RunMinutes %>% sum(),
-                seconds = RunSeconds %>% sum()
-            ),
-            
-            Calories = sum(RunCalories)
-            )
 
 names(groupby_yearmonth) = c("Month", "Total Runs", "Total Run Days", "Days Off", "Miles", "Time", "Pace", "Miles Per Run", "Miles Per Day", "Yearly Mile Rate", "MPH", "Total Calories Burned")
 
@@ -104,7 +101,7 @@ kable(x = groupby_yearmonth, format = "html", align = "lrrrrrrrrrrrrrr") %>%
   scroll_box(width = "100%", height = "100%")
 ```
 
-```{r Most Popular Songs}
+```{r Most Popular Songs, echo = FALSE, eval = FALSE}
 spotify %>%
   group_by(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6) %>%
   count(Song, Artist.1, Artist.2, Artist.3, Artist.4, Artist.5, Artist.6, Total = sum(Score)) %>%
@@ -112,7 +109,7 @@ spotify %>%
   arrange(desc(Total), desc(Appearances))
 ```
 
-```{r Most Popular Artists, warning = FALSE}
+```{r Most Popular Artists, warning = FALSE, echo = FALSE, eval = FALSE}
 a1 = spotify %>%
   count(Artist.1) %>%
   rename(Total = n, Artist = Artist.1)
@@ -141,7 +138,7 @@ bind_rows(a1, a2, a3, a4, a5, a6) %>%
 ```
 
 
-```{r Songs on 2016 and 2017}
+```{r Songs on 2016 and 2017, echo = FALSE, eval = FALSE}
 spotify %>%
   filter(Year == 2016 | Year == 2017) %>%
   arrange(Song) %>%
@@ -152,7 +149,7 @@ spotify %>%
   arrange(desc(Total))
 ```
 
-```{r Songs on 2017 and 2018}
+```{r Songs on 2017 and 2018, echo = FALSE, eval = FALSE}
 spotify %>%
   filter(Year == 2017 | Year == 2018) %>%
   arrange(Song) %>%
@@ -163,7 +160,7 @@ spotify %>%
   arrange(desc(Total))
 ```
 
-```{r Songs on 2016 and 2018}
+```{r Songs on 2016 and 2018, echo = FALSE, eval = FALSE}
 spotify %>%
   filter(Year == 2016 | Year == 2018) %>%
   arrange(Song) %>%
