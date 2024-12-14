@@ -571,28 +571,119 @@ $(document).ready(function () {
 </div>
 
 
-<pre class="r"><code>library(shiny)
-
-ui = fluidPage(
-  &quot;Hello, world!&quot;
-)
-server &lt;- function(input, output, session) {
-}
-shinyApp(ui, server)</code></pre>
-<pre><code>## PhantomJS not found. You can install it with webshot::install_phantomjs(). If it is installed, please make sure the phantomjs executable can be found via the PATH variable.</code></pre>
-<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 <h1>
-Music Data
+Spotify Wrapped Data
 </h1>
 <p class="last-updated">
 Last updated: January 1, 2025
 </p>
 <hr />
-<pre class="r"><code>ui = fluidPage(
-  &quot;Hello, world!&quot;
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+<pre class="r"><code>ui &lt;- fluidPage(
+
+  # App title ----
+  titlePanel(&quot;Sliders&quot;),
+
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+
+    # Sidebar to demonstrate various slider options ----
+    sidebarPanel(
+
+      # Input: Simple integer interval ----
+      sliderInput(&quot;integer&quot;, &quot;Integer:&quot;,
+                  min = 0, max = 1000,
+                  value = 500),
+
+      # Input: Decimal interval with step value ----
+      sliderInput(&quot;decimal&quot;, &quot;Decimal:&quot;,
+                  min = 0, max = 1,
+                  value = 0.5, step = 0.1),
+
+      # Input: Specification of range within an interval ----
+      sliderInput(&quot;range&quot;, &quot;Range:&quot;,
+                  min = 1, max = 1000,
+                  value = c(200,500)),
+
+      # Input: Custom currency format for with basic animation ----
+      sliderInput(&quot;format&quot;, &quot;Custom Format:&quot;,
+                  min = 0, max = 10000,
+                  value = 0, step = 2500,
+                  pre = &quot;$&quot;, sep = &quot;,&quot;,
+                  animate = TRUE),
+
+      # Input: Animation with custom interval (in ms) ----
+      # to control speed, plus looping
+      sliderInput(&quot;animation&quot;, &quot;Looping Animation:&quot;,
+                  min = 1, max = 2000,
+                  value = 1, step = 10,
+                  animate =
+                    animationOptions(interval = 300, loop = TRUE))
+
+    ),
+
+    # Main panel for displaying outputs ----
+    mainPanel(
+
+      # Output: Table summarizing the values entered ----
+      tableOutput(&quot;values&quot;)
+
+    )
+  )
 )
-server = function(input, output, session) {
+
+server &lt;- function(input, output) {
+
+  # Reactive expression to create data frame of all input values ----
+  sliderValues &lt;- reactive({
+
+    data.frame(
+      Name = c(&quot;Integer&quot;,
+               &quot;Decimal&quot;,
+               &quot;Range&quot;,
+               &quot;Custom Format&quot;,
+               &quot;Animation&quot;),
+      Value = as.character(c(input$integer,
+                             input$decimal,
+                             paste(input$range, collapse = &quot; &quot;),
+                             input$format,
+                             input$animation)),
+      stringsAsFactors = FALSE)
+
+  })
+
+  # Show the values in an HTML table ----
+  output$values &lt;- renderTable({
+    sliderValues()
+  })
+
 }
+
+shinyApp(ui, server)</code></pre>
+<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+<pre class="r"><code>ui &lt;- fluidPage(
+  sliderInput(&quot;x&quot;, &quot;If x is&quot;, min = 1, max = 50, value = 30),
+  sliderInput(&quot;y&quot;, &quot;and y is&quot;, min = 1, max = 50, value = 5),
+  &quot;then, (x * y) is&quot;, textOutput(&quot;product&quot;),
+  &quot;and, (x * y) + 5 is&quot;, textOutput(&quot;product_plus5&quot;),
+  &quot;and (x * y) + 10 is&quot;, textOutput(&quot;product_plus10&quot;)
+)
+
+server &lt;- function(input, output, session) {
+  output$product &lt;- renderText({ 
+    product &lt;- input$x * input$y
+    product
+  })
+  output$product_plus5 &lt;- renderText({ 
+    product &lt;- input$x * input$y
+    product + 5
+  })
+  output$product_plus10 &lt;- renderText({ 
+    product &lt;- input$x * input$y
+    product + 10
+  })
+}
+
 shinyApp(ui, server)</code></pre>
 <div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 

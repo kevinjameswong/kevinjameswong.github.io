@@ -5,7 +5,7 @@ output:
     toc: yes
 ---
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
 #Update_Date
 
@@ -20,7 +20,7 @@ library(ggplot2)
 library(shiny)
 ```
 
-<h1>Music Data</h1>
+<h1>Spotify Wrapped Data</h1>
 
 <p class="last-updated">
 Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
@@ -29,7 +29,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 <hr />
 
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 spotify = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/files/SpotifyWrapped.csv")
 
 spotify =
@@ -55,11 +55,74 @@ spotify = spotify %>%
   ) %>%
   filter(Song != "")
 
-
-names(spotify) = c("Year", "Ranking", "Song", "Album", "Artist1", "Artist2", "Artist3", "Artist4", "Artist5", "Artist6", "Genre", "Score", "Count", "RecordInt")
+names(spotify) = c("Year", "Ranking", "Song", "Album", "Artist", "Artist2", "Artist3", "Artist4", "Artist5", "Artist6", "Genre", "Score", "Count", "RecordInt")
 ```
 
-```{r echo = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+#https://mastering-shiny.org/basic-ui.html
+
+#selectInput = dropdown
+#sliderInput = slider
+#textInput
+#passwordInput
+#textAreaInput
+#numericInput("num", "Number one", value = 0, min = 0, max = 100),
+#dateInput("dob", "When were you born?"),
+#dateRangeInput
+
+uix = fluidPage(
+  selectInput(inputId = "dataset", label = "Dataset", choices = spotify$Artist %>% unique() %>% sort(), selected = "TWICE"),
+  textOutput("textdelulu"),
+  verbatimTextOutput("summary"),
+  tableOutput("table"),
+  mainPanel(
+      textOutput("DataTable")
+  )
+)
+
+serverx = function(input, output, session) {
+  output$textdelulu = renderText({paste("Ok")})
+  output$summary = renderPrint({
+    dataset = get(input$dataset, spotify)
+    max(dataset)
+  })
+  output$table = renderText({
+    spotify %>%
+      select(Year, Ranking, Song, Artist, Genre, Score) %>%
+      filter(Artist == input$dataset) %>%
+      kable(format = "html", align = "l") %>%
+      kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+      scroll_box(width = "100%", height = "100%")
+  })
+}
+
+shinyApp(ui = uix, server = serverx)
+```
+
+```{r echo = FALSE, eval = FALSE, message = FALSE, warning = FALSE}
+ui = fluidPage(
+  selectInput("dataset", label = "Dataset", choices = (spotify$Artist1)),
+  verbatimTextOutput("summary"),
+  tableOutput("table")
+)
+server = function(input, output, session) {
+  # Create a reactive expression
+  dataset <- reactive({
+    get(input$dataset, spotify)
+  })
+
+  output$summary <- renderPrint({
+    # Use a reactive expression by calling it like a function
+    summary(dataset())
+  })
+  
+  output$table <- renderTable({
+    dataset()
+  })
+}
+shinyApp(ui, server)
+
+
 AllArtists_AllYears = spotify %>%
   group_by(Artist1)   %>%
   summarize(xt = sum(Score),
@@ -69,15 +132,155 @@ AllArtists_AllYears = spotify %>%
 
 
 
+
+```
+
+```{r echo = FALSE, eval = FALSE}
+ui = fluidPage(
+  selectInput("dataset", label = "Dataset", choices = ls(spotify)),
+  verbatimTextOutput("summary"),
+  tableOutput("table")
+)
+
+server = function(input, output, session) {
+  # Create a reactive expression
+  dataset = reactive({
+    get(input$dataset, spotify)
+  })
+
+  output$summary <- renderPrint({
+    # Use a reactive expression by calling it like a function
+    summary(dataset())
+  })
+  
+  output$table <- renderTable({
+    dataset()
+  })
+}
+shinyApp(ui, server)
+
 ```
 
 
+
+
+
+
+
+
+
 ```{r}
-ui = fluidPage(
-  "Hello, world!"
+ui <- fluidPage(
+
+  # App title ----
+  titlePanel("Sliders"),
+
+  # Sidebar layout with input and output definitions ----
+  sidebarLayout(
+
+    # Sidebar to demonstrate various slider options ----
+    sidebarPanel(
+
+      # Input: Simple integer interval ----
+      sliderInput("integer", "Integer:",
+                  min = 0, max = 1000,
+                  value = 500),
+
+      # Input: Decimal interval with step value ----
+      sliderInput("decimal", "Decimal:",
+                  min = 0, max = 1,
+                  value = 0.5, step = 0.1),
+
+      # Input: Specification of range within an interval ----
+      sliderInput("range", "Range:",
+                  min = 1, max = 1000,
+                  value = c(200,500)),
+
+      # Input: Custom currency format for with basic animation ----
+      sliderInput("format", "Custom Format:",
+                  min = 0, max = 10000,
+                  value = 0, step = 2500,
+                  pre = "$", sep = ",",
+                  animate = TRUE),
+
+      # Input: Animation with custom interval (in ms) ----
+      # to control speed, plus looping
+      sliderInput("animation", "Looping Animation:",
+                  min = 1, max = 2000,
+                  value = 1, step = 10,
+                  animate =
+                    animationOptions(interval = 300, loop = TRUE))
+
+    ),
+
+    # Main panel for displaying outputs ----
+    mainPanel(
+
+      # Output: Table summarizing the values entered ----
+      tableOutput("values")
+
+    )
+  )
 )
-server = function(input, output, session) {
+
+server <- function(input, output) {
+
+  # Reactive expression to create data frame of all input values ----
+  sliderValues <- reactive({
+
+    data.frame(
+      Name = c("Integer",
+               "Decimal",
+               "Range",
+               "Custom Format",
+               "Animation"),
+      Value = as.character(c(input$integer,
+                             input$decimal,
+                             paste(input$range, collapse = " "),
+                             input$format,
+                             input$animation)),
+      stringsAsFactors = FALSE)
+
+  })
+
+  # Show the values in an HTML table ----
+  output$values <- renderTable({
+    sliderValues()
+  })
+
 }
+
+shinyApp(ui, server)
+```
+
+
+
+
+
+```{r}
+ui <- fluidPage(
+  sliderInput("x", "If x is", min = 1, max = 50, value = 30),
+  sliderInput("y", "and y is", min = 1, max = 50, value = 5),
+  "then, (x * y) is", textOutput("product"),
+  "and, (x * y) + 5 is", textOutput("product_plus5"),
+  "and (x * y) + 10 is", textOutput("product_plus10")
+)
+
+server <- function(input, output, session) {
+  output$product <- renderText({ 
+    product <- input$x * input$y
+    product
+  })
+  output$product_plus5 <- renderText({ 
+    product <- input$x * input$y
+    product + 5
+  })
+  output$product_plus10 <- renderText({ 
+    product <- input$x * input$y
+    product + 10
+  })
+}
+
 shinyApp(ui, server)
 ```
 
