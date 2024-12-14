@@ -1,0 +1,14 @@
+---
+title: "Kevin Wong - Contact Me"
+---
+
+# Contact Information
+
+Here is my resume! [Resume](files/Resume_04_30_24_Wong.pdf){target="_blank"}
+
+Email: <kjwong2@illinois.edu> 
+
+LinkedIn: [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"} 
+
+GitHub: [www.github.com/kevinjameswong](https://www.github.com/kevinjameswong){target="_blank"}
+
