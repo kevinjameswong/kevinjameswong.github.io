@@ -1,3 +1,14 @@
+---
+title: "Kevin Wong - Music Data"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+#Update_Date
+
 library(dplyr)
 library(ggplot2)
 library(kableExtra)
@@ -7,8 +18,18 @@ library(rlang)
 library(shiny)
 library(stringr)
 library(tidyverse)
+```
 
-spotify = read.csv(file = "files/SpotifyWrapped.csv")
+<h1>Spotify Wrapped Data</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+<hr />
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+spotify = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/files/SpotifyWrapped.csv")
 
 spotify =
   spotify %>%
@@ -34,7 +55,10 @@ spotify = spotify %>%
   filter(Song != "")
 
 names(spotify) = c("Year", "Song Ranking", "Song", "Album", "Artist", "Artist2", "Artist3", "Artist4", "Artist5", "Artist6", "Genre", "Score", "Count", "RecordInt")
+```
 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 TopArtists_AllTime =
   spotify %>%
   group_by(Artist) %>%
@@ -47,15 +71,18 @@ TopArtists_AllTime =
   TopArtists_AllTime %>%
   mutate(
     Rank_Text = ifelse(xx == 1, str_c(Rank %>% as.character(), "st"),
-                       ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
-                              ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
-                                     str_c(Rank %>% as.character(), "th"))))
+          ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
+          ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
+          str_c(Rank %>% as.character(), "th"))))
   ) %>%
-  select(Artist, Score, Song_Count, Rank, Rank_Text)
+      select(Artist, Score, Song_Count, Rank, Rank_Text)
 
-ttt = c("Gone West", "TWICE", "Morgan Wallen", "Georgia Webster", "Red Rocks Worship", "Caitlyn Smith", "Bethel Music", "OneRepublic", "Hillsong UNITED", "The Fray", "Lady A", "Jesus Culture", "Elevation Worship", "Keane", "Gavin DeGraw", "Hanson", "Ed Sheeran", "Train")
+ttt = c("Gone West", "TWICE", "Morgan Wallen", "Georgia Webster", "Red Rocks Worship", "Caitlyn Smith", "Lil Wayne", "Bethel Music", "OneRepublic", "Hillsong UNITED", "The Fray", "Lady A", "Jesus Culture", "Elevation Worship", "Keane", "Gavin DeGraw", "Hanson", "Ed Sheeran", "Train")
 # ttt = spotify$Artist
+```
 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 TopArtists_ByYear =
   spotify %>%
   group_by(Artist, Year) %>%
@@ -69,18 +96,25 @@ TopArtists_ByYear =
   TopArtists_ByYear %>%
   mutate(
     Rank_Text = ifelse(xx == 1, str_c(Rank %>% as.character(), "st"),
-                       ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
-                              ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
-                                     str_c(Rank %>% as.character(), "th"))))
+          ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
+          ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
+          str_c(Rank %>% as.character(), "th"))))
   ) %>%
-  select(Artist, Year, Score, Song_Count, Rank, Rank_Text)
+      select(Artist, Year, Score, Song_Count, Rank, Rank_Text)
 
 TopArtists_ByYear$Year = as.factor(TopArtists_ByYear$Year)
 TopArtists_ByYear$Rank = as.integer(TopArtists_ByYear$Rank)
 
 TopArtists_ByYear$Brave = max(TopArtists_ByYear$Rank) + 1
 TopArtists_ByYear$NewRank = TopArtists_ByYear$Brave - TopArtists_ByYear$Rank
-  
+```
+
+<p class="last-updated">
+I have been collecting my Spotify Wrapped data since `r min(spotify$Year)`. I have `r length(table(spotify$Year))` years worth of data, from `r min(spotify$Year)` - `r max(spotify$Year)`.
+</p>
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 #https://mastering-shiny.org/basic-ui.html
 
 #selectInput = dropdown
@@ -98,7 +132,7 @@ uix = fluidPage(
   
   
   htmlOutput("Keeps"),
-  
+
   tableOutput("table"),
   
   plotOutput("plot2"),
@@ -113,7 +147,7 @@ uix = fluidPage(
     textOutput("DataTable")
   )
 )
-
+  
 serverx = function(input, output, session) {
   output$table = renderText({
     spotify %>%
@@ -124,8 +158,8 @@ serverx = function(input, output, session) {
       scroll_box(width = "100%", height = "100%")
   })
   
-  output$Keeps = renderUI({
-    
+    output$Keeps = renderUI({
+      
     t1 = TopArtists_AllTime[which(TopArtists_AllTime$Artist == input$SelectedArtist), 5] #try to make the 5 dynamic
     xxx1 = paste("According to Spotify Wrapped, ", input$SelectedArtist, " is my ", t1, " favorite artist overall. Here are my favorite songs from ", input$SelectedArtist, ", according to the data.", sep = "")
     
@@ -133,25 +167,40 @@ serverx = function(input, output, session) {
     xxx2 = paste(t11, " songs from ", input$SelectedArtist, " have appeared in my Spotify Wrapped all time.", sep = "")
     
     HTML(paste(xxx1, "</br>", "</br>", xxx2, "</br>", "</br>", sep = ""))
-  })
-  
-  
-  output$plot2 = renderPlot({
+    })
     
-    ggplot(data = TopArtists_ByYear %>% filter(Artist == input$SelectedArtist), aes(x = Year, y = NewRank)) +
-      geom_bar(stat = "identity", fill = "darkblue") +
-      geom_text(aes(label = Rank_Text %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
-      xlab(label = "Year") +
-      ylab(label = "Rank") +
-      ggtitle(label = "Artist Rank by Year") +
-      theme(plot.title = element_text(hjust = 0.5),
-            #axis.title.y=element_blank(),
-            axis.text.y=element_blank(),
-            axis.ticks.y=element_blank()
-      )
-  })
-  
-  
-}
+    
+    output$plot2 = renderPlot({
 
+    ggplot(data = TopArtists_ByYear %>% filter(Artist == input$SelectedArtist), aes(x = Year, y = NewRank)) +
+        geom_bar(stat = "identity", fill = "darkblue") +
+        geom_text(aes(label = Rank_Text %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 5) +
+        xlab(label = "Year") +
+        ylab(label = "Rank") +
+        ggtitle(label = "Artist Rank by Year") +
+        theme(plot.title = element_text(hjust = 0.5))
+    })
+
+    
+}
+  
 shinyApp(ui = uix, server = serverx)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
