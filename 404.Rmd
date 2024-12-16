@@ -30,7 +30,10 @@ h3 {
 
 * [Sleeping Data](sleep.html)
 
+* [Spotify Wrapped Data](spotify.html)
+
 * [Work Experience](work.html)
+
 </h4>
 
 

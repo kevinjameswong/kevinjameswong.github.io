@@ -6,13 +6,15 @@ output:
 ---
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-library(knitr)
-library(kableExtra)
-library(rlang)
-library(tidyverse)
-library(stringr)
-library(ggplot2)
 library(dplyr)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(shiny)
+library(stringr)
+library(tidyverse)
 ```
 
 ```{r echo = FALSE}

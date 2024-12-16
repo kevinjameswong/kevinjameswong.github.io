@@ -23,14 +23,16 @@ navbar:
     - text: "Data Analysis Projects"
       icon: fa-line-chart
       menu:
+      - text: "Spotify Data"
+        href: spotify.html
       - text: "Running Data"
         href: running.html
       - text: "Sleeping Data"
         href: sleep.html
-      - text: "Excel/VBA Projects"
-        href: excel.html
-      - text: "한국어"
-        href: korean.html
+      #- text: "Excel/VBA Projects"
+        #href: excel.html
+      #- text: "한국어"
+        #href: korean.html
     - text: "Schoolwork"
       icon: fa-graduation-cap
       href: schoolwork.html

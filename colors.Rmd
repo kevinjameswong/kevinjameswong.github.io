@@ -2,7 +2,6 @@
 title: "Kevin Wong"
 ---
 
-test
 <h1 style="text-align:center;color:#9E1B32;">Kevin Wonggg 9E1B32</h1>
 <h1 style="text-align:center;color:#0C2340;">Kevin Wonggg 0C2340</h1>
 <h1 style="text-align:center;color:#E87722;">Kevin Wonggg E87722</h1>
