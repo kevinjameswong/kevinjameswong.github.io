@@ -77,7 +77,6 @@ function myFunction3() {
 }
 </script>
 
-
 ***
 
 <h1>Kevin's Schoolwork</h1>
@@ -112,7 +111,6 @@ My GPA in STAT courses at U of I is 3.96.
 ***
 
 ## Leadership Studies
-
 Some of the Leadership Studies Courses I have taken include:  
 
 - **AGED** 230: Leadership Communications            (Grade: A)
@@ -148,26 +146,15 @@ My GPA in Business Courses at U of I is 4.00.
 </div>
 
 ***
-
-
 # Psychology
-
-
 <button onclick="myFunction1()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Click to Show Psychology Definitions </button>
-
 <div id="myDIV1" class="collapse">
-
-```{r echo = FALSE}
+```{r echo = FALSE, eval = FALSE}
 read_data = read.csv(file = "files/psychology.csv", skip = 0)
-
 read_data$Index = read_data$Kevin
-
 psy = read_data %>% select(Index, Word, Definition)
-
 kable(x = psy, format = "html", align = "lllll") %>%
   kable_styling(bootstrap_options = c("hover", "responsive")) %>%
   scroll_box(width = "100%", height = "100%")
 ```
-
-
-</div>
+</div> <!-- FOR SOME REASON, THIS RMD CAN ONLY GO 160 LINES AT MOST -->

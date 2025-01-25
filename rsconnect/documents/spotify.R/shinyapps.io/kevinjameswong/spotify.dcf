@@ -5,7 +5,7 @@ account: kevinjameswong
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 13596107
-bundleId: 9697273
+bundleId: 9698895
 url: https://kevinjameswong.shinyapps.io/spotify/
 version: 1
 asMultiple: FALSE
