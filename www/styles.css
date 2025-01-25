@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<style>
+		
+		  .testdonotdelete {
+		    /* no idea why, but the ones underneath do not work if this is not here.
+		    color picker: https://www.w3schools.com/colors/colors_picker.asp
+		    and then select #FFFFFF (white)
+		    */
+	  	}
+  		h1 {
+ 			  /* color: #FDF9D8; */
+ 			  /* color: #F2F2F2; */
+ 			  color: #F7F7F7;
+ 			  text-align: center;
+ 		  }
+  		h2 {
+ 		    /* color: black; */
+ 			  /* color: #000000; */
+ 			  /* color: #FFFFFF; */
+ 		    /* color: #E0E0E0; */
+ 		    /* color: #E6E6E6; */
+ 		    /* color: #EBEBEB; */
+ 		    /* color: #E6E6E6; */
+ 		    color: #F0F0F0;
+ 		  }
+ 		   h3 {
+ 			  /* color: black; */
+ 			  /* color: #000000; */
+ 		    /* color: #FFFFFF; */
+    	  /* color: #C8C8C8; */
+    	  /* color: #D9D9D9; */
+    	  /* color: #E0E0E0; */
+    	  /* color: #D9D9D9; */
+    	  color: #E8E8E8;
+  		}
+  		h4 {
+ 			  /* color: black; */
+ 			  /* color: #000000; */
+ 			  /* color: #FFFFFF; */
+ 			  /* color: #8A8A8A; */
+ 			  /* color: #CCCCCC; */
+ 			  /* color: #D6D6D6; */
+ 			  /* color: #CCCCCC; */
+ 			  color: #EBEBEB;
+  		}
+  		h5 {
+ 			  /* color: #BFBFBF; */
+ 			  /* color: #CCCCCC; */
+ 			  color: #E0E0E0;
+  		}
+  		h6 {
+ 			  /* color: #B3B3B3; */
+ 			  /* color: #C2C2C2; */
+ 			  color: #D9D9D9;
+  		}
+  		p {
+  			text-align: justify;
+  			/* color: black; */
+  			/* color: #FFFFFF; */
+  			/* color: #616161; */
+  			/* color: #A6A6A6; */
+  			/* color: #B8B8B8; */
+  			/* font-family: Times New Roman; */
+  			color: #D1D1D1;
+  			
+  		}
+  		ul {
+  			text-align: justify;
+  			/* color: black; */
+  			/* color: #FFFFFF; */
+  			/* color: #616161; */
+  			/* color: #A6A6A6; */
+  			/* color: #B8B8B8; */
+  			/* font-family: Times New Roman; */
+  			/* color: #C9D909; */
+  			color: #D1D1D1;
+  		}
+  		a {
+  		  margin: 0 auto;
+  		  text-align: center;
+  		  /* color: #E8E; */
+  		}
+  		body {
+  		  /* light blue */
+  			/* background-color: #e6faff;
+  			color: black; */
+  			/* background-color: #3C4043; /* dark gray.... removing 12/8/2024.going with gradient backgorund instead*/
+  			background-image: linear-gradient(to right bottom, #121314, #1a1b1c, #212325, #292b2e, #313437, #313437, #313437, #313437, #292b2e, #212325, #1a1b1c, #121314);
+  			/* visit https://mycolor.space/gradient3?ori=to+right+bottom&hex=%23121314&hex2=%233C4043&hex3=%23121314&submit=submit to get background color */
+  			color: white;
+  			margin-top: 0;
+ 		  }
+ 		  hr {
+ 		    /* changes color of break lines aka hr lines */
+ 		    /* border-color: #FDF9D8; */
+ 		    color: #F7F7F7;
+ 		  }
+		  body .main-container {
+		    max-width: 750px;
+		  }
+		  .title.toc-ignore {
+		    /* This section hides the title of each markdown file. need to have */
+		    display: none;
+		  }
+		  /*
+		  h1.realtitle {
+		    margin-top: 4px;
+		  }
+		  */
+		  
+		  .last-updated {
+		    color:#F7F7F7;
+		    /* color:#A7F7A8; */
+		    font-family: Times New Roman;
+		    font-size: 18px;
+		  }
+
+
+
+		  .navbar {
+			  /* background-color: white; */
+			  /* background-color: #000000; */
+			 /*background-color: #292C2E;*/
+			 background-color: #3C4043;
+			  color: red;
+			  /* font-family: "Times New Roman"; */
+			  /* --min-height: 80px; */
+			  /* font-size: 10px; */
+		  }
+		  .navbar-brand {
+		    /* font-size: 93%; */
+		    /* font-size: 2.25rem; */
+		    font-size: 2.10rem;
+		    color: #FFFFFF;
+		    /* This adjusts "Kevin's Website" in the navbar, tested and works */
+		  }
+		  .navbar-nav {
+		    /* font-size: 82%; */
+		    /* font-size: 1.7rem; */
+		    font-size: 1.55rem;
+		    color: dodgerblue; /*color doesn't work */
+		    /* This adjusts "Kevin's Website" in the navbar, tested and works */
+		  }
+		  .navbar-header {
+		    /* font-size: 125%; */
+		    color: black;
+		    /* This adjusts "Kevin's Website" in the navbar, tested and works */
+		  }
+		  .navbar-light .nav-link {
+		    color: dodgerblue;
+		  }
+		  <!--.navbar-toggle { -->
+        <!--display: block; -->
+		  <!-- } -->
+		  nav .site-nav a {
+		    color:black;
+		    font-size: 15px; 
+		    /*etc*/
+		  }
+		  .nav {
+			  color: green;
+		  }
+		  .text-align-left {
+			  text-align: left;
+		  }
+		  realtitle {
+		    color: green;
+		  }
+		  /* Float to the right on screens that are equal to or less than 768px wide */
+		  /* @media (max-width: 601px) {
+		    .float-left-sm {
+		      text-align: right;
+		      transform: translate(-100%, -50%);
+		      color: purple;
+		    }
+		  } */
+		  /* Small devices (tablets, 768px and up) */
+		  .test222 {
+		    text-align: justify;
+        /*color:blue;*/
+		  }
+		  @media only screen and (min-width: 620px) {
+          .test222 {
+            /*color:red;*/
+            float:right;
+          }
+          .br-mobile-break-x {
+            line-height:100px;
+            display: none;
+          }
+          .hr-hidden {
+            height:10px;
+            visibility: hidden;
+          }
+		  }
+		  @media only screen and (max-width: 620px) {
+          .br-mobile-break-2 {
+            line-height:100px;
+            display: none;
+            color: red;
+          }
+	
+		  }
+		  @media only screen and (min-width: 620px) {
+          .br-mobile-break {
+            display: none;
+		    }
+		  }
+      /* Medium devices (desktops, 992px and up) */
+      @media (min-width: 992px) {
+		    .text-justify-md {
+          text-align: left;
+          color:blue;
+		    }
+		  }
+		  /* Large devices (large desktops, 1200px and up) */
+      @media (min-width: 1200px) {
+		    .text-justify-lg {
+          text-align: justify;
+          color:red;
+		    }
+		  }
+		  /* Float to the right on screens that are equal to or greater than 769px wide */
+		  /* @media (min-width: 769px) {
+		    .float-right-lg {
+		      float: right;
+		      
+		    }
+		  }
+		  .centerMobileOnly{
+		    float: right;
+		  } */
+		  /* @media screen and (max-width: 480px) {
+        .centerMobileOnly {
+          color:green;
+          text-align: left;
+          float: left;
+        }
+        .mobile-break {
+          display: none;
+        }
+		  } */
+		  .navigation ul a {
+		    color: #000;
+		    display: block;
+		    padding: 0 65px 0 0;
+		    text-decoration: none;
+		    width:100%;
+		    text-align:center;
+		  }
+		</style>
+	</head>
+</html>

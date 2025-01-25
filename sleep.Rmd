@@ -48,7 +48,7 @@ Update_Date = as.Date("06-28-2019", format = "%m-%d-%Y")
 
 # The morning of the last sleep
 
-sleep = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/files/sleepdata_6_28_2019.csv", sep = ";")
+sleep = read.csv(file = "files/sleepdata_6_28_2019.csv", sep = ";")
 ```
 
 ```{r echo = FALSE}

@@ -158,7 +158,7 @@ My GPA in Business Courses at U of I is 4.00.
 <div id="myDIV1" class="collapse">
 
 ```{r echo = FALSE}
-read_data = read.csv(file = "~/Documents/KevinWebsite/kevinjameswong.github.io/files/psychology.csv", skip = 0)
+read_data = read.csv(file = "files/psychology.csv", skip = 0)
 
 read_data$Index = read_data$Kevin
 

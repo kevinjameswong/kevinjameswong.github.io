@@ -41,7 +41,7 @@ Start_Date = as.Date("01-28-2018", format = "%m-%d-%Y")
 Update_Date = as.Date("01-01-2020", format = "%m-%d-%Y")
  # read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_10_12_2019.csv", skip = 1)
 
-read_data = read.csv(file = "~/Documents/KevinWebsite/kevinjameswong.github.io/files/running_data.csv", skip = 1)
+read_data = read.csv(file = "files/running_data.csv", skip = 1)
 ```
 
 ***

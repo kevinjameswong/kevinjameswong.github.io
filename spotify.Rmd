@@ -20,6 +20,14 @@ library(stringr)
 library(tidyverse)
 ```
 
+<style type="text/css">
+
+body .main-container {
+	max-width: 1080px;
+}
+
+</style>
+
 <h1>Spotify Wrapped Data</h1>
 
 <p class="last-updated">
@@ -28,22 +36,33 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 <hr />
 
+		  
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-spotify = read.csv("~/Documents/KevinWebsite/kevinjameswong.github.io/files/SpotifyWrapped.csv")
+spotify = read.csv(file = "files/SpotifyWrapped.csv")
 
 spotify =
   spotify %>%
-  select(Year,
-         Ranking,
-         Song,
-         Album,
-         Artist.1,
-         Artist.2,
-         Artist.3,
-         Artist.4,
-         Artist.5,
-         Artist.6,
-         Approx.Genre)
+  select(
+    Year,
+    Ranking,
+    Song,
+    Album,
+    Artist1,
+    Artist2,
+    Artist3,
+    Artist4,
+    Artist5,
+    Artist6,
+    SongID,
+    AlbumID,
+    Artist1ID,
+    Artist2ID,
+    Artist3ID,
+    Artist4ID,
+    Artist5ID,
+    Artist6ID,
+    ApproxGenre
+  )
 
 spotify = spotify %>%
   group_by(Year) %>%
@@ -54,7 +73,7 @@ spotify = spotify %>%
   ) %>%
   filter(Song != "")
 
-names(spotify) = c("Year", "Song Ranking", "Song", "Album", "Artist", "Artist2", "Artist3", "Artist4", "Artist5", "Artist6", "Genre", "Score", "Count", "RecordInt")
+names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist2Name", "Artist3Name", "Artist4Name", "Artist5Name", "Artist6Name", "SongID", "AlbumID", "Artist1ID", "Artist2ID", "Artist3ID", "Artist4ID", "Artist5ID", "Artist6ID", "Genre", "Score", "Count", "RecordInt")
 ```
 
 
