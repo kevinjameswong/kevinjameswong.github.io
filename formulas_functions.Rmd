@@ -3,6 +3,10 @@ title: "Formulas Functions"
 output: html_document
 ---
 
+```{r}
+library(scales)
+```
+
 ```{r normalcdf GOOD}
 normalcdf = function(lower_bound, upper_bound, mean, sd, n, var, ...) {
   mean = as.numeric(data.frame(unlist(as.list(match.call())[c("mean", "mu")])[1]))
@@ -111,7 +115,20 @@ kevin_binom = function(trials, prob, type, successes, ...) {
   return(results)
 }
 
-# kevin_binom(n = 12, prob = .5, k = 11)
+kevin_binom(n = 12, prob = .5, k = 11)
+```
+
+
+```{r}
+?percent()
+?icon
+
+
+1 - pbinom(q = 400 - 1, size = 31250, prob = 0.01)
+
+pbinom(q = 0, size = 2, prob = 0.40)
+
+
 ```
 
 ```{r}

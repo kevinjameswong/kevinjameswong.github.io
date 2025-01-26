@@ -22,13 +22,17 @@ body .main-container {
 -->
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-library(lubridate)
-library(knitr)
-library(kableExtra)
-library(tidyverse)
-library(stringr)
-library(ggplot2)
 library(dplyr)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(scales)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
 
 Start_Date = as.Date("02-07-2017", format = "%m-%d-%Y")
 

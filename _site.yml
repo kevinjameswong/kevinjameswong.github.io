@@ -31,8 +31,10 @@ navbar:
         href: sleep.html
       #- text: "Excel/VBA Projects"
         #href: excel.html
-      #- text: "한국어"
-        #href: korean.html
+      - text: "Calculators"
+        href: calculators.html
+      - text: "한국어"
+        href: korean.html
     - text: "Schoolwork"
       icon: fa-graduation-cap
       href: schoolwork.html

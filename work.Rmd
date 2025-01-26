@@ -54,6 +54,16 @@ code {
 Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
 #Update_Date
 
+library(dplyr)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(scales)
+library(shiny)
+library(shinydashboard)
+library(stringr)
 library(tidyverse)
 ```
 

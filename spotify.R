@@ -157,7 +157,7 @@ TopGenres_ByYear$NewRank = TopGenres_ByYear$Brave - TopGenres_ByYear$Rank
 #navbarMenu is a navbar, except with multiple options in a dropdown. example is "Data Analysis Projects"
 
 uix = dashboardPage(
-
+  skin = "green",
   dashboardHeader(
     title = "Spotify Data",
     disable = FALSE),  
@@ -293,7 +293,7 @@ serverx = function(input, output, session) {
       select(Minutes) %>%
       sum() %>%
       format(nsmall = 0, big.mark = ",") %>%
-      valueBox(subtitle = "Minutes Streamed", color = "green", icon = icon("fab fa-spotify"), width = 4)
+      valueBox(subtitle = "Minutes Streamed", color = "green", icon = icon(name = "fab fa-spotify"), width = 4)
   })
   
   output$CountArtist = renderValueBox({
@@ -303,7 +303,9 @@ serverx = function(input, output, session) {
       table() %>%
       length() %>%
       format(nsmall = 0, big.mark = ",") %>%
-      valueBox(subtitle = "Distinct Artists", color = "fuchsia", icon = icon("users"), width = 4)
+      valueBox(subtitle = "Distinct Artists", color = "teal", icon = icon(name = "users"), width = 4)
+    #red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
+    
   })
   
   output$CountAlbumID = renderValueBox({
@@ -313,7 +315,8 @@ serverx = function(input, output, session) {
       table() %>%
       length() %>%
       format(nsmall = 0, big.mark = ",") %>%
-      valueBox(subtitle = "Distinct Albums", color = "purple", icon(name = "fas fa-music"), width = 4)
+      valueBox(subtitle = "Distinct Albums", color = "aqua", icon(name = "fas fa-music"), width = 4)
+      #red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
   })
   
   output$CountGenre = renderValueBox({
@@ -383,7 +386,7 @@ serverx = function(input, output, session) {
   output$plot_genrexxx = renderPlot({
     
     ggplot(data = TopGenres_ByYear %>% filter(Year == input$SelectedYear, Rank <= 5), aes(x = Song_Count, y = reorder(Genre, Song_Count))) +
-      geom_bar(stat = "identity", fill = "darkblue", width = 0.75) +
+      geom_bar(stat = "identity", fill = "#08A45C", width = 0.75) +
       geom_text(aes(label = Song_Count %>% format(nsmall = 0)), hjust = 2, vjust = 0.5, color = "white", size = 4) +
       xlab(label = "Song Count") +
       #ylab(label = "Genre") +
@@ -406,7 +409,7 @@ serverx = function(input, output, session) {
         sum() %>%
         format(nsmall = 0, big.mark = ",")
       Data_NewArtist %>%
-      valueBox(subtitle = "New Artists", color = "green", icon = icon("fab fa-spotify"), width = 4)
+      valueBox(subtitle = "New Artists", color = "green", icon = icon(name = "fab fa-spotify"), width = 4)
   })
   
   output$Count_RepeatArtist = renderValueBox({
@@ -417,7 +420,7 @@ serverx = function(input, output, session) {
       sum() %>%
       format(nsmall = 0, big.mark = ",")
     Data_RepeatArtist %>%
-      valueBox(subtitle = "New Artists", color = "green", icon = icon("fab fa-spotify"), width = 4)
+      valueBox(subtitle = "New Artists", color = "darkgreen", icon = icon(name = "fab fa-spotify"), width = 4)
   })
   
   output$UUU3 = renderValueBox({
@@ -426,7 +429,7 @@ serverx = function(input, output, session) {
       select(Year) %>%
       sum() %>%
       format(nsmall = 0, big.mark = ",") %>%
-      valueBox(subtitle = "Minutes Streamed", color = "green", icon = icon("fab fa-spotify"), width = 4)
+      valueBox(subtitle = "Minutes Streamed", color = "darkgreen", icon = icon(name = "fab fa-spotify"), width = 4)
   })
   
   
@@ -443,10 +446,11 @@ serverx = function(input, output, session) {
 
     
     ggplot(data = Data_PieChart, aes(x = "", y = `Song Count`, group = KK, fill = KK)) +
+      #geom_bar(stat = "identity", width = 1, fill = c("#08A45C", "#D9D9D9")) +
       geom_bar(stat = "identity", width = 1) +
       coord_polar(theta = "y", start = 0) +
       #geom_col(color = "black", position = "stack", orientation = "x") +
-      scale_fill_manual(values = c("Repeat Artist" = "darkblue", "New Artist" = "orange")) +
+      scale_fill_manual(values = c("Repeat Artist" = c("#333333"), "New Artist" = c("#08A45C"))) +
       theme_void() +
       #theme_minimal() +
       #labs(fill = "TTX") + 

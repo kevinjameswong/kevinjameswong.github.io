@@ -28,12 +28,17 @@ Making new table into aggregate table like Compass Mortgage grouped by day. Cont
 
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-library(lubridate)
-library(knitr)
-library(kableExtra)
-library(tidyverse)
-library(stringr)
+library(dplyr)
 library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(scales)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
 Start_Date = as.Date("01-28-2018", format = "%m-%d-%Y")
 ```
 

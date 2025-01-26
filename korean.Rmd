@@ -12,7 +12,9 @@ library(kableExtra)
 library(knitr)
 library(lubridate)
 library(rlang)
+library(scales)
 library(shiny)
+library(shinydashboard)
 library(stringr)
 library(tidyverse)
 ```
@@ -54,6 +56,8 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 <p class="korean">
 안녕하세요! 저는 케빈입니다. 감사합니다.
 </p>
+
+Coming soon...
 
 
 ```{r echo = FALSE, eval = FALSE}

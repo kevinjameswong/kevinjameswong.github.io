@@ -1,0 +1,49 @@
+---
+title: "Kevin Wong - Calculators"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(scales)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
+<style type="text/css">
+body .main-container {
+  width: 900px !important;
+	max-width: 900px !important;
+}
+</style>
+
+<h1>Calculators</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+<hr />
+
+		  
+
+<p class="last-updated">
+Please use my distribution calculators as needed! You may visit my GitHub for the code.
+</p>
+
+<iframe height="400" width="100%" frameborder="yes" src="https://kevinjameswong.shinyapps.io/calculators/">
+</iframe>
+
+
