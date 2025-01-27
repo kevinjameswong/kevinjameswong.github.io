@@ -4,7 +4,6 @@ library(kableExtra)
 library(knitr)
 library(lubridate)
 library(rlang)
-library(scales)
 library(shiny)
 library(shinydashboard)
 library(stringr)
@@ -24,6 +23,13 @@ library(tidyverse)
 #dateRangeInput
 
 #navbarMenu is a navbar, except with multiple options in a dropdown. example is "Data Analysis Projects"
+
+
+percent = function(x, digits = 2, format = "f", ...) {
+  t = formatC(x * 100, format = format, digits = digits, ...) %>% paste("%", sep = "")
+  return(t)
+}
+
 
 uix = dashboardPage(
   skin = "red",
@@ -152,7 +158,7 @@ serverx = function(input, output, session) {
   
   binom_p = eventReactive(
     eventExpr = input$binom_update,
-    valueExpr = {input$binom_p * 100},
+    valueExpr = {input$binom_p},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
@@ -180,42 +186,42 @@ serverx = function(input, output, session) {
   
   binom_Prob_LessThan = eventReactive(
     eventExpr = input$binom_update,
-    valueExpr = {pbinom(q = input$binom_k - 1, size = input$binom_n, prob = input$binom_p) * 100},
+    valueExpr = {pbinom(q = input$binom_k - 1, size = input$binom_n, prob = input$binom_p)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
   binom_Prob_AtMost = eventReactive(
     eventExpr = input$binom_update,
-    valueExpr = {pbinom(q = input$binom_k, size = input$binom_n, prob = input$binom_p) * 100},
+    valueExpr = {pbinom(q = input$binom_k, size = input$binom_n, prob = input$binom_p)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
 
   binom_Prob_Exactly = eventReactive(
     eventExpr = input$binom_update,
-    valueExpr = {(pbinom(q = input$binom_k, size = input$binom_n, prob = input$binom_p) - pbinom(q = input$binom_k - 1, size = input$binom_n, prob = input$binom_p)) * 100},
+    valueExpr = {pbinom(q = input$binom_k, size = input$binom_n, prob = input$binom_p) - pbinom(q = input$binom_k - 1, size = input$binom_n, prob = input$binom_p)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
   binom_Prob_GreaterThan = eventReactive(
     eventExpr = input$binom_update,
-    valueExpr = {(1 - pbinom(q = input$binom_k, size = input$binom_n, prob = input$binom_p)) * 100},
+    valueExpr = {1 - pbinom(q = input$binom_k, size = input$binom_n, prob = input$binom_p)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
   binom_Prob_AtLeast = eventReactive(
     eventExpr = input$binom_update,
-    valueExpr = {(1 - pbinom(q = input$binom_k - 1, size = input$binom_n, prob = input$binom_p)) * 100},
+    valueExpr = {1 - pbinom(q = input$binom_k - 1, size = input$binom_n, prob = input$binom_p)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
 
   output$binom_p = renderValueBox({
     binom_p() %>%
-      percent() %>%
+      percent(digits = 2) %>%
       valueBox(subtitle = "Probability of Each Success", icon = icon(name = "p"), width = 4)
   })
   
@@ -238,31 +244,31 @@ serverx = function(input, output, session) {
   
   output$binom_LessThankSuccesses = renderValueBox({
     binom_Prob_LessThan() %>%
-      percent() %>%
+      percent(digits = 2) %>%
       valueBox(subtitle = paste("Less than ", input$binom_k, " Successes", sep = ""), color = "green", icon = icon(name = "less-than"), width = 4)
   })
   
   output$binom_AtMostkSuccesses = renderValueBox({
     binom_Prob_AtMost() %>%
-      percent() %>%
+      percent(digits = 2) %>%
       valueBox(subtitle = paste("At Most ", input$binom_k, " Successes", sep = ""), color = "green", icon = icon(name = "less-than-equal"), width = 4)
   })
   
   output$binom_ExactlykSuccesses = renderValueBox({
     binom_Prob_Exactly() %>%
-      percent() %>%
+      percent(digits = 2) %>%
       valueBox(subtitle = paste("Exactly ", input$binom_k, " Successes", sep = ""), color = "light-blue", icon = icon(name = "equals"), width = 4)
   })
   
   output$binom_GreaterThankSuccesses = renderValueBox({
     binom_Prob_GreaterThan() %>%
-      percent() %>%
+      percent(digits = 2) %>%
       valueBox(subtitle = paste("Greater than ", input$binom_k, " Successes", sep = ""), color = "yellow", icon = icon(name = "greater-than"), width = 4)
   })
   
   output$binom_AtLeastkSuccesses = renderValueBox({
     binom_Prob_AtLeast() %>%
-      percent() %>%
+      percent(digits = 2) %>%
       valueBox(subtitle = paste("At Least ", input$binom_k, " Successes", sep = ""), color = "yellow", icon = icon(name = "greater-than-equal"), width = 4)
   })
   
@@ -299,14 +305,14 @@ serverx = function(input, output, session) {
   
   normal_LessThanx = eventReactive(
     eventExpr = input$normal_update,
-    valueExpr = {pnorm(q = input$normal_x, mean = input$normal_mean, sd = input$normal_sd) * 100},
+    valueExpr = {pnorm(q = input$normal_x, mean = input$normal_mean, sd = input$normal_sd)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
   normal_GreaterThanx = eventReactive(
     eventExpr = input$normal_update,
-    valueExpr = {(1 - pnorm(q = input$normal_x, mean = input$normal_mean, sd = input$normal_sd)) * 100},
+    valueExpr = {1 - pnorm(q = input$normal_x, mean = input$normal_mean, sd = input$normal_sd)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
@@ -329,13 +335,13 @@ serverx = function(input, output, session) {
   
   output$normal_LessThanx = renderValueBox({
     normal_LessThanx() %>%
-      percent() %>%
+      percent(digits = 2) %>%
       valueBox(subtitle = paste("Less than ", input$normal_x, "", sep = ""), color = "green", icon = icon(name = "less-than"), width = 4)
   })
   
   output$normal_GreaterThanx = renderValueBox({
     normal_GreaterThanx() %>%
-      percent() %>%
+      percent(digits = 2) %>%
       valueBox(subtitle = paste("Greater than ", input$normal_x, sep = ""), color = "yellow", icon = icon(name = "greater-than"), width = 4)
   })
   

@@ -21,7 +21,20 @@ library(tidyverse)
 
 
 ```{r}
-?eventReactive()
+k = 0:12
+n = 12
+p = 0.2
+
+df = data.frame(k, px = dbinom(x = k, size = n, prob = p)) 
+
+ggplot(df, aes(k, px)) + 
+  geom_col(fill ="blue") +
+  xlab("x, number of successes") +
+  ylab("p(x)") +
+  labs(title = paste("dbinom", "(", "trial size=", n, ",", "p=", p, ")", sep = ""))
+
+
+
 ```
 
 

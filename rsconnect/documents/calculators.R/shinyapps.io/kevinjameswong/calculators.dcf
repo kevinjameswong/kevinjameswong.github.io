@@ -5,7 +5,7 @@ account: kevinjameswong
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 13809887
-bundleId: 9700333
+bundleId: 9702534
 url: https://kevinjameswong.shinyapps.io/calculators/
 version: 1
 asMultiple: FALSE

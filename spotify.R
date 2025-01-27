@@ -4,6 +4,7 @@ library(kableExtra)
 library(knitr)
 library(lubridate)
 library(rlang)
+library(scales)
 library(shiny)
 library(shinydashboard)
 library(stringr)
@@ -191,9 +192,9 @@ uix = dashboardPage(
                        selectInput(
                          inputId = "SelectedYear",
                          label = "Select Year:",
-                         #choices = TopArtists_ByYear$Year %>% unique() %>% sort(),
+                         choices = TopArtists_ByYear$Year %>% unique() %>% sort(),
+                         #choices = c("2020", "2021", "2022", "2023", "2024"),
                          #selected = TopArtists_ByYear$Year %>% unique() %>% sort() %>% tail()
-                         choices = c("2020", "2021", "2022", "2023", "2024"),
                          selected = c("2024")
                        )
                 )
@@ -226,8 +227,9 @@ uix = dashboardPage(
                 #valueBoxOutput("UUU2")
               #),
               
-              fluidRow(width = 4,
-                plotOutput("pie_Chart22")
+              fluidRow(width = 12,
+                column(width = 5, plotOutput("pie_Chart22")),
+                column(width = 7, plotOutput("plot_genreByear"))
               )
               
                 #box(width = 3, solidHeader = TRUE, plotOutput("plot2"))
@@ -468,14 +470,36 @@ serverx = function(input, output, session) {
             #axis.text.y = Genre,
             axis.ticks.y = element_blank(),
             axis.text.x = element_blank(),
-            legend.key.size = unit(x = 1, units = "cm"), #change legend key size
-            legend.key.height = unit(x = 1, units = "cm"), #change legend key height
-            legend.key.width = unit(x = 1, units = "cm"), #change legend key width
-            legend.title = element_text(size = 14), #change legend title font size
-            legend.text = element_text(size = 10) #change legend text font size
+            #legend.key.size = unit(x = 1, units = "cm"), #change legend key size
+            #legend.key.height = unit(x = 1, units = "cm"), #change legend key height
+            #legend.key.width = unit(x = 1, units = "cm"), #change legend key width
+            #legend.title = element_text(size = 14), #change legend title font size
+            #legend.text = element_text(size = 10) #change legend text font size
       ) +
       guides(fill = guide_legend(title = "Artist Type"))
   })
+  
+  
+  output$plot_genreByear = renderPlot({
+    
+    ggplot(data = TopGenres_ByYear, aes(x = Year, y = Song_Count, fill = Genre)) +
+      geom_bar(position = "fill", stat = "identity", width = 0.75, aes(alpha = Year == input$SelectedYear)) +
+      #geom_text(aes(label = Song_Count %>% format(nsmall = 0)), hjust = 2, vjust = 0.5, color = "white", size = 4) +
+      #xlab(label = "Year") +
+      ylab(label = "Song Percentage") +
+      #ggtitle(label = "Genre Count by Year") +
+      theme(plot.title = element_text(hjust = 0.5),
+            #axis.title.y = element_blank(),
+            #axis.title.x = element_blank(),
+            #axis.text.y = element_blank(),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank()
+            #axis.text.x = 
+      ) +
+      scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.5), guide = F)
+  })
+  
+  
 }
 
 

@@ -15,7 +15,6 @@ library(kableExtra)
 library(knitr)
 library(lubridate)
 library(rlang)
-library(scales)
 library(shiny)
 library(shinydashboard)
 library(stringr)
@@ -24,8 +23,8 @@ library(tidyverse)
 
 <style type="text/css">
 body .main-container {
-  width: 900px !important;
-	max-width: 900px !important;
+  width: 1080px !important;
+	max-width: 1080px !important;
 }
 </style>
 
