@@ -23,18 +23,24 @@ navbar:
     - text: "Data Analysis Projects"
       icon: fa-line-chart
       menu:
-      - text: "Spotify Data"
+      ## - text: "2025"
+      ## menu:
+      ##  - text: "Spotify Data"
+      ##    href: spotify.html
+      ##  - text: "Running Data"
+      ##    href: running.html
+      - text: "Spotify Data (2025)"
         href: spotify.html
-      - text: "Running Data"
-        href: running.html
-      - text: "Sleeping Data"
-        href: sleep.html
-      #- text: "Excel/VBA Projects"
-        #href: excel.html
-      - text: "Calculators"
-        href: calculators.html
-      - text: "한국어"
+      - text: "한국어 (2024)"
         href: korean.html
+      - text: "Calculators (2022)"
+        href: calculators.html
+      - text: "Running Data (2020)"
+        href: running.html
+      - text: "Sleeping Data (2019)"
+        href: sleep.html
+      - text: "Excel/VBA Projects (2017)"
+        href: excel.html
     - text: "Schoolwork"
       icon: fa-graduation-cap
       href: schoolwork.html

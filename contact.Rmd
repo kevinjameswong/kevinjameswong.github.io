@@ -2,13 +2,30 @@
 title: "Kevin Wong - Contact Me"
 ---
 
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(reticulate)
+library(rlang)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
 # Contact Information
 
 Here is my resume! [Resume](files/Resume_04_30_24_Wong.pdf){target="_blank"}
 
-Email: <kjwong2@illinois.edu> 
+`r icon(name = "fa fa-envelope")` Email: <kjwong2@illinois.edu> 
 
-LinkedIn: [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"} 
+`r icon(name = "fab fa-linkedin")` LinkedIn: [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"} 
 
-GitHub: [www.github.com/kevinjameswong](https://www.github.com/kevinjameswong){target="_blank"}
+`r icon(name = "fab fa-square-github")` GitHub: [www.github.com/kevinjameswong](https://www.github.com/kevinjameswong){target="_blank"}
 

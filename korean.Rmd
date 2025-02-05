@@ -11,6 +11,7 @@ library(ggplot2)
 library(kableExtra)
 library(knitr)
 library(lubridate)
+library(reticulate)
 library(rlang)
 library(shiny)
 library(shinydashboard)
@@ -19,49 +20,23 @@ library(tidyverse)
 ```
 
 ```{r echo = FALSE}
-Update_Date = as.Date("1-1-2025", format = "%m-%d-%Y")
-Today_Date = Sys.Date()
+korean = read.csv(file = "files/koreanphrases.csv")
+korean$Index = korean %>% nrow() %>% seq.int()
 ```
 
-<style type="text/css">
-
-.r33m_vid {
-   font-family: Tahoma;
-   color: black;
-}
-
-body, p {
-   font-family: "Times New Roman";
-   font-size: 18px;
-}
-
-.korean {
-  font-family: "Lucida Grande";
-  font-size: 18px;
-  color: white;
-}
-
-</style>
-
-
-<h1>Languages</h1>
-
-<p class="last-updated">
-Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
-</p>
-
-***
-
-<p class="korean">
-안녕하세요! 저는 케빈입니다. 감사합니다.
-</p>
-
-Coming soon...
-
-
-```{r echo = FALSE, eval = FALSE}
-# Salesforce s
+```{r eval = FALSE}
+?observeEvent
+korean %>% filter(English == "Hello")
+?textOutput
+?updateTextInput
 ```
+
+
+
+
+
+
+
 
 
 
