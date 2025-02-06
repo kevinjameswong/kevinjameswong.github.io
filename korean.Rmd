@@ -5,6 +5,12 @@ output:
     toc: no
 ---
 
+```{r}
+?removeUI
+?insertUI
+??DT
+```
+
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(dplyr)
 library(ggplot2)
@@ -15,6 +21,7 @@ library(reticulate)
 library(rlang)
 library(shiny)
 library(shinydashboard)
+library(shinyjs)
 library(stringr)
 library(tidyverse)
 ```
