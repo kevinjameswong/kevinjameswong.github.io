@@ -5,40 +5,65 @@ output:
     toc: no
 ---
 
-```{r}
-?removeUI
-?insertUI
-??DT
-```
-
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(dplyr)
 library(ggplot2)
 library(kableExtra)
 library(knitr)
 library(lubridate)
-library(reticulate)
 library(rlang)
 library(shiny)
 library(shinydashboard)
-library(shinyjs)
 library(stringr)
 library(tidyverse)
 ```
 
 ```{r echo = FALSE}
-korean = read.csv(file = "files/koreanphrases.csv")
-korean$Index = korean %>% nrow() %>% seq.int()
+Update_Date = as.Date("2-1-2025", format = "%m-%d-%Y")
+Today_Date = Sys.Date()
 ```
 
-```{r eval = FALSE}
-?observeEvent
-korean %>% filter(English == "Hello")
-?textOutput
-?updateTextInput
-```
+<style type="text/css">
+
+.r33m_vid {
+   font-family: Tahoma;
+   color: black;
+}
+
+body, p {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+.korean {
+  font-family: "Lucida Grande";
+  font-size: 18px;
+  color: white;
+}
+
+</style>
 
 
+<h1>Languages</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+***
+
+<p class="korean">
+안녕하세요! 저는 케빈입니다. 감사합니다.
+</p>
+
+***
+
+<p class="last-updated">
+Please use my Shiny app to practice Korean and quiz yourself.
+</p>
+
+<iframe height="500" width="100%" frameborder="yes" src="https://kevinjameswong.shinyapps.io/korean/">
+</iframe>
 
 
 
