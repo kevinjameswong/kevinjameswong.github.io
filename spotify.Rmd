@@ -81,7 +81,7 @@ names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist
 I have been collecting my Spotify Wrapped data since `r min(spotify$Year)`. I have `r length(table(spotify$Year))` years worth of data, from `r min(spotify$Year)` - `r max(spotify$Year)`.
 </p>
 
-<iframe height="500" width="100%" frameborder="yes" src="https://kevinjameswong.shinyapps.io/spotify/">
+<iframe height="550" width="100%" frameborder="yes" src="https://kevinjameswong.shinyapps.io/spotify/">
 </iframe>
 
 
