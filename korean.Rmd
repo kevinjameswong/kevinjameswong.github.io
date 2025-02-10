@@ -67,7 +67,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 Please use my Shiny app to practice Korean and test your knowledge.
 </p>
 
-<iframe height="500" width="100%" frameborder="yes" src="https://kevinjameswong.shinyapps.io/korean/">
+<iframe height="600" width="100%" frameborder="yes" src="https://kevinjameswong.shinyapps.io/korean/">
 </iframe>
 
 
