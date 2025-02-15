@@ -24,13 +24,12 @@ Today_Date = Sys.Date()
 ```
 
 
-<!--
 <style type="text/css">
 body .main-container {
-	max-width: 500px !important;
+	max-width: 1080px !important;
 }
 </style>
--->
+
 
 <h1>Languages</h1>
 
@@ -47,7 +46,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 ***
 
 <p class="last-updated">
-Please use my Shiny app to practice Korean and test your knowledge.
+Please use my Shiny app to practice Korean and test your knowledge!!!
 </p>
 
 <div class="shiny-container">
