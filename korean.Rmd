@@ -46,7 +46,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 ***
 
 <p class="last-updated">
-Please use my Shiny app to practice Korean and test your knowledge.
+Please use my Shiny app to practice Korean and test your knowledge. T
 </p>
 
 <div class="shiny-container">
