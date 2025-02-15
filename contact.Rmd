@@ -20,9 +20,9 @@ library(tidyverse)
 
 # Contact Information
 
-Here is my resume! [Resume](files/Resume_04_30_24_Wong.pdf){target="_blank"}
+Here is my resume! [Resume](files/Resume_Wong_20250101.pdf){target="_blank"}
 
-`r icon(name = "fa fa-envelope")` Email: <kjwong2@illinois.edu> 
+`r icon(name = "fa fa-envelope")` Email: <kevinjwong09@gmail.com> 
 
 `r icon(name = "fab fa-linkedin")` LinkedIn: [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"} 
 

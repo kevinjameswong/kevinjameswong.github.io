@@ -25,10 +25,12 @@ Today_Date = Sys.Date()
 
 <style type="text/css">
 
+<!--
 body .main-container {
-  width: 1080px !important;
+  width: 900px !important;
 	max-width: 1080px !important;
 }
+-->
 
 .r33m_vid {
    font-family: Tahoma;
@@ -72,6 +74,20 @@ Please use my Shiny app to practice Korean and test your knowledge.
 
 
 
+```{r echo = FALSE, eval = FALSE}
+Silent ㅌ = 4
+Silent ㅅ = 4
+Silent ㅈ = 4
+Silent ㅂ = 4
+
+
+
+Silent ㄹ = 3
+
+if ㄹ = 3,  ㅂ = 4, the ㅂ is silent. yal
+if ㅂ = 3,  ㅅ = 4, the ㅅ is silent. eop
+if ㄹ = 3,  ㅅ = 4, the ㅅ is silent. gol
+```
 
 
 
