@@ -6,17 +6,17 @@ title: "Kevin Wong - Data Analysis Projects"
 
 <h4>
 
-* [Spotify Wrapped Data](spotify.html)
+* [Spotify Wrapped Data (2025)](spotify.html)
 
-* [Running Data](running.html)
+* [Learn Korean (2024)](korean.html)
 
-* [Sleeping Data](sleep.html)
+* [Calculators (2022)](calculators.html)
 
-* [Excel Projects](excel.html)
+* [Running Data (2019)](running.html)
 
-* [Calculators](calculators.html)
+* [Sleeping Data (2018)](sleep.html)
 
-* [Duolingo Data](korean.html)
+* [Excel Projects (2017)](excel.html)
 
 </h4>
 
