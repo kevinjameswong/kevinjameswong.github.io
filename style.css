@@ -115,7 +115,7 @@
 		  }
 		  .shiny-container {
 		    position: relative;
-		    padding-bottom: 64%; /* 16:9 I'M LIKE TT JUST LIKE TT */
+		    padding-bottom: 56.25%; /* 16:9 I'M LIKE TT JUST LIKE TT */
 		    height: 0;
 		  }
 		  .shiny-container iframe {
