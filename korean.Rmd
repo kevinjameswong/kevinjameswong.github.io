@@ -79,11 +79,11 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 ***
 
 <p class="last-updated">
-Please use my Shiny app to practice Korean and test your knowledge. TT
+Please use my Shiny app to practice Korean and test your knowledge. TTT
 </p>
 
 <div class="video-container">
-<iframe frameborder="yes" src="https://kevinjameswong.shinyapps.io/korean/">
+<iframe height="600px" frameborder="yes" src="https://kevinjameswong.shinyapps.io/korean/">
 </iframe>
 </div>
 
