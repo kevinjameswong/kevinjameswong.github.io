@@ -23,7 +23,6 @@ library(tidyverse)
 
 <style type="text/css">
 body .main-container {
-  width: 1080px !important;
 	max-width: 1080px !important;
 }
 </style>
@@ -81,7 +80,9 @@ names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist
 I have been collecting my Spotify Wrapped data since `r min(spotify$Year)`. I have `r length(table(spotify$Year))` years worth of data, from `r min(spotify$Year)` - `r max(spotify$Year)`.
 </p>
 
-<iframe height="550" width="100%" frameborder="yes" src="https://kevinjameswong.shinyapps.io/spotify/">
+<div class="shiny-container">
+<iframe src="https://kevinjameswong.shinyapps.io/spotify/">
 </iframe>
+</div>
 
 
