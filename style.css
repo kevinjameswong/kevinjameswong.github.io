@@ -240,6 +240,11 @@
             display: none;
             color: red;
           }
+          .shiny-container {
+		    	  position: relative;
+		    	  padding-bottom: 100%; /* 16:9 I'M LIKE TT JUST LIKE TT */
+		    	  height: 0;
+		    }
 	
 		  }
 		  @media only screen and (min-width: 620px) {
