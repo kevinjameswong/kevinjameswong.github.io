@@ -66,9 +66,9 @@ TopArtists_AllTime =
   TopArtists_AllTime %>%
   mutate(
     Rank_Text = ifelse(xx == 1, str_c(Rank %>% as.character(), "st"),
-                ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
-                ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
-                str_c(Rank %>% as.character(), "th"))))
+                       ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
+                              ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
+                                     str_c(Rank %>% as.character(), "th"))))
   ) %>%
   select(ArtistName, Score, Song_Count, Rank, Rank_Text)
 
@@ -92,9 +92,9 @@ TopArtists_ByYear =
   TopArtists_ByYear %>%
   mutate(
     Year_Rank_Label = ifelse(xx == 1, str_c(Rank %>% as.character(), "st"),
-                      ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
-                      ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
-                      str_c(Rank %>% as.character(), "th"))))
+                             ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
+                                    ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
+                                           str_c(Rank %>% as.character(), "th"))))
   ) %>%
   select(ArtistName, Year, Score, Song_Count, Rank, Year_Rank_Label)
 
@@ -105,11 +105,11 @@ TopArtists_ByYear$Brave = max(TopArtists_ByYear$Rank) + 1
 TopArtists_ByYear$NewRank = TopArtists_ByYear$Brave - TopArtists_ByYear$Rank
 
 Artists_New_Repeat =
-TopArtists_ByYear %>%
+  TopArtists_ByYear %>%
   ungroup() %>%
   #arrange(desc(Year)) %>%
   mutate(KK = ifelse(test = duplicated(TopArtists_ByYear$ArtistName), yes = "Repeat Artist", no = "New Artist"))# %>%
-  #filter(ArtistName == "Nickelback")
+#filter(ArtistName == "Nickelback")
 
 
 
@@ -177,64 +177,64 @@ uix = dashboardPage(
         badgeLabel = "NEW")
     )
   ),
-
+  
   dashboardBody(
     #tags$head(
-      #tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
+    #tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
     #),
-
+    
     
     tabItems(
       # First tab content
       tabItem(tabName = "Year",
               fluidRow(
                 box(width = 6,
-                       selectInput(
-                         inputId = "SelectedYear",
-                         label = "Select Year:",
-                         choices = TopArtists_ByYear$Year %>% unique() %>% sort(),
-                         #choices = c("2020", "2021", "2022", "2023", "2024"),
-                         #selected = TopArtists_ByYear$Year %>% unique() %>% sort() %>% tail()
-                         selected = c("2024")
-                       )
+                    selectInput(
+                      inputId = "SelectedYear",
+                      label = "Select Year:",
+                      choices = TopArtists_ByYear$Year %>% unique() %>% sort(),
+                      #choices = c("2020", "2021", "2022", "2023", "2024"),
+                      #selected = TopArtists_ByYear$Year %>% unique() %>% sort() %>% tail()
+                      selected = c("2024")
+                    )
                 )
               ),
               #box(width = 12, title = "I'M LIKE TT",
-                #fluidRow(
-                  #width = 12,
-                  #valueBoxOutput("Minnn"),
-                  #valueBoxOutput("CountArtist"),
-                  #valueBoxOutput("CountAlbumID")
-                #)
+              #fluidRow(
+              #width = 12,
+              #valueBoxOutput("Minnn"),
+              #valueBoxOutput("CountArtist"),
+              #valueBoxOutput("CountAlbumID")
+              #)
               #),
               
               fluidRow(width = 12,
-                valueBoxOutput("Minnn"),
-                valueBoxOutput("CountArtist"),
-                valueBoxOutput("CountAlbumID")
+                       valueBoxOutput("Minnn"),
+                       valueBoxOutput("CountArtist"),
+                       valueBoxOutput("CountAlbumID")
               ),
               
               fluidRow(width = 12,
-                column(width = 5, height = 5, plotOutput("plot_genrexxx")),
-                column(width = 7, height = 10, tableOutput("X123"))
+                       column(width = 5, height = 5, plotOutput("plot_genrexxx")),
+                       column(width = 7, height = 10, tableOutput("X123"))
               ),
               
               br(),
               
               #fluidRow(width = 12,
-                #valueBoxOutput("Count_NewArtist"),
-                #valueBoxOutput("Count_RepeatArtist"),
-                #valueBoxOutput("UUU2")
+              #valueBoxOutput("Count_NewArtist"),
+              #valueBoxOutput("Count_RepeatArtist"),
+              #valueBoxOutput("UUU2")
               #),
               
               fluidRow(width = 12,
-                column(width = 5, plotOutput("pie_Chart22")),
-                column(width = 7, plotOutput("plot_genreByear"))
+                       column(width = 6, plotOutput("pie_Chart22")),
+                       column(width = 6, plotOutput("plot_genreByear"))
               )
               
-                #box(width = 3, solidHeader = TRUE, plotOutput("plot2"))
+              #box(width = 3, solidHeader = TRUE, plotOutput("plot2"))
               
-                #actionButton("clear", "Update")
+              #actionButton("clear", "Update")
       ),
       
       # Second tab content
@@ -254,26 +254,26 @@ uix = dashboardPage(
                 column(width = 9, tableOutput("table")),
                 column(width = 3, plotOutput("plot2"))
               )
-        ))
-
-  #titlePanel(title = "Spotify Data"),
-  #br(), #line break
-
-  #sidebarPanel(
-  #selectInput(inputId = "SelectedArtist", label = "Select Artist:", choices = ttt %>% unique() %>% sort(), selected = "TWICE"),
-  #selectInput(inputId = "SelectedYear", label = "Select Year:", choices = TopArtists_ByYear$Year %>% unique() %>% sort(), selected = TopArtists_ByYear$Year %>% unique() %>% sort() %>% tail())
-  #),
-  #htmlOutput("Keeps"),
-  
-  #tableOutput("table"),
-  
-  #plotOutput("plot2"),
-  #textOutput("Minnn"),
-  #textOutput(ttt),
-  #textOutput("Rank_Textx"),
-  #textOutput("textdelulu"),
-  #textOutput("textdelulu3"),
-  #verbatimTextOutput("summary")
+      ))
+    
+    #titlePanel(title = "Spotify Data"),
+    #br(), #line break
+    
+    #sidebarPanel(
+    #selectInput(inputId = "SelectedArtist", label = "Select Artist:", choices = ttt %>% unique() %>% sort(), selected = "TWICE"),
+    #selectInput(inputId = "SelectedYear", label = "Select Year:", choices = TopArtists_ByYear$Year %>% unique() %>% sort(), selected = TopArtists_ByYear$Year %>% unique() %>% sort() %>% tail())
+    #),
+    #htmlOutput("Keeps"),
+    
+    #tableOutput("table"),
+    
+    #plotOutput("plot2"),
+    #textOutput("Minnn"),
+    #textOutput(ttt),
+    #textOutput("Rank_Textx"),
+    #textOutput("textdelulu"),
+    #textOutput("textdelulu3"),
+    #verbatimTextOutput("summary")
   )
 )
 
@@ -285,7 +285,7 @@ serverx = function(input, output, session) {
       kable(format = "html", align = "llll") %>%
       kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
       scroll_box(width = "100%", height = "100%") #%>%
-      #row_spec(2, background = "#683659")
+    #row_spec(2, background = "#683659")
     
   })
   
@@ -318,7 +318,7 @@ serverx = function(input, output, session) {
       length() %>%
       format(nsmall = 0, big.mark = ",") %>%
       valueBox(subtitle = "Distinct Albums", color = "aqua", icon(name = "fas fa-music"), width = 4)
-      #red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
+    #red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
   })
   
   output$CountGenre = renderValueBox({
@@ -373,7 +373,7 @@ serverx = function(input, output, session) {
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank()
       )# +
-      #scale_x_discrete(limits = c(2020, 2021, 2022, 2023, 2024))
+    #scale_x_discrete(limits = c(2020, 2021, 2022, 2023, 2024))
   })
   
   output$X123 = renderText({
@@ -404,13 +404,13 @@ serverx = function(input, output, session) {
   })
   
   output$Count_NewArtist = renderValueBox({
-      Data_NewArtist = Year_Artist %>%
-        filter(Year.y == input$SelectedYear) %>%
-        ungroup() %>%
-        select("NewArtist2") %>%
-        sum() %>%
-        format(nsmall = 0, big.mark = ",")
-      Data_NewArtist %>%
+    Data_NewArtist = Year_Artist %>%
+      filter(Year.y == input$SelectedYear) %>%
+      ungroup() %>%
+      select("NewArtist2") %>%
+      sum() %>%
+      format(nsmall = 0, big.mark = ",")
+    Data_NewArtist %>%
       valueBox(subtitle = "New Artists", color = "green", icon = icon(name = "fab fa-spotify"), width = 4)
   })
   
@@ -443,9 +443,9 @@ serverx = function(input, output, session) {
       group_by(KK) %>%
       summarize(`Song Count` = sum(Song_Count)) %>%
       arrange(KK)
-      #arrange(desc(`Song Count`)) %>%
-      #ungroup()
-
+    #arrange(desc(`Song Count`)) %>%
+    #ungroup()
+    
     
     ggplot(data = Data_PieChart, aes(x = "", y = `Song Count`, group = KK, fill = KK)) +
       #geom_bar(stat = "identity", width = 1, fill = c("#08A45C", "#D9D9D9")) +
@@ -470,11 +470,11 @@ serverx = function(input, output, session) {
             #axis.text.y = Genre,
             axis.ticks.y = element_blank(),
             axis.text.x = element_blank(),
-            #legend.key.size = unit(x = 1, units = "cm"), #change legend key size
-            #legend.key.height = unit(x = 1, units = "cm"), #change legend key height
-            #legend.key.width = unit(x = 1, units = "cm"), #change legend key width
-            #legend.title = element_text(size = 14), #change legend title font size
-            #legend.text = element_text(size = 10) #change legend text font size
+            legend.key.size = unit(x = 1, units = "cm"), #change legend key size
+            legend.key.height = unit(x = 1, units = "cm"), #change legend key height
+            legend.key.width = unit(x = 1, units = "cm"), #change legend key width
+            legend.title = element_text(size = 14), #change legend title font size
+            legend.text = element_text(size = 10) #change legend text font size
       ) +
       guides(fill = guide_legend(title = "Artist Type"))
   })
