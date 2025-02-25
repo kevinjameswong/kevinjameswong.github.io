@@ -5,7 +5,7 @@ account: kevinjameswong
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 13932292
-bundleId: 9809760
+bundleId: 9821344
 url: https://kevinjameswong.shinyapps.io/korean/
 version: 1
 asMultiple: FALSE

@@ -86,7 +86,7 @@ try a:hover
   <center>
     <a class="swag1">[Work Experience](work.html)</a><a class="br-mobile-break-2">&emsp;</a>
     <br class="br-mobile-break"><br class="br-mobile-break">
-    <a class="swag1">[Awards & Certificates](awards.html)</a><a class="br-mobile-break-2">&emsp;</a>
+    <!--<a class="swag1">[Awards & Certificates](awards.html)</a><a class="br-mobile-break-2">&emsp;</a>-->
     <br class="br-mobile-break"><br class="br-mobile-break">
     <a class="swag1">[Data Analysis Projects](data.html)</a><a class="br-mobile-break-2">&emsp;</a>
     <br class="br-mobile-break"><br class="br-mobile-break">
