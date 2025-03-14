@@ -19,13 +19,25 @@ library(stringr)
 library(tidyverse)
 ```
 
+<style>
+.left {
+	  text-align: left;
+}
+</style>
+
 # Contact Information
 
 Here is my resume! [Resume](files/Resume_Wong_20250101.pdf){target="_blank"}
 
-`r icon(name = "fa fa-envelope")` Email: <kevinjwong09@gmail.com> 
+<p class="left">
+`r paste(icon(name = "fa fa-envelope"), " Email:", sep = "")` <kevinjwong09@gmail.com>
+</p>
 
-`r icon(name = "fab fa-linkedin")` LinkedIn: [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"} 
+<p class="left">
+`r paste(icon(name = "fab fa-linkedin"), " LinkedIn:", sep = "")` [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"}
+</p>
 
+<p class="left">
 `r icon(name = "fab fa-square-github")` GitHub: [www.github.com/kevinjameswong](https://www.github.com/kevinjameswong){target="_blank"}
+</p>
 
