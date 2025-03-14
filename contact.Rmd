@@ -7,6 +7,7 @@ Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
 library(kableExtra)
 library(knitr)

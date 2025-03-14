@@ -7,6 +7,7 @@ output:
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
 library(kableExtra)
 library(knitr)
@@ -145,4 +146,27 @@ My GPA in Business Courses at U of I is 4.00.
 <div class="video-container">
 <iframe src="https://www.youtube.com/embed/SG5-_hInODw" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

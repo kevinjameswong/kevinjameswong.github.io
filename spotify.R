@@ -33,7 +33,9 @@ spotify =
     Artist4ID,
     Artist5ID,
     Artist6ID,
-    ApproxGenre
+    ApproxGenre,
+    Album.Year,
+    Song.Length
   )
 
 spotify = spotify %>%
@@ -45,7 +47,20 @@ spotify = spotify %>%
   ) %>%
   filter(Song != "")
 
-names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist2Name", "Artist3Name", "Artist4Name", "Artist5Name", "Artist6Name", "SongID", "AlbumID", "Artist1ID", "Artist2ID", "Artist3ID", "Artist4ID", "Artist5ID", "Artist6ID", "Genre", "Score", "Count", "RecordInt")
+names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist2Name", "Artist3Name", "Artist4Name", "Artist5Name", "Artist6Name", "SongID", "AlbumID", "Artist1ID", "Artist2ID", "Artist3ID", "Artist4ID", "Artist5ID", "Artist6ID", "Genre", "AlbumYear", "SongLengthChar", "Score", "Count", "RecordInt")
+
+spotify$TotalSeconds = (str_sub(string = spotify$SongLengthChar, start = 1, end = 1) %>% as.integer() * 60) + str_sub(string = spotify$SongLengthChar, start = 3) %>% as.integer()
+spotify$Minutes = spotify$TotalSeconds %>% ceiling() %>% "%/%"(60)
+spotify$Seconds = spotify$TotalSeconds %>% ceiling() %>% "%%"(60)
+
+spotify$YearDifference = (spotify$Year - spotify$AlbumYear) %>% as.integer()
+
+total_time = function(seconds) {
+  m = (seconds) %>% round(digits = 0) %>% sum() %>% "%/%"(60) %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
+  s = (seconds) %>% round(digits = 0) %>% sum() %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
+  t = paste(m, ":", s, sep = "")
+  return(t)
+}
 
 Minutes_All = bind_cols(
   as.data.frame(c(2018, 2020, 2021, 2022, 2023, 2024)),
@@ -74,7 +89,6 @@ TopArtists_AllTime =
 
 ttt = c("Gone West", "TWICE", "NAYEON", "TZUYU", "Morgan Wallen", "Georgia Webster", "Red Rocks Worship", "Caitlyn Smith", "Bethel Music", "OneRepublic", "Hillsong UNITED", "The Fray", "Lady A", "Jesus Culture", "Elevation Worship", "Keane", "Gavin DeGraw", "Hanson", "Ed Sheeran", "Train")
 # ttt = spotify$Artist
-
 
 
 
@@ -182,7 +196,7 @@ uix = dashboardPage(
     #tags$head(
     #tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
     #),
-    
+    tags$script(HTML("$('body').addClass('fixed');")),
     
     tabItems(
       # First tab content
@@ -209,14 +223,14 @@ uix = dashboardPage(
               #),
               
               fluidRow(width = 12,
-                       valueBoxOutput("Minnn"),
-                       valueBoxOutput("CountArtist"),
-                       valueBoxOutput("CountAlbumID")
+                       valueBoxOutput(outputId = "Minnn"),
+                       valueBoxOutput(outputId = "CountArtist"),
+                       valueBoxOutput(outputId = "CountAlbumID")
               ),
               
               fluidRow(width = 12,
-                       column(width = 5, height = 5, plotOutput("plot_genrexxx")),
-                       column(width = 7, height = 10, tableOutput("X123"))
+                       column(width = 5, height = 5, plotOutput(outputId = "plot_genrexxx")),
+                       column(width = 7, height = 10, tableOutput(outputId = "X123"))
               ),
               
               br(),
@@ -228,8 +242,28 @@ uix = dashboardPage(
               #),
               
               fluidRow(width = 12,
-                       column(width = 6, plotOutput("pie_Chart22")),
-                       column(width = 6, plotOutput("plot_genreByear"))
+                       column(width = 6, plotOutput(outputId = "pie_Chart22")),
+                       column(width = 6, plotOutput(outputId = "plot_genreByear"))
+              ),
+              br(),
+              fluidRow(width = 12,
+                       column(width = 6, tableOutput(outputId = "Top5Shortest")),
+                       column(width = 6, tableOutput(outputId = "Top5Longest"))
+              ),
+              br(),
+              fluidRow(width = 12,
+                       valueBoxOutput(outputId = "AvgSongLength"),
+                       valueBoxOutput(outputId = "AvgSongRelease")
+                       
+              ),
+              br(),
+              fluidRow(width = 12,
+                       column(width = 6, tableOutput(outputId = "Top5Earliest")),
+                       column(width = 6, tableOutput(outputId = "Top5Latest"))
+              ),
+              br(),
+              fluidRow(width = 12,
+                       column(width = 6, plotOutput(outputId = "sayyouloveme"))
               )
               
               #box(width = 3, solidHeader = TRUE, plotOutput("plot2"))
@@ -251,8 +285,8 @@ uix = dashboardPage(
                        )
                 )),
               fluidRow(
-                column(width = 9, tableOutput("table")),
-                column(width = 3, plotOutput("plot2"))
+                column(width = 9, tableOutput(outputId = "ArtistDiscopgraphy1")),
+                column(width = 3, plotOutput(outputId = "plot2"))
               )
       ))
     
@@ -278,11 +312,13 @@ uix = dashboardPage(
 )
 
 serverx = function(input, output, session) {
-  output$table = renderText({
+  output$ArtistDiscopgraphy1 = renderText({
     spotify %>%
       select(Year, SongRanking, Song, ArtistName, Album) %>%
       filter(ArtistName == input$SelectedArtist) %>%
-      kable(format = "html", align = "llll") %>%
+      ungroup() %>% #this line and the line afterwards are optional if I want to remove Aritst name as a row
+      select(Year, SongRanking, Song, ArtistName, Album) %>%
+      kable(format = "html", align = "llll", col.names = c("Year", "Song Ranking", "Song", "Artist Name", "Album")) %>%
       kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
       scroll_box(width = "100%", height = "100%") #%>%
     #row_spec(2, background = "#683659")
@@ -314,6 +350,7 @@ serverx = function(input, output, session) {
     spotify %>%
       filter(Year == input$SelectedYear) %>%
       select(AlbumID) %>%
+      ungroup() %>%
       table() %>%
       length() %>%
       format(nsmall = 0, big.mark = ",") %>%
@@ -325,11 +362,39 @@ serverx = function(input, output, session) {
     spotify %>%
       filter(Year == input$SelectedYear) %>%
       select(Genre) %>%
+      ungroup() %>%
       table() %>%
       length() %>%
       format(nsmall = 0, big.mark = ",") %>%
       valueBox(subtitle = "Distinct Genres", color = "purple", icon(name = "fas fa-music"), width = 4)
   })
+  
+  output$AvgSongLength = renderValueBox({
+    spotify %>%
+      filter(Year == input$SelectedYear) %>%
+      ungroup() %>%
+      select(TotalSeconds) %>%
+      unlist() %>%
+      mean() %>%
+      total_time() %>%
+      valueBox(subtitle = "Average Song Length", color = "red", icon(name = "fas fa-music"), width = 4)
+  })
+  
+  output$AvgSongRelease = renderValueBox({
+    tt = spotify %>%
+      filter(Year == input$SelectedYear) %>%
+      ungroup() %>%
+      select(YearDifference) %>%
+      unlist() %>%
+      mean() %>%
+      round(digits = 2)
+    
+    tt = input$SelectedYear %>% as.integer() - tt
+    
+    tt %>%
+      valueBox(subtitle = "Average Song Release", color = "blue", icon(name = "fas fa-music"), width = 4)
+  })
+  
   
   output$Keeps = renderUI({
     
@@ -359,6 +424,25 @@ serverx = function(input, output, session) {
       scale_x_continuous(breaks = c("0", "1", "2"))
   })
   
+  output$sayyouloveme = renderPlot({
+    spotify %>%
+      filter(Year == input$SelectedYear) %>%
+      group_by(Year, AlbumYear) %>%
+      mutate(TT = n()) %>%
+      ggplot(aes(x = AlbumYear, y = TT)) + 
+      geom_bar(stat = "identity", fill = "darkblue", width = 1) +
+      #geom_text(aes(label = Year_Rank_Label %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 1) +
+      xlab(label = "Album Year") +
+      ylab(label = "Song Count") +
+      ggtitle(label = "Song Count by Album Year") +
+      theme(plot.title = element_text(hjust = 0.5),
+            #axis.title.y = element_blank(),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank()
+      )
+  })
+  
+  
   
   output$plot2 = renderPlot({
     
@@ -380,7 +464,55 @@ serverx = function(input, output, session) {
     TopArtists_ByYear %>%
       filter(Year == input$SelectedYear, Rank <= 10) %>%
       select(ArtistName, Score, Song_Count) %>%
-      kable(format = "html", align = "llrr") %>%
+      kable(format = "html", align = "llrr", col.names = c("Year", "Artist Name", "Score", "Song Count")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      scroll_box(width = "100%", height = "100%")
+  })
+  
+  output$Top5Shortest = renderText({
+    spotify %>%
+      filter(Year == input$SelectedYear) %>%
+      arrange(TotalSeconds) %>%
+      head(n = 5) %>%
+      ungroup() %>%
+      select(SongRanking, Song, ArtistName, SongLengthChar) %>%
+      kable(format = "html", align = "lllr", caption = "Top 5 Shortest Songs", col.names = c("Song Ranking", "Song", "Artist Name", "Song Length")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      scroll_box(width = "100%", height = "100%")
+  })
+  
+  output$Top5Longest = renderText({
+    spotify %>%
+      filter(Year == input$SelectedYear) %>%
+      arrange(TotalSeconds %>% desc()) %>%
+      head(n = 5) %>%
+      ungroup() %>%
+      select(SongRanking, Song, ArtistName, SongLengthChar) %>%
+      kable(format = "html", align = "lllr", caption = "Top 5 Longest Songs", col.names = c("Song Ranking", "Song", "Artist Name", "Song Length")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      scroll_box(width = "100%", height = "100%")
+  })
+  
+  output$Top5Earliest = renderText({
+    spotify %>%
+      filter(Year == input$SelectedYear) %>%
+      arrange(AlbumYear %>% desc()) %>%
+      head(n = 5) %>%
+      ungroup() %>%
+      select(SongRanking, Song, ArtistName, Album, AlbumYear) %>%
+      kable(format = "html", align = "lllr", caption = "Top 5 Earliest Songs", col.names = c("Song Ranking", "Song", "Artist Name", "Album", "Album Year")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      scroll_box(width = "100%", height = "100%")
+  })
+  
+  output$Top5Latest = renderText({
+    spotify %>%
+      filter(Year == input$SelectedYear) %>%
+      arrange(AlbumYear) %>%
+      head(n = 5) %>%
+      ungroup() %>%
+      select(SongRanking, Song, ArtistName, Album, AlbumYear) %>%
+      kable(format = "html", align = "lllr", caption = "Top 5 Latest Songs", col.names = c("Song Ranking", "Song", "Artist Name", "Album", "Album Year")) %>%
       kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
       scroll_box(width = "100%", height = "100%")
   })

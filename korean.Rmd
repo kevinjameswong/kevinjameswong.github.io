@@ -7,6 +7,7 @@ output:
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
 library(kableExtra)
 library(knitr)
@@ -69,6 +70,50 @@ Silent ㄹ = 3
 if ㄹ = 3,  ㅂ = 4, the ㅂ is silent. yal
 if ㅂ = 3,  ㅅ = 4, the ㅅ is silent. eop
 if ㄹ = 3,  ㅅ = 4, the ㅅ is silent. gol
+
+얹 = eon
+꽃 = kkot
+갖 = gat
+꽃히 = kkochi
+그렇지 = geureochi
+노랗다 = norata
+핥 = hal
+몫 = mok
+놆 = nop
+앉 = an
+흙 = heuk
+덟 = deol
+얇 = yal
+앞 = ap
+앞문 = ammun
+흙으로 = heulgeuro
+덟 = deol
+짧 = jjal
+읽 = ik
+옮 = om
+찮다 = chanta
+여덟= yeodeol
+옮다 = omda
+면 = anjeumyeon
+점젆다 = ?
+얹지 = eonji
+옰에 = olse
+얇아 = yalba
+젊 = jeom
+없지 = eopji
+없으면 = eopseumyeon
+닮았다 = dalmatda
+않고 = anko
+앉고 = ango
+읽지 = ikji
+옳다 = olta
+싫= sil 
+없 = eop
+많지 = manchi
+읽다 = ikda
+싫고 = silko
+핥다 = halda
+짧다 = jjalda
 ```
 
 

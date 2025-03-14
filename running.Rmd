@@ -29,6 +29,7 @@ Making new table into aggregate table like Compass Mortgage grouped by day. Cont
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
 library(kableExtra)
 library(knitr)

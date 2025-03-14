@@ -10,6 +10,7 @@ Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
 library(kableExtra)
 library(knitr)
@@ -35,8 +36,11 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 <hr />
 
-		  
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r}
+ggplot(data = spotify %>% filter(Year == 2016), aes(AlbumYear, y = n())) 
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 spotify = read.csv(file = "files/SpotifyWrapped.csv")
 
 spotify =
@@ -60,7 +64,9 @@ spotify =
     Artist4ID,
     Artist5ID,
     Artist6ID,
-    ApproxGenre
+    ApproxGenre,
+    Album.Year,
+    Song.Length
   )
 
 spotify = spotify %>%
@@ -72,7 +78,20 @@ spotify = spotify %>%
   ) %>%
   filter(Song != "")
 
-names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist2Name", "Artist3Name", "Artist4Name", "Artist5Name", "Artist6Name", "SongID", "AlbumID", "Artist1ID", "Artist2ID", "Artist3ID", "Artist4ID", "Artist5ID", "Artist6ID", "Genre", "Score", "Count", "RecordInt")
+names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist2Name", "Artist3Name", "Artist4Name", "Artist5Name", "Artist6Name", "SongID", "AlbumID", "Artist1ID", "Artist2ID", "Artist3ID", "Artist4ID", "Artist5ID", "Artist6ID", "Genre", "AlbumYear", "SongLengthChar", "Score", "Count", "RecordInt")
+
+spotify$TotalSeconds = (str_sub(string = spotify$SongLengthChar, start = 1, end = 1) %>% as.integer() * 60) + str_sub(string = spotify$SongLengthChar, start = 3) %>% as.integer()
+spotify$Minutes = spotify$TotalSeconds %>% ceiling() %>% "%/%"(60)
+spotify$Seconds = spotify$TotalSeconds %>% ceiling() %>% "%%"(60)
+```
+
+```{r}
+spotify$YearDifference = spotify$Year - spotify$AlbumYear
+```
+
+```{r}
+lasf = c(2, 3)
+lasf %>% mean() + 2
 ```
 
 

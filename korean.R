@@ -1,4 +1,5 @@
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
 library(kableExtra)
 library(knitr)
@@ -22,12 +23,29 @@ korean = korean %>%
   #filter(Romanization == "hwajangsil") %>%
   mutate(TT = min(Index)) %>%
   mutate(Duplicate = ifelse(TT == Index, 0, 1) %>% as.integer()) %>%
-  select(English, Korean, Romanization, Easy, Index, Duplicate)# %>%
+  select(English, Korean, Romanization, Easy, Index, Duplicate) %>%
+  ungroup()# %>%
   #filter(Index %in% c(1, 3, 5, 7, 9))
+
+
+percent = function(x, digits = 2, format = "f", ...) {
+  t = formatC(x * 100, format = format, digits = digits, ...) %>% paste("%", sep = "")
+  return(t)
+}
+
+
+korean_duo = read.csv(file = "files/duolingo_korean.csv") %>%
+  select(Korean, Confirmed.Duolingo.Romanization) %>%
+  unique() %>%
+  filter(Korean != "")
+korean_duo$Index = korean_duo %>% nrow() %>% seq.int()
+names(korean_duo) = c("Korean", "Romanization", "Index")
+
 
 
 
 uix = dashboardPage(
+  
   skin = "green",
   dashboardHeader(
     title = "Learn Korean - Kevin Wong",
@@ -39,17 +57,34 @@ uix = dashboardPage(
         icon = icon(name = "lightbulb"),
         tabName = "Learn",
         badgeLabel = "NEW",
-        selected = TRUE),
+        selected = TRUE #FALSE
+      ),
       menuItem(
         text = "Quiz",
         icon = icon(name = "check"),
         tabName = "Quiz",
         badgeLabel = "NEW",
-        selected = FALSE)
+        selected = FALSE
+      ),
+      menuItem(
+        text = "Dictionary",
+        icon = icon(name = "book"),
+        tabName = "Dictionary",
+        badgeLabel = "NEW",
+        selected = FALSE
+      ),
+      menuItem(
+        text = "Romanization",
+        icon = icon(name = "keyboard"),
+        tabName = "Romanization",
+        badgeLabel = "NEW",
+        selected = FALSE
+      )
     )
   ),
   
   dashboardBody(
+    tags$script(HTML("$('body').addClass('fixed');")),
     #shinyjs::useShinyjs(), # required to enable Shinyjs
     tabItems(
       
@@ -139,6 +174,7 @@ uix = dashboardPage(
                       #selected = TopArtists_ByYear$Year %>% unique() %>% sort() %>% tail()
                       selected = 3
                     ),
+                    #fluidRow(
                     checkboxGroupInput(
                       inputId = "questionType",
                       label = "Question Types:",
@@ -147,6 +183,15 @@ uix = dashboardPage(
                       #selected = c(1, 2)
                       selected = c(1, 2, 3, 4)
                     ),
+                    #checkboxGroupInput(
+                      #inputId = "questionTypeX",
+                      #label = "Question Difficulty:",
+                      #choiceNames = c("Easy", "Hard"),
+                      #choiceValues = c(1, 2),
+                      #selected = c(1, 2)
+                      #selected = c(1, 2)
+                    #)
+                    #),
                     actionButton(
                       inputId = "quizStart",
                       label = "Start Quiz!"
@@ -245,10 +290,53 @@ uix = dashboardPage(
               )
               
               
+      ),
+      
+      tabItem(
+        tabName = "Dictionary",
+        fluidRow(
+          box(width = 12,
+              dataTableOutput(outputId = "Diction")
+            )
+          )
+      ),
+      tabItem(
+        tabName = "Romanization",
+        fluidRow(
+          box(width = 6,
+              
+             column(width = 6,
+                    textOutput(outputId = "R_FR_Korean") %>% span(style = "font-size:30px;"),
+                    textInput(inputId = "R_FR_TextInput",
+                              label = "Romanization:",
+                              value = "",
+                              width = "100%",
+                              placeholder = "Answer"),
+             actionButton(inputId = "R_FR_Submit", label = "Submit", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
+             #actionButton(inputId = "R_FR_Next", label = "Next", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
+        )),
+          box(width = 6,
+              h4("Total Score"),
+              column(width = 12,
+                    valueBoxOutput(outputId = "R_submission_written_score"),
+                    valueBoxOutput(outputId = "R_submission_written_testnumber"),
+                    actionButton(inputId = "R_FR_ClearScore", label = "Reset Score", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
+                ))
+        ),
+        fluidRow(
+          box(width = 12,
+              h4("Romanization History"),
+              tableOutput(outputId = "all_data_XX")
+              #textOutput(outputId = "R_submission_written_start"),
+              #textOutput(outputId = "R_submission_written_correctanswer")
+          )
+        )
       )
       
       
-    )))
+    )
+    )
+  ) #dashboardPage
 
 serverx = function(input, output, session) {
   
@@ -573,7 +661,7 @@ serverx = function(input, output, session) {
   output$header_question_01 = renderText({
     ifelse(
       test = is.null(x = E_start_01$submission_question_01),
-      yes = paste("</br><h4 style=\"background-color:bluex;\"><h4>", header_question_01(), "</h4>", sep = ""),
+      yes = paste("</br><h4 style=\"background-color:bluex;\">", header_question_01(), "</h4>", sep = ""),
       no = ifelse(
         test = E_start_01$submission_question_01 == correct_answer_int_question_01(),
         yes = paste("</br><h4><span style=\"background-color:#027A54\";>", header_question_01(), "</span></h4>", sep = ""),
@@ -1022,22 +1110,203 @@ serverx = function(input, output, session) {
     ))
     
   })
+  
+  
+  
+  
+  
+  
+  
+  
+  #Romanization Free Response
+  #R_submission_written_start = reactiveValues(R_NEW_INTMORE = sample(x = korean_duo %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE))
+  R_submission_written_start = reactiveValues(R_NEW_INTMORE = 1)
+  CCC = reactiveValues(CC = "Korean: 시작")
+  R_submission_written_testnumber = reactiveValues(start = 0)
+  R_submission_written_score = reactiveValues(start = 0)
+  R_submission_written_correctanswer = reactiveValues(start = "sijag")
+  
+  rv = reactiveValues(
+    df = data.frame(
+      QuestionNumber  = as.integer(character()),
+      Korean          = as.character(character()),
+      CorrectAnswer   = as.character(character()),
+      SubmittedAnswer = as.character(character()),
+      TotalCorrect    = as.integer(character()),
+      OverallPercentage = as.integer(character())
+    )
+  )
+  
+  #R_submission_written_start$R_NEW_INTMORE = eventReactive(
+  #eventExpr = input$R_FR_Submit,
+  #valueExpr = {sample(x = korean_duo %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)},
+  #ignoreNULL = TRUE,
+  #ignoreInit = TRUE
+  #)
+  
 
+
+  observeEvent(input$R_FR_Submit, {
+    R_submission_written_testnumber$start = R_submission_written_testnumber$start + 1
+  })
+  
+  observeEvent(input$R_FR_Submit, {
+    R_submission_written_score$start = R_submission_written_score$start + ifelse(test = tolower(input$R_FR_TextInput) == tolower(R_submission_written_correctanswer$start), yes = 1, no = 0)
+  })
+  
+
+
+ 
+  #R_submission_written_correctanswer$start = eventReactive(
+    #eventExpr = input$R_FR_Submit,
+    #valueExpr = {korean_duo[R_submission_written_start$R_NEW_INTMORE(), ]$Romanization},
+    #ignoreNULL = TRUE,
+    #ignoreInit = TRUE
+  #)
+  
+  #R_submission_written_score$start = eventReactive(
+    #eventExpr = input$R_FR_Submit,
+    #valueExpr = {R_submission_written_score$start + ifelse(test = input$R_FR_TextInput == R_submission_written_correctanswer$start(), yes = 1, no = 0)},
+    #ignoreNULL = TRUE,
+    #ignoreInit = TRUE
+  #)
+
+  #R_submission_written_testnumber = eventReactive(
+    #eventExpr = input$R_FR_Submit,
+    #valueExpr = {R_submission_written_testnumber() + 1},
+    #ignoreNULL = TRUE,
+    #ignoreInit = TRUE
+  #)
+
+  
+  observeEvent(input$R_FR_Submit, {
+    updateTextInput(session = session, inputId = "R_FR_TextInput", value = "")
+  })
+  
+  #observeEvent(input$R_FR_Submit, {
+    #input$R_FR_TextInput = NULL
+  #})
+  
+
+  #mydata = eventReactive(
+    #eventExpr = input$R_FR_Submit,
+    #valueExpr = {rbind(mydata, TT = 1)},
+    #ignoreNULL = TRUE,
+    #ignoreInit = TRUE
+  #)
+  
+  #E_start_01 = reactiveValues(submission_question_01 = NULL)
+  #observeEvent(input$quizStart, {
+    #E_start_01$submission_question_01 = NULL
+  #})
+  
+  observeEvent(input$R_FR_Submit, {
+    rv$df = rbind(rv$df,
+                  data.frame(
+                    QuestionNumber = R_submission_written_testnumber$start,
+                    Korean         = korean_duo[R_submission_written_start$R_NEW_INTMORE, ]$Korean,
+                    CorrectAnswer  = R_submission_written_correctanswer$start,
+                    SubmittedAnswer = input$R_FR_TextInput,
+                    TotalCorrect   = R_submission_written_score$start,
+                    OverallPercentage = (R_submission_written_score$start / R_submission_written_testnumber$start) %>% percent()
+                  )
+    )
+  })
   
 
   
+  observeEvent(input$R_FR_Submit, {
+    R_submission_written_start$R_NEW_INTMORE = sample(x = korean_duo %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
+  })
+  
+  observeEvent(input$R_FR_Submit, {
+    R_submission_written_correctanswer$start = korean_duo[R_submission_written_start$R_NEW_INTMORE, ]$Romanization
+  })
+  
+  #R_FR_Korean = eventReactive(
+    #eventExpr = input$R_FR_Submit,
+    #valueExpr = {paste("Korean: ", korean_duo[R_submission_written_start$R_NEW_INTMORE, ]$Korean, sep = "")},
+    #ignoreNULL = TRUE,
+    #ignoreInit = TRUE
+  #)
+  
+  observeEvent(input$R_FR_Submit, {
+    CCC$CC = paste("Korean: ", korean_duo[R_submission_written_start$R_NEW_INTMORE, ]$Korean, sep = "")
+  })
+  
+  
+  output$all_data_XX = renderText(
+    rv$df %>%
+      arrange(QuestionNumber %>% desc()) %>%
+      kable(format = "html", align = "llllll", col.names = c("Question", "Korean", "Correct Answer", "Submitted Answer", "Total Correct", "% Correct")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      scroll_box(width = "100%", height = "100%")
+  )
+  
+  output$R_FR_Korean = renderText({
+    CCC$CC
+  })
+  
+  output$R_submission_written_score = renderValueBox({
+    R_submission_written_score$start %>%
+      format(nsmall = 0, big.mark = ",") %>%
+      valueBox(subtitle = "Total Correct", color = "green", icon = icon(name = "check"), width = 3)
+  })
+  
+  output$R_submission_written_testnumber = renderValueBox({
+    R_submission_written_testnumber$start %>%
+      format(nsmall = 0, big.mark = ",") %>%
+      valueBox(subtitle = "Total Questions", color = "blue", icon = icon(name = "fab fa-question"), width = 3)
+  })
+  
+  output$R_submission_written_start = renderText({
+    R_submission_written_start$R_NEW_INTMORE
+  })
+  
+  output$R_submission_written_correctanswer = renderText({
+    R_submission_written_correctanswer$start
+  })
+  
+  
+  observeEvent(input$R_FR_ClearScore, {
+    R_submission_written_score$start = 0
+  })
+  
+  observeEvent(input$R_FR_ClearScore, {
+    R_submission_written_testnumber$start = 0
+  })
+  
+  observeEvent(input$R_FR_ClearScore, {
+    rv$df = data.frame(
+      QuestionNumber  = as.integer(character()),
+      Korean          = as.character(character()),
+      CorrectAnswer   = as.character(character()),
+      SubmittedAnswer = as.character(character()),
+      TotalCorrect    = as.integer(character()),
+      OverallPercentage = as.integer(character())
+    )
+  })
+  
 
+  
+  
+  
+  #Dictionary
+  output$Diction = renderDataTable({
+    korean %>%
+      #filter(Index <= 30) %>%
+      select(English, Korean, Romanization)
+  })
+
+  #R_FR_ClearScore
+  #R_FR_Submit
+  #R_FR_Next
+  #R_FR_TextInput
+  
 }
 
-
-
-
-
-
-
-
-
-
+  #eventRactive = update value
+  #observeEvent = make something happen
 
 
 

@@ -23,6 +23,7 @@ body .main-container {
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
 library(kableExtra)
 library(knitr)

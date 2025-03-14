@@ -5,6 +5,18 @@ output: html_document
 
 ```{r}
 library(scales)
+
+qnorm(p = 0.01, mean = 0, sd = 1, lower.tail = TRUE)
+```
+
+```{r}
+
+df_shotclock = data.frame(x = seq(-5, 5, length.out = 100)) %>% mutate(y = dnorm(x))
+
+
+ggplot(df_shotclock, aes(x, y)) +
+  geom_area(fill = "sky blue") +
+  gghighlight(x < -1.35)
 ```
 
 ```{r normalcdf GOOD}
@@ -29,9 +41,9 @@ normalcdf = function(lower_bound, upper_bound, mean, sd, n, var, ...) {
   return(results)
 }
 
-# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 5)
+normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 5)
 # normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, var = 25)
-# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 10, n = 4)
+normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 10, n = 4)
 ```
 
 ```{r invNorm GOOD}
@@ -57,7 +69,7 @@ tcdf = function(lower_bound, upper_bound, df) {
   pt(q = upper_bound, df = df) - pt(q = lower_bound, df = df)
 }
 
-# tcdf(lower_bound = 2, upper_bound = 4, df = 20)
+tcdf(lower_bound = 2, upper_bound = 4, df = 20)
 ```
 
 ```{r invT GOOD}
@@ -165,7 +177,7 @@ kevin_geom = function(trials, prob, type, ...) {
   return(results)
 }
 
-# kevin_geom(trials = 3, prob = .1, type = "equal")
+kevin_geom(trials = 3, prob = .1, type = "more")
 ```
 
 ```{r ci mean GOOD}
