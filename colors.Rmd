@@ -1,231 +1,64 @@
 ---
-title: "Kevin Wong"
+title: "Kevin Wong - Colors"
+output:
+  html_document:
+    toc: No
 ---
 
-<h1 style="text-align:center;color:#9E1B32;">Kevin Wonggg 9E1B32</h1>
-<h1 style="text-align:center;color:#0C2340;">Kevin Wonggg 0C2340</h1>
-<h1 style="text-align:center;color:#E87722;">Kevin Wonggg E87722</h1>
-<h1 style="text-align:center;color:#003015;">Kevin Wonggg 003015</h1>
-<h1 style="text-align:center;color:#FECB00;">Kevin Wonggg FECB00</h1>
-<h1 style="text-align:center;color:#000000;">Kevin Wonggg 000000</h1>
-<h1 style="text-align:center;color:#CFB87C;">Kevin Wonggg CFB87C</h1>
-<h1 style="text-align:center;color:#565A5C;">Kevin Wonggg 565A5C</h1>
-<h1 style="text-align:center;color:#782F40;">Kevin Wonggg 782F40</h1>
-<h1 style="text-align:center;color:#CEB888;">Kevin Wonggg CEB888</h1>
-<h1 style="text-align:center;color:#13294B;">Kevin Wonggg 13294B</h1>
-<h1 style="text-align:center;color:#E84A27;">Kevin Wonggg E84A27</h1>
-<h1 style="text-align:center;color:#B61E2E;">Kevin Wonggg B61E2E</h1>
-<h1 style="text-align:center;color:#00274C;">Kevin Wonggg 00274C</h1>
-<h1 style="text-align:center;color:#FFCB05;">Kevin Wonggg FFCB05</h1>
-<h1 style="text-align:center;color:#000000;">Kevin Wonggg 000000</h1>
-<h1 style="text-align:center;color:#F1B82D;">Kevin Wonggg F1B82D</h1>
-<h1 style="text-align:center;color:#18453B;">Kevin Wonggg 18453B</h1>
-<h1 style="text-align:center;color:#4E2A84;">Kevin Wonggg 4E2A84</h1>
-<h1 style="text-align:center;color:#0C2340;">Kevin Wonggg 0C2340</h1>
-<h1 style="text-align:center;color:#C99700;">Kevin Wonggg C99700</h1>
-<h1 style="text-align:center;color:#841617;">Kevin Wonggg 841617</h1>
-<h1 style="text-align:center;color:#FDF9D8;">Kevin Wonggg FDF9D8</h1>
-<h1 style="text-align:center;color:#FF7300;">Kevin Wonggg FF7300</h1>
-<h1 style="text-align:center;color:#FF9900;">Kevin Wonggg FF9900</h1>
-<h1 style="text-align:center;color:#BEBEBE;">Kevin Wonggg BEBEBE</h1>
-<h1 style="text-align:center;color:#000000;">Kevin Wonggg 000000</h1>
-<h1 style="text-align:center;color:#002147;">Kevin Wonggg 002147</h1>
-<h1 style="text-align:center;color:#68ABE8;">Kevin Wonggg 68ABE8</h1>
-<h1 style="text-align:center;color:#236192;">Kevin Wonggg 236192</h1>
-<h1 style="text-align:center;color:#658D1B;">Kevin Wonggg 658D1B</h1>
-<h1 style="text-align:center;color:#15252D;">Kevin Wonggg 15252D</h1>
-<h1 style="text-align:center;color:#FF8200;">Kevin Wonggg FF8200</h1>
-<h1 style="text-align:center;color:#58595B;">Kevin Wonggg 58595B</h1>
-<h1 style="text-align:center;color:#BF5700;">Kevin Wonggg BF5700</h1>
-<h1 style="text-align:center;color:#333F48;">Kevin Wonggg 333F48</h1>
-<h1 style="text-align:center;color:#500000;">Kevin Wonggg 500000</h1>
-<h1 style="text-align:center;color:#15397F;">Kevin Wonggg 15397F</h1>
-<h1 style="text-align:center;color:#FFDA00;">Kevin Wonggg FFDA00</h1>
-<h1 style="text-align:center;color:#005CB9;">Kevin Wonggg 005CB9</h1>
-<h1 style="text-align:center;color:#7BAFD4;">Kevin Wonggg 7BAFD4</h1>
-<h1 style="text-align:center;color:#39275B;">Kevin Wonggg 39275B</h1>
-<h1 style="text-align:center;color:#4B2E83;">Kevin Wonggg 4B2E83</h1>
-<h1 style="text-align:center;color:#B7A57A;">Kevin Wonggg B7A57A</h1>
-<h1 style="text-align:center;color:#E8E3D3;">Kevin Wonggg E8E3D3</h1>
-<h1 style="text-align:center;color:#3F4C7A;">Kevin Wonggg 3F4C7A</h1>
-<h1 style="text-align:center;color:#003831;">Kevin Wonggg 003831</h1>
-<h1 style="text-align:center;color:#EFB21E;">Kevin Wonggg EFB21E</h1>
-<h1 style="text-align:center;color:#A2AAAD;">Kevin Wonggg A2AAAD</h1>
-<h1 style="text-align:center;color:#115740;">Kevin Wonggg 115740</h1>
-<h1 style="text-align:center;color:#FFCD00;">Kevin Wonggg FFCD00</h1>
+[Google Sheets Dataset](https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU/edit?usp=sharing){target="_blank"}
 
-<h1 style="text-align:center;color:#98002E;">Boston College 98002E</h1>
-<h1 style="text-align:center;color:#BC9B6A;">Boston College BC9B6A</h1>
-<h1 style="text-align:center;color:#726158;">Boston College 726158</h1>
-<h1 style="text-align:center;color:#F56600;">Clemson University F56600</h1>
-<h1 style="text-align:center;color:#522D80;">Clemson University 522D80</h1>
-<h1 style="text-align:center;color:#003087;">Duke University 003087</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Duke University FFFFFF</h1>
-<h1 style="text-align:center;color:#782F40;">Florida State University 782F40</h1>
-<h1 style="text-align:center;color:#CEB888;">Florida State University CEB888</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Florida State University FFFFFF</h1>
-<h1 style="text-align:center;color:#B3A369;">Georgia Institute of Technology-Main Campus B3A369</h1>
-<h1 style="text-align:center;color:#A28D5B;">Georgia Institute of Technology-Main Campus A28D5B</h1>
-<h1 style="text-align:center;color:#003057;">Georgia Institute of Technology-Main Campus 003057</h1>
-<h1 style="text-align:center;color:#AD0000;">University of Louisville AD0000</h1>
-<h1 style="text-align:center;color:#000000;">University of Louisville 000000</h1>
-<h1 style="text-align:center;color:#FDB913;">University of Louisville FDB913</h1>
-<h1 style="text-align:center;color:#F47321;">University of Miami F47321</h1>
-<h1 style="text-align:center;color:#005030;">University of Miami 005030</h1>
-<h1 style="text-align:center;color:#FFFFFF;">University of Miami FFFFFF</h1>
-<h1 style="text-align:center;color:#7BAFD4;">University of North Carolina at Chapel Hill 7BAFD4</h1>
-<h1 style="text-align:center;color:#FFFFFF;">University of North Carolina at Chapel Hill FFFFFF</h1>
-<h1 style="text-align:center;color:#CC0000;">North Carolina State University at Raleigh CC0000</h1>
-<h1 style="text-align:center;color:#000000;">North Carolina State University at Raleigh 000000</h1>
-<h1 style="text-align:center;color:#FFFFFF;">North Carolina State University at Raleigh FFFFFF</h1>
-<h1 style="text-align:center;color:#003594;">University of Pittsburgh-Pittsburgh Campus 003594</h1>
-<h1 style="text-align:center;color:#FFB81C;">University of Pittsburgh-Pittsburgh Campus FFB81C</h1>
-<h1 style="text-align:center;color:#F76900;">Syracuse University F76900</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Syracuse University FFFFFF</h1>
-<h1 style="text-align:center;color:#000E54;">Syracuse University 000E54</h1>
-<h1 style="text-align:center;color:#232D4B;">University of Virginia-Main Campus 232D4B</h1>
-<h1 style="text-align:center;color:#F84C1E;">University of Virginia-Main Campus F84C1E</h1>
-<h1 style="text-align:center;color:#630031;">Virginia Polytechnic Institute and State University 630031</h1>
-<h1 style="text-align:center;color:#CF4420;">Virginia Polytechnic Institute and State University CF4420</h1>
-<h1 style="text-align:center;color:#9E7E38;">Wake Forest University 9E7E38</h1>
-<h1 style="text-align:center;color:#000000;">Wake Forest University 000000</h1>
-<h1 style="text-align:center;color:#003262;">University of California-Berkeley 003262</h1>
-<h1 style="text-align:center;color:#FDB515;">University of California-Berkeley FDB515</h1>
-<h1 style="text-align:center;color:#3B7EA1;">University of California-Berkeley 3B7EA1</h1>
-<h1 style="text-align:center;color:#0C2340;">University of Notre Dame 0C2340</h1>
-<h1 style="text-align:center;color:#C99700;">University of Notre Dame C99700</h1>
-<h1 style="text-align:center;color:#AE9142;">University of Notre Dame AE9142</h1>
-<h1 style="text-align:center;color:#00843D;">University of Notre Dame 00843D</h1>
-<h1 style="text-align:center;color:#0033A0;">Southern Methodist University 0033A0</h1>
-<h1 style="text-align:center;color:#C8102E;">Southern Methodist University C8102E</h1>
-<h1 style="text-align:center;color:#8C1515;">Stanford University 8C1515</h1>
-<h1 style="text-align:center;color:#4D4F53;">Stanford University 4D4F53</h1>
-<h1 style="text-align:center;color:#2E2D29;">Stanford University 2E2D29</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Stanford University FFFFFF</h1>
-<h1 style="text-align:center;color:#154734;">Baylor University 154734</h1>
-<h1 style="text-align:center;color:#FFB81C;">Baylor University FFB81C</h1>
-<h1 style="text-align:center;color:#C8102E;">Iowa State University C8102E</h1>
-<h1 style="text-align:center;color:#F1BE48;">Iowa State University F1BE48</h1>
-<h1 style="text-align:center;color:#0051BA;">University of Kansas 0051BA</h1>
-<h1 style="text-align:center;color:#E8000D;">University of Kansas E8000D</h1>
-<h1 style="text-align:center;color:#FFC82D;">University of Kansas FFC82D</h1>
-<h1 style="text-align:center;color:#512888;">Kansas State University 512888</h1>
-<h1 style="text-align:center;color:#D1D1D1;">Kansas State University D1D1D1</h1>
-<h1 style="text-align:center;color:#A7A7A7;">Kansas State University A7A7A7</h1>
-<h1 style="text-align:center;color:#FF7300;">Oklahoma State University-Main Campus FF7300</h1>
-<h1 style="text-align:center;color:#000000;">Oklahoma State University-Main Campus 000000</h1>
-<h1 style="text-align:center;color:#4D1979;">Texas Christian University 4D1979</h1>
-<h1 style="text-align:center;color:#A3A9AC;">Texas Christian University A3A9AC</h1>
-<h1 style="text-align:center;color:#CC0000;">Texas Tech University CC0000</h1>
-<h1 style="text-align:center;color:#000000;">Texas Tech University 000000</h1>
-<h1 style="text-align:center;color:#002855;">West Virginia University 002855</h1>
-<h1 style="text-align:center;color:#EAAA00;">West Virginia University EAAA00</h1>
-<h1 style="text-align:center;color:#CC0033;">University of Arizona CC0033</h1>
-<h1 style="text-align:center;color:#003366;">University of Arizona 003366</h1>
-<h1 style="text-align:center;color:#8C1D40;">Arizona State University Campus Immersion 8C1D40</h1>
-<h1 style="text-align:center;color:#FFC627;">Arizona State University Campus Immersion FFC627</h1>
-<h1 style="text-align:center;color:#002E5D;">Brigham Young University 002E5D</h1>
-<h1 style="text-align:center;color:#0062B8;">Brigham Young University 0062B8</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Brigham Young University FFFFFF</h1>
-<h1 style="text-align:center;color:#E00122;">University of Cincinnati-Main Campus E00122</h1>
-<h1 style="text-align:center;color:#000000;">University of Cincinnati-Main Campus 000000</h1>
-<h1 style="text-align:center;color:#FFFFFF;">University of Cincinnati-Main Campus FFFFFF</h1>
-<h1 style="text-align:center;color:#CFB87C;">University of Colorado Boulder CFB87C</h1>
-<h1 style="text-align:center;color:#000000;">University of Colorado Boulder 000000</h1>
-<h1 style="text-align:center;color:#A2A4A3;">University of Colorado Boulder A2A4A3</h1>
-<h1 style="text-align:center;color:#C8102E;">University of Houston C8102E</h1>
-<h1 style="text-align:center;color:#76232F;">University of Houston 76232F</h1>
-<h1 style="text-align:center;color:#B2B4B2;">University of Houston B2B4B2</h1>
-<h1 style="text-align:center;color:#FFC904;">University of Central Florida FFC904</h1>
-<h1 style="text-align:center;color:#BA9B37;">University of Central Florida BA9B37</h1>
-<h1 style="text-align:center;color:#000000;">University of Central Florida 000000</h1>
-<h1 style="text-align:center;color:#CC0000;">University of Utah CC0000</h1>
-<h1 style="text-align:center;color:#808080;">University of Utah 808080</h1>
-<h1 style="text-align:center;color:#13294B;">University of Illinois Urbana-Champaign 13294B</h1>
-<h1 style="text-align:center;color:#E84A27;">University of Illinois Urbana-Champaign E84A27</h1>
-<h1 style="text-align:center;color:#FFCD00;">University of Iowa FFCD00</h1>
-<h1 style="text-align:center;color:#000000;">University of Iowa 000000</h1>
-<h1 style="text-align:center;color:#990000;">Indiana University-Bloomington 990000</h1>
-<h1 style="text-align:center;color:#EEEDEB;">Indiana University-Bloomington EEEDEB</h1>
-<h1 style="text-align:center;color:#E03A3E;">University of Maryland-College Park E03A3E</h1>
-<h1 style="text-align:center;color:#FFD520;">University of Maryland-College Park FFD520</h1>
-<h1 style="text-align:center;color:#000000;">University of Maryland-College Park 000000</h1>
-<h1 style="text-align:center;color:#00274C;">University of Michigan-Ann Arbor 00274C</h1>
-<h1 style="text-align:center;color:#FFCB05;">University of Michigan-Ann Arbor FFCB05</h1>
-<h1 style="text-align:center;color:#7A0019;">University of Minnesota-Twin Cities 7A0019</h1>
-<h1 style="text-align:center;color:#FFCC33;">University of Minnesota-Twin Cities FFCC33</h1>
-<h1 style="text-align:center;color:#18453B;">Michigan State University 18453B</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Michigan State University FFFFFF</h1>
-<h1 style="text-align:center;color:#E41C38;">University of Nebraska-Lincoln E41C38</h1>
-<h1 style="text-align:center;color:#000000;">University of Nebraska-Lincoln 000000</h1>
-<h1 style="text-align:center;color:#FDF2D9;">University of Nebraska-Lincoln FDF2D9</h1>
-<h1 style="text-align:center;color:#FFFFFF;">University of Nebraska-Lincoln FFFFFF</h1>
-<h1 style="text-align:center;color:#4E2A84;">Northwestern University 4E2A84</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Northwestern University FFFFFF</h1>
-<h1 style="text-align:center;color:#BB0000;">Ohio State University-Main Campus BB0000</h1>
-<h1 style="text-align:center;color:#666666;">Ohio State University-Main Campus 666666</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Ohio State University-Main Campus FFFFFF</h1>
-<h1 style="text-align:center;color:#000000;">Ohio State University-Main Campus 000000</h1>
-<h1 style="text-align:center;color:#041E42;">Pennsylvania State University-Main Campus 041E42</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Pennsylvania State University-Main Campus FFFFFF</h1>
-<h1 style="text-align:center;color:#CEB888;">Purdue University-Main Campus CEB888</h1>
-<h1 style="text-align:center;color:#000000;">Purdue University-Main Campus 000000</h1>
-<h1 style="text-align:center;color:#9D968D;">Purdue University-Main Campus 9D968D</h1>
-<h1 style="text-align:center;color:#373A36;">Purdue University-Main Campus 373A36</h1>
-<h1 style="text-align:center;color:#CC0033;">Rutgers University-New Brunswick CC0033</h1>
-<h1 style="text-align:center;color:#5F6A72;">Rutgers University-New Brunswick 5F6A72</h1>
-<h1 style="text-align:center;color:#000000;">Rutgers University-New Brunswick 000000</h1>
-<h1 style="text-align:center;color:#C5050C;">University of Wisconsin-Madison C5050C</h1>
-<h1 style="text-align:center;color:#FFFFFF;">University of Wisconsin-Madison FFFFFF</h1>
-<h1 style="text-align:center;color:#154733;">University of Oregon 154733</h1>
-<h1 style="text-align:center;color:#FEE123;">University of Oregon FEE123</h1>
-<h1 style="text-align:center;color:#2D68C4;">University of California-Los Angeles 2D68C4</h1>
-<h1 style="text-align:center;color:#F2A900;">University of California-Los Angeles F2A900</h1>
-<h1 style="text-align:center;color:#990000;">University of Southern California 990000</h1>
-<h1 style="text-align:center;color:#FFC72C;">University of Southern California FFC72C</h1>
-<h1 style="text-align:center;color:#4B2E83;">University of Washington-Seattle Campus 4B2E83</h1>
-<h1 style="text-align:center;color:#B7A57A;">University of Washington-Seattle Campus B7A57A</h1>
-<h1 style="text-align:center;color:#85754D;">University of Washington-Seattle Campus 85754D</h1>
-<h1 style="text-align:center;color:#DC4405;">Oregon State University DC4405</h1>
-<h1 style="text-align:center;color:#000000;">Oregon State University 000000</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Oregon State University FFFFFF</h1>
-<h1 style="text-align:center;color:#981E32;">Washington State University 981E32</h1>
-<h1 style="text-align:center;color:#5E6A71;">Washington State University 5E6A71</h1>
-<h1 style="text-align:center;color:#9E1B32;">The University of Alabama 9E1B32</h1>
-<h1 style="text-align:center;color:#828A8F;">The University of Alabama 828A8F</h1>
-<h1 style="text-align:center;color:#9D2235;">University of Arkansas 9D2235</h1>
-<h1 style="text-align:center;color:#FFFFFF;">University of Arkansas FFFFFF</h1>
-<h1 style="text-align:center;color:#0C2340;">Auburn University 0C2340</h1>
-<h1 style="text-align:center;color:#E87722;">Auburn University E87722</h1>
-<h1 style="text-align:center;color:#0021A5;">University of Florida 0021A5</h1>
-<h1 style="text-align:center;color:#FA4616;">University of Florida FA4616</h1>
-<h1 style="text-align:center;color:#BA0C2F;">University of Georgia BA0C2F</h1>
-<h1 style="text-align:center;color:#000000;">University of Georgia 000000</h1>
-<h1 style="text-align:center;color:#0033A0;">University of Kentucky 0033A0</h1>
-<h1 style="text-align:center;color:#FFFFFF;">University of Kentucky FFFFFF</h1>
-<h1 style="text-align:center;color:#461D7C;">Louisiana State University and Agricultural & Mechanical College 461D7C</h1>
-<h1 style="text-align:center;color:#FDD023;">Louisiana State University and Agricultural & Mechanical College FDD023</h1>
-<h1 style="text-align:center;color:#660000;">Mississippi State University 660000</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Mississippi State University FFFFFF</h1>
-<h1 style="text-align:center;color:#000000;">University of Missouri-Columbia 000000</h1>
-<h1 style="text-align:center;color:#F1B82D;">University of Missouri-Columbia F1B82D</h1>
-<h1 style="text-align:center;color:#14213D;">University of Mississippi 14213D</h1>
-<h1 style="text-align:center;color:#CE1126;">University of Mississippi CE1126</h1>
-<h1 style="text-align:center;color:#006BA6;">University of Mississippi 006BA6</h1>
-<h1 style="text-align:center;color:#73000A;">University of South Carolina-Columbia 73000A</h1>
-<h1 style="text-align:center;color:#000000;">University of South Carolina-Columbia 000000</h1>
-<h1 style="text-align:center;color:#FF8200;">The University of Tennessee-Knoxville FF8200</h1>
-<h1 style="text-align:center;color:#58595B;">The University of Tennessee-Knoxville 58595B</h1>
-<h1 style="text-align:center;color:#500000;">Texas A & M University-College Station 500000</h1>
-<h1 style="text-align:center;color:#FFFFFF;">Texas A & M University-College Station FFFFFF</h1>
-<h1 style="text-align:center;color:#000000;">Vanderbilt University 000000</h1>
-<h1 style="text-align:center;color:#866D4B;">Vanderbilt University 866D4B</h1>
-<h1 style="text-align:center;color:#841617;">University of Oklahoma-Norman Campus 841617</h1>
-<h1 style="text-align:center;color:#FDF9D8;">University of Oklahoma-Norman Campus FDF9D8</h1>
-<h1 style="text-align:center;color:#BF5700;">The University of Texas at Austin BF5700</h1>
-<h1 style="text-align:center;color:#333F48;">The University of Texas at Austin 333F48</h1>
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(DT)
+library(gghighlight)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
 
 
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+colors_import = read.csv(file = "files/university_colors.csv") %>%
+  select(School, Primary, Secondary, Third, Fourth, Kevin, Conference, City, State, School.Name, Primary.R, Primary.G, Primary.B, Secondary.R, Secondary.G, Secondary.B, Third.R, Third.G, Third.B, Fourth.R, Fourth.G, Fourth.B) %>%
+  group_by(Kevin) %>%
+  mutate(Primary_Avg = mean(Primary.R, Primary.G, Primary.B, na.rm = TRUE),
+         Secondary_Avg = mean(Secondary.R, Secondary.G, Secondary.B, na.rm = TRUE),
+         Third_Avg = mean(Third.R, Third.G, Third.B, na.rm = TRUE),
+         Fourth_Avg = mean(Fourth.R, Fourth.G, Fourth.B, na.rm = TRUE)
+         ) %>%
+  ungroup() %>%
+  select(School, Primary, Secondary, Third, Fourth, Kevin, Conference, City, State, School.Name, Primary_Avg, Secondary_Avg, Third_Avg, Fourth_Avg)
+
+colors_import$Primary_Avg[is.nan(colors_import$Primary_Avg)] = 0
+colors_import$Secondary_Avg[is.nan(colors_import$Secondary_Avg)] = 0
+colors_import$Third_Avg[is.nan(colors_import$Third_Avg)] = 0
+colors_import$Fourth_Avg[is.nan(colors_import$Fourth_Avg)] = 0
+
+colors_import %>%
+  select(School, Primary, Secondary, Third, Fourth, City, State, Conference) %>%
+  kable(format = "html", align = "llllllll", col.names = c("School", "Primary", "Secondary", "Third", "Fourth", "City", "State", "Conference")) %>%
+  kable_styling(bootstrap_options = c("hover", "responsive")) %>%
+  column_spec(1:8, background = "white") %>%
+  scroll_box(width = "100%", height = "100%") %>%
+  column_spec(2, background = paste("#", colors_import$Primary, sep = ""), color = ifelse(test = colors_import$Primary_Avg > 130, yes = "black", no = "white")) %>%
+  column_spec(3, background = paste("#", colors_import$Secondary, sep = ""), color = ifelse(test = colors_import$Secondary_Avg > 130, yes = "black", no = "white")) %>%
+  column_spec(4, background = paste("#", colors_import$Third, sep = ""), color = ifelse(test = colors_import$Third_Avg > 130, yes = "black", no = "white")) %>%
+  column_spec(5, background = paste("#", colors_import$Fourth, sep = ""), color = ifelse(test = colors_import$Fourth_Avg > 130, yes = "black", no = "white"))
+```
 
 
+```{r echo = FALSE, eval = FALSE, message = FALSE, warning = FALSE}
+colors_import %>%
+  datatable()
+
+```
 

@@ -115,16 +115,16 @@
 		  }
 		  .shiny-container {
 		    position: relative;
-		    padding-top: 10%; /* 16:9 I'M LIKE TT JUST LIKE TT */
-		    padding-bottom: 25%; /* 16:9 I'M LIKE TT JUST LIKE TT */
-		    height: 0;
+		    /*padding-top: 25%; /* 16:9 I'M LIKE TT JUST LIKE TT */
+		    /*padding-bottom: 25%; /* 16:9 I'M LIKE TT JUST LIKE TT */
+		    height: 550px;
 		  }
 		  .shiny-container iframe {
 		    position: absolute;
 		    top: 0;
 		    left: 0;
-		    width: 95%;
-		    height: 95%;
+		    width: 100%;
+		    height: 80%;
 		    overflow: hidden;
 		  }
 		  .white {
@@ -241,10 +241,9 @@
             display: none;
             color: red;
           }
-          .shiny-container {
+          .shiny-container-korean {
 		    	  position: relative;
-		    	  padding-bottom: 100%; /* 16:9 I'M LIKE TT JUST LIKE TT */
-		    	  height: 0;
+		    	  height: 550px;
 		    }
 	
 		  }

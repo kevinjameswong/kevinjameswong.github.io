@@ -22,6 +22,22 @@ library(stringr)
 library(tidyverse)
 ```
 
+
+
+
+```{r}
+df_shotclock = data.frame(x = seq(
+      from = 10 - (5 * 2),
+      to = 10 + (5 * 2), length.out = 100)) %>% mutate(y = dnorm(x = x, mean = 0, sd = 1), z = dnorm(x = x, mean = 10, sd = 2))
+    
+df_shotclock
+
+ggplot(df_shotclock, aes(x = x, y = y)) +
+  geom_area(fill = "sky blue") +
+  gghighlight(x > -5, x < 5)
+
+```
+
 <style type="text/css">
 body .main-container {
 	max-width: 1080px !important;
@@ -83,15 +99,6 @@ names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist
 spotify$TotalSeconds = (str_sub(string = spotify$SongLengthChar, start = 1, end = 1) %>% as.integer() * 60) + str_sub(string = spotify$SongLengthChar, start = 3) %>% as.integer()
 spotify$Minutes = spotify$TotalSeconds %>% ceiling() %>% "%/%"(60)
 spotify$Seconds = spotify$TotalSeconds %>% ceiling() %>% "%%"(60)
-```
-
-```{r}
-spotify$YearDifference = spotify$Year - spotify$AlbumYear
-```
-
-```{r}
-lasf = c(2, 3)
-lasf %>% mean() + 2
 ```
 
 
