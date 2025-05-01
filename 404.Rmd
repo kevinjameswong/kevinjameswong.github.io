@@ -38,6 +38,8 @@ h3 {
 
 * [Spotify Wrapped Data](spotify.html)
 
+* [Trivia](trivia.html)
+
 * [Work Experience](work.html)
 
 </h4>

@@ -41,6 +41,12 @@ navbar:
         href: sleep.html
       - text: "Excel/VBA Projects (2017)"
         href: excel.html
+      - text: "Archive"
+        menu:
+        - text: "Colors (2021)"
+          href: colors.html
+        ##- text: "TT2"
+          ##href: excel.html
     - text: "Schoolwork"
       icon: fa-graduation-cap
       href: schoolwork.html

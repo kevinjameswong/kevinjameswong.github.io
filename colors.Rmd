@@ -5,14 +5,11 @@ output:
     toc: No
 ---
 
-[Google Sheets Dataset](https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU/edit?usp=sharing){target="_blank"}
-
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
-library(DT)
 library(gghighlight)
 library(ggplot2)
 library(kableExtra)
@@ -24,6 +21,23 @@ library(shinydashboard)
 library(stringr)
 library(tidyverse)
 ```
+
+<style type="text/css">
+body .main-container {
+	max-width: 1080px !important;
+}
+</style>
+
+<h1>Colors</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+<hr />
+
+
+[Google Sheets Dataset](https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU/edit?usp=sharing){target="_blank"}
 
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
@@ -45,7 +59,7 @@ colors_import$Fourth_Avg[is.nan(colors_import$Fourth_Avg)] = 0
 
 colors_import %>%
   select(School, Primary, Secondary, Third, Fourth, City, State, Conference) %>%
-  kable(format = "html", align = "llllllll", col.names = c("School", "Primary", "Secondary", "Third", "Fourth", "City", "State", "Conference")) %>%
+  kable(format = "html", align = "llllllll", col.names = c("School", "Primary", "Secondary", "Third", "Fourth", "City", "State", "Sports Conference")) %>%
   kable_styling(bootstrap_options = c("hover", "responsive")) %>%
   column_spec(1:8, background = "white") %>%
   scroll_box(width = "100%", height = "100%") %>%
@@ -54,6 +68,8 @@ colors_import %>%
   column_spec(4, background = paste("#", colors_import$Third, sep = ""), color = ifelse(test = colors_import$Third_Avg > 130, yes = "black", no = "white")) %>%
   column_spec(5, background = paste("#", colors_import$Fourth, sep = ""), color = ifelse(test = colors_import$Fourth_Avg > 130, yes = "black", no = "white"))
 ```
+
+
 
 
 ```{r echo = FALSE, eval = FALSE, message = FALSE, warning = FALSE}

@@ -89,7 +89,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 ***
 
-I graduated with a Bachelor of Science (BS) in *Statistics* degree at the University of Illinois in May 2019. I also minored in *Leadership Studies* and *Business*. My GPA was 3.87.
+I graduated with a **Bachelor of Science (BS) in Statistics** degree at the University of Illinois in May 2019. I also minored in *Leadership Studies* and *Business*. My GPA was 3.88.
 
 # Courses Taken
 

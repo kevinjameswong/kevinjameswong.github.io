@@ -132,7 +132,34 @@ uix = dashboardPage(
           #badgeLabel = "NEW",
           selected = FALSE)
         )
-      ))
+      ),
+      modify_stop_propagation(
+        menuItem(
+          text = "Geometry",
+          startExpanded = TRUE,
+          #tabName = "TxT",
+          #badgeLabel = "NEW",
+          menuSubItem(
+            text = "Circle",
+            icon = icon(name = "circle"),
+            tabName = "Geometry_Circle",
+            #badgeLabel = "NEW",
+            selected = FALSE),
+          menuSubItem(
+            text = "Triangle",
+            icon = icon(name = "triangle"),
+            tabName = "Geometry_Triangle",
+            #badgeLabel = "NEW",
+            selected = FALSE),
+          menuSubItem(
+            text = "Rectangle",
+            icon = icon(name = "rectangle"),
+            tabName = "Geometry_Rectangle",
+            #badgeLabel = "NEW",
+            selected = FALSE)
+        )
+      )
+    )
   ),
   
   dashboardBody(
@@ -357,7 +384,7 @@ uix = dashboardPage(
                   valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_AtMostKSuccesses"),
                   valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_ExactlyKSuccesses"),
                   valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_GreaterThanKSuccesses"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_AtLeastKSuccesses"),
+                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_AtLeastKSuccesses")
                   )
                 
       )
@@ -393,7 +420,7 @@ uix = dashboardPage(
                            valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_AtMostKSuccesses"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_ExactlyKSuccesses"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_GreaterThanKSuccesses"),
-                           valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_AtLeastKSuccesses"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_AtLeastKSuccesses")
                        )
                        
               )
@@ -438,8 +465,7 @@ uix = dashboardPage(
                            valueBoxOutput(outputId = "ProbabilityCalculator_Normal_SDPopulation"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_Normal_LowerBound"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_Normal_UpperBound"),
-                           valueBoxOutput(outputId = "ProbabilityCalculator_Normal_Probability"),
-
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Normal_Probability")
                        )
                        
                     
@@ -485,8 +511,7 @@ uix = dashboardPage(
                            valueBoxOutput(outputId = "ProbabilityCalculator_T_DegreesOfFreedom"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_T_LowerBound"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_T_UpperBound"),
-                           valueBoxOutput(outputId = "ProbabilityCalculator_T_Probability"),
-                           
+                           valueBoxOutput(outputId = "ProbabilityCalculator_T_Probability")
                        )
                        
                        
@@ -512,6 +537,13 @@ uix = dashboardPage(
                                     step = 1
                                   ),
                                   numericInput(
+                                    inputId = "ConfidenceIntervals_OneSample_MeanNormal_SampleSize",
+                                    label = "Sample Size:",
+                                    value = 25,
+                                    step = 1,
+                                    min = 0
+                                  ),
+                                  numericInput(
                                     inputId = "ConfidenceIntervals_OneSample_MeanNormal_ConfidenceLevel",
                                     label = "Confidence Level:",
                                     value = 95,
@@ -525,8 +557,8 @@ uix = dashboardPage(
                        ),
                        box(title = "Confidence Interval - One Sample - Mean (Normal)", width = 9,
                            valueBoxOutput(outputId = "ConfidenceIntervals_OneSample_MeanNormal_LowerBound"),
-                           valueBoxOutput(outputId = "ConfidenceIntervals_OneSample_MeanNormal_UpperBound")
-                           
+                           valueBoxOutput(outputId = "ConfidenceIntervals_OneSample_MeanNormal_UpperBound"),
+                           plotOutput(outputId = "ConfidenceIntervals_OneSample_MeanNormal_Plot")
                        )
                        
                        
@@ -616,7 +648,6 @@ uix = dashboardPage(
                        box(title = "Confidence Interval - One Sample - Mean (Proportion)", width = 9,
                            valueBoxOutput(outputId = "ConfidenceIntervals_OneSample_Proportion_LowerBound"),
                            valueBoxOutput(outputId = "ConfidenceIntervals_OneSample_Proportion_UpperBound")
-                           
                        )
                        
                        
@@ -665,6 +696,58 @@ uix = dashboardPage(
                        
               )
               
+      ),
+      
+      tabItem(tabName = "Geometry_Circle",
+              #br(), #"Yoing",
+              fluidRow(width = 12,
+                       box(title = "Input", width = 3, #background = "gray",
+                           column(width = 12,
+                                  numericInput(
+                                    inputId = "Geometry_Circle_Radius",
+                                    label = "Radius:",
+                                    value = 5,
+                                    step = 1,
+                                    min = 0
+                                  ),
+                                  
+                                  actionButton(inputId = "Geometry_Circle_UpdateButton", label = "Update", width = "100%")
+                           )
+                       ),
+                       box(title = "Geometry (Circle)", width = 9,
+                           tableOutput(outputId = "Geometry_Circle_Final")
+                       )
+              )
+      ),
+      
+      tabItem(tabName = "Geometry_Triangle",
+              #br(), #"Yoing",
+              fluidRow(width = 12,
+                       box(title = "Input", width = 3, #background = "gray",
+                           column(width = 12,
+                                  numericInput(
+                                    inputId = "Geometry_Triangle_Height",
+                                    label = "Height:",
+                                    value = 10,
+                                    step = 1,
+                                    min = 0,
+                                    max = 1
+                                  ),
+                                  numericInput(
+                                    inputId = "Geometry_Triangle_Width",
+                                    label = "Width:",
+                                    value = 25,
+                                    step = 1,
+                                    min = 0
+                                  ),
+                                  
+                                  actionButton(inputId = "Geometry_Triangle_UpdateButton", label = "Update", width = "100%")
+                           )
+                       ),
+                       box(title = "Geometry (Triangle)", width = 9,
+                           tableOutput(outputId = "Geometry_Triangle_Final")
+                       )
+              )
       )
       
 
@@ -968,6 +1051,17 @@ serverx = function(input, output, session) {
       percent(digits = 2) %>%
       valueBox(subtitle = paste("Probabilty", "", sep = ""), color = "green", width = 4)
   })
+  
+  output$ProbabilityCalculator_Normal_Plot = renderPlot({
+    dataX = data.frame(x = seq(
+      from = ProbabilityCalculator_Normal_MeanPopulation() - (5 * ProbabilityCalculator_Normal_SDPopulation()),
+      to = ProbabilityCalculator_Normal_MeanPopulation() + (5 * ProbabilityCalculator_Normal_SDPopulation()), length.out = 100)) %>% mutate(y = dnorm(x = x, mean = ConfidenceIntervals_OneSample_MeanNormal_MeanSample(), sd = ProbabilityCalculator_Normal_SDPopulation()))
+    
+    ggplot(data = dataX, aes(x = x, y = y)) +
+      geom_area(fill = "lightgreen") +
+      gghighlight(x > ProbabilityCalculator_Normal_LowerBound(), x < ProbabilityCalculator_Normal_UpperBound()) +
+      ylab(label = "Probability Density")
+  })
 
   
 
@@ -976,12 +1070,38 @@ serverx = function(input, output, session) {
   
   
   
+  ConfidenceIntervals_OneSample_MeanNormal_MeanSample = eventReactive(
+    eventExpr = input$ConfidenceIntervals_OneSample_MeanNormal_UpdateButton,
+    valueExpr = {input$ConfidenceIntervals_OneSample_MeanNormal_MeanSample},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
   
+  ConfidenceIntervals_OneSample_MeanNormal_SDPopulation = eventReactive(
+    eventExpr = input$ConfidenceIntervals_OneSample_MeanNormal_UpdateButton,
+    valueExpr = {input$ConfidenceIntervals_OneSample_MeanNormal_SDPopulation},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  ConfidenceIntervals_OneSample_MeanNormal_SampleSize = eventReactive(
+    eventExpr = input$ConfidenceIntervals_OneSample_MeanNormal_UpdateButton,
+    valueExpr = {input$ConfidenceIntervals_OneSample_MeanNormal_SampleSize},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  ConfidenceIntervals_OneSample_MeanNormal_StandardError = eventReactive(
+    eventExpr = input$ConfidenceIntervals_OneSample_MeanNormal_UpdateButton,
+    valueExpr = {input$ConfidenceIntervals_OneSample_MeanNormal_SDPopulation / sqrt(input$ConfidenceIntervals_OneSample_MeanNormal_SampleSize)},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
   
   ConfidenceIntervals_OneSample_MeanNormal_LowerBound = eventReactive(
     eventExpr = input$ConfidenceIntervals_OneSample_MeanNormal_UpdateButton,
     valueExpr = {
-      (input$ConfidenceIntervals_OneSample_MeanNormal_MeanSample - (abs(qnorm(p = (100 - input$ConfidenceIntervals_OneSample_MeanNormal_ConfidenceLevel) / 200, mean = 0, sd = 1) * input$ConfidenceIntervals_OneSample_MeanNormal_SDPopulation) / sqrt(input$ConfidenceIntervals_OneSample_MeanT_SampleSize))) %>%
+      (input$ConfidenceIntervals_OneSample_MeanNormal_MeanSample - (abs(qnorm(p = (100 - input$ConfidenceIntervals_OneSample_MeanNormal_ConfidenceLevel) / 200, mean = 0, sd = 1) * input$ConfidenceIntervals_OneSample_MeanNormal_SDPopulation) / sqrt(input$ConfidenceIntervals_OneSample_MeanNormal_SampleSize))) %>%
         round(digits = 3)
     },
     ignoreNULL = TRUE,
@@ -991,7 +1111,7 @@ serverx = function(input, output, session) {
   ConfidenceIntervals_OneSample_MeanNormal_UpperBound = eventReactive(
     eventExpr = input$ConfidenceIntervals_OneSample_MeanNormal_UpdateButton,
     valueExpr = {
-      (input$ConfidenceIntervals_OneSample_MeanNormal_MeanSample + (abs(qnorm(p = (100 - input$ConfidenceIntervals_OneSample_MeanNormal_ConfidenceLevel) / 200, mean = 0, sd = 1) * input$ConfidenceIntervals_OneSample_MeanNormal_SDPopulation) / sqrt(input$ConfidenceIntervals_OneSample_MeanT_SampleSize))) %>%
+      (input$ConfidenceIntervals_OneSample_MeanNormal_MeanSample + (abs(qnorm(p = (100 - input$ConfidenceIntervals_OneSample_MeanNormal_ConfidenceLevel) / 200, mean = 0, sd = 1) * input$ConfidenceIntervals_OneSample_MeanNormal_SDPopulation) / sqrt(input$ConfidenceIntervals_OneSample_MeanNormal_SampleSize))) %>%
         round(digits = 3)
     },
     ignoreNULL = TRUE,
@@ -1007,9 +1127,19 @@ serverx = function(input, output, session) {
     ConfidenceIntervals_OneSample_MeanNormal_UpperBound() %>%
       valueBox(subtitle = "Upper Bound", icon = icon(name = "u"), width = 4)
   })
+
+  output$ConfidenceIntervals_OneSample_MeanNormal_Plot = renderPlot({
+    dataX = data.frame(x = seq(
+      from = ConfidenceIntervals_OneSample_MeanNormal_MeanSample() - (5 * ConfidenceIntervals_OneSample_MeanNormal_StandardError()),
+      to = ConfidenceIntervals_OneSample_MeanNormal_MeanSample() + (5 * ConfidenceIntervals_OneSample_MeanNormal_StandardError()), length.out = 100)) %>% mutate(y = dnorm(x = x, mean = ConfidenceIntervals_OneSample_MeanNormal_MeanSample(), sd = ConfidenceIntervals_OneSample_MeanNormal_StandardError()))
+    
+    ggplot(data = dataX, aes(x = x, y = y)) +
+      geom_area(fill = "lightgreen") +
+      gghighlight(x > ConfidenceIntervals_OneSample_MeanNormal_LowerBound(), x < ConfidenceIntervals_OneSample_MeanNormal_UpperBound()) +
+      ylab(label = "Probability Density")
+  })
   
-  
-  
+
   
   ##
   ConfidenceIntervals_OneSample_MeanT_LowerBound = eventReactive(
@@ -1699,6 +1829,171 @@ serverx = function(input, output, session) {
       column_spec(1:2, width_max = "3in")
   })
   
+  
+  
+  
+  
+  Geometry_Triangle_Height = eventReactive(
+    eventExpr = input$Geometry_Triangle_UpdateButton,
+    valueExpr = {input$Geometry_Triangle_Height},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  Geometry_Triangle_Width = eventReactive(
+    eventExpr = input$Geometry_Triangle_UpdateButton,
+    valueExpr = {input$Geometry_Triangle_Width},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  Geometry_Triangle_Area = eventReactive(
+    eventExpr = input$Geometry_Triangle_UpdateButton,
+    valueExpr = {input$Geometry_Triangle_Height * input$Geometry_Triangle_Width / 2},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  output$Geometry_Triangle_Final = renderText({
+    tt = data.frame(
+      Metric = c(
+        "Height",
+        "Width",
+        "Area (A = Height * Width / 2)"
+      ),
+      
+      Value = c(
+        Geometry_Triangle_Height(),
+        Geometry_Triangle_Width(),
+        Geometry_Triangle_Area()
+      )
+    )
+    
+    last_rowTT = length(tt$Metric)
+    
+    tt %>%
+      kable(format = "html", align = "ll", col.names = c("Metric", "Value")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      scroll_box(width = "100%", height = "100%") %>%
+      row_spec(row = last_rowTT, bold = TRUE, hline_after = TRUE) %>%
+      #row_spec(row = 3, extra_css = "border-bottom: 1px solid") %>%
+      column_spec(1:2, width_max = "3in")
+  })
+  
+  
+  
+  Geometry_Circle_Radius = eventReactive(
+    eventExpr = input$Geometry_Circle_UpdateButton,
+    valueExpr = {input$Geometry_Circle_Radius},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  Geometry_Circle_Diameter = eventReactive(
+    eventExpr = input$Geometry_Circle_UpdateButton,
+    valueExpr = {2 * input$Geometry_Circle_Radius},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  Geometry_Circle_Circumference = eventReactive(
+    eventExpr = input$Geometry_Circle_UpdateButton,
+    valueExpr = {2 * pi * input$Geometry_Circle_Radius},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  Geometry_Circle_Area = eventReactive(
+    eventExpr = input$Geometry_Circle_UpdateButton,
+    valueExpr = {pi * (input$Geometry_Circle_Radius ^ 2)},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  output$Geometry_Circle_Final = renderText({
+    tt = data.frame(
+      Metric = c(
+        "Radius",
+        "Diameter (D = 2r)",
+        "Circumference (D = 2πr)",
+        "Area (A = πr²)"
+      ),
+      Value = c(
+        Geometry_Circle_Radius(),
+        Geometry_Circle_Diameter(),
+        Geometry_Circle_Circumference(),
+        Geometry_Circle_Area()
+      )
+    )
+    
+    last_rowTT = length(tt$Metric)
+    
+    tt %>%
+      kable(format = "html", align = "ll", col.names = c("Metric", "Value")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      scroll_box(width = "100%", height = "100%") %>%
+      row_spec(row = last_rowTT, bold = TRUE, hline_after = TRUE) %>%
+      #row_spec(row = 3, extra_css = "border-bottom: 1px solid") %>%
+      column_spec(1:2, width_max = "3in")
+  })
+  
+  
+  
+  
+  Geometry_Circle_Radius = eventReactive(
+    eventExpr = input$Geometry_Circle_UpdateButton,
+    valueExpr = {input$Geometry_Circle_Radius},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  Geometry_Circle_Diameter = eventReactive(
+    eventExpr = input$Geometry_Circle_UpdateButton,
+    valueExpr = {2 * input$Geometry_Circle_Radius},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  Geometry_Circle_Circumference = eventReactive(
+    eventExpr = input$Geometry_Circle_UpdateButton,
+    valueExpr = {2 * pi * input$Geometry_Circle_Radius},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  Geometry_Circle_Area = eventReactive(
+    eventExpr = input$Geometry_Circle_UpdateButton,
+    valueExpr = {pi * (input$Geometry_Circle_Radius ^ 2)},
+    ignoreNULL = TRUE,
+    ignoreInit = FALSE
+  )
+  
+  output$Geometry_Circle_Final = renderText({
+    tt = data.frame(
+      Metric = c(
+        "Radius",
+        "Diameter (D = 2r)",
+        "Circumference (D = 2πr)",
+        "Area (A = πr²)"
+      ),
+      Value = c(
+        Geometry_Circle_Radius(),
+        Geometry_Circle_Diameter(),
+        Geometry_Circle_Circumference(),
+        Geometry_Circle_Area()
+      )
+    )
+    
+    last_rowTT = length(tt$Metric)
+    
+    tt %>%
+      kable(format = "html", align = "ll", col.names = c("Metric", "Value")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      scroll_box(width = "100%", height = "100%") %>%
+      row_spec(row = last_rowTT, bold = TRUE, hline_after = TRUE) %>%
+      #row_spec(row = 3, extra_css = "border-bottom: 1px solid") %>%
+      column_spec(1:2, width_max = "3in")
+  })
   
   
 }

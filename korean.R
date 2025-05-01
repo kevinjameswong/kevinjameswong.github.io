@@ -345,12 +345,12 @@ serverx = function(input, output, session) {
   
   observeEvent(input$E_NewWord, {
     E_start$E_NEW_Int =
-      if (input$E_QuestionDifficulty == 1 && input$E_QuestionDifficulty == 2) {
+      if (1 %in% input$E_QuestionDifficulty == TRUE && 2 %in% input$E_QuestionDifficulty == TRUE) {
         sample(x = korean %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
-      } else if (input$E_QuestionDifficulty == 1 && input$E_QuestionDifficulty != 2) {
+      } else if (1 %in% input$E_QuestionDifficulty == TRUE && 2 %in% input$E_QuestionDifficulty == FALSE) {
         sample(x = korean %>% filter(Easy == 1) %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
-      } else if (input$E_QuestionDifficulty != 1 && input$E_QuestionDifficulty == 2) {
-        sample(x = korean %>% filter(Easy == 0) %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
+      } else if (1 %in% input$E_QuestionDifficulty == FALSE && 2 %in% input$E_QuestionDifficulty == TRUE) {
+        sample(x = korean %>% filter(Easy == 1) %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
       } else {
         sample(x = korean %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
       }
@@ -388,11 +388,11 @@ serverx = function(input, output, session) {
   
   observeEvent(input$K_NewWord, {
     K_start$K_NEW_Int =
-      if (input$E_QuestionDifficulty == 1 && input$E_QuestionDifficulty == 2) {
+      if (1 %in% input$E_QuestionDifficulty == TRUE && 2 %in% input$E_QuestionDifficulty == TRUE) {
         sample(x = korean %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
-      } else if (input$E_QuestionDifficulty == 1 && input$E_QuestionDifficulty != 2) {
+      } else if (1 %in% input$E_QuestionDifficulty == TRUE && 2 %in% input$E_QuestionDifficulty == FALSE) {
         sample(x = korean %>% filter(Easy == 1) %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
-      } else if (input$E_QuestionDifficulty != 1 && input$E_QuestionDifficulty == 2) {
+      } else if (1 %in% input$E_QuestionDifficulty == FALSE && 2 %in% input$E_QuestionDifficulty == TRUE) {
         sample(x = korean %>% filter(Easy == 0) %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
       } else {
         sample(x = korean %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
@@ -433,11 +433,11 @@ serverx = function(input, output, session) {
   
   observeEvent(input$R_NewWord, {
     R_start$R_NEW_Int =
-      if (input$E_QuestionDifficulty == 1 && input$E_QuestionDifficulty == 2) {
+      if (1 %in% input$E_QuestionDifficulty == TRUE && 2 %in% input$E_QuestionDifficulty == TRUE) {
         sample(x = korean %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
-      } else if (input$E_QuestionDifficulty == 1 && input$E_QuestionDifficulty != 2) {
+      } else if (1 %in% input$E_QuestionDifficulty == TRUE && 2 %in% input$E_QuestionDifficulty == FALSE) {
         sample(x = korean %>% filter(Easy == 1) %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
-      } else if (input$E_QuestionDifficulty != 1 && input$E_QuestionDifficulty == 2) {
+      } else if (1 %in% input$E_QuestionDifficulty == FALSE && 2 %in% input$E_QuestionDifficulty == TRUE) {
         sample(x = korean %>% filter(Easy == 0) %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
       } else {
         sample(x = korean %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)

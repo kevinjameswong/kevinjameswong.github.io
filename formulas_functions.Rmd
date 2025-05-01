@@ -4,20 +4,48 @@ output: html_document
 ---
 
 ```{r}
-library(scales)
+Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(gghighlight)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
 
 qnorm(p = 0.01, mean = 0, sd = 1, lower.tail = TRUE)
-```
 
 ```{r}
 
-df_shotclock = data.frame(x = seq(-5, 5, length.out = 100)) %>% mutate(y = dnorm(x))
+df_shotclock = data.frame(x = seq(from = -5, to = 5, length.out = 100)) %>% mutate(y = dnorm(x = x, mean = 0, sd = 1))
 
 
 ggplot(df_shotclock, aes(x, y)) +
   geom_area(fill = "sky blue") +
-  gghighlight(x < -1.35)
+  gghighlight(x < -1.35, x > -2)
+
 ```
+
+
+
+```{r}
+dataTT <- data.frame(x = seq(-5, 5, length.out = 100))
+
+ggplot(dataTT, aes(x)) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "blue") +  # Standard normal curve
+  stat_function(fun = dnorm, args = list(mean = 2, sd = 0.5), color = "red") + # Another curve
+  labs(title = "Normal Distribution", x = "Value", y = "Density") +
+  theme_minimal()
+```
+
+
 
 ```{r normalcdf GOOD}
 normalcdf = function(lower_bound, upper_bound, mean, sd, n, var, ...) {

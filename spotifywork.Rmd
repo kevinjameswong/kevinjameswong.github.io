@@ -21,32 +21,166 @@ library(tidyverse)
 
 
 ```{r}
-k = 0:12
-n = 12
-p = 0.2
+spotify = read.csv(file = "files/SpotifyWrapped.csv")
 
-df = data.frame(k, px = dbinom(x = k, size = n, prob = p)) 
+spotify =
+  spotify %>%
+  select(
+    Year,
+    Ranking,
+    Song,
+    Album,
+    Artist1,
+    Artist2,
+    Artist3,
+    Artist4,
+    Artist5,
+    Artist6,
+    SongID,
+    AlbumID,
+    Artist1ID,
+    Artist2ID,
+    Artist3ID,
+    Artist4ID,
+    Artist5ID,
+    Artist6ID,
+    ApproxGenre,
+    Album.Year,
+    Song.Length
+  )
 
-ggplot(df, aes(k, px)) + 
-  geom_col(fill ="blue") +
-  xlab("x, number of successes") +
-  ylab("p(x)") +
-  labs(title = paste("dbinom", "(", "trial size=", n, ",", "p=", p, ")", sep = ""))
+spotify = spotify %>%
+  group_by(Year) %>%
+  mutate(
+    Score = max(row_number()) + 1 - row_number(),
+    Count = 1,
+    RecordInt = row_number()
+  ) %>%
+  filter(Song != "")
 
+names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist2Name", "Artist3Name", "Artist4Name", "Artist5Name", "Artist6Name", "SongID", "AlbumID", "Artist1ID", "Artist2ID", "Artist3ID", "Artist4ID", "Artist5ID", "Artist6ID", "Genre", "AlbumYear", "SongLengthChar", "Score", "Count", "RecordInt")
 
+spotify$TotalSeconds = (str_sub(string = spotify$SongLengthChar, start = 1, end = 1) %>% as.integer() * 60) + str_sub(string = spotify$SongLengthChar, start = 3) %>% as.integer()
+spotify$Minutes = spotify$TotalSeconds %>% ceiling() %>% "%/%"(60)
+spotify$Seconds = spotify$TotalSeconds %>% ceiling() %>% "%%"(60)
 
+spotify$YearDifference = (spotify$Year - spotify$AlbumYear) %>% as.integer()
+
+spotify = spotify %>% as.data.frame()
 ```
 
 
 
 
+```{r}
+TopArtists_ByYear =
+  spotify %>%
+  group_by(ArtistName, Year) %>%
+  summarize(xt = sum(Score), Song_Count = n()) %>%
+  rename("Score" = xt) %>%
+  arrange(Year, desc(Score), ArtistName) %>%
+  group_by(Year) %>%
+  mutate(Rank = row_number(Year), xx = str_sub(string = row_number(Year), start = (row_number(Year) %>% str_length()), end = 100) %>% as.integer()) %>%
+  as.data.frame() %>%
+  complete(ArtistName, Year, fill = list(Score = 0, Song_Count = 0))
+
+TopArtists_ByYear = 
+  TopArtists_ByYear %>%
+  mutate(
+    Year_Rank_Label = case_when(
+      xx == 1 ~ paste(Rank %>% as.character(), "st", sep = ""),
+      xx == 2 ~ paste(Rank %>% as.character(), "nd", sep = ""),
+      xx == 3 ~ paste(Rank %>% as.character(), "rd", sep = ""),
+      .default = paste(Rank %>% as.character(), "th", sep = "")
+    )
+  ) %>%
+  select(ArtistName, Year, Score, Song_Count, Rank, Year_Rank_Label)
+
+#TopArtists_ByYear$Year = as.factor(TopArtists_ByYear$Year)
+TopArtists_ByYear$Rank = as.integer(TopArtists_ByYear$Rank)
+
+TopArtists_ByYear$Brave = max(TopArtists_ByYear$Rank) + 1
+TopArtists_ByYear$NewRank = TopArtists_ByYear$Brave - TopArtists_ByYear$Rank
+
+TopArtists_ByYear = TopArtists_ByYear %>% as.data.frame()
+
+TopArtists_ByYear %>%
+  filter(ArtistName == "TWICE")
+```
+
+
+```{r}
+Artists_New_Repeat =
+  TopArtists_ByYear %>%
+  ungroup() %>%
+  #arrange(desc(Year)) %>%
+  mutate(KK = case_when(
+    TopArtists_ByYear %>%
+      filter(Song_Count > 0) %>%
+      select(ArtistName) %>%
+      duplicated() ~ "Repeat Artist",
+    .default = "New Artist")
+  )# %>%
+```
+
+
+```{r}
+
+spotify = read.csv(file = "files/SpotifyWrapped.csv")
+
+spotify =
+  spotify %>%
+  select(
+    Year,
+    Ranking,
+    Song,
+    Album,
+    Artist1,
+    Artist2,
+    Artist3,
+    Artist4,
+    Artist5,
+    Artist6,
+    SongID,
+    AlbumID,
+    Artist1ID,
+    Artist2ID,
+    Artist3ID,
+    Artist4ID,
+    Artist5ID,
+    Artist6ID,
+    ApproxGenre,
+    Album.Year,
+    Song.Length
+  )
+
+spotify = spotify %>%
+  group_by(Year) %>%
+  mutate(
+    Score = max(row_number()) + 1 - row_number(),
+    Count = 1,
+    RecordInt = row_number()
+  ) %>%
+  filter(Song != "")
+
+names(spotify) = c("Year", "SongRanking", "Song", "Album", "ArtistName", "Artist2Name", "Artist3Name", "Artist4Name", "Artist5Name", "Artist6Name", "SongID", "AlbumID", "Artist1ID", "Artist2ID", "Artist3ID", "Artist4ID", "Artist5ID", "Artist6ID", "Genre", "AlbumYear", "SongLengthChar", "Score", "Count", "RecordInt")
+
+
+str(spotify)
+```
 
 
 
-
-
-
-
-
-
+```{r}
+  TopArtists_ByYear %>%
+  ungroup() %>%
+  #arrange(desc(Year)) %>%
+  mutate(KK = case_when(
+    TopArtists_ByYear %>%
+    duplicated(TopArtists_ByYear$ArtistName) ~ "Repeat Artist",
+    .default = "New Artist")
+  ) %>%
+  filter(ArtistName == "TWICE")
+?icon()
+```
 

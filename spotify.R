@@ -55,6 +55,8 @@ spotify$Seconds = spotify$TotalSeconds %>% ceiling() %>% "%%"(60)
 
 spotify$YearDifference = (spotify$Year - spotify$AlbumYear) %>% as.integer()
 
+spotify = spotify %>% as.data.frame()
+
 total_time = function(seconds) {
   m = (seconds) %>% round(digits = 0) %>% sum() %>% "%/%"(60) %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
   s = (seconds) %>% round(digits = 0) %>% sum() %>% "%%"(60) %>% paste(":01 ", today(), sep = "") %>% as.POSIXct(format = "%M:%S %Y-%m-%d") %>% str_sub(start = 15, end = 16)
@@ -80,17 +82,17 @@ TopArtists_AllTime =
 TopArtists_AllTime = 
   TopArtists_AllTime %>%
   mutate(
-    Rank_Text = ifelse(xx == 1, str_c(Rank %>% as.character(), "st"),
-                       ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
-                              ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
-                                     str_c(Rank %>% as.character(), "th"))))
+    Rank_Text = case_when(
+      xx == 1 ~ paste(Rank %>% as.character(), "st", sep = ""),
+      xx == 2 ~ paste(Rank %>% as.character(), "nd", sep = ""),
+      xx == 3 ~ paste(Rank %>% as.character(), "rd", sep = ""),
+      .default = paste(Rank %>% as.character(), "th", sep = "")
+    )
   ) %>%
   select(ArtistName, Score, Song_Count, Rank, Rank_Text)
 
 ttt = c("Gone West", "TWICE", "NAYEON", "TZUYU", "Morgan Wallen", "Georgia Webster", "Red Rocks Worship", "Caitlyn Smith", "Bethel Music", "OneRepublic", "Hillsong UNITED", "The Fray", "Lady A", "Jesus Culture", "Elevation Worship", "Keane", "Gavin DeGraw", "Hanson", "Ed Sheeran", "Train")
 # ttt = spotify$Artist
-
-
 
 
 TopArtists_ByYear =
@@ -100,30 +102,48 @@ TopArtists_ByYear =
   rename("Score" = xt) %>%
   arrange(Year, desc(Score), ArtistName) %>%
   group_by(Year) %>%
-  mutate(Rank = row_number(Year), xx = str_sub(string = row_number(Year), start = (row_number(Year) %>% str_length()), end = 100) %>% as.integer())
+  mutate(Rank = row_number(Year), xx = str_sub(string = row_number(Year), start = (row_number(Year) %>% str_length()), end = 100) %>% as.integer()) %>%
+  ungroup() %>%
+  group_by(ArtistName) %>%
+  mutate(
+    tt = cumsum(case_when(
+      Song_Count > 0 ~ 1,
+      .default = 0
+    )
+    ), NewArtistFlag = case_when(tt <= 1 ~ "New Artist", .default = "Repeat Artist")
+    
+  ) %>%
+  ungroup() %>%
+  as.data.frame() %>%
+  complete(ArtistName, Year, fill = list(Score = 0, Song_Count = 0, Rank = 0))
 
 TopArtists_ByYear = 
   TopArtists_ByYear %>%
   mutate(
-    Year_Rank_Label = ifelse(xx == 1, str_c(Rank %>% as.character(), "st"),
-                             ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
-                                    ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
-                                           str_c(Rank %>% as.character(), "th"))))
+    Year_Rank_Label = case_when(
+      Rank == 0 ~ "",
+      xx == 1 ~ paste(Rank %>% as.character(), "st", sep = ""),
+      xx == 2 ~ paste(Rank %>% as.character(), "nd", sep = ""),
+      xx == 3 ~ paste(Rank %>% as.character(), "rd", sep = ""),
+      .default = paste(Rank %>% as.character(), "th", sep = "")
+    )
   ) %>%
-  select(ArtistName, Year, Score, Song_Count, Rank, Year_Rank_Label)
+  select(ArtistName, Year, Score, Song_Count, Rank, Year_Rank_Label, NewArtistFlag)
 
 #TopArtists_ByYear$Year = as.factor(TopArtists_ByYear$Year)
 TopArtists_ByYear$Rank = as.integer(TopArtists_ByYear$Rank)
 
-TopArtists_ByYear$Brave = max(TopArtists_ByYear$Rank) + 1
+#dec42024 11100
+
+TopArtists_ByYear$Brave = case_when(
+  TopArtists_ByYear$Rank == 0 ~ 0,
+  .default = max(TopArtists_ByYear$Rank) + 1
+  #.default = 100
+)
 TopArtists_ByYear$NewRank = TopArtists_ByYear$Brave - TopArtists_ByYear$Rank
 
-Artists_New_Repeat =
-  TopArtists_ByYear %>%
-  ungroup() %>%
-  #arrange(desc(Year)) %>%
-  mutate(KK = ifelse(test = duplicated(TopArtists_ByYear$ArtistName), yes = "Repeat Artist", no = "New Artist"))# %>%
-#filter(ArtistName == "Nickelback")
+TopArtists_ByYear = TopArtists_ByYear %>% as.data.frame()
+
 
 
 
@@ -135,15 +155,19 @@ TopGenres_ByYear =
   rename("Score" = xt) %>%
   arrange(Year, desc(Score), Genre) %>%
   group_by(Year) %>%
-  mutate(Rank = row_number(Year), xx = str_sub(string = row_number(Year), start = (row_number(Year) %>% str_length()), end = 100) %>% as.integer())
+  mutate(Rank = row_number(Year), xx = str_sub(string = row_number(Year), start = (row_number(Year) %>% str_length()), end = 100) %>% as.integer()) %>%
+  as.data.frame() %>%
+  complete(Genre, Year, fill = list(Score = 0, Song_Count = 0))
 
 TopGenres_ByYear = 
   TopGenres_ByYear %>%
   mutate(
-    Year_Rank_Label = ifelse(xx == 1, str_c(Rank %>% as.character(), "st"),
-                             ifelse(xx == 2, str_c(Rank %>% as.character(), "nd"),
-                                    ifelse(xx == 3, str_c(Rank %>% as.character(), "rd"),
-                                           str_c(Rank %>% as.character(), "th"))))
+    Year_Rank_Label = case_when(
+      xx == 1 ~ paste(Rank %>% as.character(), "st", sep = ""),
+      xx == 2 ~ paste(Rank %>% as.character(), "nd", sep = ""),
+      xx == 3 ~ paste(Rank %>% as.character(), "rd", sep = ""),
+      .default = paste(Rank %>% as.character(), "th", sep = "")
+    )
   ) %>%
   select(Genre, Year, Score, Song_Count, Rank, Year_Rank_Label)
 
@@ -153,6 +177,7 @@ TopGenres_ByYear$Rank = as.integer(TopGenres_ByYear$Rank)
 TopGenres_ByYear$Brave = max(TopGenres_ByYear$Rank) + 1
 TopGenres_ByYear$NewRank = TopGenres_ByYear$Brave - TopGenres_ByYear$Rank
 
+TopGenres_ByYear = TopGenres_ByYear %>% as.data.frame()
 
 
 
@@ -186,9 +211,14 @@ uix = dashboardPage(
         selected = TRUE),
       menuItem(
         text = "Artists",
-        icon = icon(name = "th"),
+        icon = icon(name = "music", lib = "font-awesome"),
         tabName = "Artists",
-        badgeLabel = "NEW")
+        badgeLabel = "NEW")#,
+      #menuItem(
+        #text = "Listening Statistics", #view most songs by artist in single year (top 5), highest score in a single year (top 5), most songs all time, highest score all time, most years appearing in spotify wrapped
+        #icon = icon(name = "th"),
+        #tabName = "Records",
+        #badgeLabel = "NEW")
     )
   ),
   
@@ -285,8 +315,8 @@ uix = dashboardPage(
                        )
                 )),
               fluidRow(
-                column(width = 9, tableOutput(outputId = "ArtistDiscopgraphy1")),
-                column(width = 3, plotOutput(outputId = "plot2"))
+                column(width = 8, tableOutput(outputId = "ArtistDiscopgraphy1")),
+                column(width = 4, plotOutput(outputId = "plot2"))
               )
       ))
     
@@ -408,22 +438,7 @@ serverx = function(input, output, session) {
   })
   
   
-  output$plot2 = renderPlot({
-    
-    ggplot(data = TopArtists_ByYear %>% filter(ArtistName == input$SelectedArtist), aes(Year, y = NewRank)) +
-      geom_bar(stat = "identity", fill = "darkblue", width = 1) +
-      geom_text(aes(label = Year_Rank_Label %>% format(nsmall = 2)), vjust = 1.6, color = "white", size = 1) +
-      xlab(label = "Year") +
-      ylab(label = "Rank") +
-      ggtitle(label = "Artist Rank by Year") +
-      theme(plot.title = element_text(hjust = 0.5),
-            #axis.title.y = element_blank(),
-            axis.text.y = element_blank(),
-            axis.ticks.y = element_blank()
-      ) +
-      scale_x_continuous(breaks = c("0", "1", "2"))
-  })
-  
+
   output$sayyouloveme = renderPlot({
     spotify %>%
       filter(Year == input$SelectedYear) %>%
@@ -456,15 +471,18 @@ serverx = function(input, output, session) {
             #axis.title.y = element_blank(),
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank()
-      )# +
+      ) +
     #scale_x_discrete(limits = c(2020, 2021, 2022, 2023, 2024))
+    scale_x_continuous(breaks = min(TopArtists_ByYear$Year):max(TopArtists_ByYear$Year))
   })
   
   output$X123 = renderText({
     TopArtists_ByYear %>%
-      filter(Year == input$SelectedYear, Rank <= 10) %>%
+      filter(Year == input$SelectedYear, Rank <= 10, Rank > 0) %>%
+      ungroup() %>%
       select(ArtistName, Score, Song_Count) %>%
-      kable(format = "html", align = "llrr", col.names = c("Year", "Artist Name", "Score", "Song Count")) %>%
+      arrange(desc(Score), desc(Song_Count)) %>%
+      kable(format = "html", align = "llrr", col.names = c("Artist Name", "Score", "Song Count")) %>%
       kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
       scroll_box(width = "100%", height = "100%")
   })
@@ -554,7 +572,7 @@ serverx = function(input, output, session) {
       sum() %>%
       format(nsmall = 0, big.mark = ",")
     Data_RepeatArtist %>%
-      valueBox(subtitle = "New Artists", color = "darkgreen", icon = icon(name = "fab fa-spotify"), width = 4)
+      valueBox(subtitle = "Repeat Artists", color = "darkgreen", icon = icon(name = "fab fa-spotify"), width = 4)
   })
   
   output$UUU3 = renderValueBox({
@@ -569,17 +587,19 @@ serverx = function(input, output, session) {
   
   output$pie_Chart22 = renderPlot({
     Data_PieChart =
-      Artists_New_Repeat %>%
+      TopArtists_ByYear %>%
+      ungroup() %>%
+      group_by(NewArtistFlag) %>%
       #arrange(Year, Song_Count) %>%
-      filter(Year == input$SelectedYear) %>%
-      group_by(KK) %>%
+      filter(Year == input$SelectedYear, is.na(NewArtistFlag) == FALSE) %>%
+
       summarize(`Song Count` = sum(Song_Count)) %>%
-      arrange(KK)
+      arrange(NewArtistFlag)
     #arrange(desc(`Song Count`)) %>%
     #ungroup()
     
     
-    ggplot(data = Data_PieChart, aes(x = "", y = `Song Count`, group = KK, fill = KK)) +
+    ggplot(data = Data_PieChart, aes(x = "", y = `Song Count`, group = NewArtistFlag, fill = NewArtistFlag)) +
       #geom_bar(stat = "identity", width = 1, fill = c("#08A45C", "#D9D9D9")) +
       geom_bar(stat = "identity", width = 1) +
       coord_polar(theta = "y", start = 0) +

@@ -23,21 +23,6 @@ library(tidyverse)
 ```
 
 
-
-
-```{r}
-df_shotclock = data.frame(x = seq(
-      from = 10 - (5 * 2),
-      to = 10 + (5 * 2), length.out = 100)) %>% mutate(y = dnorm(x = x, mean = 0, sd = 1), z = dnorm(x = x, mean = 10, sd = 2))
-    
-df_shotclock
-
-ggplot(df_shotclock, aes(x = x, y = y)) +
-  geom_area(fill = "sky blue") +
-  gghighlight(x > -5, x < 5)
-
-```
-
 <style type="text/css">
 body .main-container {
 	max-width: 1080px !important;
@@ -51,10 +36,6 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 </p>
 
 <hr />
-
-```{r}
-ggplot(data = spotify %>% filter(Year == 2016), aes(AlbumYear, y = n())) 
-```
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 spotify = read.csv(file = "files/SpotifyWrapped.csv")
