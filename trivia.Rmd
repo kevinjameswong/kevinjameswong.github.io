@@ -1,0 +1,63 @@
+---
+title: "Kevin Wong - Trivia"
+output:
+  html_document:
+    toc: no
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(dplyr)
+library(gghighlight)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
+```{r echo = FALSE}
+Update_Date = as.Date("4-1-2025", format = "%m-%d-%Y")
+Today_Date = Sys.Date()
+```
+
+
+<style type="text/css">
+body .main-container {
+	max-width: 1080px !important;
+}
+
+.left {
+  text-align: left;
+}
+
+</style>
+
+
+
+<h1>Trivia</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+***
+
+
+<p class="left">
+[Trivia Questions](https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ/edit?usp=sharing){target="_blank"}
+</p>
+
+
+
+
+
+
+
+
+
+
+
