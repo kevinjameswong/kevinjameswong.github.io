@@ -26,30 +26,37 @@ Making new table into aggregate table like Compass Mortgage grouped by day. Cont
 2-1-2020: Actually don't use group by. Use table as is but use indicator "flags" and sum those
 ```
 
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("01-01-2020", format = "%m-%d-%Y")
+#Update_Date
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
 library(dplyr)
 library(gghighlight)
 library(ggplot2)
+library(googlesheets4)
 library(kableExtra)
 library(knitr)
 library(lubridate)
 library(rlang)
+library(scales)
 library(shiny)
 library(shinydashboard)
 library(stringr)
 library(tidyverse)
-Start_Date = as.Date("01-28-2018", format = "%m-%d-%Y")
-```
-
-```{r echo = FALSE}
-Update_Date = as.Date("01-01-2020", format = "%m-%d-%Y")
- # read_data = read.csv(file = "~/Documents/Kevin Stuff/Not Work/website/Website Files/more website files/Running_10_12_2019.csv", skip = 1)
-
-read_data = read.csv(file = "files/running_data.csv", skip = 1)
 ```
 
 ***
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+Start_Date = as.Date("01-28-2018", format = "%m-%d-%Y")
+#Update_Date = as.Date("01-01-2020", format = "%m-%d-%Y")
+#read_data = read.csv(file = "files/running_data.csv", skip = 1)
+gs4_deauth()
+read_data = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1wvK-4NnWce35ZrcRxRL9dBH3FKsDEWJaf2hnQKGvT3M", sheet = "Running", skip = 1)
+#read_data
+
+names(read_data) = c("Location", "Day", "Month", "Day.1", "Date", "Run.Calories", "Run.Distance", "Run.Average.Pace", "Run.Average.Kevin", "Run.MPH.Kevin", "Run.Minutes", "Run.Seconds", "Walk.Calories", "Walk.Distance", "Walk.Average.Pace", "Walk.Average.Kevin", "Walk.MPH.Kevin", "Walk.Minutes", "Walk.Seconds", "Calories", "Distance", "Minutes", "Seconds", "Time", "Kevin.Intensity.Meter", "Town", "Season", "TT", "Start.Time")
+```
 
 ```{r echo = FALSE}
 running = read_data %>%
@@ -72,7 +79,7 @@ running = read_data %>%
 
 names(running) = c("Location", "Weekday_Read", "Month_Number_Read", "Day Number", "Date", "Run Calories", "Run Distance", "Run Minutes", "Run Seconds", "Walk Calories", "Walk Distance", "Walk Minutes", "Walk Seconds", "StartTime")
 
-running$Date         = running$Date            %>% as.Date(format = "%m/%d/%y")
+running$Date         = running$Date            %>% as.Date(format = "%m/%d/%Y")
 running$DayNumber    = running$`Day Number`    %>% as.character() %>% as.integer()
 running$RunCalories  = running$`Run Calories`  %>% as.character() %>% as.integer()
 running$RunDistance  = running$`Run Distance`  %>% as.character() %>% as.numeric()
@@ -131,7 +138,6 @@ running = running %>% group_by(Date) %>% mutate(y = max(RunDistance))
 
 running$unique_run_count = ifelse(running$RunDistance == running$y & running$y != 0, 1, 0)
 ```
-
 
 ```{r echo = FALSE}
 pace_calculator = function(distance, minutes, seconds) {

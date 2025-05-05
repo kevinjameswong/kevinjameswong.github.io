@@ -1,5 +1,7 @@
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
+library(googlesheets4)
 library(kableExtra)
 library(knitr)
 library(lubridate)
@@ -10,7 +12,13 @@ library(shinydashboard)
 library(stringr)
 library(tidyverse)
 
-spotify = read.csv(file = "files/SpotifyWrapped.csv")
+gs4_deauth()
+spotify = read_sheet(ss = "https://docs.google.com/spreadsheets/d/183Zf6fyC4CtSpcp3HdBRfhwbF04Ez1sKJgDSDHg0R8k", sheet = "Spotify Wrapped") %>%
+  mutate(
+    Song = Song %>% as.character(),
+    Album = Album %>% as.character()
+  ) %>%
+  arrange(Year, Ranking)
 
 spotify =
   spotify %>%
@@ -34,8 +42,8 @@ spotify =
     Artist5ID,
     Artist6ID,
     ApproxGenre,
-    Album.Year,
-    Song.Length
+    `Album Year`,
+    `Song Length`
   )
 
 spotify = spotify %>%

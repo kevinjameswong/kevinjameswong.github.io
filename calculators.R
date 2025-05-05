@@ -1,14 +1,16 @@
 library(dplyr)
+library(gghighlight)
 library(ggplot2)
+library(googlesheets4)
 library(kableExtra)
 library(knitr)
 library(lubridate)
 library(rlang)
+library(scales)
 library(shiny)
 library(shinydashboard)
 library(stringr)
 library(tidyverse)
-
 
 #https://mastering-shiny.org/basic-ui.html
 #https://bookdown.org/loankimrobinson/rshinybook/stock-front-footer.html#stock-front-footer

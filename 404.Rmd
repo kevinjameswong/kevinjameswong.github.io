@@ -1,6 +1,26 @@
 ---
 title: "Kevin Wong - 404 Page Not Found"
 ---
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(gghighlight)
+library(ggplot2)
+library(googlesheets4)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(scales)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
 <style>
 h3 {
    font-family: Tahoma;
@@ -8,10 +28,13 @@ h3 {
 }
 </style>
 
-
 <h1>Page Not Found</h1>
 
-<br />
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+<hr />
 
 <h4>Did you mean to look for these? (ABC order)</h4>
 

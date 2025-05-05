@@ -5,22 +5,23 @@ output:
     toc: yes
 ---
 
-```{r echo = FALSE, warning = FALSE, message = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("05-18-2019", format = "%m-%d-%Y")
+#Update_Date
+
 library(dplyr)
 library(gghighlight)
 library(ggplot2)
+library(googlesheets4)
 library(kableExtra)
 library(knitr)
 library(lubridate)
 library(rlang)
+library(scales)
 library(shiny)
 library(shinydashboard)
 library(stringr)
 library(tidyverse)
-```
-
-```{r echo = FALSE}
-Update_Date = as.Date("05-18-2019", format = "%m-%d-%Y")
 ```
 
 <style type="text/css">

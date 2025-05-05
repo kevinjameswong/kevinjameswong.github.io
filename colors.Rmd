@@ -12,19 +12,22 @@ Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
 library(dplyr)
 library(gghighlight)
 library(ggplot2)
+library(googlesheets4)
 library(kableExtra)
 library(knitr)
 library(lubridate)
 library(rlang)
+library(scales)
 library(shiny)
 library(shinydashboard)
 library(stringr)
 library(tidyverse)
 ```
 
-<style type="text/css">
-body .main-container {
-	max-width: 1080px !important;
+<style>
+h3 {
+   font-family: Tahoma;
+   color: black;
 }
 </style>
 
@@ -39,18 +42,20 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 [Google Sheets Dataset](https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU/edit?usp=sharing){target="_blank"}
 
-
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-colors_import = read.csv(file = "files/university_colors.csv") %>%
-  select(School, Primary, Secondary, Third, Fourth, Kevin, Conference, City, State, School.Name, Primary.R, Primary.G, Primary.B, Secondary.R, Secondary.G, Secondary.B, Third.R, Third.G, Third.B, Fourth.R, Fourth.G, Fourth.B) %>%
+gs4_deauth()
+
+colors_import = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU", sheet = "All Universities") %>%
+  filter(is.na(School) == FALSE) %>%
+  select(School, Primary, Secondary, Third, Fourth, Kevin, Conference, City, State, `School Name`, `Primary-R`, `Primary-G`, `Primary-B`, `Secondary-R`, `Secondary-G`, `Secondary-B`, `Third-R`, `Third-G`, `Third-B`, `Fourth-R`, `Fourth-G`, `Fourth-B`) %>%
   group_by(Kevin) %>%
-  mutate(Primary_Avg = mean(Primary.R, Primary.G, Primary.B, na.rm = TRUE),
-         Secondary_Avg = mean(Secondary.R, Secondary.G, Secondary.B, na.rm = TRUE),
-         Third_Avg = mean(Third.R, Third.G, Third.B, na.rm = TRUE),
-         Fourth_Avg = mean(Fourth.R, Fourth.G, Fourth.B, na.rm = TRUE)
+  mutate(Primary_Avg = mean(`Primary-R`, `Primary-G`, `Primary-B`, na.rm = TRUE),
+         Secondary_Avg = mean(`Secondary-R`, `Secondary-G`, `Secondary-B`, na.rm = TRUE),
+         Third_Avg = mean(`Third-R`, `Third-G`, `Third-B`, na.rm = TRUE),
+         Fourth_Avg = mean(`Fourth-R`, `Fourth-G`, `Fourth-B`, na.rm = TRUE)
          ) %>%
   ungroup() %>%
-  select(School, Primary, Secondary, Third, Fourth, Kevin, Conference, City, State, School.Name, Primary_Avg, Secondary_Avg, Third_Avg, Fourth_Avg)
+  select(School, Primary, Secondary, Third, Fourth, Kevin, Conference, City, State, `School Name`, Primary_Avg, Secondary_Avg, Third_Avg, Fourth_Avg)
 
 colors_import$Primary_Avg[is.nan(colors_import$Primary_Avg)] = 0
 colors_import$Secondary_Avg[is.nan(colors_import$Secondary_Avg)] = 0
@@ -72,9 +77,5 @@ colors_import %>%
 
 
 
-```{r echo = FALSE, eval = FALSE, message = FALSE, warning = FALSE}
-colors_import %>%
-  datatable()
 
-```
 
