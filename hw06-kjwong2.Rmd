@@ -1,0 +1,484 @@
+---
+title: "hw06: More Cowbell on the Web Scraping"
+author: 'STAT 385, Spring 2018'
+date: 'Due: Monday, April 9th, 2018 at 11:59 PM'
+output:
+  html_document:
+    theme: readable
+    toc: yes
+---
+
+# Overview 
+
+Please see the [homework policy](http://stat385.thecoatlessprofessor.com/homework-policy/)
+for detailed instructions and some grading notes. Failure to follow instructions
+will result in point reductions. In particular, make sure to commit each 
+exercise as you complete them. 
+
+> "Our greatest glory is not in never falling, but in rising every time we fall."
+> 
+> — Confucius
+
+## Objectives 
+
+The objectives behind this homework assignment are as follows:
+
+- Navigate semi-structured HTML websites;
+- Extract different tags and attribute values from a web page;
+- Save and load a file dynamically into an RMarkdown document;
+- Identifying, extracting, and replacing patterns in a string with regular expressions;
+- Manipulating strings;
+- Coercing data types;
+- Creating and interpreting graphs
+
+## Grading
+
+The rubric CAs will use to grade this assignment is:
+
+| Task                                                   | pts |
+|:-------------------------------------------------------|----:|
+| Link to GitHub Repository   	                         | 2   |
+| At least one commit per exercise (more is better!)     | 5   |
+| Commit messages that describe what changed	           | 5   |
+| Ceci n'est pas une pipe                                | 8   |
+| A Periodic Dose of Romance, Sarcasm, Math, and Language| 12  |
+| Living the La Vida Loca                                | 28  |
+| Web Scrapper Jo'                                       | 12  |
+| Total                                                  | 72  |
+
+## Note on Regular Expressions
+
+For this homework assignment, it is _strongly_ recommend that you consult both
+the [Web Scraping](http://stat385.thecoatlessprofessor.com/lectures/16-web-scraping/16-web-scraping.pdf)
+and 
+[Regular Expression lecture slides](http://stat385.thecoatlessprofessor.com/lectures/15-regular-expressions/15-regular-expressions.pdf)
+lectures. Other resources that may be helpful include: 
+
+- [`rvest` Vignette: Selectorgadget](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html)
+- [SelectorGadget](http://selectorgadget.com/)
+
+## Package usage
+
+For this homework assignment, you may only use the following _R_ packages:
+
+```{r}
+pkg_list = c("ggplot2", "stringr", "rvest", "tidyr", "dplyr")
+mia_pkgs = pkg_list[!(pkg_list %in% installed.packages()[,"Package"])]
+if(length(mia_pkgs) > 0) install.packages(mia_pkgs)
+loaded_pkgs = lapply(pkg_list, require, character.only=TRUE)
+```
+
+-----
+
+## (12 Points) Exercise 0: We Live in a Beautiful GitHub World!
+
+**NB** When cloning this repository, you should opt-in to using the
+"base" template of the STAT 385 Workspace on RStudio Cloud.
+
+- **[2 Points] (a)** Place a link to your `hw06` GitHub repository here.
+
+[Kevin's link to hw06 GitHup repository](https://github.com/stat385-sp2018/hw06-KevinWong2)
+
+- **[5 Points] (b)** Commit every exercise as you finish them. 
+- **[5 Points] (c)** Make each commit message _meaningful_. 
+    - The bare minimum for a "meaningful" commit is a length of 15 characters.
+    - Inside the commit message, please make sure to appropriately describe 
+      what is happening.
+        - e.g. stating "Exercise 3" or "Ex3" is **not** sufficient.
+        - Provide details on the state, e.g. "Finished exercise 3" or
+        "Checking in a work in progress attempt on iterating over hockey data."
+          
+## (8 Points) Exercise 1: Ceci n'est pas une pipe.
+
+- **[2 points] (a)** Explain what is happening behind the piped statements in
+  the following pipeline:
+    - _Hint:_ The `lm()` function performs a linear regression with `y ~ x`.
+ 
+```{r, eval = FALSE}
+data %>%
+    subset(livelihood >= 2000) %>%
+    subset(select = c("livelihood", "height")) %>%
+    lm(livelihood ~ height, data = .)
+```
+
+- The dataset named `data` is being subsetted on only those observations that have the `livelihood` variable of a value of at least 2000. Then, `data` is being subsetted again and only including the variables `livelihood` and `height`. Lastly, we are creating a linear model using this updated version of `data`, and the linear model is `livelihood` predicted by `height`.
+
+- **[2 points] (b)** Transform the following _embedded function call_ into
+  a series of piped statements.
+    - _Hint:_ To select a variable inside a pipe using Base R use: `data %>% .[["variable"]]`
+  
+```{r}
+library("magrittr")
+
+# Embedded Function Calls
+mean(head(subset(iris, Sepal.Length > mean(Sepal.Length)))[["Sepal.Length"]])
+```
+
+```{r pipe-transformation}
+iris %>%
+  subset(Sepal.Length > mean(Sepal.Length)) %>%
+  .[['Sepal.Length']] %>%
+  head() %>%
+  mean()
+```
+
+- **[4 points] (c)** Create a piping story that shows a multi-step problem that
+  can be found in real-world. For inspiration, recall either 
+  [Hadley Wickham's Bunny Foo-Foo]() or the [Starbucks Mobile Order]().
+      - Have at least four different steps to the story.
+
+```{r making-own-story, eval = FALSE}
+plugin("television") %>%  #Step 1
+  turnon() %>% #Step 2
+  changeChannel(channel = "ESPN") %>% #Step 3
+  sitdown(location = "couch") %>% #Step 4
+  watch("Illini") #Step 5
+```
+
+## (12 Points) Exercise 2: A Periodic Dose of Romance, Sarcasm, Math, and Language
+
+Behind this exercise, the goal is to highlight the ability to download a file
+from a website and include it within an _RMarkdown_ document. The file may _change_
+each day and, thus, the document is able to "automatically" update itself. As 
+a result, we have provided a "sample" of what was present when the homework
+was initially released.
+
+**Note:** To avoid excessive retrievals, please add to the _R_ code chunk that
+reads in the data the chunk option of `cache = TRUE`. So, the code is executed
+only once unless its contents change.
+
+- **[2 points] (a)** Download and read into _R_ the **HTML** for <http://xkcd.com/>.
+    - **Note:** This is the main URL. Do _not_ hard code a URL with a specific
+      comic number. Examples given below correspond to a _specific_ number for
+      illustrative purposes only, but the solution rests in being able to 
+      retrieve a comic dynamically.
+
+```{r read-xkcd, cache = TRUE}
+url_ex2 = "http://xkcd.com/"
+xkcd_website = read_html(url_ex2)
+```
+
+-  **[2 points] (b)** Extract the URL for the daily comic image and properly format it. 
+    - The comic image is the main image shown on the webpage.
+    - _Hint:_ You may need to _unselect_ another image on the page (e.g. XKCD's logo)
+      to obtain the appropriate selector. 
+    - _Example:_ [On April 2nd](https://xkcd.com/1975/), the daily comic image URL was
+      `//imgs.xkcd.com/comics/right_click.png`
+    - **Note:** This is URL is missing the _scheme_ at the front-most portion 
+      of it. Make sure to _append_ to the extract value the appropriate scheme.
+
+```{r extract-url}
+url_ex2_comic_image =
+  xkcd_website %>%
+    html_node(css = "#comic img") %>%
+    str_extract(pattern = "//.*") %>%
+    str_replace(pattern = "\".*", replacement = "")
+
+url_ex2_comic_image
+```
+
+-  **[2 points] (c)** Extract the filename for the comic in the URL using regex
+    and store it in `comic_filename`.
+    - _Example:_[On April 2nd](https://xkcd.com/1975/), name of the image contained
+      within the comic image URL was: **right_click.png**
+
+```{r extracting-file-name}
+comic_filename = 
+  url_ex2_comic_image %>%
+    str_extract(pattern = "comics.*") %>%
+    str_replace(pattern = "comics/", replacement = "")
+
+comic_filename
+```
+
+-  **[2 points] (d)** Extract the `title` attribute value of the daily comic image.
+    - **Note:** This attribute is only visible if the mouse is over the comic
+    image on the website. This is **not** the name of the comic as it is displayed
+    on the website.
+    - _Example:_ [On April 2nd](https://xkcd.com/1975/), the `title` attribute value
+    on the daily comic image was: 
+    
+> Right-click or long press (where supported) to save!
+
+```{r extract-title}
+comic_title =
+  xkcd_website %>% 
+    html_nodes("#comic img") %>%
+    str_extract(pattern = "title.*") %>%
+    str_replace_all(pattern = "\\\\|\"|title=| alt=.*", replacement = "")
+
+comic_title
+```
+
+- **[2 points] (e)** Download the comic image to disk using `download.file(url, comic_filename)`
+
+```{r downloading-comic-image}
+download.file(url_ex2, comic_filename)
+```
+
+- **[2 points] (f)** Dynamically include inside the RMarkdown file the comic 
+  picture, e.g. `comic_filename`, and the mouse over text, e.g. `title` attribute value.
+
+_Hint:_ How do you evaluate inline R code in RMarkdown (See 
+[Lecture 02: Literate Programming](http://stat385.thecoatlessprofessor.com/lectures/02-literate-programming/02-literate-programming.pdf#page=46))?
+How can this be used to dynamically set an image's name? e.g. `![dynamic code for comic title](dynamic code for URL)` 
+
+![`r comic_title`](`r comic_filename`)
+
+## (28 Points) Exercise 3: Living the Vida Loca
+
+**Note:** To avoid excessive retrievals, please add to the _R_ code chunk that
+reads in the data the chunk option of `cache = TRUE`. So, the code is executed
+only once unless its contents change.
+
+- **[2 points] (a)** Download and read into _R_ the **HTML** for <https://chambana.craigslist.org/d/apts-housing-for-rent/search/apa>.
+    - This contains the current housing prices for renting an apartment in the
+    Champaign-Urbana Area from Craiglist.
+
+```{r read-chambana, cache = TRUE}
+url_ex3 = "https://chambana.craigslist.org/d/apts-housing-for-rent/search/apa"
+champaign_website = read_html(url_ex3)
+```
+
+- **[2 points] (b)** Extract the date the ad was added to Craigslist
+    - The date added is list to the _right_ of the "star" icon.
+
+```{r extract-date}
+ex3_dates = 
+  champaign_website %>%
+    html_nodes(css = ".result-date") %>%
+    str_extract(pattern = "[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}")
+
+head(ex3_dates)
+```
+
+- **[2 points] (c)** Extract the text describing the listing
+    - The text describing the listing is to the _right_ of the date.
+
+```{r extract-listing-text}
+ex3_text =
+  champaign_website %>%
+    html_nodes(css = ".result-title") %>%
+    str_extract(pattern = "hdrlnk.*") %>%
+    str_replace_all(pattern = "hdrlnk\\\">|</a>", replacement = "")
+
+head(ex3_text)
+```
+
+- **[2 points] (d)** Extract location of the apartments and remove the `()` around
+    the data.
+    - The text describing the listing is to the _right_ of the date.
+    - _Hint:_ Use the find and replace ability of regex to remove the `()`.
+
+```{r extract-location}
+ex3_addresses = 
+  champaign_website %>%
+    html_nodes(css = ".result-hood") %>%
+    str_extract(pattern = "\\(.*\\)") %>%
+    str_replace_all(pattern = "[()]", replacement = "")
+
+head(ex3_addresses)
+```
+
+- **[4 points] (e)** Create four variables that act as indicators as to whether
+    the apartment is in Champaign, Urbana, Savoy, or "Other (e.g. not listed)".
+    - There should be four vectors with either `TRUE` or `FALSE` depending on 
+      whether the location of the apartment contains the aforementioned towns.
+    - _Hint:_ You will likely need to use `regex()` with
+    `ignore.case = TRUE` to ensure appropriate matching of the city names.
+
+```{r city-table}
+ex3_addresses =
+  champaign_website %>%
+    html_nodes(css = ".result-hood") %>%
+    str_extract(pattern = "\\(.*\\)") %>%
+    str_replace_all(pattern = "[()]", replacement = "")
+ex3_location_cham  = str_detect(string = ex3_addresses, pattern = "Champaign")
+ex3_location_urb   = str_detect(string = ex3_addresses, pattern = "Urbana")
+ex3_location_sav   = str_detect(string = ex3_addresses, pattern = "Savoy")
+ex3_location_other = ifelse(ex3_location_cham | ex3_location_urb | ex3_location_sav == TRUE, FALSE, TRUE)
+
+ex3_location_table = data.frame(
+  ex3_location_cham  = ex3_location_cham,
+  ex3_location_urb   = ex3_location_urb,
+  ex3_location_sav   = ex3_location_sav,
+  ex3_location_other = ex3_location_other
+)
+
+colnames(ex3_location_table) = c("Champaign", "Urbana", "Savoy", "Other")
+head(ex3_location_table)
+```
+
+- **[4 points] (f)** Extract the _price_ per month from each listing and convert
+    the value from a character to a **numeric**
+    - The price is given in to the _right_ of the listing title.
+    - _Hints:_ Do not use the price in the upper left corner. Before converting
+     from a character to an numerics, remove the dollar sign (`$`).
+
+```{r extract-price-per-month}
+ex3_price =
+  champaign_website %>%
+    html_nodes(css = ".result-price") %>%
+    str_extract(pattern = "\\$.*<") %>%
+    str_replace_all(pattern = "[$<]", replacement = "") %>%
+    as.numeric()
+
+head(ex3_price)
+```
+
+- **[6 points] (g)** Extract the features of the apartment
+    - e.g. `4br` denotes 4 bedrooms and should be simplified to `4` integer
+    - e.g. `1325ft2` denotes 1325 square ft of space and should be simplified to
+      `1325` numeric.
+    - This is typically denoted `4br - 1325ft2` or is sometimes given as `2br -`.
+    - Do _not_ worry about whether a listing is missing information.
+
+```{r extract-features}
+ex3_bedrooms = 
+  champaign_website %>%
+    html_nodes(css = ".housing") %>%
+    str_extract(pattern = "[[:digit:]].*br") %>%
+    str_replace(pattern = "br", replacement = "") %>%
+    as.integer()
+
+ex3_sqft = 
+  champaign_website %>%
+    html_nodes(css = ".housing") %>%
+    str_extract(pattern = "[[:digit:]].*ft") %>%
+    str_replace(pattern = "ft", replacement = "") %>%
+    as.numeric()
+
+head(ex3_bedrooms)
+head(ex3_sqft)
+```
+
+- **[6 points] (i)** Create three separate plots that show:
+    - the distribution of rent (numeric);
+    - the amount of bedrooms in a house (discrete);
+    - the overall amount of square footage (numeric).
+
+```{r ex3i-plots}
+ggplot(mapping = aes(x = ex3_price)) + 
+  geom_histogram(fill = "darkblue", color = "orange") +  
+    labs(x = "Rent Price")
+ggplot(mapping = aes(x = ex3_bedrooms)) + 
+  geom_bar(fill = "darkblue", color = "orange") +  
+    labs(x = "Amount of Bed Rooms")
+ggplot(mapping = aes(x = ex3_sqft)) + 
+  geom_histogram(fill = "darkblue", color = "orange") +  
+    labs(x = "Square Footage of Home")
+```
+
+## (12 Points) Exercise 4: Web Scrapper Jo'
+
+**Note:** To avoid excessive retrievals, please add to the _R_ code chunk that
+reads in the data the chunk option of `cache = TRUE`. So, the code is executed
+only once unless its contents change.
+
+- Specify the name of the website that you wish to scrap.
+  Post it on our [GitHub Discussion Forum](https://github.com/stat385-sp2018/disc/issues/101). **Everyone must have their own unique website.**
+- Verify you can access the data on the website _before_ claiming it. 
+    - e.g. Make sure a selector returns a value. If it doesn't, then this likely means the page has _JavaScript_ on it. JavaScript unfortunately is not captured correctly when `rvest` reads in the HTML.
+- The website must contain:
+    - **[4 points]** A collection of elements (e.g. titles of multiple posts)
+    - **[4 points]** Attribute information on elements (e.g. hrefs)
+    - **[4 points]** A table
+- Do not scrap any data on: imdb.com, rottentomatos.com, slashdot.org,
+xkcd.com, illinois.edu, news.google.com, wunderground.com, craigslist.com, 
+or any website we scraped in class...
+
+```{r illinois-fighting-illini-website-read-html, cache = TRUE}
+url_ex4 = "http://fightingillini.com/staff.aspx"
+ill_website = read_html(url_ex4)
+```
+
+### Collection of Elements
+```{r illinois-staff}
+ill_staff =
+  ill_website %>%
+    html_nodes(css = ".staff_dgrd_fullname") %>%
+    str_extract(pattern = "[[:digit:]].*") %>%
+    str_replace_all(pattern = "[[:digit:]]|\\\\|\"|>|</a>.*", replacement = "")
+
+head(ill_staff)
+```
+
+### Attribute Information on Elements
+```{r illinois-html-attributes}
+ill_info_attrs = 
+  ill_website %>%
+    html_nodes(css = ".staff_address_info table") %>%
+    html_nodes(css = "a") %>%
+    html_attr(name = "href")
+
+ill_staff_attrs = 
+  ill_website %>%
+    html_nodes(css = ".staff_dgrd_fullname") %>%
+    html_nodes(css = "a") %>%
+    html_attr(name = "href")
+
+head(ill_info_attrs)
+head(ill_staff_attrs)
+```
+
+### Making a Table
+
+```{r illinois-locations}
+ill_locations =
+  ill_website %>%
+    html_nodes(css = ".staff_address_info table") %>%
+    html_nodes(css = "td p") %>%
+    str_extract(pattern = "strong>.*") %>%
+    str_replace_all(pattern = "strong>|</strong><br>|<br>", replacement = "")
+```
+
+```{r illinois-office-phone-numbers}
+ill_phone_numbers =
+  ill_website %>%
+    html_nodes(css = "td p") %>%
+    str_extract(pattern = "[[:digit:]]{3}-[[:digit:]]{3}-[[:digit:]]{4}")
+```
+
+```{r illinois-office-cities}
+ill_cities = 
+  ill_website %>%
+    html_nodes(css = "td p") %>%
+    str_extract(pattern = ".* [[:digit:]]{5}") %>%
+    str_replace_all(pattern = "\\t", replacement = "") %>%
+    str_extract(pattern = ".*,") %>%
+    str_replace(pattern = "[[:punct:]]", replacement = "")
+```
+
+```{r illinois-office-states}
+ill_states = 
+  ill_website %>%
+    html_nodes(css = "td p") %>%
+    str_extract(pattern = ".* [[:digit:]]{5}") %>%
+    str_replace_all(pattern = "\\t", replacement = "") %>%
+    str_extract(pattern = ",.*") %>%
+    str_replace(pattern = ", ", replacement = "") %>%
+    str_extract(pattern = "[A-Z]{2}")
+```
+
+```{r illinois-office-zip-codes}
+ill_zip_codes = 
+  ill_website %>%
+    html_nodes(css = "td p") %>%
+    str_extract(pattern = "[[:digit:]]{5}")
+```
+
+```{r illinois-office-table}
+ill_office_table =
+  data.frame(
+    ill_locations     = ill_locations,
+    ill_phone_numbers = ill_phone_numbers,
+    ill_cities        = ill_cities,
+    ill_states        = ill_states,
+    ill_zip_codes     = ill_zip_codes
+  )
+
+colnames(ill_office_table) = c("Location", "Phone Number", "City", "State", "Zip Code")
+ill_office_table
+#GO ILLINI!!!!!!!!
+```
+

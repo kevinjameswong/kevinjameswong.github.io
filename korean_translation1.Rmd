@@ -1,0 +1,163 @@
+---
+title: "Kevin Wong - Korean Translations"
+output:
+  html_document:
+    toc: no
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+Update_Date = as.Date("03-30-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(gghighlight)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
+<style type="text/css">
+
+.r33m_vid {
+  font-family: Tahoma;
+  color: black;
+}
+
+body, p {
+  font-family: "Times New Roman";
+  font-size: 18px;
+}
+
+</style>
+
+
+<h1>Just Like TT</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+***
+
+
+
+```{r echo = FALSE}
+korean = read.csv(file = "files/koreanphrases.csv")
+korean$Index = korean %>% nrow() %>% seq.int()
+korean$Easy = ifelse(
+  test = is.na(korean$Easy),
+  yes = 0,
+  no = 1
+)
+verbs = korean %>%
+  group_by(English, Korean, Romanization, Easy) %>%
+  mutate(count = n()) %>%
+  #filter(Romanization == "hwajangsil") %>%
+  mutate(TT = min(Index)) %>%
+  mutate(Duplicate = ifelse(TT == Index, 0, 1) %>% as.integer()) %>%
+  select(English, Korean, Romanization, Easy, Index, Duplicate) %>%
+  ungroup() %>%
+  filter(
+    English %>% str_to_lower() %>% str_sub(start = 1, end = 3) == "to ",
+    Korean %>% str_sub(start = Korean %>% str_length()) == "다",
+    Easy == 1)
+
+
+```
+
+
+```{r echo = FALSE}
+t = korean %>%
+  mutate(
+    LastSyllable = str_sub(string = Korean, start = str_length(Korean) - 1, end = -2),
+    hada = case_when(
+      LastSyllable == "하" ~ 1,
+      .default = 0
+    ),
+    VerbStem = str_sub(string = Korean, start = 1, end = str_length(korean$Korean) - 1)
+  ) %>%
+  select(English, Korean, Romanization, Index, VerbStem, LastSyllable, hada)
+
+
+korean_syllables = read.csv(file = "files/korean_syllablelist.csv")
+```
+
+
+```{r echo = FALSE}
+justlikeTT = 
+left_join(
+  x = t,
+  y = korean_syllables,
+  by = join_by(LastSyllable == Syllable)
+)
+justlikeTT
+str_sub(string = justlikeTT$VerbStem, start = 1, end = -2)
+```
+
+
+
+
+
+```{r}
+justlikeTT %>%
+  mutate(
+    Present = case_when(
+      hada == 1 ~ paste(str_sub(string = VerbStem, start = 1, end = -2), "해요", sep = ""),
+      Character.Slot.2 %in% c("ㅏ", "ㅗ") & Character.Slot.3 == "" ~ paste(VerbStem, "요", sep = ""),
+      Character.Slot.2 %in% c("ㅏ", "ㅗ") & Character.Slot.3 != "" ~ paste(VerbStem, "아요", sep = ""),
+      .default = paste(VerbStem, "어요", sep = "")
+    ),
+    
+    
+    #Not finished
+    Past = case_when(
+      hada == 1 ~ paste(str_sub(string = VerbStem, start = 1, end = -2), "했어요", sep = ""),
+      Character.Slot.2 %in% c("ㅏ", "ㅗ") & Character.Slot.3 == "" ~ paste(VerbStem, "a어요", sep = ""), #mannada, gasseoyo
+      Character.Slot.2 %in% c("ㅏ", "ㅗ") & Character.Slot.3 != "" ~ paste(VerbStem, "았어요", sep = ""),
+      .default = paste(VerbStem, "었어요", sep = "")
+    ),
+    
+    
+    
+    #Not finished
+    Future = case_when(
+      hada == 1 ~ paste(str_sub(string = VerbStem, start = 1, end = -2), "해요", sep = ""),
+      Character.Slot.2 %in% c("ㅏ", "ㅗ") & Character.Slot.3 == "" ~ paste(VerbStem, "요", sep = ""),
+      Character.Slot.2 %in% c("ㅏ", "ㅗ") & Character.Slot.3 != "" ~ paste(VerbStem, "아요", sep = ""),
+      .default = paste(VerbStem, "어요", sep = "")
+    )
+  ) %>%
+  select(English, Korean, Present, Past)
+```
+
+
+```{r}
+Object: Home
+Subject: I, He, She, Kevin, We, You, They
+Verb: To go
+Tense: Present / Past / Future / 
+Optional: Again
+  observeEvent(input$E_NewWord, {
+    output$E_Korean = NULL
+  })
+  
+  observeEvent(input$E_NewWord, {
+    output$E_Romanization = NULL
+  })
+```
+
+
+```{r}
+subjects = read.csv(file = "files/korean_subjects.csv") %>%
+  filter(English != '')
+subjects$Index = subjects %>% nrow() %>% seq.int()
+subjects
+```
+
+

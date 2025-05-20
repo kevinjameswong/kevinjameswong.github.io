@@ -40,7 +40,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 <hr />
 
 
-[Google Sheets Dataset](https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU/edit?usp=sharing){target="_blank"}
+[Google Sheets Dataset](https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU){target="_blank"}
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 gs4_deauth()

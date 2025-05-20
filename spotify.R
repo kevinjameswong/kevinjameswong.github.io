@@ -376,8 +376,7 @@ serverx = function(input, output, session) {
     spotify %>%
       filter(Year == input$SelectedYear) %>%
       select(ArtistName) %>%
-      table() %>%
-      length() %>%
+      n_distinct() %>%
       format(nsmall = 0, big.mark = ",") %>%
       valueBox(subtitle = "Distinct Artists", color = "teal", icon = icon(name = "users"), width = 4)
     #red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
@@ -388,9 +387,7 @@ serverx = function(input, output, session) {
     spotify %>%
       filter(Year == input$SelectedYear) %>%
       select(AlbumID) %>%
-      ungroup() %>%
-      table() %>%
-      length() %>%
+      n_distinct() %>%
       format(nsmall = 0, big.mark = ",") %>%
       valueBox(subtitle = "Distinct Albums", color = "aqua", icon(name = "fas fa-music"), width = 4)
     #red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
@@ -400,9 +397,7 @@ serverx = function(input, output, session) {
     spotify %>%
       filter(Year == input$SelectedYear) %>%
       select(Genre) %>%
-      ungroup() %>%
-      table() %>%
-      length() %>%
+      n_distinct() %>%
       format(nsmall = 0, big.mark = ",") %>%
       valueBox(subtitle = "Distinct Genres", color = "purple", icon(name = "fas fa-music"), width = 4)
   })

@@ -24,6 +24,98 @@ library(stringr)
 library(tidyverse)
 ```
 
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+gs4_deauth()
+trivia = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ", sheet = "Trivia Questions with Answers") %>%
+  filter(is.na(Date) == FALSE, is.na(Category) == FALSE) %>%
+  mutate(
+    Date = Date %>% as.Date(),
+    `Question Number` = `Question Number` %>% as.character() %>% as.factor(),
+    Round = case_when(
+      `Question Number` %in% c("1", "2", "3") ~ "1",
+      `Question Number` %in% c("4", "5", "6") ~ "2",
+      `Question Number` %in% c("7", "8", "9") ~ "3",
+      `Question Number` %in% c("Bonus") ~ "Bonus",
+      `Question Number` %in% c("Halftime") ~ "Halftime",
+      `Question Number` %in% c("10", "11", "12") ~ "4",
+      `Question Number` %in% c("13", "14", "15") ~ "5",
+      `Question Number` %in% c("16", "17", "18") ~ "6",
+      .default = `Question Number`
+    ) %>% as.factor(),
+    `Question within Round` = case_when(
+      `Question Number` %in% c("1", "4", "7", "10", "13", "16") ~ "1",
+      `Question Number` %in% c("2", "5", "8", "11", "14", "17") ~ "2",
+      `Question Number` %in% c("3", "6", "9", "12", "15", "18") ~ "3",
+      `Question Number` %in% c("Bonus") ~ "Bonus",
+      `Question Number` %in% c("Halftime") ~ "Halftime",
+      .default = `Question Number`
+    ) %>% as.factor(),
+    `Correct Answer` = `Correct Answer` %>% as.character(),
+    `Submitted Answer` = `Submitted Answer` %>% as.character(),
+    Category_Level02 = case_when(
+      str_detect(string = toupper(Category), pattern = "GEOGRAPHY|PARKS|LANDMARKS") == TRUE ~ "Geography",
+      str_detect(string = toupper(Category), pattern = "BASEBALL|BASKETBALL|BOWLING|BOXING|FOOTBALL|GOLF|HOCKEY|RUNNING|SOCCER|SPORTS") == TRUE ~ "Sports",
+      str_detect(string = toupper(Category), pattern = "LITERATURE|BOOKS") == TRUE ~ "Literature",
+      str_detect(string = toupper(Category), pattern = "HISTORY|PRESIDENTS") == TRUE ~ "History",
+      str_detect(string = toupper(Category), pattern = "MOVIES|MOVIE LINES") == TRUE ~ "Movies",
+      toupper(Category) == "TV" ~ "TV",
+      str_detect(string = toupper(Category), pattern = "TELEVISION") == TRUE ~ "TV",
+      toupper(Category) == "DOGS" ~ "Animals",
+      .default = Category
+    ),
+    Category_Level03 = case_when(
+      Category_Level02 == "TV" ~ 1,
+      .default = 2
+    )
+  ) %>%
+  arrange(Index) %>%
+  select(Index, Date, `Question Number`, Round, `Question within Round`, Category, Question, `Correct Answer`, `Submitted Answer`, `Correct?`, Confidence, `Question Type`, Freebie, Notes, `Top 5 Finish`, Category_Level02, Category_Level03)
+
+trivia$PointsScored = case_when(
+  trivia$`Correct?` == 1  ~ trivia$Confidence,
+  .default = 0
+)
+```
+
+
+
+
+
+
+```{r echo = FALSE, eval = FALSE}
+trivia %>%
+  filter(Round %in% c("Bonus", "Halftime", "Final") == FALSE) %>%
+  filter(is.na(Freebie)) %>%
+  group_by(Category) %>%
+  summarize(TotalQuestions = n(),
+            Correct = sum(`Correct?`),
+            Accuracy = Correct / TotalQuestions) %>%
+  arrange(desc(TotalQuestions), desc(Accuracy), Category)
+
+trivia %>%
+  filter(Round %in% c("Bonus", "Halftime", "Final") == FALSE) %>%
+  group_by(`Question Type`) %>%
+  summarize(TotalQuestions = n(),
+            Correct = sum(`Correct?`),
+            Accuracy = Correct / TotalQuestions) %>%
+  arrange(desc(Accuracy), desc(TotalQuestions), `Question Type`)
+
+trivia %>%
+  filter(Round %in% c("Bonus", "Halftime", "Final") == FALSE) %>%
+  group_by(Confidence) %>%
+  summarize(TotalQuestions = n(),
+            Correct = sum(`Correct?`),
+            Accuracy = Correct / TotalQuestions) %>%
+  arrange(desc(Accuracy), desc(TotalQuestions), Confidence)
+```
+
+
+
+```{r echo = FALSE, eval = FALSE}
+trivia %>%
+  group_by(Date) %>%
+  summarize(Average = sum(PointsScored)
+```
 
 <style type="text/css">
 body .main-container {
@@ -48,10 +140,13 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 
 <p class="left">
-[Trivia Questions](https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ/edit?usp=sharing){target="_blank"}
+[Trivia Questions](https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ){target="_blank"}
 </p>
 
-
+<div class="shiny-container">
+<iframe src="https://kevinjameswong.shinyapps.io/trivia/">
+</iframe>
+</div>
 
 
 

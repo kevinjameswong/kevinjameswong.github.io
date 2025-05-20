@@ -1,0 +1,46 @@
+---
+title: "Kevin Wong - rvest Practice"
+output:
+  html_document:
+    toc: yes
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(rvest)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
+```{r}
+KINGKING = data.frame(TT = 5)
+rbind(KINGKING, TT = 1)
+?icon
+```
+
+```{r}
+korean_duo = read.csv(file = "files/duolingo_korean.csv") %>%
+  select(Korean, Confirmed.Duolingo.Romanization) %>%
+  unique() %>%
+  filter(Korean != "")
+korean_duo$Index = korean_duo %>% nrow() %>% seq.int()
+names(korean_duo) = c("Korean", "Romanization", "Index")
+View(korean_duo)
+```
+
+```{r}
+?tolower
+```
+
+
+

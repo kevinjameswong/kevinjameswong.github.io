@@ -99,7 +99,7 @@
  		    color: #F7F7F7;
  		  }
 		  body .main-container {
-		    max-width: 750px;
+		    max-width: 80%;
 		  }
 		  .video-container {
 		    position: relative;
@@ -217,75 +217,7 @@
 		    }
 		  } */
 		  /* Small devices (tablets, 768px and up) */
-		  .test222 {
-		    text-align: justify;
-        /*color:blue;*/
-		  }
-		  @media only screen and (min-width: 620px) {
-          .test222 {
-            /*color:red;*/
-            float:right;
-          }
-          .br-mobile-break-x {
-            line-height:100px;
-            display: none;
-          }
-          .hr-hidden {
-            height:10px;
-            visibility: hidden;
-          }
-		  }
-		  @media only screen and (max-width: 620px) {
-          .br-mobile-break-2 {
-            line-height:100px;
-            display: none;
-            color: red;
-          }
-          .shiny-container-korean {
-		    	  position: relative;
-		    	  height: 550px;
-		    }
-	
-		  }
-		  @media only screen and (min-width: 620px) {
-          .br-mobile-break {
-            display: none;
-		    }
-		  }
-      /* Medium devices (desktops, 992px and up) */
-      @media (min-width: 992px) {
-		    .text-justify-md {
-          text-align: left;
-          color:blue;
-		    }
-		  }
-		  /* Large devices (large desktops, 1200px and up) */
-      @media (min-width: 1200px) {
-		    .text-justify-lg {
-          text-align: justify;
-          color:red;
-		    }
-		  }
-		  /* Float to the right on screens that are equal to or greater than 769px wide */
-		  /* @media (min-width: 769px) {
-		    .float-right-lg {
-		      float: right;
-		      
-		    }
-		  }
-		  .centerMobileOnly{
-		    float: right;
-		  } */
-		  /* @media screen and (max-width: 480px) {
-        .centerMobileOnly {
-          color:green;
-          text-align: left;
-          float: left;
-        }
-        .mobile-break {
-          display: none;
-        }
-		  } */
+
 		  .navigation ul a {
 		    color: #000;
 		    display: block;

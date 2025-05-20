@@ -1,0 +1,13 @@
+name: trivia
+title: trivia
+username: kevinjameswong
+account: kevinjameswong
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14724030
+bundleId: 10258906
+url: https://kevinjameswong.shinyapps.io/trivia/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: _site.yml|.RData|.RDataTmp|404.html|404.Rmd|awards.html|awards.Rmd|ayoayo.R|Binomial_Shiny_Kevin_test.R|Binomial_Shiny_Kevin.R|calculators.html|calculators.R|calculators.Rmd|colors.html|colors.Rmd|commit_instructions.html|commit_instructions.Rmd|contact.html|contact.Rmd|CopyOfapp.R|CopyOfCopyOfapp.R|data.html|data.Rmd|excel.html|excel.Rmd|footer.html|footer.Rmd|formulas_functions.html|formulas_functions.Rmd|fullsite.html|fullsite.Rmd|gtag.js|header.html|header.Rmd|hw06-kjwong2.Rmd|icon.ico|index.html|index.Rmd|justlikeTT.Rmd|justlikeTTTTT.R|korean_translation1.Rmd|korean_translator.R|korean.html|korean.R|korean.Rmd|MarchMadness.R|MarchMadness.Rmd|python_testing.py|R_GoodCommands.Rmd|romanization_practice.Rmd|running.html|running.Rmd|rvest_practice.html|rvest_practice.Rmd|schoolwork_files/figure-html/pressure-1.png|schoolwork.html|schoolwork.Rmd|sleep.html|sleep.Rmd|spotify_files/figure-html/unnamed-chunk-2-1.png|spotify_files/figure-html/unnamed-chunk-6-1.png|spotify.html|spotify.R|spotify.Rmd|spotifywork.html|spotifywork.Rmd|stringr.R|style.css|template01.Rmd|template02.Rmd|template03.Rmd|template04.Rmd|template05.Rmd|template06.Rmd|template07.Rmd|template08.Rmd|template09.Rmd|templateSHINY.R|test_java.js|Testing.R|testing2_files/figure-html/unnamed-chunk-4-1.png|testing2.R|testing2.Rmd|trivia.html|trivia.Rmd|TTTTTTT.R|work.html|work.Rmd|www/styles.css|_site|files|images|running_files|site_libs|sleep_files

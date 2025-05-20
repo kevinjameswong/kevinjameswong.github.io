@@ -10,9 +10,6 @@ highlight specifies the syntax highlighting style. Supported styles include defa
 
 -->
 
-<!-- 
-Style all elements with the class name "city"
--->
 
 <!--
 try a:hover 
@@ -24,64 +21,26 @@ try a:hover
     text-align: right;
     /* color: #7BAFD4; */
     color: BEBEBE;
-} 
+}
+
+@media only screen and (min-width: 800px) {
+    .br-mobile-break {
+        display: none;
+		}
+}
+		  
 </style>
 
-<!--
-<p style="text-align:center;color:#7BAFD4;">Hello, I am Kevin Wong. Welcome to my website!</p>
--->
-
-<!--
-<p class="intro">Hello, I am Kevin Wong. Welcome to my website!</p>
--->
-
 <center>Hello, I am Kevin Wong. Welcome to my website!</center>
-
-<!--
-<p style="text-align:center;color:#565A5C;">I graduated from the University of Illinois at Urbana-Champaign (BS in Statistics) in May 2019 with a 3.88 GPA.</p>
-
-<p style="text-align:center;color:#BEBEBE;">I graduated from the University of Illinois at Urbana-Champaign (BS in Statistics) in May 2019 with a 3.88 GPA.</p>
-
-<p style="text-align:center;color:#E8E3D3;">I graduated from the University of Illinois at Urbana-Champaign (BS in Statistics) in May 2019 with a 3.88 GPA.</p>
-
-<p style="text-align:center;color:#A2AAAD;">I graduated from the University of Illinois at Urbana-Champaign (BS in Statistics) in May 2019 with a 3.88 GPA.</p>
--->
-
-
-<!--
-<center>I am a Statistics student at the University of Illinois at Urbana-Champaign.</center>
--->
 
 <center>I graduated from the University of Illinois at Urbana-Champaign (BS in Statistics) in May 2019 with a 3.88 GPA.</center>
 
 <br>
 
-<!--
-<center>I will be graduating from the Univ. of Illinois in May 2019 with an overall GPA of 3.88.</center>
--->
-
-<!--
-<center>Now I am a Data Analyst for Compass Mortgage in Warrenville, IL.</center>
--->
-
-<!--
-<center>Now I am a Data Analyst for CDW in Lincolnshire, IL.</center>
--->
-
-
 <center>Now I am a Senior Data Analyst for CDW in Chicago, IL.</center>
-
-<!--
-<center>Now I am a Data Analyst for <a href="https://www.cdw.com/">CDW</a> in Chicago, IL.</center>
--->
-
-<!--
-<center>Now I am a Senior Data Analyst for CDW in Chicago, IL.</center>
--->
 
 <hr />
 
-<!--</center>-->
 <h4>
   <center>
     <a class="swag1">[Work Experience](work.html)</a><a class="br-mobile-break-2">&emsp;</a>
@@ -93,18 +52,8 @@ try a:hover
     <a class="swag1">[Schoolwork](schoolwork.html)</a><a class="br-mobile-break-2">&emsp;</a>
     <br class="br-mobile-break"><br class="br-mobile-break">
     <a class="swag1">[Contact Me!](contact.html)</a>
-    <!--
-    <a class="swag1">[Work Experience](work.html)&emsp;</a>
-    <br class="br-mobile-break"><br class="br-mobile-break">
-    <a class="swag1">[Data Analysis Projects](data.html)&emsp;</a>
-    <br class="br-mobile-break"><br class="br-mobile-break">
-    <a class="swag1">[Schoolwork](schoolwork.html)&emsp;</a>
-    <br class="br-mobile-break"><br class="br-mobile-break">
-    <a class="swag1">[Contact Me!](contact.html)</a>
-    -->
   </center>
 </h4>
-<!--</center>-->
 
 
 

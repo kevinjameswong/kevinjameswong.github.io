@@ -1,0 +1,193 @@
+---
+title: "Kevin Wong - March Madness"
+output:
+  html_document:
+    toc: no
+---
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("03-30-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(gghighlight)
+library(ggplot2)
+library(googlesheets4)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(scales)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
+<style type="text/css">
+
+.r33m_vid {
+  font-family: Tahoma;
+  color: black;
+}
+
+body, p {
+  font-family: "Times New Roman";
+  font-size: 18px;
+}
+
+</style>
+
+
+<h1>March Madness Standings</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+***
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Yearrr = 2025
+Points_S16 = 40
+Points_E8 = 80
+Points_F4 = 160
+Points_Champ = 320
+
+mm_picks = read.csv(file = "files/marchmadness_picks.csv") %>%
+  filter(Year == Yearrr)
+mm_matchups = read.csv(file = "files/marchmadness_matchups.csv") %>%
+  filter(Year == Yearrr)
+```
+
+```{r}
+T_1 = mm_matchups %>%
+  filter(Game == "S16_1") %>%
+  select(Team)
+
+T_2 = mm_matchups %>%
+  filter(Game == "S16_2") %>%
+  select(Team)
+
+T_3 = mm_matchups %>%
+  filter(Game == "S16_3") %>%
+  select(Team)
+
+T_4 = mm_matchups %>%
+  filter(Game == "S16_4") %>%
+  select(Team)
+
+T_5 = mm_matchups %>%
+  filter(Game == "S16_5") %>%
+  select(Team)
+
+T_6 = mm_matchups %>%
+  filter(Game == "S16_6") %>%
+  select(Team)
+
+T_7 = mm_matchups %>%
+  filter(Game == "S16_7") %>%
+  select(Team)
+
+T_8 = mm_matchups %>%
+  filter(Game == "S16_8") %>%
+  select(Team)
+
+
+T_S16 = cross_join(T_1, T_2) %>%
+  cross_join(T_3) %>%
+  cross_join(T_4) %>%
+  cross_join(T_5) %>%
+  cross_join(T_6) %>%
+  cross_join(T_7) %>%
+  cross_join(T_8)
+
+names(T_S16) = c(
+  "S16_1", "S16_2", "S16_3", "S16_4", "S16_5", "S16_6", "S16_7", "S16_8"
+)
+```
+
+```{r}
+T_E8 = T_S16 %>%
+  cross_join(union(T_1, T_2)) %>%
+  cross_join(union(T_3, T_4)) %>%
+  cross_join(union(T_5, T_6)) %>%
+  cross_join(union(T_7, T_8))
+
+names(T_E8) = c("S16_1", "S16_2", "S16_3", "S16_4", "S16_5", "S16_6", "S16_7", "S16_8", "E8_1", "E8_2", "E8_3", "E8_4")
+
+T_E8 = T_E8 %>%
+  filter(
+    xor(E8_1 == S16_1, E8_1 == S16_2) &
+    xor(E8_2 == S16_3, E8_2 == S16_4) &
+    xor(E8_3 == S16_5, E8_3 == S16_6) &
+    xor(E8_4 == S16_7, E8_4 == S16_8)
+  )
+
+T_F4 = T_E8 %>%
+  cross_join(union(union(T_1, T_2), union(T_3, T_4))) %>%
+  cross_join(union(union(T_5, T_6), union(T_7, T_8))) %>%
+  cross_join(union(union(union(T_1, T_2), union(T_3, T_4)), union(union(T_5, T_6), union(T_7, T_8))))
+
+names(T_F4) = c("S16_1", "S16_2", "S16_3", "S16_4", "S16_5", "S16_6", "S16_7", "S16_8", "E8_1", "E8_2", "E8_3", "E8_4", "F4_1", "F4_2", "Champion")
+
+All_Combos = T_F4 %>%
+  filter(
+    xor(F4_1 == E8_1, F4_1 == E8_2) &
+    xor(F4_2 == E8_3, F4_2 == E8_4) &
+    xor(Champion == F4_1, Champion == F4_2)
+  )
+```
+
+```{r}
+TTT = All_Combos %>%
+  cross_join(y = mm_picks) %>%
+  mutate(
+    Final =
+    StartingPoints + 
+    ifelse(test = S16_1.x == S16_1.y, yes = Points_S16, no = 0) +
+    ifelse(test = S16_2.x == S16_2.y, yes = Points_S16, no = 0) +
+    ifelse(test = S16_3.x == S16_3.y, yes = Points_S16, no = 0) +
+    ifelse(test = S16_4.x == S16_4.y, yes = Points_S16, no = 0) +
+    ifelse(test = S16_5.x == S16_5.y, yes = Points_S16, no = 0) +
+    ifelse(test = S16_6.x == S16_6.y, yes = Points_S16, no = 0) +
+    ifelse(test = S16_7.x == S16_7.y, yes = Points_S16, no = 0) +
+    ifelse(test = S16_8.x == S16_8.y, yes = Points_S16, no = 0) +
+      
+    ifelse(test = E8_1.x == E8_1.y, yes = Points_E8, no = 0) +
+    ifelse(test = E8_2.x == E8_2.y, yes = Points_E8, no = 0) +
+    ifelse(test = E8_3.x == E8_3.y, yes = Points_E8, no = 0) +
+    ifelse(test = E8_4.x == E8_4.y, yes = Points_E8, no = 0) +
+      
+    ifelse(test = F4_1.x == F4_1.y, yes = Points_F4, no = 0) +
+    ifelse(test = F4_2.x == F4_1.y, yes = Points_F4, no = 0) +
+      
+    ifelse(test = Champion.x == Champion.y, yes = Points_Champ, no = 0)
+  ) %>%
+  select(S16_1.x, S16_2.x, S16_3.x, S16_4.x, S16_5.x, S16_6.x, S16_7.x, S16_8.x,
+         E8_1.x, E8_2.x, E8_3.x, E8_4.x, F4_1.x, F4_2.x, Champion.x, Player, Final)
+
+Final_XXX = TTT %>%
+  slice_max(order_by = Final, by = c(S16_1.x, S16_2.x, S16_3.x, S16_4.x, S16_5.x, S16_6.x, S16_7.x, S16_8.x, E8_1.x, E8_2.x, E8_3.x, E8_4.x, F4_1.x, F4_2.x, Champion.x), with_ties = TRUE)
+
+names(Final_XXX) = c("S16_1", "S16_2", "S16_3", "S16_4", "S16_5", "S16_6", "S16_7", "S16_8",
+                     "E8_1", "E8_2", "E8_3", "E8_4", "F4_1", "F4_2", "Champion",
+                     "Winner", "Final Points")
+
+Final_XXX
+```
+
+```{r}
+Points_S16 = 40
+Points_E8 = 80
+Points_F4 = 160
+Points_Champ = 320
+```
+
+```{r}
+
+```
+
+
+

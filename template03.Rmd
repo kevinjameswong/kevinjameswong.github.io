@@ -1,0 +1,53 @@
+---
+title: "Kevin Wong - Test Page 01"
+output:
+  html_document:
+    toc: no
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+Update_Date = as.Date("03-30-2025", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(gghighlight)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
+<style type="text/css">
+
+.r33m_vid {
+  font-family: Tahoma;
+  color: black;
+}
+
+body, p {
+  font-family: "Times New Roman";
+  font-size: 18px;
+}
+
+</style>
+
+
+<h1>Just Like TT</h1>
+
+<p class="last-updated">
+Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = Update_Date, format = "%d") %>% as.numeric(), ", ", format(x = Update_Date, format = "%Y") %>% as.numeric(), sep = "")`
+</p>
+
+***
+
+
+
+```{r}
+
+```
+

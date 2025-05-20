@@ -11,7 +11,7 @@
 
 
 
-<title>Kevin Wong</title>
+<title>Kevin Wong - rvest Practice</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -547,14 +547,6 @@ $(document).ready(function () {
     <li>
       <a href="excel.html">Excel/VBA Projects (2017)</a>
     </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Archive</a>
-      <ul class="dropdown-menu" role="menu">
-        <li>
-          <a href="colors.html">Colors (2021)</a>
-        </li>
-      </ul>
-    </li>
   </ul>
 </li>
 <li>
@@ -580,64 +572,20 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Kevin Wong</h1>
+<h1 class="title toc-ignore">Kevin Wong - rvest Practice</h1>
 
 </div>
 
 
-<!--
-HTML COMMENTS ARE WITH THE <!-- STUFF
-CSS COMMENTS ARE /* */
+<pre class="r"><code>song = &quot;https://open.spotify.com/track/37ZtpRBkHcaq6hHy0X98zn&quot;
+album = &quot;https://open.spotify.com/album/33jypnU7WULxPaVrjj4RXH&quot;
+artist = &quot;https://open.spotify.com/artist/7n2Ycct7Beij7Dj7meI4X0&quot;
 
-highlight specifies the syntax highlighting style. Supported styles include default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, breezedark, and textmate. Pass null to prevent syntax highlighting.
-
--->
-<!--
-try a:hover 
--->
-<style>
-
-.intro {
-    text-align: right;
-    /* color: #7BAFD4; */
-    color: BEBEBE;
-}
-
-@media only screen and (min-width: 800px) {
-    .br-mobile-break {
-        display: none;
-        }
-}
-          
-</style>
-<center>
-Hello, I am Kevin Wong. Welcome to my website!
-</center>
-<center>
-I graduated from the University of Illinois at Urbana-Champaign (BS in
-Statistics) in May 2019 with a 3.88 GPA.
-</center>
-<p><br></p>
-<center>
-Now I am a Senior Data Analyst for CDW in Chicago, IL.
-</center>
-<hr />
-<h4>
-<center>
-<a class="swag1"><a href="work.html">Work
-Experience</a></a><a class="br-mobile-break-2"> </a>
-<br class="br-mobile-break"><br class="br-mobile-break">
-<!--<a class="swag1">[Awards & Certificates](awards.html)</a><a class="br-mobile-break-2">&emsp;</a>-->
-<!--<br class="br-mobile-break"><br class="br-mobile-break"-->
-<a class="swag1"><a href="data.html">Data Analysis
-Projects</a></a><a class="br-mobile-break-2"> </a>
-<br class="br-mobile-break"><br class="br-mobile-break">
-<a class="swag1"><a
-href="schoolwork.html">Schoolwork</a></a><a class="br-mobile-break-2"> </a>
-<br class="br-mobile-break"><br class="br-mobile-break">
-<a class="swag1"><a href="contact.html">Contact Me!</a></a>
-</center>
-</h4>
+read_html(x = song)</code></pre>
+<pre><code>## {html_document}
+## &lt;html class=&quot;mobile-web-player&quot; lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;
+## [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8 ...
+## [2] &lt;body class=&quot;mobile-web-player&quot;&gt;\n&lt;script id=&quot;config&quot; data-testid=&quot;config ...</code></pre>
 
 <!DOCTYPE html>
 

@@ -1,0 +1,110 @@
+---
+title: "Kevin Wong - Korean"
+output:
+  html_document:
+    toc: no
+---
+
+```{r echo = FALSE, warning = FALSE, message = FALSE}
+library(dplyr)
+library(ggplot2)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(reticulate)
+library(rlang)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
+```{r echo = FALSE}
+korean = read.csv(file = "files/koreanphrases.csv")
+korean$Index = korean %>% nrow() %>% seq.int()
+```
+
+```{r eval = FALSE}
+?observeEvent
+korean %>% filter(English == "Hello")
+?textOutput
+?renderDataTable
+```
+
+
+
+
+```{r}
+korean = read.csv(file = "files/koreanphrases.csv")
+korean$Index = korean %>% nrow() %>% seq.int()
+korean = korean %>%
+  group_by(English, Korean, Romanization) %>%
+  mutate(count = n()) %>%
+  #filter(Romanization == "hwajangsil") %>%
+  mutate(TT = min(Index)) %>% #the min Index per row
+  mutate(Duplicate = ifelse(TT == Index, 0, 1) %>% as.integer()) %>%
+  select(English, Korean, Romanization, Index, Duplicate) %>%
+  filter(Index %in% c(1, 3, 5, 7, 9))
+
+View(korean)
+```
+
+
+```{r}
+korean = read.csv(file = "files/koreanphrases.csv")
+korean$Index = korean %>% nrow() %>% seq.int()
+korean$Easy = ifelse(
+  test = is.na(korean$Easy),
+  yes = 0,
+  no = 1
+)
+korean = korean %>%
+  group_by(English, Korean, Romanization, Easy) %>%
+  mutate(count = n()) %>%
+  #filter(Romanization == "hwajangsil") %>%
+  mutate(TT = min(Index)) %>%
+  mutate(Duplicate = ifelse(TT == Index, 0, 1) %>% as.integer()) %>%
+  select(English, Korean, Romanization, Easy, Index, Duplicate)# %>%
+  #filter(Index %in% c(1, 3, 5, 7, 9))
+
+sample(x = korean %>% filter(Easy == 1) %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1)
+```
+
+
+
+```{r}
+install.packages("learnr")
+library(learnr)
+?textOutput
+?removeUI
+```
+
+```{r}
+?is.null
+```
+
+
+
+
+
+
+
+```{r}
+korean = read.csv(file = "files/koreanphrases.csv")
+korean$Index = korean %>% nrow() %>% seq.int()
+korean = korean %>%
+  group_by(English, Korean, Romanization) %>%
+  mutate(count = n()) %>%
+  #filter(Romanization == "hwajangsil") %>%
+  mutate(TT = min(Index)) %>% #the min Index per row
+  mutate(Duplicate = ifelse(TT == Index, 0, 1) %>% as.integer()) %>%
+  select(English, Korean, Romanization, Index, Duplicate) %>%
+  filter(Index %in% c(1, 3, 5, 7, 9))
+
+
+```
+```{r}
+round
+```
+
+
