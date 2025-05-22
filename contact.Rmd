@@ -39,7 +39,9 @@ Here is my resume! [Resume](files/Resume_Wong_20250101.pdf){target="_blank"}
 `r paste(icon(name = "fab fa-linkedin"), " LinkedIn:", sep = "")` [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"}
 </p>
 
+<!--
 <p class="left">
 `r icon(name = "fab fa-square-github")` GitHub: [www.github.com/kevinjameswong](https://www.github.com/kevinjameswong){target="_blank"}
 </p>
+-->
 
