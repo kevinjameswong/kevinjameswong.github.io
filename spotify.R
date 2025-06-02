@@ -486,7 +486,7 @@ serverx = function(input, output, session) {
       select(ArtistName, Score, Song_Count) %>%
       arrange(desc(Score), desc(Song_Count)) %>%
       kable(format = "html", align = "llrr", col.names = c("Artist Name", "Score", "Song Count")) %>%
-      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped"), wraptable_width = "10pt") %>%
       scroll_box(width = "100%", height = "100%")
   })
   
@@ -498,7 +498,7 @@ serverx = function(input, output, session) {
       ungroup() %>%
       select(SongRanking, Song, ArtistName, SongLengthChar) %>%
       kable(format = "html", align = "lllr", caption = "Top 5 Shortest Songs", col.names = c("Song Ranking", "Song", "Artist Name", "Song Length")) %>%
-      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped"), float = "right", wraptable_width = "10pt") %>%
       scroll_box(width = "100%", height = "100%")
   })
   
