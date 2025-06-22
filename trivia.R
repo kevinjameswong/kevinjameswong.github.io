@@ -346,7 +346,7 @@ serverx = function(input, output, session) {
                 Points_Net_Weighted     = sum(Points_Net_Weighted)
                 ) %>%
       arrange(desc(TotalQuestions), desc(Accuracy %>% decimal()), desc(Points_Scored_Weighted), Category) %>%
-      head(n = 20) %>%
+      head(n = 10) %>%
       ungroup() %>%
       select(Category, TotalQuestions, Correct, Accuracy, Points_Scored_Weighted) %>%
       kable(format = "html", align = "lllll", caption = "Top 10 Most Common Categories", col.names = c("Category", "Total Questions", "Total Correct", "Accuracy", "Points Scored (Total, Weighted)")) %>%
@@ -567,7 +567,7 @@ serverx = function(input, output, session) {
                                                         Accuracy = (Correct / TotalQuestions) %>% percent()) %>%
                                               #AvgPoints = sum(PointsScored) / TotalQuestions) %>%
                                               arrange(desc(TotalQuestions), desc(Correct)) %>%
-                                              head(n = 20) %>%
+                                              head(n = 10) %>%
                                               ungroup() %>% select(Category) %>% unlist() %>% unname())) %>%
     #end of filter
     

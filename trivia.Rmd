@@ -67,7 +67,11 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 
 <p class="left">
-[Trivia Questions](https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ){target="_blank"}
+[Link to Google Sheets - Trivia Questions](https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ){target="_blank"}
+</p>
+
+<p class="left">
+[Link to Shiny App](https://kevinjameswong.shinyapps.io/trivia/){target="_blank"}
 </p>
 
 <div class="shiny-container">

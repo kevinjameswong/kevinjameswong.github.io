@@ -48,6 +48,22 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 
 ```{r}
+ttt = c(1, 0.8, .9)
 
+ttt %>% sort() %>% percent()
+
+percent = function(x, digits = 2, format = "f", ...) {
+  t = formatC(x * 100, format = format, digits = digits, ...) %>% paste("%", sep = "")
+  return(t)
+}
+
+?sub()
+
+decimal = function(x) {
+  t = sub(x = x, pattern = "%", replacement = "") %>% as.numeric() / 100
+  return(t)
+}
+
+ttt %>% percent() %>% decimal()
 ```
 

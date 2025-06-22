@@ -93,6 +93,9 @@ spotify$Seconds = spotify$TotalSeconds %>% ceiling() %>% "%%"(60)
 I have been collecting my Spotify Wrapped data since `r min(spotify$Year)`. I have `r length(table(spotify$Year))` years worth of data, from `r min(spotify$Year)` - `r max(spotify$Year)`.
 </p>
 
+<p class="left">
+[Link to Shiny App](https://kevinjameswong.shinyapps.io/spotify/){target="_blank"}
+</p>
 
 <div class="shiny-container">
 <iframe src="https://kevinjameswong.shinyapps.io/spotify/">
