@@ -14,7 +14,7 @@ library(tidyverse)
 
 gs4_deauth()
 trivia = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ", sheet = "Trivia Questions with Answers") %>%
-  filter(is.na(Date) == FALSE, is.na(Category) == FALSE, is.na(`Correct?`) == FALSE) %>%
+  filter(is.na(Date) == FALSE, is.na(Category) == FALSE, is.na(TeamAnswerCorrect) == FALSE) %>%
   mutate(
     Date = Date %>% as.Date(),
     `Question Number` = `Question Number` %>% as.character() %>% as.factor(),
@@ -47,35 +47,34 @@ trivia = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jH
     
     Points_Wagered_Original = `Points Wagered`,
     Points_Scored_Original = case_when(
-      `Correct?` == 1  ~ Points_Wagered_Original,
+      TeamAnswerCorrect == 1  ~ Points_Wagered_Original,
       .default = 0
     ),
     Points_Wasted_Original = case_when(
-      `Correct?` == 0 ~ Points_Wagered_Original,
+      TeamAnswerCorrect == 0 ~ Points_Wagered_Original,
       .default = 0
     ),
     Points_Net_Original = case_when(
-      `Correct?` == 1 ~ Points_Wagered_Original,
+      TeamAnswerCorrect == 1 ~ Points_Wagered_Original,
       .default = - Points_Wagered_Original
     ),
     
     Points_Wagered_Weighted = case_when(
-      #`Trivia Half` == "First Half" ~ Points_Wagered_Original,
       `Trivia Half` == "Second Half" & Points_Wagered_Original == "2" ~ 1,
       `Trivia Half` == "Second Half" & Points_Wagered_Original == "4" ~ 3,
       `Trivia Half` == "Second Half" & Points_Wagered_Original == "6" ~ 5,
       .default = Points_Wagered_Original
     ),
     Points_Scored_Weighted = case_when(
-      `Correct?` == 1  ~ Points_Wagered_Weighted,
+      TeamAnswerCorrect == 1  ~ Points_Wagered_Weighted,
       .default = 0
     ),
     Points_Wasted_Weighted = case_when(
-      `Correct?` == 0 ~ Points_Wagered_Weighted,
+      TeamAnswerCorrect == 0 ~ Points_Wagered_Weighted,
       .default = 0
     ),
     Points_Net_Weighted = case_when(
-      `Correct?` == 1 ~ Points_Wagered_Weighted,
+      TeamAnswerCorrect == 1 ~ Points_Wagered_Weighted,
       .default = - Points_Wagered_Weighted
     ),
 
@@ -105,7 +104,7 @@ trivia = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jH
       
     ) %>%
     arrange(Index) %>%
-    select(Index, Date, `Question Number`, Round, `Question within Round`, `Trivia Half`, Category, Question, `Correct Answer`, `Submitted Answer`, `Correct?`, Points_Wagered_Original, Points_Scored_Original, Points_Wasted_Original, Points_Net_Original, Points_Wagered_Weighted, Points_Scored_Weighted, Points_Wasted_Weighted, Points_Net_Weighted, `Question Type`, Freebie, Notes, `Top 5 Finish`, Category_Level02, Category_Level03)
+    select(Index, Date, `Question Number`, Round, `Question within Round`, `Trivia Half`, Category, Question, `Correct Answer`, `Submitted Answer`, TeamAnswerCorrect, Points_Wagered_Original, Points_Scored_Original, Points_Wasted_Original, Points_Net_Original, Points_Wagered_Weighted, Points_Scored_Weighted, Points_Wasted_Weighted, Points_Net_Weighted, `Question Type`, Freebie, Notes, `Top 5 Finish`, Category_Level02, Category_Level03)
     
 
 percent = function(x, digits = 2, format = "f", ...) {
@@ -334,7 +333,7 @@ serverx = function(input, output, session) {
       filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
       group_by(Category) %>%
       summarize(TotalQuestions = n(),
-                Correct = sum(`Correct?`),
+                Correct = sum(TeamAnswerCorrect),
                 Accuracy = (Correct / TotalQuestions) %>% percent(),
                 Points_Wagered_Original = sum(Points_Wagered_Original),
                 Points_Scored_Original  = sum(Points_Scored_Original),
@@ -359,7 +358,7 @@ serverx = function(input, output, session) {
       filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
       group_by(Category) %>%
       summarize(TotalQuestions = n(),
-                Correct = sum(`Correct?`),
+                Correct = sum(TeamAnswerCorrect),
                 Accuracy = (Correct / TotalQuestions) %>% percent(),
                 Points_Wagered_Original = sum(Points_Wagered_Original),
                 Points_Scored_Original  = sum(Points_Scored_Original),
@@ -385,7 +384,7 @@ serverx = function(input, output, session) {
       filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
       group_by(Category) %>%
       summarize(TotalQuestions = n(),
-                Correct = sum(`Correct?`),
+                Correct = sum(TeamAnswerCorrect),
                 Accuracy = (Correct / TotalQuestions) %>% percent(),
                 Points_Wagered_Original = sum(Points_Wagered_Original),
                 Points_Scored_Original  = sum(Points_Scored_Original),
@@ -411,7 +410,7 @@ serverx = function(input, output, session) {
       filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
       group_by(Category) %>%
       summarize(TotalQuestions = n(),
-                Correct = sum(`Correct?`),
+                Correct = sum(TeamAnswerCorrect),
                 Accuracy = (Correct / TotalQuestions) %>% percent(),
                 Points_Wagered_Original = sum(Points_Wagered_Original),
                 Points_Scored_Original  = sum(Points_Scored_Original),
@@ -442,7 +441,7 @@ serverx = function(input, output, session) {
       #filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
       group_by(Round) %>%
       summarize(TotalQuestions = n(),
-                Correct = sum(`Correct?`),
+                Correct = sum(TeamAnswerCorrect),
                 Accuracy = (Correct / TotalQuestions) %>% percent(),
                 Points_Wagered_Original = sum(Points_Wagered_Original),
                 Points_Scored_Original  = sum(Points_Scored_Original),
@@ -468,7 +467,7 @@ serverx = function(input, output, session) {
       #filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
       group_by(`Trivia Half`) %>%
       summarize(TotalQuestions = n(),
-                Correct = sum(`Correct?`),
+                Correct = sum(TeamAnswerCorrect),
                 Accuracy = (Correct / TotalQuestions) %>% percent(),
                 Points_Wagered_Original = sum(Points_Wagered_Original),
                 Points_Scored_Original  = sum(Points_Scored_Original),
@@ -563,7 +562,7 @@ serverx = function(input, output, session) {
                                               filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
                                               group_by(Category) %>%
                                               summarize(TotalQuestions = n(),
-                                                        Correct = sum(`Correct?`),
+                                                        Correct = sum(TeamAnswerCorrect),
                                                         Accuracy = (Correct / TotalQuestions) %>% percent()) %>%
                                               #AvgPoints = sum(PointsScored) / TotalQuestions) %>%
                                               arrange(desc(TotalQuestions), desc(Correct)) %>%
@@ -573,7 +572,7 @@ serverx = function(input, output, session) {
     
       mutate(
         Incorrect_x = case_when(
-          `Correct?` == 1 ~ "Correct",
+          TeamAnswerCorrect == 1 ~ "Correct",
           .default = "Incorrect"
         )) %>%
       filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
@@ -629,7 +628,7 @@ serverx = function(input, output, session) {
              filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE) %>%
              group_by(Date) %>%
              summarize(TotalQuestions = n(),
-                       Correct = sum(`Correct?`),
+                       Correct = sum(TeamAnswerCorrect),
                        Points_Wagered_Original = sum(Points_Wagered_Original),
                        Points_Scored_Original  = sum(Points_Scored_Original),
                        Points_Wasted_Original  = sum(Points_Wasted_Original),

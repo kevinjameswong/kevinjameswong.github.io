@@ -39,6 +39,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 <hr />
 
+Thank you to [Team Color Codes](https://teamcolorcodes.com/) for tracking this data.
 
 [Google Sheets Dataset](https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU){target="_blank"}
 
