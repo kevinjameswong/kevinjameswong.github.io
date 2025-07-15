@@ -37,7 +37,7 @@ try a:hover
 
 <br>
 
-<center>Now I am a Senior Data Analyst for CDW in Chicago, IL.</center>
+<center>Now I am a Senior Data Management Analyst for CNA Insurance in Chicago, IL.</center>
 
 <hr />
 
