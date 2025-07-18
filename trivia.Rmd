@@ -329,6 +329,9 @@ kable(Table_Test_Sample, format = "html", align = "lllllllll") %>%
 ```{r echo = FALSE, eval = FALSE, message = FALSE, warning = FALSE}
 rfImp = varImp(rf_fit, scale = FALSE)
 rfImp
+
+
+Also make something that has accuracy of model across time
 ```
 
 
