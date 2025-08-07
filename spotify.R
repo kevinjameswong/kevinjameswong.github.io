@@ -14,6 +14,7 @@ library(tidyverse)
 
 gs4_deauth()
 spotify = read_sheet(ss = "https://docs.google.com/spreadsheets/d/183Zf6fyC4CtSpcp3HdBRfhwbF04Ez1sKJgDSDHg0R8k", sheet = "Spotify Wrapped") %>%
+  filter(`Data Version` == "C") %>%
   mutate(
     Song = Song %>% as.character(),
     Album = Album %>% as.character()

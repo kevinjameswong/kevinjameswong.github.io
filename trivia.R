@@ -14,7 +14,7 @@ library(tidyverse)
 
 gs4_deauth()
 trivia = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ", sheet = "Trivia Questions with Answers") %>%
-  filter(is.na(Date) == FALSE, is.na(Category) == FALSE, is.na(TeamAnswerCorrect) == FALSE, IncludeInLoad == 1) %>%
+  filter(`Data Version` == "C", is.na(Date) == FALSE, is.na(Category) == FALSE, is.na(TeamAnswerCorrect) == FALSE) %>%
   mutate(
     Date = Date %>% as.Date(),
     `Question Number` = `Question Number` %>% as.character() %>% as.factor(),

@@ -48,7 +48,7 @@ gs4_deauth()
 
 colors_import = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU", sheet = "All Teams") %>%
   arrange(Index) %>%
-  filter(is.na(`Full Name`) == FALSE) %>%
+  filter(`Data Version` == "C", is.na(`Full Name`) == FALSE) %>%
   select(Index, `Full Name`, `Color Name 1`, `Hex 1`, `R 1`, `G 1`, `B 1`, `Color Name 2`, `Hex 2`, `R 2`, `G 2`, `B 2`, `Color Name 3`, `Hex 3`, `R 3`, `G 3`, `B 3`, `Color Name 4`, `Hex 4`, `R 4`, `G 4`, `B 4`, `Color Name 5`, `Hex 5`, `R 5`, `G 5`, `B 5`, `Color Name 6`, `Hex 6`, `R 6`, `G 6`, `B 6`, `Color Name 7`, `Hex 7`, `R 7`, `G 7`, `B 7`, `Color Name 8`, `Hex 8`, `R 8`, `G 8`, `B 8`, League, Conference, Division, Location, Nickname, City, State, `College/Pros`, `School Name`, `Old Conference`) %>%
   group_by(Index) %>%
   mutate(Index = as.integer(Index),

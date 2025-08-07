@@ -52,10 +52,11 @@ Start_Date = as.Date("01-28-2018", format = "%m-%d-%Y")
 #Update_Date = as.Date("01-01-2020", format = "%m-%d-%Y")
 #read_data = read.csv(file = "files/running_data.csv", skip = 1)
 gs4_deauth()
-read_data = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1wvK-4NnWce35ZrcRxRL9dBH3FKsDEWJaf2hnQKGvT3M", sheet = "Running", skip = 1)
+read_data = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1wvK-4NnWce35ZrcRxRL9dBH3FKsDEWJaf2hnQKGvT3M", sheet = "Running", skip = 1) %>%
+  filter(`Data Version` == "C")
 #read_data
 
-names(read_data) = c("Location", "Day", "Month", "Day.1", "Date", "Run.Calories", "Run.Distance", "Run.Average.Pace", "Run.Average.Kevin", "Run.MPH.Kevin", "Run.Minutes", "Run.Seconds", "Walk.Calories", "Walk.Distance", "Walk.Average.Pace", "Walk.Average.Kevin", "Walk.MPH.Kevin", "Walk.Minutes", "Walk.Seconds", "Calories", "Distance", "Minutes", "Seconds", "Time", "Kevin.Intensity.Meter", "Town", "Season", "TT", "Start.Time")
+names(read_data) = c("Location", "Day", "Month", "Day.1", "Date", "Run.Calories", "Run.Distance", "Run.Average.Pace", "Run.Average.Kevin", "Run.MPH.Kevin", "Run.Minutes", "Run.Seconds", "Walk.Calories", "Walk.Distance", "Walk.Average.Pace", "Walk.Average.Kevin", "Walk.MPH.Kevin", "Walk.Minutes", "Walk.Seconds", "Calories", "Distance", "Minutes", "Seconds", "Time", "Kevin.Intensity.Meter", "Town", "Season", "TT", "Start.Time", "Data.Version")
 ```
 
 ```{r echo = FALSE}
@@ -239,7 +240,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 ***
 
-I enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r Update_Date - Start_Date - 1` days, I have jogged `r sum(running$RunDistance)` miles across `r sum(running$RunDistance > 0)` different runs.
+I enjoy running in my freetime! I have been tracking my jogging stats since January 31, 2018. Over the past `r Update_Date - Start_Date - 1` days, I have jogged `r sum(running$RunDistance) %>% format(nsmall = 2, big.mark = ",")` miles across `r sum(running$RunDistance > 0)` different runs.
 
 ```{r out.width = "200px", fig.align = "center", echo = FALSE}
 include_graphics("images/halfhd.jpg")
