@@ -1,3 +1,37 @@
+---
+title: "Kevin Wong - Commit Instructions"
+---
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = as.Date("01-01-2026", format = "%m-%d-%Y")
+#Update_Date
+
+library(dplyr)
+library(gghighlight)
+library(ggplot2)
+library(googlesheets4)
+library(kableExtra)
+library(knitr)
+library(lubridate)
+library(rlang)
+library(scales)
+library(shiny)
+library(shinydashboard)
+library(stringr)
+library(tidyverse)
+```
+
+<style>
+.left {
+  text-align: left;
+}
+</style>
+
+
+
+
+
+
 go to github. settings --> developer settings (bottom) --> personalied access tokens --> classic.
 
 
