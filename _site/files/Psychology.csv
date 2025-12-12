@@ -1,0 +1,530 @@
+Kevin,Page,Word,Definition
+1,1,Psychology,The study of human behavior
+2,1,Structuralism,Psychology is to analyze consciousness into basic elements
+3,1,Introspection,Self-observation of one's own conscious experience
+4,1,Functionalism,"Psychology is to investigate functions or purpose of consciousness, not its structures"
+5,1,Natural Selection,Heritable characteristics are more likely to be passed on
+6,1,Behaviorism,"Psychology can only be discovered by examining behaviors, not mental states"
+7,1,Behavior,The way an organism reacts to activity
+8,1,Stimulus,Any detectable input from the environment
+9,1,Unconscious,"No thoughts, memories, or desires but still influence behavior"
+10,1,Psychoanalytic Theory,"Attempts to explain personality, motivation, and mental disorders by focusing on unconscious determinants of behavior"
+11,1,Humanism,"Theoretical orientation that emphasizes the unique qualities of humans, especially their freedom and their potential for personal growths"
+12,1,Applied Psychology,"The branch of psychology concerned with everyday, practical problems"
+13,1,Clinical Psychology,The branch of psychology concerned with the diagnosis and treatment of psychological problems and disorders
+14,1,Cognition,The mental processes involved in acquiring knowledge
+15,1,Ethnocentrism,The tendency to view one's own group as superior to others and as the standard for judging the worth of foreign ways
+16,1,Evolutionary Psychology,Examines behavioral processes in terms of their adaptive value for members of a species over the course of many generations
+17,1,Psychiatry,A branch of medicine concerned with diagnosis and treatment of psychological problems and disorders
+18,1,Empiricism,The premise that knowledge should be acquired through observation
+19,1,Theory,A system of interrelated ideas used to explain a set of observations
+20,1,Culture,"The widely shared customs, beliefs, values, norms, institutions and other products of a community that are transmitted socially across generations"
+21,2,Hypothesis,A tentative statement about relationship of two or more variables
+22,2,Variable,"Any measurable conditions, events, characteristics or behaviors that are controlled or observed in a study"
+23,2,Theory,A system of interrelated ideas used to explain a set of observations
+24,2,Operational Definition,Describes the actions or operations that will be used to measure or control a variable
+25,2,Participants (Subjects),The persons or animals whose behavior is systematically observed in a study
+26,2,Data Collection Techniques,Procedures for making empirical observations and measurements
+27,2,Journal,"A periodical that publishes technical and scholarly material, usually in a narrowly defined area of inquiry"
+28,2,Experiment,A research method in which the investigator manipulates a variable under carefully controlled conditions and observes whether any changes occur in a second variable as a result
+29,2,Independent Variable,A condition or event that an experimenter variables in order to see its impact on another variable
+30,2,Dependent Variable,The variable that is thought to be affected by manipulation of the independent variable
+31,2,Experimental Group,Consists of the subjects who receive some special treatment in regard to the independent variable
+32,2,Control Group,Consists of similar subjects who do NOT receive the special treatment given to the experimental group
+33,2,Extraneous Variables,Any other variables other than the independent variable that seem likely to influence the dependent variable in a specific study
+34,2,Confounding of Variables,Occurs when two variables are linked together in a way that make it difficult to sort out their special effects
+35,2,Random Assignment,Occurs when all subjects have an equal chance of being assigned to any group or condition in the study
+36,2,Naturalistic Observation,A researcher engages in careful observation of behavior without intervening directly with the subjects
+37,2,Case Study,An in-depth investigation of an individual subject
+38,3,Survey,Researchers use questionnaires or interviews to gather information about specific aspects of participants' behavior
+39,3,Statistics,"The use of mathematics to organize, summarize, and interpret numerical data"
+40,3,Descriptive Statistics,Used to organize and summarize data
+41,3,Median,The score that falls exactly in the center of a distribution of scores
+42,3,Mean,The arithmetic average of the scores in a distribution
+43,3,Mode,The most frequent score in a distribution
+44,3,Neurons,"The individual cells in the nervous system that receive, integrate, and transmit information"
+45,3,Soma,The cell body that contains the cell nucleus and much of the chemical machinery common to most cells
+46,3,Dendrites,The parts of a neuron that are specialized to receive information
+47,3,Axon,A long thin fiber that transmits signals away from the soma to other neurons or to muscles or glands
+48,3,Myelin Sheath,Insulating material derived from glial cells that encases some axons
+49,3,Terminal Buttons,Small knobs that secrete chemicals called neurotransmitters
+50,3,Synapse,A junction where information is transmitted from one neuron to another
+51,3,Resting Potential,"A neuron in its stable, negative charge when the cell is inactive (-70mV)"
+52,3,Action Potential,A very brief shift in a neuron's electrical charge that travel along an axon
+53,3,Absolute Refractory Period,The minimum length of time after an action potential during which another action potential cannot begin
+54,3,Synaptic Cleft,A microscopic gap between the terminal button of one neuron and the cell membrane of another neuron
+55,3,Neurotransmitters,Chemicals that transmit information from one neuron to another
+56,3,Postsynaptic Potential (PSP),A voltage change at the receptor site on a postsynaptic cell membrane
+57,3,Excitatory PSP,A positive voltage shift that increases the likelihood that the postsynaptic neuron will fire action potentials
+58,3,Inhibitory PSP,A negative voltage shift that decreases the likelihood that the postsynaptic neuron will fire action potentials
+59,3,Reuptake,A process in which neurotransmitters are sponged up from the synaptic cleft by the presynaptic membrane
+60,4,Agonist,A chemical that mimics the action of a transmitter
+61,4,Antagonist,A chemical that opposes the action of a neurotransmitter
+62,4,Endorphins,Internally produced chemicals that resemble opiates in structures and effects
+63,4,Peripheral Nervous System,Made up of all those nerves that lie outside the brain and spinal cord
+64,4,Nervers,Bundles of neuron fibers (axons) that are routed together in the peripheral nervous system
+65,4,Somatic Nervous System,Made of nerves that connect to voluntary skeletal muscles and to sensory receptors
+66,4,Afferent Nerve Fibers,Axons that carry information inward to the central nervous system from the periphery of the body
+67,4,Efferent Nerve Fibers,Axons that carry information outward from the central nervous system to the periphery of the body
+68,4,Autonomic Nervous System (ANS),"Made up of nerves that connect to the heart, blood vessels, smooth muscles, and glands"
+69,4,Sympathetic Division,The branch of the autonomic nervous system that mobilizes the body's resources for emergencies
+70,4,Parasympathetic Division,The branch of the autonomic nervous system that generally conserves bodily resources
+71,4,Central Nervous System (CNS),Consists of the brain and the spinal cord
+72,4,Cerebrospinal Fluid (CSF),Nourishes the brain and provides a protective cushion for it
+73,4,Electroencephalograph (EEG),A device that monitors the electrical activity of the brain over time by means of recording electrodes attached to surface of scalp
+74,4,Lesioning,Destroying a piece of the brain
+75,4,Electrical Stimulation of the Brain (ESB),"Sending a weak electric current into a brain structure to stimulate, or activate, it"
+76,4,Hindbrain,The cerebellum and two structures found in the lower part of the brainstem: the medulla and the pons
+77,4,Midbrain,The segment of the brainstem that lies between the hindbrain and the forebrain
+78,5,Forebrain,"The largest and most complex region of the brain, encompassing a variety of structures, including the thalamus, hypothalamus, limbic system, and cerebrum"
+79,5,Thalamus,A structure in the forebrain through which all sensory information (except smell) must pass to get to the cerebral cortex
+80,5,Hypothalamus,A structure found near the base of the forebrain that is involved in the regulation of basic biological needs
+81,5,Limbic system,A loosely connected network of structures located roughly along the border between the cerebral cortex and deeper subcortical areas
+82,5,Cerebral cortex,The convoluted outer layer of the cerebrum
+83,5,Cerebral hemispheres,The right and left halves of the cerebrum
+84,5,Corpus callosum,The structure that connects the cerebral hemispheres
+85,5,Split-Brain Surgery,The bundle of fibers that connects the cerebral hemispheres (the corpus callosum) is cut to reduce the severity of epileptic seizures
+86,5,Perceptual asymmetries,Left-Right imbalances between the cerebral hemispheres in the speed of visual or auditory processing
+87,5,Endocrine System,Consists of glands that secrete chemicals into the bloodstream that help control bodily functions
+88,5,Behavioral System,An interdisciplinary field that studies the influence of genetic factors on behavioral traits
+89,5,Zygote,A single cell formed by the union of a sperm and an egg
+90,5,Genes,DNA segments that serve as a key functional units in hereditary transmission
+91,5,Homozygous Condition,The two genes in a specific pair are the same
+92,5,Heterozygous Condition,The two genes in a specific pair are different
+93,5,Dominant Gene,One that is expressed when paired genes are different
+94,5,Recessive Gene,One that is masked when paired genes are different
+95,5,Genotype,A person's genetic makeup
+96,5,Phenotype,The ways in which a person's genotype is manifested in observable characteristics
+97,5,Polygenic Traits,Characteristics that are influenced by more than one pair of genes
+98,5,Family Studies,Researchers assess hereditary influence by examining blood relatives to see how much they resemble one another on a specific trait
+99,5,Twin Studies,Researchers assess hereditary influence by comparing the resemblance of identical twins and fraternal twins with respect to a trait
+100,6,Identical (Monozygotic) Twins,Emerge from one enzyme that splits for unknown reasons
+101,6,Fraternal (Dizygotic) Twins,"Results when two eggs are fertilized simultaneously by different sperm cells, forming two separate zygotes"
+102,6,Adoption Studies,Assess hereditary influence by examining the resemblance between adopted children and both their biological and their adoptive parents
+103,6,Genetic Mapping,The process of determining the location and chemical sequence of specific genes on specific chromosomes
+104,6,Fitness,The reproductive success (number of descendants) of an individual organism relative to the average reproductive success in the population
+105,6,Natural Selection,"Heritable characteristics that provide a survival or reproductive advantage are more likely that alternative characteristics to be passed on to subsequent generations and thus come to be ""selected"" over time"
+106,6,Mutation,"Spontaneous, heritable change in a piece of DNA that occurs in an individual organism"
+107,6,Adaptation,Inherited characteristic that increased in a population (through natural selection) because it helped solve a problem of survival or reproduction during the time it emerged
+108,6,Inclusive Fitness,The sum of an individual's own reproductive success plus the effects the organism has on the reproductive success of related others
+109,6,Parental Investment,"What each sex has to invest - in terms of time, energy, survival risk, and forgone opportunities - to produce and nurture offspring"
+110,6,Polygyny,"Mating system in which each male seeks to mate with multiple females, whereas each female mates with only one male"
+111,6,Polyandry,"Mating system in which each female seeks to mate with multiple males, whereas each male mates with only one female"
+112,6,Monogamy,"Mating system in which one male and one female mate exclusively or almost exclusively, with each other"
+113,6,Learning,A relatively durable change in behavior or knowledge that is due to experience
+114,6,Phobias,Irrational fears of specific objects or situations
+115,6,Classical (Pavlovian) Conditioning,A type of learning in which a stimulus acquires the capacity to evoke a response that was originally evoked by another stimulus
+116,7,Elicited,Drawn forth
+117,7,Unconditioned Stimulus (UCS),A stimulus that evokes an unconditioned response without previous conditioning
+118,7,Unconditioned Response (UCR),An unlearned reaction to an unconditioned stimulus that occurs without previous conditioning
+119,7,Conditioned Stimulus (CS),"A previous neutral stimulus that has, through conditioning, acquired the capacity to evoke a conditioned response"
+120,7,Conditioned Response (CR),A learned reaction to a conditioned stimulus that occurs because of previous conditioning
+121,7,Trial,"In classical conditioning, any presentation of a stimulus or part of stimulus"
+122,7,Acquisition,The initial stage of learning something
+123,7,Extinction,The gradual weakening and disappearance of a conditioned response tendency
+124,7,Spontaneous recovery,The reappearance of an extinguished response after a period of nonexposure to the conditioned stimulus
+125,7,Stimulus Generalization,Occurs when an organism that has learned a response to a specific stimulus response responds in the same way to new stimuli that are similar to the original stimulus
+126,7,Stimulus Discrimination,Occurs when an organism that has learned a response to a specific stimulus does NOT respond in the same way to new stimuli that are similar to the original stimulus
+127,7,Higher Order Conditioning,A conditioned stimulus functions as if it were an unconditioned stimulus
+128,7,Operant Conditioning,A form of learning in which responses come to be controlled by the consequences
+129,7,Law of Effect,"If a response in the presence of a stimulus leads to satisfying effects, the association between the similus and the response is strengthened"
+130,7,Reinforcement,An event following a response increases an organism's tendency to make that response
+131,7,Operant Chamber (Skinner Box),A small enclosure in which an animal can make a specific response that is recorded while the consequences of the response are systematically controlled
+132,7,Emit,Send forth (responses)
+133,7,Reinforcement Contingencies,The circumstances of rules that determine whether responses lead to the presentation of reinforces
+134,7,Cumulative Reorder,Creates a graphic record of responding and reinforcement in a Skinner box as a function of time
+135,8,Shaping,Consists of the reinforcements of closer and closer approximations of a desired response
+136,8,Resistance to Extinction,Occurs when an organism continues to make a response after delivery of the reinforcer has been terminated
+137,8,Discriminative Stimulus,Cues that influence operant behavior by indicating the probably consequences (reinforcement or nonreinforcement) of a response
+138,8,Primary Reinforcers,Events that are inherently reinforcing because they satisfy biological needs
+139,8,Secondary (Conditioned) Reinforcers,Events that acquire reinforcing qualities by being associated with primary functions
+140,8,Schedule of Reinforcements,Determines which occurences of a specific response result in the presentation of a reinforcer
+141,8,Continuous Reinforcements,Occurs when every instance of a designated response is reinforced
+142,8,Intermittent (Partial) Reinforcements,Occurs when a designated response is reinforced only some of the time
+143,8,Fixed Ratio Schedule,Reinforcer is given after a fixed number of nonreinformed responses
+144,8,Variable Ratio Schedule,Reinforcer is given after a variable number of nonreinformed responses
+145,8,Fixed Interval Schedule,Reinforcer is given for the first response after a fixed time interval has elapsed
+146,8,Variable Interval Schedule,Reinforcer is given for the first response after a variable time interval has elapsed
+147,8,Concurrent Schedule of Reinforcement,"Which consists of two or more reinforcement schedules that operate simultaneously and independently, each for a different response"
+148,8,Matching Law,"States that under concurrent schedules of reinforcement, organisms' relative rate of responding to each alternative tends to match each alternative's relative rate of reinforcement"
+149,8,Optimal Foraging Theory,"The food-seeking behaviors of many animals maximize the nutrition gained in relation to the energy expended to locate, secure, and consume various foods"
+150,8,Positive Reinforcement,A response is strengthened because it is followed by the presentation of a rewarding stimulus
+151,8,Negative Reinforcement,A response is strengthened because it is followed by the removal of an aversive (unpleasant) stimulus
+152,9,Escape Learning,An organism acquires a response that decreases or ends some aversive stimulation
+153,9,Avoidance Learning,An organism acquires a response that prevents some aversive stimulation from occurring
+154,9,Punishment,Occurs when an event following a response weakens the tendency to make the response
+155,9,Instinctive Drift,Occurs when an animal's innate response tendencies interfere with conditioning processes
+156,9,Preparedness,A species-specific predisposition to be conditioned in certain ways and not others
+157,9,Observational Learning,Occurs when an organism's responding is influenced by the observation of others who are called models
+158,9,Encoding,Involves forming a memory code
+159,9,Storage,Involves maintaining encoded information in memory over time
+160,9,Retrieval,Involves recovering information from memory stores
+161,9,Attention,Involves focusing awareness on a narrowed range of stimuli or events
+162,9,Levels of Processing Theory,Deeper levels of processing result in longest-lasting memory codes
+163,9,Elaboration,Linking a stimulus to other information at the time of encoding
+164,9,Dual-Coding Theory,"Memory is enhanced by forming semantic and visual codes, since either can lead to recall"
+165,9,Self-Referent Encoding,Deciding how or whether information is personally relevant
+166,9,Sensory Memory,"Preserves information in its original sensory form for a brief time, usually only a fraction of a second"
+167,9,Short-Term Memory (STM),Limited capacity store that can maintain unrehearsed information for up to about 20 seconds
+168,9,Rehearsal,The process of repetitively verbalizing or thinking about information
+169,9,Chunk,Group of familiar stimuli stored as a single unit (STM)
+170,9,Long-Term Memory (LTM),An unlimited capacity store that can hold information over lengthy periods of time
+171,9,Flashbulb Memories,Unusually vivid and detailed recollections of momentous events
+172,9,Clustering,The tendency to remember similar or related items in group (LTM)
+173,9,Conceptual Hierarchy,Multilevel classification systems based on common priorities among items
+174,9,Schema,Organized cluster of knowledge about a particular object or event abstracted from previous experience with the object or event
+175,10,Semantic Network,"Consists of nodes presenting concepts, joined together by pathways that link related concepts"
+176,10,Connectionist-Parallel Distributed Processing (PDP) Models,Cognitive processes depend on patterns of activation in highly interconnected computational networks that resemble neutral networks
+177,10,Tip of the Tongue Phenomenon,"The temporary inability to remember something you know, accompanied by feeling that it's just out of reach"
+178,10,Source Monitoring,The process of making attributions about the origins of memories
+179,10,Source Monitoring Error,Memory derived from one source is misattributed to another source
+180,10,Reality Monitoring,Process of deciding whether memories are based on external sources (one's perceptions of actual events) or internal sources (one's thoughts and imaginations)
+181,10,Forgetting Curve,Graphs retention and forgetting over time
+182,10,Retention,The proportion of material retained (remembered)
+183,10,Recall,Measure of retention requires subjects to reproduce information on their own without any cues
+184,10,Recognition,Measure of retention requires subjects to select previously learned information from an array of options
+185,10,Relearning,Measure of retention requires subjects to memorize information a second time to determine how much time or how many practical trials are saved by having learned it before
+186,10,Decay Theory,Proposes that forgetting occurs because memory traces fade with time
+187,10,Interference Theory,People forget information because of competition from other material
+188,10,Retroactive Interference,New information impairs the retention of previously learned information
+189,10,Proactive Interference,Previously learned information interferes with the retention of new information
+190,10,Encoding Specialty Principle,Value of retrieval cue depends on how well it corresponds to the memory code
+191,10,Transfer Appropriate Processing,The initial processing of information is similar to the type of processing required by the subsequent measure of retention
+192,10,Progression,Keeping distressing thoughts and feelings buried in the unconscious
+193,10,Long Term Potentiation (LTP),Long-lasting increase in neural excitability at synapses along a specific neural pathway
+194,10,Retrograde Amnesia,Loss of memories for events that occured prior to onset of amnesia
+195,10,Anterograde Amnesia,Loss of memories for events that occured after the onset of amnesia
+196,11,Consolidation,Hypothetical process involving the gradual conversion of information into durable memory codes stored in long-term memory
+197,11,Implicit Memory,Apparent when retention is exhibited on a task that does not require intentional remembering
+198,11,Explicit Memory,Involves intentional recollection of previous experiences
+199,11,Declarative Memory System,Handles factual information
+200,11,Nondeclarative or Procedural Memory System,"Houses memory for actions, skills, operations, and conditioned responses"
+201,11,Episodic Memory System,"Made up of chronological, or temporary dated, recollection of personal experiences"
+202,11,Semantic Memory System,Contains general knowledge that is not tied to the time when the information was learned
+203,11,Prospective Memory,Involves remembering to perform actions in the future
+204,11,Retrospective Memory,Involves remembering events from the past or previously learned information
+205,11,Psychological Test,Standardized measure of a sample of a person's behavior
+206,11,Intelligence Test,Measure general mental ability
+207,11,Aptitude Test,Access specific types of mental abilities
+208,11,Achievement Test,"Gauge a person's mastery and knowledge of various subjects (reading, English, history, etc.)"
+209,11,Personality Test,"Measure various aspects of personality, including motives, interests, values, and attitudes"
+210,11,Standardization,Refers to the uniform procedures used in the administration and scoring of a test
+211,11,Test Norms,Provide information about where a score on a psychological test ranks in relation to other scores on that test
+212,11,Percentile Score,Indicates the percentage of people who score at or below the score one has obtained
+213,11,Reliability,Measurement of consistency of a test (or of other kinds of measurement techniques)
+214,11,Validity,The ability of a test to measure what it was designed to measure
+215,11,Content Validity,The degree to which the content of a test is representative of the domain it's supposed to cover
+216,11,Criterion-Related Validity,Estimated by correlating subjects' scores on a test with their scores on an independent criterion (another measure) of the trait accessed by the test
+217,11,Correlation Coefficient,Numerical Index of the degree of a relationship between two variables
+218,12,Construct Validity,Extent to which there's evidence that a test measures a particular hypothetical construct
+219,12,Mental Age,Mental ability typical of a child of that chronological (actual) age
+220,12,Intelligence Quotient (IQ),"Child's mental age divided by chronological age, multiplied by 100"
+221,12,Normal Distribution,"Symmetric, bell-shaped curve that represents the pattern in which many characteristics are dispersed in the population"
+222,12,Deviation IQ Scores,"Locate subjects precisely within the normal distribution, using the standard deviation as the unit of measurement"
+223,12,Mental Retardation,"Subaverage general mental ability accompanied by deficiencies in adaptive skills, originating before age 18"
+224,12,Heritability Ratio,Estimate of the proportion of trait variability in a population that is determined by variations in genetic inheritance
+225,12,Reaction Range,Generally determined limits on IQ and other traits
+226,12,Factor Analysis,Correlations among many variables are analyzed to identify closely related clusters of variables
+227,12,Fluid Intelligence,"Reasoning ability, memory capacity, and speed of information processing"
+228,12,Crystallized Intelligence,Ability to apply acquired knowledge and skills in problem solving
+229,12,Emotional Intelligence,"Ability to perceive and express emotion, assimilate emotion in thought, understand and reason with emotion, and regulate emotion"
+230,12,Personality,An individual's unique constellation of consistent behavioral traits
+231,12,Personality Trait,Durable disposition to behave in a particular way in a variety of situations
+232,12,Factor Analysis,Correlations among many variables are analyzed to identify closely related clusters of variables
+233,12,Psychodynamic Theories,"All the diverse theories descended from the work of Sigmund Freud, which focus on unconscious mental forces"
+234,12,Id,"Primitive, instinctive component of personality that operates according to the pleasure principle"
+235,12,Pleasure Principle,Demands immediate gratification of its urges
+236,12,Ego,Decision-making component of personality that operates according to the reality principle
+237,13,Reality Principle,Seeks to delay gratification of the id's urges until appropriate outlets and situations can be found
+238,13,Superego,Moral component of personality that incorporates social standards about what represents right and wrong
+239,13,Conscious,Consists of whatever one is aware of at a particular point in time
+240,13,Preconscious,Contains material just beneath the surface of awareness can be easily retrieved
+241,13,Unconscious,"Contains thoughts, memories, and desires that are well below the surface of conscious awareness but nonetheless exert great influence on behavior"
+242,13,Defence Mechanism,Largely unconscious reactions that protect a person from unpleasant emotions such as anxiety and guilt
+243,13,Rationalization,Creating false but plausible excuses to justify unacceptable behavior
+244,13,Repression,Keeping distressing thoughts and feelings buried in the unconscious
+245,13,Projection,"Attributing one's own thoughts, feelings, or motives to another"
+246,13,Displacement,"Diverting emotional feelings, usually anger, from their original source to a substitute target"
+247,13,Reaction Formation,Behaving in a way that's exactly the opposite of one's true feelings
+248,13,Regression,Reversion to immature patterns of behavior
+249,13,Identification,Bolstering self esteem by forming an imaginary or real alliance with some person or group
+250,13,Psychosexual Stages,Developmental periods with a characteristic sexual focus that leave their mark on adult personality
+251,13,Fixation,Failure to move forward from one stage to another as expected
+252,13,Oedipal Complex,"Children manifest erotically tinged desires for their opposite sex parent, accompanied by feelings of hostility toward their same sex parent"
+253,13,Personal Unconscious,Houses material that is not within one's conscious awareness because it has been repressed or forgotten
+254,13,Collective Unconscious,Storehouse of latent memory traces inherited from people's ancestral past
+255,13,Archetypes,Emotionally charged images and thought forms that have universal meaning
+256,13,Introverts,"Tend to be preoccupied with the internal world of their own thoughts, feeling, and experiences"
+257,13,Extroverts,Tend to be interested in the external world of people and things
+258,14,Striving for Superiority,"Universal drive to adapt, improve oneself, and master life's challenges"
+259,14,Compensation,Efforts to overcome imagined or real inferiorities by developing one's abilities
+260,14,Behaviorism,"Theoretical orientation based on the premise that scientific psychology, should study only observable behavior"
+261,14,Reciprocal Determinism,"Idea that internal mental events, external environmental events, and overt behavior all influence one another"
+262,14,Observational Learning,"An organism's responding is influenced by the observation of others, who are called models"
+263,14,Model,Person whose behavior is observed by another
+264,14,Self-Efficacy,One's beliefs about one's ability to perform behavior that should lead to expected outcomes
+265,14,Humanism,"Theoretical orientation that emphasizes the unique qualities of humans, especially their freedom and their potential for personal growth"
+266,14,Phenomenological Approach,"One has to appreciate individual's personal, subjective experiences to truly understand their behavior"
+267,14,Self-Concept,"Collection of beliefs about one's own nature, unique qualities, and typical behavior"
+268,14,Incongruence,Degree of disparity between one's self-concept and one's actual experience
+269,14,Hierarchy of Needs,"Systematic arrangement of needs, according to priority, in which basic needs must be met before less basic needs are aroused"
+270,14,Need for Self-Actualization,"The need to fulfill one's potential, it is the highest need in Maslow's motivational hierarchy"
+271,14,Self-Actualizing Persons,"People with exceptionally healthy personalities, marked by continued personal growth"
+272,14,Sensation Seeking,Generalized preference for high or low levels of sensory stimulation
+273,14,Self-Monitoring,Degree to which people attend to and control the impression they make on others in social interactions
+274,14,Enhancement,"Focusing on positive feedback from others, exaggerating one's strengths, and seeing oneself as above average"
+275,14,Sensation Seeking,The stimulation of sense organs
+276,14,Perception,"Selection, organization, and interpretation of sensory input"
+277,14,Psychophysics,Study of how physical stimuli are translated into psychological experiences
+278,15,Threshold,Dividing point between energy levels that do and do not have a detectable effect
+279,15,Absolute Threshold,Specific type of sensory input is the minimum amount of stimulation that an organism can detect
+280,15,Just Noticeable Difference (JND),Smallest difference in the amount of stimulation that a specific sense can detect
+281,15,Weber's Law,Size of a just noticeable difference is a constant proportion of the size of initial stimuli
+282,15,Fechner's Law,Magnitude of a sensory experience is proportional to the number of Just Noticeable Difference's that the stimulus causing the experience is above the absolute threshold
+283,15,Signal Detection Theory,"Detection of stimuli involves decision processes as well as sensory processes, which are both influenced by a variety of factors besides stimulus intensity"
+284,15,Subliminal Perception,Registration of sensory input without conscious awareness (below threshold)
+285,15,Sensory Adaptation,Gradual decline in sensitivity to prolonged stimulation
+286,15,Lens,Transparent eye structure that focuses light rays falling on the retina
+287,15,Nearsightedness,Close objects are seen clearly but distant objects appear blurry
+288,15,Farsightedness,Distant objects are seen clearly but close objects appear blurry
+289,15,Pupil,Opening in the center of the iris that helps regulate the amount of light passing into the rear chamber of the eye
+290,15,Retina,"Neural tissue lining the inside back surface of the eye, it absorbs processes images, and sends visual information to the brain"
+291,15,Optic Disk,Hole in the retina where the optic nerve fibers exit the eye
+292,15,Cones,Specialized visual receptors that play a key role in daylight vision and color vision
+293,15,Fovea,Tiny spot in the center of the retina that contains only cones; visual acuity is greatest at this spot
+294,15,Rods,Specialized visual receptors that play a key role in night vision and peripheral vision
+295,15,Dark Adaptation,Process in which the eyes become more sensitive to light in low illumination
+296,15,Light Adaptation,Process in which the eyes become more sensitive to light in high illumination
+297,15,Receptive Field of a Visual Cell,Retinal area that when stimulated affects the firing of that cell
+298,16,Lateral Antagonism,Neural activity in a cell that opposes activity in surrounding cells
+299,16,Optic Chiasm,Point in which the optic nerves from the inside half of each eye cross over and then project to the opposite half of the brain
+300,16,Parallel processing,Involves simultaneously extracting different kinds of information from the same input
+301,16,Feature detectors,Neurons that respond selectively to very specific features of more complex stimuli
+302,16,Visual agnosia,Inability to recognize objects
+303,16,Subtractive Color Mixing,"Works by removing some wavelengths of light, leaving less than was originally there"
+304,16,Additive Color Mixing,"Superimposing lights, putting more light in the mixture that exists in any one light by itself"
+305,16,Trichromatic Theory of Color Vision,Human eye has three types of receptors with differing sensitivities to different light wavelengths
+306,16,Color Blindness,Variety of deficiencies in the ability to distinguish among colors
+307,16,Complementary Colors,Pairs of colors that produce gray tones when mixed together
+308,16,Afterimage,Visual image that persists after a stimulus is removed
+309,16,Opponent Process Theory of Color Vision,Color perception depends on receptors that make agnostic responses to three pairs of colors
+310,16,Reversible Figure,Drawing that is compatible with two interpretations that can shift back and forth
+311,16,Perceptual Set,A readiness to perceive a stimulus in a particular way
+312,16,Feature Analysis,Process of detecting specific elements in visual input and assembling them into a more complex form
+313,16,Bottom-Up Processing,Progression from individual elements to the whole
+314,16,Top-Down Processing,Progression from the whole to the elements
+315,16,Subjective Contours,Perception of contours where none actually exist
+316,16,Phi Phenomenon,Illusion of movement created by presenting visual stimuli in rapid succession
+317,16,Distal Stimuli,Stimuli that lie in the distance (the world outside of the body)
+318,16,Proximal Stimuli,Stimuli emerges that impinge directly on sensory receptors
+319,16,Perceptual Hypothesis,Inference about which distal stimuli could be responsible for the proximal stimuli sensed
+320,17,Depth Perception,Interpretation of visual cues that indicate how near or far away objects are
+321,17,Binocular Depth Cues,Clues about distance based on the differing views of the two eyes
+322,17,Retinal Disparity,"Objects within 25 feet project images to slightly different locations on the right and left retinas, so the right and left eyes are slightly different views of the object"
+323,17,Convergence,Sensing the eyes converging towards each other as they focus on closer objects
+324,17,Monocular Depth Cues,Clues about distance based on the image in either eye alone
+325,17,Motion Parallax,Images of objects at different distances moving across the retina at different rates
+326,17,Pictorial Depth Cues,Clues about distance that can be given in a flat picture
+327,17,Perceptual Constancy,Tendency to experience a stable perception in the face of continually changing sensory input
+328,17,Optical Illusion,Apparently inexplicable discrepancy between the appearance of a visual stimulus and its physical reality
+329,17,Impossible Figures,Objects that can be represented in two-dimensional pictures but cannot exist in three-dimensional space
+330,17,Cochlea,"Fluid-filled, coiled tunnel that contains the receptors for hearing"
+331,17,Basilar Membrane,"Runs the length of the spiraled cochlea, holds the auditory receptors"
+332,17,Place Theory,"Perception of pitch corresponds to the vibration of different portions, or places, along the basilar membrane"
+333,17,Frequency Theory,"Perception of pitch corresponds to the rate, or frequency, at which the entire basilar membrane vibrates"
+334,17,Volley Principle,"Groups of auditory nerve fibers fire neural impulses in rapid succession, creating volleys of impulses"
+335,17,Auditore Localization,Locating the source of a sound in space
+336,17,Gustatory System,Sensory system for taste
+337,17,Olfactory System,Sensory system for smell
+338,17,Gate-Control Theory,"Incoming pain sensations must pass through a ""gate"" in the spinal cord that can be closed, thus blocking ascending pain signals"
+339,17,Kinesthetic System,Monitors the positions of the various parts of the body
+340,17,Vestibular System,Responds to gravity and keeps you informed of your body's location in space
+341,17,Electro-Encephalograph (EEG),Device that monitors the electrical activity of the brain over time by means of recording electrodes attached to the surface of the scalp
+342,18,Biological Rhythms,Periodic fluctuations in psychological functioning
+343,18,Circadian Rhythms,24-hour biological cycles found in humans and many other species
+344,18,Electromyograph (EMG),Records muscular activity and tensions
+345,18,Electroculograph (EOG),Records eye movements
+346,18,Slow-wave Sleep (SWS),"Consists of sleep stages 3 and 4, during which high-amplitude, low-frequency delta waves become prominent in EEG recordings"
+347,18,REM Sleep,"Relatively deep state of sleep marked by rapid eye movements, high-frequency, and low-amplitude brain waves, and vivid dreaming"
+348,18,Non-REM Sleep,"Consists of sleep stages 1 through 4, which are marked by an absence of rapid eye movements, relatively little dreaming, and varied EEG activity"
+349,18,Ascending Reticular Activating System (ARAS),Consists of the afferent fibers running through the reticular formation that influence physiological arousal
+350,18,Insomnia,Refers to chronic problems in getting adequate sleep
+351,18,Narcolepsy,Disease marked by sudden and irresistible nsst of sleep during normal waking periods
+352,18,Sleep Apnea,"Frequent, reflexive gasping for air that awakens a person and disrupts sleep"
+353,18,Night Terrors (Sleep Terrors),"Anxiety-arousing dreams that lead to an awakening, usually from REM sleep"
+354,18,Night Terrors (Sleep Terrors),Abrupt awakenings from NREM sleep accompanied by intense autonomic arousal and feelings of panic
+355,18,Somnambulism (Sleep-Walking),When a person arises and wanders about while remaining asleep
+356,18,Motivation,Goal-directed behavior
+357,18,Homeostasis,State of physiological equilibrium or stability
+358,18,Drive,Internal state of tension that motivates an organism to engage in activities that should reduce this tension
+359,18,Incentive,An external goal that has the capacity to motivate behavior
+360,18,Glucose,Simple sugar that is an important source of energy
+361,18,Glucostats,Neurons sensitive to glucose in the surrounding fluid
+362,18,Obesity,The condition of being overweight
+363,19,Body Mass Index (BMI),Weight (in kg) divided by height (in m) squared
+364,19,Set-Point Theory,Proposes that the body monitors fat-cell levels to keep them (and weight) fairly stable
+365,19,Settling-Point Theory,Weight tends to drift around the level at which the constellation of factors that determine food consumption and energy expenditure achieve an equilibrium
+366,19,Estrogens,Principle class of gonadal hormones in females
+367,19,Androgens,Principle class of gonadal hormones in males
+368,19,Sexual Orientation,Person's preference for emotional and sexual relationships with sex
+369,19,Heterosexuals,Seek emotional-sexual relationships with members of the opposite sex
+370,19,Bisexuals,Seek emotional-sexual relationships with members of either sex
+371,19,Homosexuals,Seek emotional-sexual relationships with members of the same sex
+372,19,Vasocongestion,Engorgement of blood vessels
+373,19,Orgasm,Sexual arousal reaches its peak intensity and is discharged in a series of muscular contractions that pulsate through the pelvic area
+374,19,Refractory Period,Time following orgasm during which males are largely unresponsive to further stimulation
+375,19,Affiliation Motive,Need to associate with others and maintain social bonds
+376,19,Achievement Motive,"Need to master difficult challenges, to outperform others, and to meet high standards of excellence"
+377,19,Emotion,Involves 1. a subjective conscious experience (the cognitive component) accompanied by 2. bodily arousal (the physiological component) and by 3. characteristic overt expressions (the behavioral component)
+378,19,Galvanic Skin Response (GSR),Increase in the electrical conductivity of the skin that occurs when sweat glands increase their activity
+379,19,Polygraph Detector,Device that records autonomic fluctuations while a subject is questioned
+380,19,Display rules,"Norms that regulate the appropriate expression of emotions. They prescribe when, how, and to whom people show various emotions"
+381,19,Development,Sequence of age-related changes that occur as a person progresses from conception to death
+382,20,Zygote,One-celled organism formed by the union of a sperm and an egg
+383,20,Prenatal Period,"Extends from conception to birth, usually encompassing nine months of pregnancy"
+384,20,Germinal Stage,"First phase of prenatal development, encompassing the first two weeks after conception"
+385,20,Placenta,Structure that allows oxygen and nutrients to pass into the fetus from the mother's bloodstream and bodily wastes to pass out to the mother
+386,20,Embryonic Stage,"Second stage of prenatal development, lasting from two weeks until the end of the second month"
+387,20,Fetal Stage,"Third stage of prenatal development, lasting two months through birth"
+388,20,Age of Viability,Age at which a baby can survive in the event of a premature birth
+389,20,Fetal Alcohol Syndrome,Collection of congenital (inborn) problems associated with excessive alcohol use during pregnancy
+390,20,Motor Development,Progression of muscular coordination required for physical activities
+391,20,Cephalocaudal Trend,The head to foot direction of motor development
+392,20,Proximodistal Trend,Center-outward direction of motor development
+393,20,Maturation,Development that reflects the gradual unfolding of one's genetic blueprint
+394,20,Development Norms,Median age at which individuals display various behaviors and abilities
+395,20,Temperament,"Characteristic mood, activity level, and emotional reactivity"
+396,20,Longitudinal Design,Investigators observe one group of participants repeatedly over a period of time
+397,20,Cross-Sectional Design,Investigators compare groups of participants differing at a single point in time
+398,20,Attachment,"Close, emotional bonds of affect that develop between infants and their caregivers"
+399,21,Separation Anxiety,Emotional distress seen in many infants when they are separated from people with whom they have formed an attachment
+400,21,Stage,Developmental period during which characteristic patterns of behavior are exhibited and certain capacities become established
+401,21,Cognitive Development,"Transitions in youngsters' patterns of thinking, including reasoning, remembering, and problem solving"
+402,21,Assimilation,Interpreting new experiences in terms of existing mental structures without changing them
+403,21,Accomodation,Changing existing mental structures to explain new experiences
+404,21,Object Permanence,A child recognizes that objects continue to exist even when they are no longer visible
+405,21,Conservation,Piaget's term for the awareness that physical quantities remain constant in spite of changes in their shape and appearance
+406,21,Centration,"Tendency to focus on just one feature of a problem, neglecting other important aspects"
+407,21,Irreversibility,The inability to envision reversing an action
+408,21,Egocentrism,Limited ability to share another person's viewpoint
+409,21,Animism,Belief that all things are living
+410,21,Habituation,Gradual reduction in the strength of a response when a stimulus event is presented repeatedly
+411,21,Dishabituation,New stimulus elicits an increase in the strength of a habituated response
+412,21,Pubescence,Two-year span preceding puberty during which changes leading to physical and sexual maturity take place
+413,21,Secondary Sex Characteristics,Physical features that distinguish one sex from the other but are not essential for reproduction
+414,21,Puberty,"Stage during which sexual functions reach maturity, which marks the beginning of adolescence"
+415,21,Primary Sex Characteristics,Structures necessary for reproduction
+416,21,Menarche,The first occurrence of menstruation
+417,21,Midlife Crisis,Difficult turbulent period of doubts and reparraisail of one's life
+418,21,Family Life Cycle,Sequence of stages that families tend to progress through
+419,22,Dementia,Abnormal condition marked by multiple cognitive deficits that include memory impairment
+420,22,Psychopathology,Study of abnormal behavior and psychological dysfunction
+421,22,Situational Context,Social or environmental setting of a person's behavior
+422,22,Subjective Discomfort,Emotional distress while engaging in a particular behavior or thought process
+423,22,Maladaptive,Person finds it hard to adapt to the demands of day-to-day living
+424,22,Psychological Disorder,"Any pattern of behavior or psychological functioning that causes people significant distress, causes them to harm themselves or others or harms their ability to function in daily life"
+425,22,Biological Model,Psychological disorders have a biological or medical cause
+426,22,Cognitive Psychologists,"Study the way people think, remember, and mentally organize information (maladaptive function is from illogical thinking patterns)"
+427,22,Cultural Relativity,The need to consider the unique characteristics of the culture in which the person with a disorder was nurtured to be able to correctly diagnose and treat the disorder
+428,22,Cultural Syndromes,May or may not be recognized as an illness within the culture but are nonetheless recognizable as a distinct set of symptoms or characteristics of distress
+429,22,Anxiety Disorders,Disorder in which the most dominant symptom is the excessive or unrealistic anxiety
+430,22,Free-Floating Anxiety,"Anxiety that seems to be unrelated to any realistic or specific known factors, and it is often a symptom of an anxiety disorder"
+431,22,Phobia,"Irrational, persistent fear of something"
+432,22,Society Anxiety Disorder,Fear of interacting with others or being in a social situation and is one of the most common phobias people experience
+433,22,Specific Phobia,Irrational fear of some object or specific situation
+434,22,Claustrophobia,"Fear of being in small, enclosed spaces"
+435,22,Acrophobia,Fear of heights
+436,22,Agoraphobia,Fear of being in a place or situation which escape is difficult or impossible
+437,23,Panic Attack,"Sudden onset of extreme panic with various physical symptoms: racing heart, rapid breathing, sensation of being ""out of one's body"", dulled hearing and vision, sweating and dry mouth"
+438,23,Panic Disorder,"Panic attacks occur more than once or repeatedly, and cause persistent worry or changes in behavior"
+439,23,General Anxiety Disorder,Excessive anxiety and worries (apprehensive expectations) occur more days than not for at least 6 months
+440,23,Obsessive-Compulsive Disorder,"Disorder in which intruding thoughts that occur again and again are followed by some repetitive, ritualistic behavior or mental acts"
+441,23,Acute Stress Disorder,"Caused by significant and traumatic stressors, diagnosis differs according to duration and onset of symptoms, including dissociation, nightmares, and reliving the event"
+442,23,Posttraumatic Stress Disorder (PTSD),When ASD symptoms last for more than 1 month
+443,23,Magnification,"The tendency to ""make mountains out of molehills"" by interpreting situations as being far more harmful, dangerous, or embarrassing than they actually are"
+444,23,All or Nothing Thinking,Person believes that his or her performance must be perfect or the result will be a total failure
+445,23,Overgeneralization,Single negative event interpreted as a never ending pattern of defeat
+446,23,Minimization,Giving little or no emphasis to one's successes or positive events and traits
+447,23,Affect,Emotion or mood
+448,23,Mood Disorders,"Disturbances in emotion, also referred to as affective disorders"
+449,23,Major Depressive Disorder,Deeply depressed mood comes on fairly suddenly and either seems to be too severe for the circumstances or exists without any external cause of sadness
+450,23,Manic,"Excessive excitement, energy and elation"
+451,23,Bipolar Disorder,When a person experiences periods of mood that can range from severe depression to manic episodes
+452,23,Dissociative Disorders,"Involve a break, or dissociation, in consciousness, memory, or a person's sense of identity"
+453,23,Fugue,Flight --> (dissociative amnesia)
+454,23,Dissociative Identity Disorder,"Multiple personality disorder, person seems to experience at least two or more distinct personalities existing in one body"
+455,24,Schizophrenia,"Severe psychological disorder characterized by disorganized thought, perception, and behavior"
+456,24,Psychotic,Involving a severe break from reality
+457,24,Delusions,False beliefs about the world that the person holds and that tend to remain fixed and unshakable even in the face of evidence that disproves the delusions
+458,24,Hallucinations,Hearing voices or seeing things or people that are not really there
+459,24,Flat Affect,Condition in which the person shows little or no emotion
+460,24,Catatonia,"Both extremes (of behavior), excessive movement or total lack thereof"
+461,24,Positive Symptoms,Appear to reflect an excess or distortion of normal functions such as hallucinations and delusions
+462,24,Negative Symptoms,"Appear to decrease of normal functions, such as poor attention or lack of effort"
+463,24,Stress-Vulnerability Model,"Assumes that persons with the genetic ""markers"" for schizophrenia have a physical vulnerability to the disorder but will not develop schizophrenia unless they are exposed to environmental or emotional stress at critical times in development"
+464,24,Personality Disorders,"Person has an excessively rigid, maladaptive pattern of behavior and ways of relating to others"
+465,24,Antisocial Personality Disorders,"Person may habitually break the law, disobey rules, tell lies, and use other people without worrying about their rights or feelings"
+466,24,Borderline Personality Disorders,"Drastic swing personality. Relationships with others that are intense and unstable, often moody, and manipulative, and untrusting of others, more common in women"
+467,24,Clinical Psychologists / Counseling Psychologists,Specialize in the diagnosis and treatment of psychological disorders and everyday behavioral problems
+468,24,Psychiatrist,Physician who specializes in the diagnosis and treatment of psychological disorders
+469,24,Insight Therapies,Verbal interactions intended to enhance clients' self-knowledge and thus promote healthful changes in personality and behavior
+470,25,Psychoanalysis,"Insight therapy that emphasizes the recovery of unconscious conflicts, motives, and defenses through techniques such as free association and transference"
+471,25,Free Association,"Clients simultaneously express their thoughts and feelings exactly as they occur, with as little censorship as possible"
+472,25,Dream Analysis,Therapist interprets the symbolic meaning of the client's dreams
+473,25,Interpretation,"The therapist's attempts to explain the inner significance of the client's thoughts, feelings, memories, and behaviors"
+474,25,Resistance,Largely unconscious defensive maneuvers intended to hinder the process of therapy
+475,25,Transference,Clients unconsciously start related to their therapist in ways that mimic critical relationships in their lives
+476,25,Client-Centered Therapy,"Insight therapy that emphasizes providing a supportive emotional climate for clients, who play a major role in determining the pace and direction of their therapy"
+477,25,Cognitive Therapy,Insight therapy that emphasizes recognizing and changing negative thoughts and maladaptive beliefs
+478,25,Group Therapy,Simultaneous treatment of several clients in a group
+479,25,Spontaneous Remission,Recovery from a disorder that occurs without formal treatment
+480,25,Behavioral Therapies,Application of learning principles to direct efforts to change clients' maladaptive behavior
+481,25,Systematic Desensitization,Behavior therapy used to reduce phobic client's anxiety responses through counterconditioning
+482,25,Aversion Therapy,Behavior therapy in which an aversive stimulus is paired with a stimulus that elicits and undesired response
+483,25,Social Skills Training,"Behavior therapy designed to improve interpersonal skills that emphasizes modeling, behavioral rehearsal, and sharpening"
+484,25,Biomedical Therapies,Psychological interventions intended to reduce symptoms associated with psychological disorders
+485,25,Psychopharmacotherapy,Treatment of mental disorders with medication
+486,25,Antianxiety Drugs,"Relieve tension, apprehension, and nervousness"
+487,25,Antipsychotic Drugs,"Used to gradually reduce psychotic symptoms including hyperactivity, mental confusion, hallucinations, and delusions"
+488,26,Tardive Dyskinesia,"Neurological disorder marked by involuntary writhing and tick-like movements of the mouth, tongue, face, hands, or feet"
+489,26,Antidepressant Drugs,Gradually elevate mood and help bring people out of a depression
+490,26,Lithium,Chemical used to control mood swings in patients with bipolar mood disorders
+491,26,Electroconvulsive Therapy (ECT),Biomedical treatment in which electric shock is used to produce a cortical seizure accompanied by convulsions
+492,26,Eclecticism,Practice of therapy involves drawing ideas from two or more systems of therapy instead of committing to just one system
+493,26,Mental Hospital,Medical institution specializing in providing in-patient care for psychological disorders
+494,26,Deinstitutionalization,Transferring the treatment of mental illness from impatient institutions to community-based facilities that emphasize outpatient are
+495,26,Social Psychology,"Branch of psychology concerned with the way individual's thoughts, feelings, and behaviors are influenced by others"
+496,26,Person Perception,The process of forming impressions on others
+497,26,Social Schemas,Organized clusters of ideas about categories of social events and people
+498,26,Stereotypes,Widely held beliefs that people have certain characteristics because of their membership in a particular group
+499,26,Illusory Correlation,People estimate that they have encountered more confirmations of an association between social traits than they actually have seen
+500,26,Ingroup,A group that one belongs to and identifies with
+501,26,Outgroup,A group that one does not belong to or identify with
+502,26,Attributions,"Interferences that people draw about the causes of events, other's behavior, and their own behavior"
+503,26,Internal Attributions,"Ascribe the causes of behavior to personal dispositions, traits, abilities, and feelings"
+504,26,External Attributions,Ascribe the causes of behavior to situational demands and environmental constraints
+505,27,Fundamental Attribution,Observer's bias in favor of internal attributions in explaining other's behavior
+506,27,Defensive Attribution,"Tendency to blame victims for this misfortunes, so that one feels less likely to be victimized in a similar way"
+507,27,Self-Serving Bias,Tendency to attribute one's successes to personal factors and one's failures to situational factors
+508,27,Individualism,Putting personal goals ahead of group goals and defining one's identity in terms of personal attributes rather than group membership
+509,27,Collectivism,Putting group goals ahead of group goals and defining one's identity in terms of the groups one belongs to
+510,27,Interpersonal Attraction,Positive feelings towards another
+511,27,Matching Hypothesis,Males and females of approximately equal physical attractiveness are likely to select each other as partners
+512,27,Reciprocity,Liking those who show that they like you
+513,27,Passionate Love,Complete absorption in another that includes tender sexual feelings and the agony and ecstasy of intense emotion
+514,27,Compassionate Love,"Warm, trusting, tolerant affection for another whose life is deeply intertwined with one's own"
+515,27,Intimacy,"Warmth, closeness, and sharing in a relationship"
+516,27,Commitment,Intent to maintain a relationship in spite of difficulties and costs that may arise
+517,27,Source,Person who sends a communication
+518,27,Receiver,Person to whom the message is sent
+519,27,Message,Information transmitted by the source
+520,27,Channel,Medium through which the message is sent
+521,27,Cognitive Dissonance,"Related cognitions are inconsistent - that is, when they contradict each other"
+522,27,Conformity,People yield to real or imagined social pressure
+523,27,Obedience,"Form of compliance that occurs when people follow direct commands, usually from someone in a position of authority"
+524,27,Group,Consists of two or more individuals who interact and are interdependent
+525,28,Bystander Effect,People are less likely to provide needed help when they are in groups than when they are alone
+526,28,Social Loafing,Reduction in effort by individuals when they work in groups as compared to when they work by themselves
+527,28,Group Polarization,Group discussion strengthens a group's dominant point of view and produces a shift toward a more extreme decision of that direction
+528,28,Group Think,Members of a cohesive group emphazise concurrence at the expense of critical thinking in arriving at a discussion
+529,28,Group Cohesiveness,Strength of the liking relationships linking group members to each other and to the group itself

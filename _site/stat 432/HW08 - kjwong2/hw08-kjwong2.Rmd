@@ -1,0 +1,187 @@
+---
+title: "STAT 432 - Homework 8"
+author: "Kevin Wong - kjwong2"
+date: "4/13/2018"
+output:
+  html_document:
+    theme: readable
+    toc: yes
+---
+
+```{r eval = FALSE}
+#install.packages("devtools")
+library(devtools)
+devtools::install_github("coatless/autograde")
+```
+
+```{r eval = FALSE}
+library(autograde)
+gen_agfile(prediction_results, file.name = "file_name")
+```
+
+***
+
+```{r, warning = FALSE, message = FALSE}
+# suggested packages
+library(MASS)
+library(caret)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mlbench)
+library(ISLR)
+library(ellipse)
+library(randomForest)
+library(gbm)
+library(glmnet)
+library(rpart)
+library(rpart.plot)
+library(klaR)
+library(gam)
+library(e1071)
+# feel free to use additional packages
+library(brnn)
+```
+
+***
+
+# Classification
+
+```{r, message = FALSE, warning = FALSE}
+class_trn = read_csv("https://daviddalpiaz.github.io/stat432sp18/hw/hw08/class-trn.csv")
+class_tst = read_csv("https://daviddalpiaz.github.io/stat432sp18/hw/hw08/class-tst.csv")
+```
+
+```{r}
+accuracy = function(actual, predicted) {
+  mean(actual == predicted)
+}
+```
+
+```{r warning = FALSE}
+# classification task
+# place code here that trains the model used to submit your best result
+# only supply code needed to train that model
+
+set.seed(10)
+
+class_mod = naiveBayes(y ~ ., data = class_trn)
+
+class_pred_trn = ifelse(predict(class_mod, newdata = class_trn, type = "raw") > 0.5, "One", "Zero")[,1]
+
+accuracy(predicted = class_pred_trn, actual = class_trn$y)
+```
+
+```{r eval = FALSE}
+# place code here that stores the test predictions that you submitted
+
+class_pred_tst = ifelse(predict(class_mod, newdata = class_tst, type = "raw") > 0.5, "One", "Zero")[,1]
+
+class_pred = # use this variable
+
+class_pred = ifelse(predict(class_mod, newdata = class_tst, type = "raw") > 0.5, "One", "Zero")[,1]
+```
+
+```{r eval = FALSE}
+library(autograde)
+gen_agfile(class_pred, file.name = "kjwong2_class")
+```
+
+***
+
+# Regression
+
+```{r, message = FALSE, warning = FALSE}
+reg_trn = read_csv("https://daviddalpiaz.github.io/stat432sp18/hw/hw08/reg-trn.csv")
+reg_tst = read_csv("https://daviddalpiaz.github.io/stat432sp18/hw/hw08/reg-tst.csv")
+
+reg_trn$X21 = as.factor(reg_trn$X21)
+reg_trn$X22 = as.factor(reg_trn$X22)
+reg_tst$X21 = as.factor(reg_tst$X21)
+reg_tst$X22 = as.factor(reg_tst$X22)
+```
+
+```{r}
+rmse = function(actual, predicted) {
+  sqrt(mean((actual - predicted) ^ 2))
+}
+```
+
+```{r}
+# regression task
+# place code here that trains the model used to submit your best result
+# only supply code needed to train that model
+
+set.seed(10)
+
+reg_mod = brnn(y ~., data = reg_trn, neurons = 2)
+
+reg_pred_trn = predict(reg_mod, newdata = reg_trn)
+
+rmse(actual = reg_trn$y, predicted = reg_pred_trn)
+```
+
+```{r eval = FALSE}
+# place code here that stores the test predictions that you submitted
+
+reg_pred_tst = predict(reg_mod, newdata = reg_tst)
+
+reg_pred = # use this variable
+  
+reg_pred = reg_pred_tst
+```
+
+```{r eval = FALSE}
+library(autograde)
+gen_agfile(reg_pred_tst, file.name = "kjwong2_reg")
+```
+
+***
+
+# Spam Filter
+
+```{r, message = FALSE, warning = FALSE}
+spam_trn = read_csv("https://daviddalpiaz.github.io/stat432sp18/hw/hw08/spam-trn.csv")
+spam_tst = read_csv("https://daviddalpiaz.github.io/stat432sp18/hw/hw08/spam-tst.csv")
+
+spam_trn$type = as.numeric(ifelse(spam_trn$type == "spam", 1, ifelse(spam_trn$type == "nonspam", 0, "ERROR")))
+```
+
+```{r}
+score = function(actual, predicted) {
+  1   * sum(predicted == "spam" & actual == "spam") +
+  -25 * sum(predicted == "spam" & actual == "nonspam") +
+  -1  * sum(predicted == "nonspam" & actual == "spam") +
+  2   * sum(predicted == "nonspam" & actual == "nonspam")
+}
+```
+
+```{r}
+set.seed(10)
+
+spam_mod = gbm(type ~ ., data = spam_trn, distribution = "gaussian", n.trees = 1330, interaction.depth = 49, shrinkage = 0.0125, n.minobsinnode = 15)
+
+spam_pred_trn = ifelse(predict(spam_mod, n.trees = 1330, interaction.depth = 49, shrinkage = 0.0125, n.minobsinnode = 15) > 0.96, "spam", "nonspam")
+
+spam_trn$type = as.character(ifelse(spam_trn$type == 1, "spam", ifelse(spam_trn$type == 0, "nonspam", "ERROR")))
+
+accuracy(actual = spam_trn$type, predicted = spam_pred_trn)
+score(actual = spam_trn$type, predicted = spam_pred_trn)
+```
+
+```{r eval = FALSE}
+# place code here that stores the test predictions that you submitted
+
+spam_pred_tst = ifelse(predict(spam_mod, newdata = spam_tst, n.trees = 1330, interaction.depth = 49, shrinkage = 0.0125, n.minobsinnode = 15) > C, "spam", "nonspam")
+
+spam_pred = # use this variable
+
+spam_pred = spam_pred_tst
+```
+
+```{r eval = FALSE}
+library(autograde)
+gen_agfile(spam_pred_tst, file.name = "kjwong2_spam")
+```
+
+***

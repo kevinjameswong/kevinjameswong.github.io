@@ -1,0 +1,3429 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Kevin Wong - Running Data</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Kevin Wong - Header</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="work.html">
+    <span class="fa fa-briefcase"></span>
+     
+    Work Experience
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-line-chart"></span>
+     
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spotify.html">Spotify Data (2025)</a>
+    </li>
+    <li>
+      <a href="korean.html">한국어 (2024)</a>
+    </li>
+    <li>
+      <a href="calculators.html">Calculators (2022)</a>
+    </li>
+    <li>
+      <a href="running.html">Running Data (2020)</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data (2019)</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel/VBA Projects (2017)</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Archive</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="colors.html">Colors (2021)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Schoolwork
+  </a>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact Me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kevin Wong - Header</h1>
+
+</div>
+
+
+<!--
+---
+title: "Kevin Wong - Header"
+output: html_document
+---
+-->
+<!--
+<style>
+
+.intro {
+    text-align: center;
+    /* color: #7BAFD4; */
+    /* color: #CEB888; */
+    color: #FDF9D8;
+} 
+</style>
+
+<h1 class="intro">Kevin Wong</h1>
+-->
+<!--
+<style>
+    h1 {
+      /* color: #FDF9D8; */
+        color: BLACK;
+        text-align: center;
+  }
+</style>
+-->
+<h1>
+Kevin Wong
+</h1>
+<p><img src="images/kevin%20wong.jpg" height="200px" style="display: block; margin: auto;" /></p>
+<hr />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120232594-1');
+</script>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="work.html">
+    <span class="fa fa-briefcase"></span>
+     
+    Work Experience
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-line-chart"></span>
+     
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spotify.html">Spotify Data (2025)</a>
+    </li>
+    <li>
+      <a href="korean.html">한국어 (2024)</a>
+    </li>
+    <li>
+      <a href="calculators.html">Calculators (2022)</a>
+    </li>
+    <li>
+      <a href="running.html">Running Data (2020)</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data (2019)</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel/VBA Projects (2017)</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Archive</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="colors.html">Colors (2021)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Schoolwork
+  </a>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact Me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kevin Wong - Running Data</h1>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#yearly-stats" id="toc-yearly-stats">Yearly Stats</a></li>
+<li><a href="#monthly-stats" id="toc-monthly-stats">Monthly
+Stats</a></li>
+<li><a href="#weekday-stats" id="toc-weekday-stats">Weekday
+Stats</a></li>
+</ul>
+</div>
+
+<!-- <style> -->
+<!-- body { -->
+<!--   background-color: #FF8200; -->
+<!-- } -->
+<!-- </style> -->
+<hr />
+<script>
+function myFunction1() {
+  var x = document.getElementById("myDIV1");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+function myFunction2() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+
+function myFunction3() {
+  var x = document.getElementById("myDIV3");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+<style type="text/css">
+
+td, tr {
+   font-family: "Times New Roman";
+   font-size: 20px;
+}
+
+body, p {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
+<h1>
+Kevin’s Running Data
+</h1>
+<p class="last-updated">
+Last updated: January 1, 2020
+</p>
+<hr />
+<p>I enjoy running in my freetime! I have been tracking my jogging stats
+since January 31, 2018. Over the past 702 days, I have jogged 2,217.22
+miles across 483 different runs.</p>
+<p><img src="images/halfhd.jpg" width="200px" style="display: block; margin: auto;" /></p>
+<p>This is me during the 2019 Illinois Half Marathon! I ran 13.1 miles
+in 1:43:29.</p>
+<hr />
+<div id="yearly-stats" class="section level1">
+<h1>Yearly Stats</h1>
+<table class="table table-hover table-responsive" style="color: black; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Year
+</th>
+<th style="text-align:right;">
+Total Runs
+</th>
+<th style="text-align:right;">
+Total Run Days
+</th>
+<th style="text-align:right;">
+Miles
+</th>
+<th style="text-align:right;">
+Time
+</th>
+<th style="text-align:left;">
+Pace
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2018
+</td>
+<td style="text-align:right;">
+232
+</td>
+<td style="text-align:right;">
+231
+</td>
+<td style="text-align:right;">
+1004.17
+</td>
+<td style="text-align:right;">
+138:38:40
+</td>
+<td style="text-align:left;">
+8:18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019
+</td>
+<td style="text-align:right;">
+251
+</td>
+<td style="text-align:right;">
+239
+</td>
+<td style="text-align:right;">
+1213.05
+</td>
+<td style="text-align:right;">
+170:10:24
+</td>
+<td style="text-align:left;">
+8:26
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="running_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<button onclick="myFunction1()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
+Click to Show Advanced Yearly Stats
+</button>
+<div id="myDIV1" class="collapse">
+<p><br /></p>
+<h3>
+Advanced Yearly Stats
+</h3>
+<div
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:100%; overflow-x: scroll; width:100%; ">
+<table class="table table-hover table-responsive" style="color: black; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Year
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Runs
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Run Days
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Days Off
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Time
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Pace
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles Per Run
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles Per Day
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Yearly Mile Rate
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+MPH
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Calories Burned
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2018
+</td>
+<td style="text-align:right;">
+232
+</td>
+<td style="text-align:right;">
+231
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+1004.17
+</td>
+<td style="text-align:right;">
+138:38:40
+</td>
+<td style="text-align:right;">
+8:18
+</td>
+<td style="text-align:right;">
+4.32
+</td>
+<td style="text-align:right;">
+2.98
+</td>
+<td style="text-align:right;">
+1090.83
+</td>
+<td style="text-align:right;">
+7.242
+</td>
+<td style="text-align:right;">
+113920
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019
+</td>
+<td style="text-align:right;">
+251
+</td>
+<td style="text-align:right;">
+239
+</td>
+<td style="text-align:right;">
+126
+</td>
+<td style="text-align:right;">
+1213.05
+</td>
+<td style="text-align:right;">
+170:10:24
+</td>
+<td style="text-align:right;">
+8:26
+</td>
+<td style="text-align:right;">
+4.83
+</td>
+<td style="text-align:right;">
+3.21
+</td>
+<td style="text-align:right;">
+1174.43
+</td>
+<td style="text-align:right;">
+7.128
+</td>
+<td style="text-align:right;">
+127694
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<hr />
+</div>
+<div id="monthly-stats" class="section level1">
+<h1>Monthly Stats</h1>
+<table class="table table-hover table-responsive" style="color: black; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Month
+</th>
+<th style="text-align:right;">
+Total Runs
+</th>
+<th style="text-align:right;">
+Total Run Days
+</th>
+<th style="text-align:right;">
+Miles
+</th>
+<th style="text-align:right;">
+Time
+</th>
+<th style="text-align:left;">
+Pace
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+January 2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4.51
+</td>
+<td style="text-align:right;">
+0:42:39
+</td>
+<td style="text-align:left;">
+9:28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+February 2018
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+101.10
+</td>
+<td style="text-align:right;">
+14:17:09
+</td>
+<td style="text-align:left;">
+8:29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+March 2018
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+95.13
+</td>
+<td style="text-align:right;">
+13:04:22
+</td>
+<td style="text-align:left;">
+8:15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+April 2018
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+107.51
+</td>
+<td style="text-align:right;">
+14:17:47
+</td>
+<td style="text-align:left;">
+7:59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+May 2018
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+35.06
+</td>
+<td style="text-align:right;">
+4:52:26
+</td>
+<td style="text-align:left;">
+8:21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+June 2018
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+58.31
+</td>
+<td style="text-align:right;">
+8:16:42
+</td>
+<td style="text-align:left;">
+8:32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+July 2018
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+73.52
+</td>
+<td style="text-align:right;">
+10:36:40
+</td>
+<td style="text-align:left;">
+8:40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+August 2018
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+69.62
+</td>
+<td style="text-align:right;">
+10:06:00
+</td>
+<td style="text-align:left;">
+8:43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+September 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+99.74
+</td>
+<td style="text-align:right;">
+13:17:30
+</td>
+<td style="text-align:left;">
+8:00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+October 2018
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+112.00
+</td>
+<td style="text-align:right;">
+15:04:00
+</td>
+<td style="text-align:left;">
+8:05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+November 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+124.59
+</td>
+<td style="text-align:right;">
+17:01:25
+</td>
+<td style="text-align:left;">
+8:12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+December 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+123.08
+</td>
+<td style="text-align:right;">
+17:02:00
+</td>
+<td style="text-align:left;">
+8:19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+January 2019
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+101.63
+</td>
+<td style="text-align:right;">
+14:17:00
+</td>
+<td style="text-align:left;">
+8:26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+February 2019
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+70.19
+</td>
+<td style="text-align:right;">
+9:19:00
+</td>
+<td style="text-align:left;">
+7:58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+March 2019
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+88.88
+</td>
+<td style="text-align:right;">
+12:12:30
+</td>
+<td style="text-align:left;">
+8:15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+April 2019
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+96.80
+</td>
+<td style="text-align:right;">
+13:03:29
+</td>
+<td style="text-align:left;">
+8:06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+May 2019
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+73.19
+</td>
+<td style="text-align:right;">
+10:25:30
+</td>
+<td style="text-align:left;">
+8:33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+June 2019
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+108.29
+</td>
+<td style="text-align:right;">
+15:22:30
+</td>
+<td style="text-align:left;">
+8:32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+July 2019
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+65.52
+</td>
+<td style="text-align:right;">
+9:08:45
+</td>
+<td style="text-align:left;">
+8:23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+August 2019
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+77.98
+</td>
+<td style="text-align:right;">
+10:42:00
+</td>
+<td style="text-align:left;">
+8:14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+September 2019
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+111.99
+</td>
+<td style="text-align:right;">
+15:24:45
+</td>
+<td style="text-align:left;">
+8:16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+October 2019
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+115.14
+</td>
+<td style="text-align:right;">
+16:00:15
+</td>
+<td style="text-align:left;">
+8:21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+November 2019
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+137.71
+</td>
+<td style="text-align:right;">
+19:48:55
+</td>
+<td style="text-align:left;">
+8:39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+December 2019
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+165.73
+</td>
+<td style="text-align:right;">
+24:25:45
+</td>
+<td style="text-align:left;">
+8:51
+</td>
+</tr>
+</tbody>
+</table>
+<button onclick="myFunction2()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
+Click to Show Advanced Monthly Stats
+</button>
+<div id="myDIV2" class="collapse">
+<p><br /></p>
+<h3>
+Advanced Monthly Stats
+</h3>
+<div
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:100%; overflow-x: scroll; width:100%; ">
+<table class="table table-hover table-responsive" style="color: black; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Month
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Runs
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Run Days
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Days Off
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Time
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Pace
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles Per Run
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles Per Day
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Yearly Mile Rate
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+MPH
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Calories Burned
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+January 2018
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4.51
+</td>
+<td style="text-align:right;">
+0:42:39
+</td>
+<td style="text-align:right;">
+9:28
+</td>
+<td style="text-align:right;">
+4.51
+</td>
+<td style="text-align:right;">
+4.51
+</td>
+<td style="text-align:right;">
+1646.15
+</td>
+<td style="text-align:right;">
+6.344
+</td>
+<td style="text-align:right;">
+595
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+February 2018
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+101.10
+</td>
+<td style="text-align:right;">
+14:17:09
+</td>
+<td style="text-align:right;">
+8:29
+</td>
+<td style="text-align:right;">
+4.21
+</td>
+<td style="text-align:right;">
+3.48
+</td>
+<td style="text-align:right;">
+1272.46
+</td>
+<td style="text-align:right;">
+7.076
+</td>
+<td style="text-align:right;">
+11687
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+March 2018
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+95.13
+</td>
+<td style="text-align:right;">
+13:04:22
+</td>
+<td style="text-align:right;">
+8:15
+</td>
+<td style="text-align:right;">
+4.13
+</td>
+<td style="text-align:right;">
+3.06
+</td>
+<td style="text-align:right;">
+1120.07
+</td>
+<td style="text-align:right;">
+7.276
+</td>
+<td style="text-align:right;">
+10470
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+April 2018
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+107.51
+</td>
+<td style="text-align:right;">
+14:17:47
+</td>
+<td style="text-align:right;">
+7:59
+</td>
+<td style="text-align:right;">
+4.88
+</td>
+<td style="text-align:right;">
+3.58
+</td>
+<td style="text-align:right;">
+1308.03
+</td>
+<td style="text-align:right;">
+7.520
+</td>
+<td style="text-align:right;">
+12349
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+May 2018
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+35.06
+</td>
+<td style="text-align:right;">
+4:52:26
+</td>
+<td style="text-align:right;">
+8:21
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+1.13
+</td>
+<td style="text-align:right;">
+412.80
+</td>
+<td style="text-align:right;">
+7.193
+</td>
+<td style="text-align:right;">
+3961
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+June 2018
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+58.31
+</td>
+<td style="text-align:right;">
+8:16:42
+</td>
+<td style="text-align:right;">
+8:32
+</td>
+<td style="text-align:right;">
+3.88
+</td>
+<td style="text-align:right;">
+1.94
+</td>
+<td style="text-align:right;">
+709.43
+</td>
+<td style="text-align:right;">
+7.043
+</td>
+<td style="text-align:right;">
+6054
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+July 2018
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+73.52
+</td>
+<td style="text-align:right;">
+10:36:40
+</td>
+<td style="text-align:right;">
+8:40
+</td>
+<td style="text-align:right;">
+4.32
+</td>
+<td style="text-align:right;">
+2.37
+</td>
+<td style="text-align:right;">
+865.63
+</td>
+<td style="text-align:right;">
+6.928
+</td>
+<td style="text-align:right;">
+7648
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+August 2018
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+69.62
+</td>
+<td style="text-align:right;">
+10:06:00
+</td>
+<td style="text-align:right;">
+8:43
+</td>
+<td style="text-align:right;">
+3.86
+</td>
+<td style="text-align:right;">
+2.24
+</td>
+<td style="text-align:right;">
+819.71
+</td>
+<td style="text-align:right;">
+6.893
+</td>
+<td style="text-align:right;">
+7559
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+September 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+99.74
+</td>
+<td style="text-align:right;">
+13:17:30
+</td>
+<td style="text-align:right;">
+8:00
+</td>
+<td style="text-align:right;">
+3.83
+</td>
+<td style="text-align:right;">
+3.32
+</td>
+<td style="text-align:right;">
+1213.50
+</td>
+<td style="text-align:right;">
+7.503
+</td>
+<td style="text-align:right;">
+12166
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+October 2018
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+112.00
+</td>
+<td style="text-align:right;">
+15:04:00
+</td>
+<td style="text-align:right;">
+8:05
+</td>
+<td style="text-align:right;">
+4.66
+</td>
+<td style="text-align:right;">
+3.61
+</td>
+<td style="text-align:right;">
+1318.70
+</td>
+<td style="text-align:right;">
+7.433
+</td>
+<td style="text-align:right;">
+13351
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+November 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+124.59
+</td>
+<td style="text-align:right;">
+17:01:25
+</td>
+<td style="text-align:right;">
+8:12
+</td>
+<td style="text-align:right;">
+4.79
+</td>
+<td style="text-align:right;">
+4.15
+</td>
+<td style="text-align:right;">
+1515.84
+</td>
+<td style="text-align:right;">
+7.318
+</td>
+<td style="text-align:right;">
+14326
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+December 2018
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+123.08
+</td>
+<td style="text-align:right;">
+17:02:00
+</td>
+<td style="text-align:right;">
+8:19
+</td>
+<td style="text-align:right;">
+4.73
+</td>
+<td style="text-align:right;">
+3.97
+</td>
+<td style="text-align:right;">
+1449.16
+</td>
+<td style="text-align:right;">
+7.225
+</td>
+<td style="text-align:right;">
+13754
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+January 2019
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+101.63
+</td>
+<td style="text-align:right;">
+14:17:00
+</td>
+<td style="text-align:right;">
+8:26
+</td>
+<td style="text-align:right;">
+4.61
+</td>
+<td style="text-align:right;">
+3.27
+</td>
+<td style="text-align:right;">
+1196.61
+</td>
+<td style="text-align:right;">
+7.115
+</td>
+<td style="text-align:right;">
+11278
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+February 2019
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+70.19
+</td>
+<td style="text-align:right;">
+9:19:00
+</td>
+<td style="text-align:right;">
+7:58
+</td>
+<td style="text-align:right;">
+4.12
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+914.97
+</td>
+<td style="text-align:right;">
+7.533
+</td>
+<td style="text-align:right;">
+8359
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+March 2019
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+88.88
+</td>
+<td style="text-align:right;">
+12:12:30
+</td>
+<td style="text-align:right;">
+8:15
+</td>
+<td style="text-align:right;">
+3.86
+</td>
+<td style="text-align:right;">
+2.86
+</td>
+<td style="text-align:right;">
+1046.49
+</td>
+<td style="text-align:right;">
+7.280
+</td>
+<td style="text-align:right;">
+10249
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+April 2019
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+96.80
+</td>
+<td style="text-align:right;">
+13:03:29
+</td>
+<td style="text-align:right;">
+8:06
+</td>
+<td style="text-align:right;">
+4.20
+</td>
+<td style="text-align:right;">
+3.22
+</td>
+<td style="text-align:right;">
+1177.73
+</td>
+<td style="text-align:right;">
+7.413
+</td>
+<td style="text-align:right;">
+10905
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+May 2019
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+73.19
+</td>
+<td style="text-align:right;">
+10:25:30
+</td>
+<td style="text-align:right;">
+8:33
+</td>
+<td style="text-align:right;">
+4.57
+</td>
+<td style="text-align:right;">
+2.36
+</td>
+<td style="text-align:right;">
+861.75
+</td>
+<td style="text-align:right;">
+7.020
+</td>
+<td style="text-align:right;">
+7817
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+June 2019
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+108.29
+</td>
+<td style="text-align:right;">
+15:22:30
+</td>
+<td style="text-align:right;">
+8:32
+</td>
+<td style="text-align:right;">
+5.69
+</td>
+<td style="text-align:right;">
+3.60
+</td>
+<td style="text-align:right;">
+1317.52
+</td>
+<td style="text-align:right;">
+7.043
+</td>
+<td style="text-align:right;">
+11100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+July 2019
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+65.52
+</td>
+<td style="text-align:right;">
+9:08:45
+</td>
+<td style="text-align:right;">
+8:23
+</td>
+<td style="text-align:right;">
+4.09
+</td>
+<td style="text-align:right;">
+2.11
+</td>
+<td style="text-align:right;">
+771.44
+</td>
+<td style="text-align:right;">
+7.163
+</td>
+<td style="text-align:right;">
+6865
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+August 2019
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+77.98
+</td>
+<td style="text-align:right;">
+10:42:00
+</td>
+<td style="text-align:right;">
+8:14
+</td>
+<td style="text-align:right;">
+3.89
+</td>
+<td style="text-align:right;">
+2.51
+</td>
+<td style="text-align:right;">
+918.15
+</td>
+<td style="text-align:right;">
+7.287
+</td>
+<td style="text-align:right;">
+8232
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+September 2019
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+111.99
+</td>
+<td style="text-align:right;">
+15:24:45
+</td>
+<td style="text-align:right;">
+8:16
+</td>
+<td style="text-align:right;">
+5.09
+</td>
+<td style="text-align:right;">
+3.73
+</td>
+<td style="text-align:right;">
+1362.54
+</td>
+<td style="text-align:right;">
+7.266
+</td>
+<td style="text-align:right;">
+11113
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+October 2019
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+115.14
+</td>
+<td style="text-align:right;">
+16:00:15
+</td>
+<td style="text-align:right;">
+8:21
+</td>
+<td style="text-align:right;">
+5.75
+</td>
+<td style="text-align:right;">
+3.71
+</td>
+<td style="text-align:right;">
+1355.68
+</td>
+<td style="text-align:right;">
+7.194
+</td>
+<td style="text-align:right;">
+10818
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+November 2019
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+137.71
+</td>
+<td style="text-align:right;">
+19:48:55
+</td>
+<td style="text-align:right;">
+8:39
+</td>
+<td style="text-align:right;">
+5.29
+</td>
+<td style="text-align:right;">
+3.82
+</td>
+<td style="text-align:right;">
+1396.22
+</td>
+<td style="text-align:right;">
+6.949
+</td>
+<td style="text-align:right;">
+13927
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+December 2019
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+165.73
+</td>
+<td style="text-align:right;">
+24:25:45
+</td>
+<td style="text-align:right;">
+8:51
+</td>
+<td style="text-align:right;">
+6.13
+</td>
+<td style="text-align:right;">
+4.47
+</td>
+<td style="text-align:right;">
+1634.90
+</td>
+<td style="text-align:right;">
+6.784
+</td>
+<td style="text-align:right;">
+17031
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<hr />
+</div>
+<div id="weekday-stats" class="section level1">
+<h1>Weekday Stats</h1>
+<table class="table table-hover table-responsive" style="color: black; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Weekday
+</th>
+<th style="text-align:right;">
+Total Runs
+</th>
+<th style="text-align:right;">
+Total Run Days
+</th>
+<th style="text-align:right;">
+Miles
+</th>
+<th style="text-align:right;">
+Time
+</th>
+<th style="text-align:left;">
+Pace
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Monday
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+196.52
+</td>
+<td style="text-align:right;">
+26:59:58
+</td>
+<td style="text-align:left;">
+8:15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tuesday
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+350.26
+</td>
+<td style="text-align:right;">
+48:31:26
+</td>
+<td style="text-align:left;">
+8:19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wednesday
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+261.99
+</td>
+<td style="text-align:right;">
+36:34:39
+</td>
+<td style="text-align:left;">
+8:23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Thursday
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+216.17
+</td>
+<td style="text-align:right;">
+29:49:38
+</td>
+<td style="text-align:left;">
+8:17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Friday
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+425.10
+</td>
+<td style="text-align:right;">
+58:47:42
+</td>
+<td style="text-align:left;">
+8:18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saturday
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+291.02
+</td>
+<td style="text-align:right;">
+40:41:45
+</td>
+<td style="text-align:left;">
+8:24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sunday
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+476.16
+</td>
+<td style="text-align:right;">
+67:23:56
+</td>
+<td style="text-align:left;">
+8:30
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="running_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<button onclick="myFunction3()" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
+Click to Show Advanced Weekday Stats
+</button>
+<div id="myDIV3" class="collapse">
+<p><br /></p>
+<h3>
+Advanced Weekday Stats
+</h3>
+<div
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:100%; overflow-x: scroll; width:100%; ">
+<table class="table table-hover table-responsive" style="color: black; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Weekday
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Runs
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Run Days
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Days Off
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Time
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Pace
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles Per Run
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Miles Per Day
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Yearly Mile Rate
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+MPH
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Total Calories Burned
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Monday
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+196.52
+</td>
+<td style="text-align:right;">
+26:59:58
+</td>
+<td style="text-align:right;">
+8:15
+</td>
+<td style="text-align:right;">
+4.36
+</td>
+<td style="text-align:right;">
+1.96
+</td>
+<td style="text-align:right;">
+717.29
+</td>
+<td style="text-align:right;">
+7.278
+</td>
+<td style="text-align:right;">
+21408
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tuesday
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+350.26
+</td>
+<td style="text-align:right;">
+48:31:26
+</td>
+<td style="text-align:right;">
+8:19
+</td>
+<td style="text-align:right;">
+4.49
+</td>
+<td style="text-align:right;">
+3.30
+</td>
+<td style="text-align:right;">
+1206.08
+</td>
+<td style="text-align:right;">
+7.218
+</td>
+<td style="text-align:right;">
+39529
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wednesday
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+261.99
+</td>
+<td style="text-align:right;">
+36:34:39
+</td>
+<td style="text-align:right;">
+8:23
+</td>
+<td style="text-align:right;">
+4.36
+</td>
+<td style="text-align:right;">
+2.59
+</td>
+<td style="text-align:right;">
+946.79
+</td>
+<td style="text-align:right;">
+7.162
+</td>
+<td style="text-align:right;">
+29484
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Thursday
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+216.17
+</td>
+<td style="text-align:right;">
+29:49:38
+</td>
+<td style="text-align:right;">
+8:17
+</td>
+<td style="text-align:right;">
+4.23
+</td>
+<td style="text-align:right;">
+2.16
+</td>
+<td style="text-align:right;">
+789.02
+</td>
+<td style="text-align:right;">
+7.247
+</td>
+<td style="text-align:right;">
+24820
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Friday
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+425.10
+</td>
+<td style="text-align:right;">
+58:47:42
+</td>
+<td style="text-align:right;">
+8:18
+</td>
+<td style="text-align:right;">
+4.38
+</td>
+<td style="text-align:right;">
+4.04
+</td>
+<td style="text-align:right;">
+1477.72
+</td>
+<td style="text-align:right;">
+7.230
+</td>
+<td style="text-align:right;">
+46507
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saturday
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+291.02
+</td>
+<td style="text-align:right;">
+40:41:45
+</td>
+<td style="text-align:right;">
+8:24
+</td>
+<td style="text-align:right;">
+3.93
+</td>
+<td style="text-align:right;">
+2.88
+</td>
+<td style="text-align:right;">
+1051.70
+</td>
+<td style="text-align:right;">
+7.151
+</td>
+<td style="text-align:right;">
+30932
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sunday
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+476.16
+</td>
+<td style="text-align:right;">
+67:23:56
+</td>
+<td style="text-align:right;">
+8:30
+</td>
+<td style="text-align:right;">
+6.10
+</td>
+<td style="text-align:right;">
+4.76
+</td>
+<td style="text-align:right;">
+1737.98
+</td>
+<td style="text-align:right;">
+7.064
+</td>
+<td style="text-align:right;">
+48934
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>footer.knit</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="work.html">
+    <span class="fa fa-briefcase"></span>
+     
+    Work Experience
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-line-chart"></span>
+     
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spotify.html">Spotify Data (2025)</a>
+    </li>
+    <li>
+      <a href="korean.html">한국어 (2024)</a>
+    </li>
+    <li>
+      <a href="calculators.html">Calculators (2022)</a>
+    </li>
+    <li>
+      <a href="running.html">Running Data (2020)</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data (2019)</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel/VBA Projects (2017)</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Archive</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="colors.html">Colors (2021)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Schoolwork
+  </a>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact Me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<style type="text/css">
+
+body {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
+<hr />
+<center>
+Copyright © 2026 Kevin Wong, Inc. All rights reserved.
+</center>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

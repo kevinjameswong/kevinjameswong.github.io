@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Formulas Functions</title>
+
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Kevin Wong - Header</title>
+
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kevin Wong - Header</h1>
+
+</div>
+
+
+<!--
+---
+title: "Kevin Wong - Header"
+output: html_document
+---
+-->
+<!--
+<style>
+
+.intro {
+    text-align: center;
+    /* color: #7BAFD4; */
+    /* color: #CEB888; */
+    color: #FDF9D8;
+} 
+</style>
+
+<h1 class="intro">Kevin Wong</h1>
+-->
+<!--
+<style>
+    h1 {
+      /* color: #FDF9D8; */
+        color: BLACK;
+        text-align: center;
+  }
+</style>
+-->
+<h1>
+Kevin Wong
+</h1>
+<p><img src="images/kevin%20wong.jpg" width="150px" height="160px" style="display: block; margin: auto;" /></p>
+<hr />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120232594-1');
+</script>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="work.html">
+    <span class="fa fa-briefcase"></span>
+     
+    Work Experience
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-line-chart"></span>
+     
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="running.html">Running Data</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel/VBA Projects</a>
+    </li>
+    <li>
+      <a href="korean.html">한국어</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Schoolwork
+  </a>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact Me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Formulas Functions</h1>
+
+</div>
+
+
+<pre class="r"><code>normalcdf = function(lower_bound, upper_bound, mean, sd, n, var, ...) {
+  mean = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;mean&quot;, &quot;mu&quot;)])[1]))
+  sd = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;)])[1]))
+  
+  if (!missing(var)) {
+    sd = sqrt(var)
+  }
+  else if (missing(sd)) {
+    sd = 1
+  }
+  if (!missing(n)) {
+    sd = sd / sqrt(n)
+  }
+  if (missing(mean)) {
+    mean = 0
+  }
+  results = pnorm(q = upper_bound, mean = mean, sd = sd) - pnorm(q = lower_bound, mean = mean, sd = sd)
+  names(results) = NULL
+  return(results)
+}
+
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 5)
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, var = 25)
+# normalcdf(lower_bound = 20, upper_bound = 40, mean = 30, sd = 10, n = 4)</code></pre>
+<pre class="r"><code>invNorm = function(area, mean, sd) {
+  a = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;mean&quot;, &quot;mu&quot;)])[1]))
+  b = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;)])[1]))
+  
+  if (missing(mean) | missing(sd) | missing(mean) &amp; missing(sd)) {
+    mean = 0
+    sd = 1
+    message(&quot;Hi Kevin. Using 0 as mean and 1 as sd&quot;)
+  }
+  
+  qnorm(p = area, mean = mean, sd = sd)
+}
+
+# invNorm(area = .95, mean = 0, sd = 1)
+# invNorm(area = .975)</code></pre>
+<pre class="r"><code>tcdf = function(lower_bound, upper_bound, df) {
+  pt(q = upper_bound, df = df) - pt(q = lower_bound, df = df)
+}
+
+# tcdf(lower_bound = 2, upper_bound = 4, df = 20)</code></pre>
+<pre class="r"><code>invT = function(area, df) {
+  qt(p = area, df)
+}
+invT(.975, 55)</code></pre>
+<pre><code>## [1] 2.004045</code></pre>
+<pre class="r"><code># invT(area = .975, df = 20)</code></pre>
+<pre class="r"><code>chisqcdf = function(lower_bound, upper_bound, df) {
+  pchisq(q = upper_bound, df = df) - pchisq(q = lower_bound, df = df)
+}
+
+# chisqcdf(lower_bound = 2, upper_bound = 9, df = 9)</code></pre>
+<pre class="r"><code>invChi = function(area, df) {
+  qchisq(p = area, df)
+}
+invChi(.05, 149)</code></pre>
+<pre><code>## [1] 121.787</code></pre>
+<pre class="r"><code># invT(area = .975, df = 20)</code></pre>
+<pre class="r"><code>kevin_binom = function(trials, prob, type, successes, ...) {
+  trials = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;trials&quot;, &quot;n&quot;)])[1]))
+  prob = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;prob&quot;, &quot;p&quot;)])[1]))
+  successes = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;successes&quot;, &quot;k&quot;)])[1]))
+  
+  if (trials &lt; successes) {
+    return(message(&quot;ERROR: Check n or k!&quot;))
+  }
+  prob_less = pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_at_most = pbinom(q = successes[1], size = trials, prob = prob)
+  prob_equal = pbinom(q = successes[1], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_greater = 1 - pbinom(q = successes[1], size = trials, prob = prob)
+  prob_at_least = 1 - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  prob_between = pbinom(q = successes[2], size = trials, prob = prob) - pbinom(q = successes[1] - 1, size = trials, prob = prob)
+  
+  results = list(trials, successes, prob, prob_less, prob_at_most, prob_equal, prob_at_least, prob_greater, prob_between)
+  names(results) = c(
+    &quot;Trials&quot;,
+    &quot;Successes&quot;,
+    &quot;Probability of Each Success&quot;,
+    paste(&quot;Less Than &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;At Most &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;Equal To &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;At Least &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;Greater Than &quot;, successes[1], &quot; Successes&quot;, sep = &quot;&quot;),
+    paste(&quot;Between &quot;, successes[1], &quot; and &quot;, successes[2], &quot; Successes&quot;, sep = &quot;&quot;)
+  )
+  return(results)
+}
+
+# kevin_binom(n = 12, prob = .5, k = 11)</code></pre>
+<pre class="r"><code>kevin_binom(n = 4, prob = .75, k = list(3,6))</code></pre>
+<pre><code>## Warning in if (trials &lt; successes) {: the condition has length &gt; 1 and only the
+## first element will be used</code></pre>
+<pre><code>## $Trials
+## [1] 4
+## 
+## $Successes
+## [1] 3 6
+## 
+## $`Probability of Each Success`
+## [1] 0.75
+## 
+## $`Less Than 3 Successes`
+## [1] 0.2617188
+## 
+## $`At Most 3 Successes`
+## [1] 0.6835937
+## 
+## $`Equal To 3 Successes`
+## [1] 0.421875
+## 
+## $`At Least 3 Successes`
+## [1] 0.7382812
+## 
+## $`Greater Than 3 Successes`
+## [1] 0.3164063
+## 
+## $`Between 3 and 6 Successes`
+## [1] 0.7382812</code></pre>
+<pre class="r"><code>kevin_geom = function(trials, prob, type, ...) {
+  trials = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;trials&quot;, &quot;attempts&quot;, &quot;n&quot;)])[1]))
+  prob = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;prob&quot;, &quot;p&quot;)])[1]))
+  
+  if (type == &quot;less&quot; | type == &quot;less than&quot; | type == &quot;&lt;&quot;) {
+    results = pgeom(q = trials - 2, prob = prob)
+  }
+  else if (type == &quot;less than or equal&quot; | type == &quot;less than or&quot; | type == &quot;less or&quot; | type == &quot;less or equal&quot; | type == &quot;at most&quot; | type == &quot;or less&quot; | type == &quot;&lt;=&quot;) {
+    results = pgeom(q = trials - 1, prob = prob)
+  }
+  else if (type == &quot;equal&quot; | type == &quot;equal to&quot; | type == &quot;exact&quot; | type == &quot;exactly&quot; | type == &quot;=&quot;) {
+    results = pgeom(q = trials - 1, prob = prob) - pgeom(q = trials - 2, prob = prob)
+  }
+  else if (type == &quot;greater&quot; | type == &quot;great&quot; | type == &quot;greater than&quot; | type == &quot;more&quot; | type == &quot;more than&quot; | type == &quot;&gt;&quot;) {
+    results = 1 - pgeom(q = trials - 1, prob = prob)
+  }
+  else if (type == &quot;greater than or equal&quot; | type == &quot;greater than or&quot; | type == &quot;greater or&quot; | type == &quot;greater or equal&quot; | type == &quot;at least&quot; | type == &quot;or more&quot; | type == &quot;&gt;=&quot;) {
+    results = 1 - pgeom(q = trials - 2, prob = prob)
+  }
+  else if (type == &quot;between&quot; | type == &quot;in between&quot;) {
+    results = pgeom(q = trials[2] - 1, prob = prob) - pgeom(q = trials[1] - 2, prob = prob)
+  }
+  else {
+    message (&quot;ERROR: Check TYPE&quot;)
+  }
+  names(results) = NULL
+  return(results)
+}
+
+# kevin_geom(trials = 3, prob = .1, type = &quot;equal&quot;)</code></pre>
+<pre class="r"><code>kevin_ci_mean = function(x_bar, sd, confidence_level, n, type, ...) {
+  x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar&quot;, &quot;mean&quot;, &quot;xbar&quot;)])[1]))
+  sd = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;)])[1]))
+  average = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;average&quot;, &quot;avg&quot;)])[1]))
+  standard_error = sd / sqrt(n)
+  if (confidence_level &gt; 100) {
+    return(message (&quot;ERROR: Check confidence level!&quot;))
+  }
+  if (confidence_level &lt; 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  if (type == &quot;Z&quot; | type == &quot;z&quot;) {
+    crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
+  }
+  else if (type == &quot;T&quot; | type == &quot;t&quot;) {
+    crit = - qt(p = alpha / 2, df = n - 1)
+  }
+  else {
+    return(message(&quot;Need type to be either t or z!&quot;))
+  }
+  margin_of_error = crit * standard_error
+  lower = x_bar - margin_of_error
+  upper = x_bar + margin_of_error
+  results = c(lower, upper)
+  names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ci_prop = function(p_hat, confidence_level, n, ...) {
+  p_hat = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat&quot;, &quot;mean&quot;, &quot;sample_proportion&quot;)])[1]))
+  
+  if (confidence_level &gt; 100) {
+    return(message (&quot;ERROR: Check confidence level!&quot;))
+  }
+  if (confidence_level &lt; 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
+  standard_error = sqrt(p_hat * (1 - p_hat) / n)
+  margin_of_error = crit * standard_error
+  lower = p_hat - margin_of_error
+  upper = p_hat + margin_of_error
+  results = c(lower, upper)
+  names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ci_sd = function(sd, confidence_level, n, ...) {
+  if (confidence_level &lt; 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  lower_denom = qchisq(p = 1 - (alpha / 2), df = n - 1)
+  upper_denom = qchisq(p = alpha / 2, df = n - 1)
+  lower = sqrt((n - 1) * (sd ^ 2) / lower_denom)
+  upper = sqrt((n - 1) * (sd ^ 2) / upper_denom)
+  results = c(lower, upper)
+  names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ci_var = function(sd, confidence_level, n) {
+  if (confidence_level &lt; 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  lower_denom = qchisq(p = 1 - (alpha / 2), df = n - 1)
+  upper_denom = qchisq(p = alpha / 2, df = n - 1)
+  lower = (n - 1) * (sd ^ 2) / lower_denom
+  upper = (n - 1) * (sd ^ 2) / upper_denom
+  results = c(lower, upper)
+  names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ho_mean_test = function(mu, x_bar, n, test, sd, alpha, type, ...) {
+  mu = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;null_mean&quot;, &quot;mu&quot;)])[1]))
+  x_bar = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar&quot;, &quot;sample_mean&quot;)])[1]))
+  sd = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;sd&quot;, &quot;sigma&quot;, &quot;s&quot;)])[1]))
+  z = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;z&quot;, &quot;Z&quot;)])[1]))
+  t = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;t&quot;, &quot;T&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+  
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  test_stat = (x_bar - mu) / (sd / sqrt(n))
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; | test == &quot;&gt;&quot;) {
+    if (type == &quot;z&quot;) {
+      critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+      p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+      problem = &quot;One-Sided, Right Tailed Z Test&quot;
+    }
+    else if (type == &quot;t&quot;) {
+      critical_value = qt(p = 1 - alpha, df = n - 1)
+      p_value = 1 - pt(q = test_stat, df = n - 1)
+      problem = &quot;One-Sided, Right Tailed T Test&quot;
+    }
+    else {
+      return(message(&quot;ERROR: Check type!&quot;))
+    }
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    if (type == &quot;z&quot;) {
+      critical_value = qnorm(p = alpha, mean = 0, sd = 1)
+      p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+      problem = &quot;One-Sided, Left Tailed Z Test&quot;
+    }
+    else if (type == &quot;t&quot;) {
+      critical_value = qt(p = alpha, df = n - 1)
+      p_value = pt(q = test_stat, df = n - 1)
+      problem = &quot;One-Sided, Left Tailed T Test&quot;
+    }
+    else {
+      return(message(&quot;ERROR: Check type!&quot;))
+    }
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (type == &quot;z&quot;) {
+      if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - alpha / 2, mean = 0, sd = 1)
+        p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+      }
+      else if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
+        p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+      }
+      problem = &quot;Two-Sided Z Test&quot;
+      critical_value = c(critical_value_low, critical_value_high)
+    }
+    else if (type == &quot;t&quot;) {
+      if (pt(q = test_stat, df = n - 1) &gt; .5) {
+        critical_value_low = qt(p = alpha / 2, df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
+        p_value = 2 * (1 - pt(q = test_stat, df = n - 1))
+      }
+      else if (pt(q = test_stat, df = n - 1) &lt; .5) {
+        critical_value_low = qt(p = alpha / 2 , df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
+        p_value = 2 * pt(q = test_stat, df = n - 1)
+      }
+      problem = &quot;Two-Sided T Test&quot;
+      critical_value = c(critical_value_low, critical_value_high)
+    }
+    else {
+      return(message(&quot;ERROR: Check type!&quot;))
+    }
+  }
+  else {
+    return(message(&quot;ERROR: Check test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  else if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ho_prop_test = function(p, p_hat, alpha, n, test, ...) {
+  p = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;null_prop&quot;, &quot;p&quot;, &quot;po&quot;)])[1]))
+  p_hat = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat&quot;, &quot;sample_prop&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  if (p &gt; 1) {
+    return(message (&quot;ERROR: Check p!&quot;))
+  }
+  if (p_hat &gt; 1) {
+    return(message (&quot;ERROR: Check p!&quot;))
+  }
+  test_stat = (p_hat - p) / sqrt(p * (1 - p) / n)
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; | test == &quot;&gt;&quot;) {
+    p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Right Tailed Z Test&quot;
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = qnorm(p = alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Left Tailed Z Test&quot;
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
+      p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+    }
+    else if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+      p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+    }
+    problem = &quot;Two-Sided Z Test&quot;
+    critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
+    critical_value = c(critical_value_low, critical_value_high)
+  }
+  else {
+    return(message(&quot;ERROR: Check Test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  else if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ho_var_test = function(ssquared, sigmasquared, n, alpha, test, ...) {
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+  
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  
+  test_stat = (n - 1) * ssquared / sigmasquared
+  
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; | test == &quot;&gt;&quot;) {
+    p_value = 1 - pchisq(q = test_stat, df = n - 1)
+    critical_value = qchisq(p = 1 - alpha, df = n - 1)
+    problem = &quot;One-Sided, Right Tailed Chi Squared Test&quot;
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    p_value = pchisq(q = test_stat, df = n - 1)
+    critical_value = qchisq(p = alpha, df = n - 1)
+    problem = &quot;One-Sided, Left Tailed Chi Squared Test&quot;
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (pchisq(q = test_stat, df = n - 1) &gt; .5) {
+      p_value = 2 * (1 - pchisq(q = test_stat, df = n - 1))
+    }
+    else if (pchisq(q = test_stat, df = n - 1) &lt; .5) {
+      p_value = 2 * pchisq(q = test_stat, df = n - 1)
+    }
+    problem = &quot;Two-Sided Chi Squared Test&quot;
+    critical_value_low = qchisq(p = alpha / 2, df = n - 1)
+    critical_value_high = qchisq(p = 1 - (alpha / 2), df = n - 1)
+    critical_value = c(critical_value_low, critical_value_high)
+  }
+  else {
+    return(message(&quot;ERROR: Check Test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  else if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ho_two_sample_mean_test = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, test, alpha, C, ...) {
+  x_bar_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_A&quot;, &quot;xbara&quot;, &quot;mu_A&quot;)])[1]))
+  x_bar_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_B&quot;, &quot;xbarb&quot;, &quot;mu_B&quot;)])[1]))
+  s_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_A&quot;, &quot;s_a&quot;, &quot;sA&quot;, &quot;sa&quot;)])[1]))
+  s_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_B&quot;, &quot;s_b&quot;, &quot;sB&quot;, &quot;sb&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;c&quot;, &quot;C&quot;, &quot;diff&quot;, &quot;difference&quot;)])[1]))
+  a = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+  
+  if (missing(C)) {
+    C = 0
+  }
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+    test_stat = ((x_bar_A - x_bar_B) - C) / sqrt((s_A ^ 2 / n_A + s_B ^ 2 / n_B))
+  }
+  else {
+    s_pooled_sq = (((n_A - 1)  * s_A ^ 2) + ((n_B - 1)  * s_B ^ 2)) / (n_A + n_B - 2)
+    n = n_A + n_B - 2
+    test_stat = ((x_bar_A - x_bar_B) - C) / sqrt(s_pooled_sq * ((1 / n_A) + (1 / n_B)))
+  }
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; |test == &quot;&gt;&quot;) {
+    if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+      critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+      p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+      problem = &quot;One-Sided, Right Tailed Z Test&quot;
+    }
+    else {
+      critical_value = qt(p = 1 - alpha, df = n - 1)
+      p_value = 1 - pt(q = test_stat, df = n - 1)
+      problem = &quot;One-Sided, Right Tailed T Test&quot;
+    }
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+      critical_value = qnorm(p = alpha, mean = 0, sd = 1)
+      p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+      problem = &quot;One-Sided, Left Tailed Z Test&quot;
+    }
+    else {
+      critical_value = qt(p = alpha, df = n - 1)
+      p_value = pt(q = test_stat, df = n - 1)
+      problem = &quot;One-Sided, Left Tailed T Test&quot;
+    }
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+      if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
+        p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+      }
+      else if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+        critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+        critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
+        p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+      }
+      problem = &quot;Two-Sided Z Test&quot;
+      critical_value = c(critical_value_low, critical_value_high)
+    }
+    else {
+      if (pt(q = test_stat, df = n - 1) &gt; .5) {
+        critical_value_low = qt(p = alpha / 2, df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
+        p_value = 2 * (1 - pt(q = test_stat, df = n - 1))
+      }
+      else if (pt(q = test_stat, df = n - 1) &lt; .5) {
+        critical_value_low = qt(p = alpha / 2, df = n - 1)
+        critical_value_high = qt(p = 1 - (alpha / 2), df = n - 1)
+        p_value = 2 * pt(q = test_stat, df = n - 1)
+      }
+      problem = &quot;Two-Sided T Test&quot;
+      critical_value = c(critical_value_low, critical_value_high)
+    }
+  }
+  else {
+    return(message(&quot;ERROR: Check test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  else if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(
+    ifelse(exists(&quot;problem&quot;),        problem,        NA),
+    ifelse(exists(&quot;n&quot;),              n,              NA),
+    ifelse(exists(&quot;critical_value&quot;), critical_value, NA),
+    ifelse(exists(&quot;test_stat&quot;),      test_stat,      NA),
+    ifelse(exists(&quot;alpha&quot;),          alpha,          NA),
+    ifelse(exists(&quot;p_value&quot;),        p_value,        NA),
+    ifelse(exists(&quot;decision&quot;),       decision,       NA))
+  names(results) = c(&quot;Problem&quot;, &quot;Degrees_of_Freedom&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ci_2_sample_mean = function(x_bar_A, s_A, n_A, x_bar_B, s_B, n_B, average, sum, confidence_level, ...) {
+  x_bar_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_A&quot;, &quot;mean_A&quot;, &quot;xbar_A&quot;, &quot;xbarA&quot;)])[1]))
+  x_bar_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;x_bar_B&quot;, &quot;mean_B&quot;, &quot;xbar_B&quot;, &quot;xbarB&quot;)])[1]))
+  s_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_A&quot;, &quot;sA&quot;, &quot;sd_A&quot;, &quot;sdA&quot;, &quot;sigma_A&quot;, &quot;sigmaA&quot;)])[1]))
+  s_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;s_B&quot;, &quot;sB&quot;, &quot;sd_B&quot;, &quot;sdB&quot;, &quot;sigma_B&quot;, &quot;sigmaB&quot;)])[1]))
+  
+  x_bar_1_minus_x_bar_2 = x_bar_A - x_bar_B
+  min_n_A_n_B = min(n_A, n_B)
+  
+  if (average == TRUE &amp; missing(sum)) {
+    standard_error = sqrt(s_A ^ 2 / n_A + s_B ^ 2 / n_B)
+  }
+  else if (missing(average) &amp; sum == TRUE) {
+    standard_error = x_bar_1_minus_x_bar_2
+  }
+  else {
+    return(message(&quot;ERROR: Either `Average` or `Sum` is needed&quot;))
+  }
+  if (confidence_level &gt; 100) {
+    return(message (&quot;ERROR: Check confidence level!&quot;))
+  }
+  if (confidence_level &lt; 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  if (n_A &gt;= 30 &amp; n_B &gt;= 30) {
+    crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
+  }
+  else {
+    crit = - qt(p = alpha / 2, df = min_n_A_n_B - 1)
+  }
+  margin_of_error = crit * standard_error
+  lower = x_bar_1_minus_x_bar_2 - margin_of_error
+  upper = x_bar_1_minus_x_bar_2 + margin_of_error
+  results = c(lower, upper)
+  names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ho_2_sample_prop_test = function(p_hat_A, p_hat_B, alpha, n_A, n_B, test, C, ...) {
+  p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_A&quot;, &quot;sample_prop_A&quot;)])[1]))
+  p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_B&quot;, &quot;sample_prop_B&quot;)])[1]))
+  n_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_A&quot;, &quot;nA&quot;)])[1]))
+  n_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_B&quot;, &quot;nB&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+
+  if (missing(C)) {
+    C = 0
+  }
+  
+  x_A = p_hat_A * n_A
+  x_B = p_hat_B * n_B
+  
+  p_hat = (x_A + x_B) / (n_A + n_B)
+  test_stat = ((p_hat_A - p_hat_B) - C) / sqrt(p_hat * (1 - p_hat) * (1 / n_A + 1 / n_B))
+  
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; |test == &quot;&gt;&quot;) {
+    p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Right Tailed Z Test&quot;
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = qnorm(p = alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Left Tailed Z Test&quot;
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
+      p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+    }
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+      p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+    }
+    problem = &quot;Two-Sided Z Test&quot;
+    critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
+    critical_value = c(critical_value_low, critical_value_high)
+  }
+  else {
+    return(message(&quot;ERROR: Check Test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_ci_2_sample_prop = function(p_hat_A, p_hat_B, confidence_level, n_A, n_B, ...) {
+  p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_A&quot;, &quot;mean_A&quot;, &quot;sample_proportion_A&quot;)])[1]))
+  p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_B&quot;, &quot;mean_B&quot;, &quot;sample_proportion_B&quot;)])[1]))
+  
+  p1_minus_p2 = p_hat_A - p_hat_B
+  if (confidence_level &gt; 100) {
+    return(message (&quot;ERROR: Check confidence level!&quot;))
+  }
+  if (confidence_level &lt; 1) {
+    confidence_level = confidence_level * 100
+  }
+  alpha = 1 - confidence_level / 100
+  crit = - qnorm(p = alpha / 2, mean = 0, sd = 1)
+  
+  standard_error = sqrt((p_hat_A * (1 - p_hat_A) / n_A) + (p_hat_B * (1 - p_hat_B) / n_B))
+  margin_of_error = crit * standard_error
+  lower = p1_minus_p2 - margin_of_error
+  upper = p1_minus_p2 + margin_of_error
+  results = c(lower, upper)
+  names(results) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>kevin_bivar_prob = function(expression, muX, muY, varX, varY, sdX, sdY, cov_x_y, independence, ...) {
+  # muX, muY, sdX, sdY, cov_x_y
+  library(stringr)
+  library(dplyr)
+  muX = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;muX&quot;, &quot;mux&quot;, &quot;meanX&quot;, &quot;meanx&quot;)])[1]))
+  muY = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;muY&quot;, &quot;muy&quot;, &quot;meanY&quot;, &quot;meanY&quot;)])[1]))
+  
+  if (missing(varX) &amp; !missing(sdX)) {
+    varX = sdX ^ 2
+  }
+  else if (!missing(varX) &amp; missing(sdX)) {
+    varX = varX
+  }
+  else if (!missing(varX) &amp; !missing(sdX)) {
+    message(&quot;Using varX&quot;)
+  }
+  else {
+    return(message(&quot;ERROR: Need either varX or sdX!&quot;))
+  }
+  if (missing(varY) &amp; !missing(sdY)) {
+    varY = sdY ^ 2
+  }
+  else if (!missing(varX) &amp; missing(sdY)) {
+    varY = varY
+  }
+  else if (!missing(varY) &amp; !missing(sdY)) {
+    message(&quot;Using varY&quot;)
+  }
+  else {
+    return(message(&quot;ERROR: Need either varY or sdY!&quot;))
+  }
+  x_coef = str_extract(string = expression, pattern = &quot;[[:digit:]]{1,2}[xX]&quot;) %&gt;% str_extract(pattern = &quot;[[:digit:]]{1,2}&quot;) %&gt;% as.numeric()
+  y_coef = str_extract(string = expression, pattern = &quot;[[:digit:]]{1,2}[yY]&quot;) %&gt;% str_extract(pattern = &quot;[[:digit:]]{1,2}&quot;) %&gt;% as.numeric()
+  limit = str_extract(string = expression, pattern = &quot;[[:digit:]]{1,4}$&quot;) %&gt;% as.numeric()
+  if (missing(cov_x_y) &amp; independence == TRUE) {
+    cov_x_y = 0
+  }
+  else {
+    return(message(&quot;ERROR: Check cov_x_y&quot;))
+  }
+  sd = sqrt(x_coef ^ 2 * varX + y_coef ^ 2 * varY + 2 * cov_x_y)
+  if (str_detect(string = expression, pattern = &quot;\\+&quot;) == TRUE) {
+    mean = x_coef * muX + y_coef * muY
+  }
+  else if (str_detect(string = expression, pattern = &quot;\\-&quot;) == TRUE) {
+    mean = x_coef * muX - y_coef * muY
+  }
+  if (str_detect(string = expression, pattern = &quot;&lt;&quot;) == TRUE) {
+    prob = pnorm(q = limit, mean = mean, sd = sd)
+  }
+  else if (str_detect(string = expression, pattern = &quot;&gt;&quot;) == TRUE) {
+    prob = 1 - pnorm(q = limit, mean = mean, sd = sd)
+  }
+  else {
+    return(message(&quot;ERROR: Check expression sign!&quot;))
+  }
+  return(prob)
+}
+
+# kevin_bivar_prob(expression = &quot;6X + 4Y &gt; 1500&quot;, muX = 170, sdX = 10, muY = 125, sdY = 8, independence = TRUE)</code></pre>
+<pre class="r"><code>boott = function(k) {
+  p = k + 3
+  l = paste(&quot;Yeet&quot;, k, sep = &quot;&quot;)
+  names(p) = c(l)
+  return(p)
+}
+boott(2)</code></pre>
+<pre><code>## Yeet2 
+##     5</code></pre>
+<pre class="r"><code>dfun = function(s1, s2, n1, n2) {
+  p = (s1^2/n1 + s2^2/n2)^2 / ((s1^2 / n1) ^ 2 / (n1 - 1) + (s2^2 / n2) ^ 2 / (n2 - 1))
+  return(p)
+}
+
+dfun(s1 = 78.39, s2 = 104.24, n1 = 57, n2 = 93)</code></pre>
+<pre><code>## [1] 141.7872</code></pre>
+<pre class="r"><code>kevin_ho_f_test = function(var_A, var_B, s_A, s_B, n_A, n_B, test, C, ...) {
+  p_hat_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_A&quot;, &quot;sample_prop_A&quot;)])[1]))
+  p_hat_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;p_hat_B&quot;, &quot;sample_prop_B&quot;)])[1]))
+  n_A = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_A&quot;, &quot;nA&quot;)])[1]))
+  n_B = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;n_B&quot;, &quot;nB&quot;)])[1]))
+  lol_no_name = as.numeric(data.frame(unlist(as.list(match.call())[c(&quot;alpha&quot;, &quot;a&quot;)])[1]))
+
+  if (missing(C)) {
+    C = 0
+  }
+  
+  x_A = p_hat_A * n_A
+  x_B = p_hat_B * n_B
+  
+  p_hat = (x_A + x_B) / (n_A + n_B)
+  test_stat = ((p_hat_A - p_hat_B) - C) / sqrt(p_hat * (1 - p_hat) * (1 / n_A + 1 / n_B))
+  
+  if (missing(alpha)) {
+    alpha = .05
+  }
+  if (alpha &gt; 100) {
+    return(message (&quot;ERROR: Check Alpha!&quot;))
+  }
+  if (alpha &gt;= 1) {
+    alpha = alpha / 100
+  }
+  if (test == &quot;right_tailed&quot; | test == &quot;right tail&quot; | test == &quot;right&quot; | test == &quot;right tailed&quot; | test == &quot;greater&quot; | test == &quot;greater than&quot; | test == &quot;great&quot; | test == &quot;more&quot; |test == &quot;&gt;&quot;) {
+    p_value = 1 - pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = qnorm(p = 1 - alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Right Tailed Z Test&quot;
+  }
+  else if (test == &quot;left_tailed&quot; | test == &quot;left tail&quot; | test == &quot;left&quot; | test == &quot;left tailed&quot; | test == &quot;less&quot; | test == &quot;less than&quot; | test == &quot;&lt;&quot;) {
+    p_value = pnorm(q = test_stat, mean = 0, sd = 1)
+    critical_value = qnorm(p = alpha, mean = 0, sd = 1)
+    problem = &quot;One-Sided, Left Tailed Z Test&quot;
+  }
+  else if (test == &quot;two sided&quot; | test == &quot;two_sided&quot; | test == &quot;two_tailed&quot; | test == &quot;two tailed&quot; | test == &quot;both&quot; | test == &quot;two&quot; | test == &quot;not equal&quot; | test == &quot;different&quot; | test == &quot;!=&quot; | test == &quot;not&quot;) {
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &gt; .5) {
+      p_value = 2 * (1 - pnorm(q = test_stat, mean = 0, sd = 1))
+    }
+    if (pnorm(q = test_stat, mean = 0, sd = 1) &lt; .5) {
+      p_value = 2 * pnorm(q = test_stat, mean = 0, sd = 1)
+    }
+    problem = &quot;Two-Sided Z Test&quot;
+    critical_value_low = qnorm(p = alpha / 2, mean = 0, sd = 1)
+    critical_value_high = qnorm(p = 1 - (alpha / 2), mean = 0, sd = 1)
+    critical_value = c(critical_value_low, critical_value_high)
+  }
+  else {
+    return(message(&quot;ERROR: Check Test!&quot;))
+  }
+  if (p_value &lt; alpha) {
+    decision = c(&quot;REJECT the Null. FAIL TO REJECT the Alternative.&quot;)
+  }
+  if (p_value &gt; alpha) {
+    decision = c(&quot;FAIL TO REJECT the Null. REJECT the Alternative.&quot;)
+  }
+  names(test_stat) = NULL
+  names(p_value) = NULL
+  results = list(problem, critical_value, test_stat, alpha, p_value, decision)
+  names(results) = c(&quot;Problem&quot;, &quot;Critical_Value&quot;, &quot;Test_Statistic&quot;, &quot;Alpha&quot;, &quot;P_Value&quot;, &quot;Decision&quot;)
+  return(results)
+}</code></pre>
+<pre class="r"><code>ints = function(int, slope, xg, xbar, sd, se, n, confidence_level) {
+  pe = int + slope * xg
+  
+  lower_pred = pe - qt(confidence_level / 100 + (100 - confidence_level) / 200, df = n - 2) * se * sqrt(1 + 1 / n + (xg - xbar)^2 / ((n - 1) * sd ^ 2))
+  upper_pred = pe + qt(confidence_level / 100 + (100 - confidence_level) / 200, df = n - 2) * se * sqrt(1 + 1 / n + (xg - xbar)^2 / ((n - 1) * sd ^ 2))
+  
+  lower_conf = pe - qt(confidence_level / 100 + (100 - confidence_level) / 200, df = n - 2) * se * sqrt(1 / n + (xg - xbar)^2 / ((n - 1) * sd ^ 2))
+  upper_conf = pe + qt(confidence_level / 100 + (100 - confidence_level) / 200, df = n - 2) * se * sqrt(1 / n + (xg - xbar)^2 / ((n - 1) * sd ^ 2))
+  
+  pred = c(lower_pred, upper_pred)
+  conf = c(lower_conf, upper_conf)
+  names(pred) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  names(conf) = c(&quot;Lower&quot;, &quot;Upper&quot;)
+  
+  ci = list(pred, conf)
+  
+  names(ci) = c(&quot;Pred&quot;, &quot;Conf&quot;)
+  return(ci)
+}</code></pre>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>footer.knit</title>
+
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<style type="text/css">
+
+body {
+   font-family: "Times New Roman";
+   font-size: 18px;
+}
+
+</style>
+<hr />
+<center>
+Copyright © 2025 Kevin Wong, Inc. All rights reserved.
+</center>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+---
+title: "Group Project Proposal"
+author: "Group 3 - Yuhui Luo, Adlai Stevenson, Kevin Wong, Kailun Zheng"
+date: "4/11/2018"
+output:
+  html_document:
+    toc: yes
+---
+
+***
+
+# Group Members
+
+**Names - NetIDs:**  
+Yuhui Luo		    -	yuhuil2  
+Adlai Stevenson	-	aesteve2  
+Kevin Wong		  -	kjwong2  
+Kailun Zheng		-	kailunz2  
+
+***
+
+# Project Details
+
+## Tentative Title
+Predicting Default Status of Credit Card Clients
+
+## Background Information
+Statistics from Financial Supervisory Commission (FSC) of Taiwan show that \$3.49 billion out of \$4.93 billion in bad loans in 2006 (70.78%) came from the section of non-performing credit card loans (“non-performing” means that the sum of borrowed money could not be paid back within scheduled payments for at least 90 days). To avoid problems from getting worse, banks had tightened credit policies for unsecured lending and gradually established credit rating systems ever since.
+
+2005 was a critical year for the finance industry in Taiwan as it led up to the credit card crisis in 2006. The dataset chosen for this project was stored in the University of California, Irvine Machine learning Repository. It consists of 30,000 observations of Taiwanese credit card customers with a total of 24 features relating to history of payment from April to September 2005, bill statements from April to September 2005, marital status, and other customer demographic information. The credit card customers were classified if they would make payments or not (yes = 1, no = 0) for next month. 
+
+By examining the relationships among default status, cardholders’ information, and payment history, we would like to better understand the default pattern in 2005. Being able to predict whether a debtor would default would have equipped the card issuers more capability and credibility when making the decision of accepting or rejecting a credit card application. More importantly, it would have identified the happening of credit card crisis in an earlier stage. These historical learnings could provide valuable insights when US credit card companies look into expanding their business to Taiwan in the future.
+
+## Goal and Motivation
+Our **goal** is to predict default status of Taiwanese credit card clients from 2005.  
+Our **motivation** behind this project is that many people in Taiwan could not pay off their credit cards. This was bad for the credit card companies and also Taiwanese citizens. Credit card companies lost money, and many Taiwanese people committed suicide as a result from defaulting. We want to use this project to help companies and customers predict whether or not they'll default before they purchase a credit card.
+
+## Statistical Learning Task
+Classification (of Credit Card Default Status)
+
+***
+
+# Data
+
+## Data Source
+[https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients#](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients#)
+
+## Data Information
+```{r message = FALSE, warning = FALSE, include = FALSE}
+library(readr)
+library(GGally)
+```
+
+```{r message = FALSE, warning = FALSE}
+credit_data = read.csv("credit_data.csv")
+head(credit_data$DEFAULT, 20)
+dim(credit_data)
+```
+
+```{r echo = FALSE, fig.height = 8, fig.width = 8, fig.align = 'center', message = FALSE, warning = FALSE}
+ggpairs(data = credit_data, columns = c(2:7, 13, 19, 25),
+        title = "Exploratory Data Analysis for 2005 Taiwan Credit Card Default Data")
+```
+
+```{r warning = FALSE}
+glm_mod = glm(DEFAULT ~ ., data = credit_data, family = "binomial")
+head(predict(glm_mod, credit_data, type = "response"))
+```
+
+***
+
+# Data Dictionary
+
+| Variable Name | Description                                                                                                 | Variable Type |
+| ------------- | :---------------------------------------------------------------------------------------------------------: | :-----------: |
+| ID            | ID for each client.                                                                                         | Integer        |
+| LIMIT_BAL | Amount of given credit in NT dollars (includes individual family/supplementary credit).                     | Integer       |
+| SEX           | Gender (1 = male, 2 = female).                                                                              | Integer        |
+| EDUCATION     | (1 = graduate school, 2 = university, 3 = high school, 4 = others, 5 = unknown, 6 = unknown)                | Integer        |
+| MARRIAGE      | marital status (1 = married, 2 = single, 3 = others).                                                       | Integer        |
+| AGE           | Age in years.                                                                                               | Integer       |
+| PAY_1 - PAY_6 | Repayment status from April to September, 2005: PAY_1 = the repayment status in September, 2005; ... ; PAY_6 = the repayment status in April, 2005. The measurement scale for the repayment status is -1: = pay duly; 1 = payment delay for one month, ... ; 8 = payment delay for eight months.                                                                                                                                                         | Integer       |
+| BILL_AMT1 - BILL_AMT6 | Amount of bill statement (NT dollar). BILL_AMT1 = amount of bill statement in September, 2005; ... ; BILL_AMT6 = amount of bill statement in April, 2005.                                                                                                                  | Integer       |
+| PAY_AMT1 - PAY_AMT6 | Amount of previous payment (NT dollar). PAY_AMT1 = amount paid in September, 2005; ... ; PAY_AMT6 = amount paid in April, 2005.                                                                                                                                             | Integer       |
+| DEFAULT         | Default payment (1 = yes; 0 = no).                                                                        | Integer        |
+
+**NOTE:** When we loaded the data, all of the variables are integer variables as default. When we begin the actual project, we will adjust these variables accordingly.
+
+***
+
+# Sources
+
+[https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients#](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients#)  
+
+[http://www.vrl-financial-news.com/cards--payments/cards-international/issues/ci-2007/ci375/taiwan%E2%80%99s-credit-crisis-the-ca.aspx](http://www.vrl-financial-news.com/cards--payments/cards-international/issues/ci-2007/ci375/taiwan%E2%80%99s-credit-crisis-the-ca.aspx)  
+
+[https://sevenpillarsinstitute.org/case-studies/taiwans-credit-card-crisis/](https://sevenpillarsinstitute.org/case-studies/taiwans-credit-card-crisis/)  

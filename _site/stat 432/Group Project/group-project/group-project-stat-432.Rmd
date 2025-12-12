@@ -1,0 +1,382 @@
+---
+title: "Group Project"
+author: "Group 3 - Yuhui Luo, Adlai Stevenson, Kevin Wong, Kailun Zheng"
+date: "4/12/2018"
+output:
+  html_document:
+    theme: readable
+    toc: yes
+---
+
+```{r}
+# rm(list = ls())
+```
+
+```{r, warning = FALSE, message = FALSE}
+# suggested packages
+library(MASS)
+library(caret)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mlbench)
+library(ISLR)
+library(ellipse)
+library(randomForest)
+library(gbm)
+library(glmnet)
+library(rpart)
+library(rpart.plot)
+library(klaR)
+library(gam)
+library(e1071)
+# feel free to use additional packages
+library(readr)
+```
+
+```{r}
+credit_data = read.csv("credit_data.csv")
+credit_data = credit_data[-1]
+```
+
+```{r}
+credit_data$EDUCATION = ifelse(credit_data$EDUCATION == 0, 5, credit_data$EDUCATION)
+credit_data$MARRIAGE = ifelse(credit_data$MARRIAGE == 0, 3, credit_data$MARRIAGE)
+credit_data$SEX_M = ifelse(credit_data$SEX == 1, 1, 0)
+credit_data$SEX_F = ifelse(credit_data$SEX == 2, 1, 0)
+credit_data$EDUCATION = ifelse(credit_data$EDUCATION == 1, "Graduate", 
+                               ifelse(credit_data$EDUCATION == 2, "College",
+                                      ifelse(credit_data$EDUCATION == 3, "HighSchool",
+                                             ifelse(credit_data$EDUCATION == 4, "Other", "Unknown"))))
+credit_data$MARRIAGE = ifelse(credit_data$MARRIAGE == 1, "Married",
+                              ifelse(credit_data$MARRIAGE == 2, "Single", "Other"))
+```
+
+```{r}
+dmy_edu = dummyVars(" ~ EDUCATION", data = credit_data)
+new_edu = predict(dmy_edu, newdata = credit_data)
+
+dmy_mar = dummyVars(" ~ MARRIAGE", data = credit_data)
+new_mar = predict(dmy_mar, newdata = credit_data)
+
+# combine dummied coded variables with the original dataframe
+credit_new = cbind(credit_data, new_edu, new_mar)
+
+# drop original categorical variables and ID
+drop_vars = names(credit_new) %in% c("ID", "SEX", "EDUCATION", "MARRIAGE")
+credit_new = credit_new[!drop_vars]
+
+# head(credit_new)
+```
+
+```{r}
+set.seed(3)
+cred_idx = createDataPartition(credit_new$DEFAULT, p = 0.8, list = FALSE)
+cred_trn = credit_new[cred_idx, ]
+cred_tst = credit_new[-cred_idx, ]
+
+View(cred_trn)
+```
+
+```{r}
+accuracy = function(actual, predicted) {
+  mean(actual == predicted)
+}
+```
+
+```{r}
+table(cred_trn$DEFAULT)
+# sum(cred_trn$DEFAULT == 1) * 100 / nrow(cred_trn)
+# sum(cred_trn$DEFAULT == 0) * 100 / nrow(cred_trn)
+```
+
+```{r}
+table(cred_tst$DEFAULT)
+# sum(cred_tst$DEFAULT == 1) * 100 / nrow(cred_tst)
+# sum(cred_tst$DEFAULT == 0) * 100 / nrow(cred_tst)
+```
+
+```{r}
+score = function(actual, predicted) {
+   10 * sum(predicted == 1 & actual == 1) +
+  -1 * sum(predicted == 1 & actual == 0) +
+  -50 * sum(predicted == 0 & actual == 1) +
+   2 * sum(predicted == 0 & actual == 0)
+}
+```
+
+# tried Naive Bayes but very bad.
+
+```{r}
+set.seed(3)
+mod_rf = randomForest(DEFAULT ~ ., data = cred_trn)
+
+pred_rf_trn = predict(mod_rf, newdata = cred_trn)
+pred_rf_tst = predict(mod_rf, newdata = cred_tst)
+
+Conf_level = 0.20
+pred_rf_trn_response = ifelse(pred_rf_trn > Conf_level, 1, 0)
+pred_rf_tst_response = ifelse(pred_rf_tst > Conf_level, 1, 0)
+
+varImpPlot(mod_rf, main = "Variable Importance, RF", type = 2, pch = 16)
+grid()
+```
+
+
+```{r}
+table(cred_trn$DEFAULT)
+table(pred_rf_response)
+```
+
+```{r}
+score(actual = cred_trn$DEFAULT, predicted = pred_rf_trn_response)
+accuracy(actual = cred_trn$DEFAULT, predicted = pred_rf_trn_response)
+
+score(actual = cred_tst$DEFAULT, predicted = pred_rf_tst_response)
+accuracy(actual = cred_tst$DEFAULT, predicted = pred_rf_tst_response)
+```
+
+```{r fig.height = 4}
+varImpPlot(mod_rf, main = "Variable Importance, RF", type = 2, pch = 16)
+grid()
+```
+
+```{r}
+set.seed(3)
+mod_rf_no_sex_ed_mar = randomForest(DEFAULT ~ . - (SEX_M + SEX_F + EDUCATIONCollege + EDUCATIONGraduate + EDUCATIONHighSchool + EDUCATIONOther + EDUCATIONUnknown + MARRIAGEMarried + MARRIAGEOther + MARRIAGESingle), data = cred_trn)
+
+pred_rf_no_sex_ed_mar_trn = predict(mod_rf_no_sex_ed_mar, newdata = cred_trn)
+pred_rf_no_sex_ed_mar_tst = predict(mod_rf_no_sex_ed_mar, newdata = cred_tst)
+
+Conf_level = 0.20
+pred_rf_no_sem_response_trn = ifelse(pred_rf_no_sex_ed_mar_trn > Conf_level, 1, 0)
+pred_rf_no_sem_response_tst = ifelse(pred_rf_no_sex_ed_mar_tst > Conf_level, 1, 0)
+```
+
+```{r}
+score(actual = cred_trn$DEFAULT, predicted = pred_rf_no_sem_response_trn)
+accuracy(actual = cred_trn$DEFAULT, predicted = pred_rf_no_sem_response_trn)
+
+score(actual = cred_tst$DEFAULT, predicted = pred_rf_no_sem_response_tst)
+accuracy(actual = cred_tst$DEFAULT, predicted = pred_rf_no_sem_response_tst)
+```
+
+```{r fig.height = 4}
+varImpPlot(mod_rf_no_sex_ed_mar, main = "Variable Importance, RF", type = 2, pch = 16)
+grid()
+```
+
+```{r}
+set.seed(3)
+mod_rf_pay_1 = randomForest(DEFAULT ~ PAY_1 + PAY_AMT1, data = cred_trn)
+
+pred_rf_pay_1 = predict(mod_rf_pay_1, newdata = cred_trn)
+pred_rf_pay_1
+
+Conf_level = 0.20
+pred_rf_pay_1_response = ifelse(pred_rf_pay_1 > Conf_level, 1, 0)
+```
+
+```{r}
+score(actual = cred_trn$DEFAULT, predicted = pred_rf_pay_1_response)
+accuracy(actual = cred_trn$DEFAULT, predicted = pred_rf_pay_1_response)
+```
+
+
+
+```{r warning = FALSE}
+set.seed(3)
+mod_rf_1 = randomForest(DEFAULT ~ PAY_1, data = cred_trn)
+mod_rf_2 = randomForest(DEFAULT ~ PAY_2, data = cred_trn)
+mod_rf_3 = randomForest(DEFAULT ~ PAY_1 + PAY_2, data = cred_trn)
+mod_rf_4 = randomForest(DEFAULT ~ PAY_1 * PAY_2, data = cred_trn)
+mod_rf_5 = randomForest(DEFAULT ~ ., data = cred_trn)
+```
+
+```{r}
+
+```
+
+
+```{r}
+cutoffs = seq(0.1, 0.9, by = 0.1)
+
+accuracy_rf_1_trn = rep(0, length(cutoffs))
+accuracy_rf_1_tst = rep(0, length(cutoffs))
+accuracy_rf_2_trn = rep(0, length(cutoffs))
+accuracy_rf_2_tst = rep(0, length(cutoffs))
+accuracy_rf_3_trn = rep(0, length(cutoffs))
+accuracy_rf_3_tst = rep(0, length(cutoffs))
+accuracy_rf_4_trn = rep(0, length(cutoffs))
+accuracy_rf_4_tst = rep(0, length(cutoffs))
+accuracy_rf_5_trn = rep(0, length(cutoffs))
+accuracy_rf_5_tst = rep(0, length(cutoffs))
+
+score_rf_1_trn = rep(0, length(cutoffs))
+score_rf_1_tst = rep(0, length(cutoffs))
+score_rf_2_trn = rep(0, length(cutoffs))
+score_rf_2_tst = rep(0, length(cutoffs))
+score_rf_3_trn = rep(0, length(cutoffs))
+score_rf_3_tst = rep(0, length(cutoffs))
+score_rf_4_trn = rep(0, length(cutoffs))
+score_rf_4_tst = rep(0, length(cutoffs))
+score_rf_5_trn = rep(0, length(cutoffs))
+score_rf_5_tst = rep(0, length(cutoffs))
+
+for (c in seq_along(cutoffs)) {
+  pred_rf_1_trn = ifelse(predict(object = mod_rf_1, newdata = cred_trn) > cutoffs[c], 1, 0)
+  pred_rf_1_tst = ifelse(predict(object = mod_rf_1, newdata = cred_tst) > cutoffs[c], 1, 0)
+  pred_rf_2_trn = ifelse(predict(object = mod_rf_2, newdata = cred_trn) > cutoffs[c], 1, 0)
+  pred_rf_2_tst = ifelse(predict(object = mod_rf_2, newdata = cred_tst) > cutoffs[c], 1, 0)
+  pred_rf_3_trn = ifelse(predict(object = mod_rf_3, newdata = cred_trn) > cutoffs[c], 1, 0)
+  pred_rf_3_tst = ifelse(predict(object = mod_rf_3, newdata = cred_tst) > cutoffs[c], 1, 0)
+  pred_rf_4_trn = ifelse(predict(object = mod_rf_4, newdata = cred_trn) > cutoffs[c], 1, 0)
+  pred_rf_4_tst = ifelse(predict(object = mod_rf_4, newdata = cred_tst) > cutoffs[c], 1, 0)
+  pred_rf_5_trn = ifelse(predict(object = mod_rf_5, newdata = cred_trn) > cutoffs[c], 1, 0)
+  pred_rf_5_tst = ifelse(predict(object = mod_rf_5, newdata = cred_tst) > cutoffs[c], 1, 0)
+  
+  accuracy_rf_1_trn[c] = accuracy(predicted = pred_rf_1_trn, actual = cred_trn$DEFAULT)
+  accuracy_rf_1_tst[c] = accuracy(predicted = pred_rf_1_tst, actual = cred_tst$DEFAULT)
+  accuracy_rf_2_trn[c] = accuracy(predicted = pred_rf_2_trn, actual = cred_trn$DEFAULT)
+  accuracy_rf_2_tst[c] = accuracy(predicted = pred_rf_2_tst, actual = cred_tst$DEFAULT)
+  accuracy_rf_3_trn[c] = accuracy(predicted = pred_rf_3_trn, actual = cred_trn$DEFAULT)
+  accuracy_rf_3_tst[c] = accuracy(predicted = pred_rf_3_tst, actual = cred_tst$DEFAULT)
+  accuracy_rf_4_trn[c] = accuracy(predicted = pred_rf_4_trn, actual = cred_trn$DEFAULT)
+  accuracy_rf_4_tst[c] = accuracy(predicted = pred_rf_4_tst, actual = cred_tst$DEFAULT)
+  accuracy_rf_5_trn[c] = accuracy(predicted = pred_rf_5_trn, actual = cred_tst$DEFAULT)
+  accuracy_rf_5_tst[c] = accuracy(predicted = pred_rf_5_tst, actual = cred_trn$DEFAULT)
+  
+  score_rf_1_trn[c] = score(predicted = pred_rf_1_trn, actual = cred_trn$DEFAULT)
+  score_rf_1_tst[c] = score(predicted = pred_rf_1_tst, actual = cred_tst$DEFAULT)
+  score_rf_2_trn[c] = score(predicted = pred_rf_2_trn, actual = cred_trn$DEFAULT)
+  score_rf_2_tst[c] = score(predicted = pred_rf_2_tst, actual = cred_tst$DEFAULT)
+  score_rf_3_trn[c] = score(predicted = pred_rf_3_trn, actual = cred_trn$DEFAULT)
+  score_rf_3_tst[c] = score(predicted = pred_rf_3_tst, actual = cred_tst$DEFAULT)
+  score_rf_4_trn[c] = score(predicted = pred_rf_4_trn, actual = cred_trn$DEFAULT)
+  score_rf_4_tst[c] = score(predicted = pred_rf_4_tst, actual = cred_tst$DEFAULT)
+  score_rf_5_trn[c] = score(predicted = pred_rf_5_trn, actual = cred_trn$DEFAULT)
+  score_rf_5_tst[c] = score(predicted = pred_rf_5_tst, actual = cred_tst$DEFAULT)
+}
+
+which.max(accuracy_rf_1_trn)
+which.max(accuracy_rf_1_tst)
+which.max(accuracy_rf_2_trn)
+which.max(accuracy_rf_2_tst)
+which.max(accuracy_rf_3_trn)
+which.max(accuracy_rf_3_tst)
+which.max(accuracy_rf_4_trn)
+which.max(accuracy_rf_4_tst)
+which.max(accuracy_rf_5_trn)
+which.max(accuracy_rf_5_tst)
+
+which.max(score_rf_1_trn)
+which.max(score_rf_1_tst)
+which.max(score_rf_2_trn)
+which.max(score_rf_2_tst)
+which.max(score_rf_3_trn)
+which.max(score_rf_3_tst)
+which.max(score_rf_4_trn)
+which.max(score_rf_4_tst)
+which.max(score_rf_5_trn)
+which.max(score_rf_5_tst)
+```
+
+```{r}
+ks.test(pred_rf_1_trn, cred_trn$DEFAULT, alternative = "greater")
+```
+
+```{r}
+pred_rf_1_trn_prob = predict(mod_rf_1, newdata = cred_trn)
+pred_rf_2_trn_prob = predict(mod_rf_2, newdata = cred_trn)
+pred_rf_3_trn_prob = predict(mod_rf_3, newdata = cred_trn)
+pred_rf_4_trn_prob = predict(mod_rf_4, newdata = cred_trn)
+
+pred_rf_1_trn_resp_20 = ifelse(pred_rf_1_trn_prob > 0.20, 1, 0)
+pred_rf_2_trn_resp_20 = ifelse(pred_rf_2_trn_prob > 0.20, 1, 0)
+pred_rf_3_trn_resp_20 = ifelse(pred_rf_3_trn_prob > 0.20, 1, 0)
+pred_rf_4_trn_resp_20 = ifelse(pred_rf_4_trn_prob > 0.20, 1, 0)
+
+pred_rf_1_trn_resp_50 = ifelse(pred_rf_1_trn_prob > 0.50, 1, 0)
+pred_rf_2_trn_resp_50 = ifelse(pred_rf_2_trn_prob > 0.50, 1, 0)
+pred_rf_3_trn_resp_50 = ifelse(pred_rf_3_trn_prob > 0.50, 1, 0)
+pred_rf_4_trn_resp_50 = ifelse(pred_rf_4_trn_prob > 0.50, 1, 0)
+
+pred_rf_1_tst_prob = predict(mod_rf_1, newdata = cred_tst)
+pred_rf_2_tst_prob = predict(mod_rf_2, newdata = cred_tst)
+pred_rf_3_tst_prob = predict(mod_rf_3, newdata = cred_tst)
+pred_rf_4_tst_prob = predict(mod_rf_4, newdata = cred_tst)
+
+pred_rf_1_tst_resp = ifelse(pred_rf_1_tst_prob > Conf_level, 1, 0)
+pred_rf_2_tst_resp = ifelse(pred_rf_2_tst_prob > Conf_level, 1, 0)
+pred_rf_3_tst_resp = ifelse(pred_rf_3_tst_prob > Conf_level, 1, 0)
+pred_rf_4_tst_resp = ifelse(pred_rf_4_tst_prob > Conf_level, 1, 0)
+```
+
+```{r}
+accuracy(actual = cred_trn$DEFAULT, predicted = pred_rf_1_trn_resp)
+accuracy(actual = cred_trn$DEFAULT, predicted = pred_rf_2_trn_resp)
+accuracy(actual = cred_trn$DEFAULT, predicted = pred_rf_3_trn_resp)
+accuracy(actual = cred_trn$DEFAULT, predicted = pred_rf_4_trn_resp)
+```
+
+```{r}
+accuracy(actual = cred_tst$DEFAULT, predicted = pred_rf_1_tst_resp)
+accuracy(actual = cred_tst$DEFAULT, predicted = pred_rf_2_tst_resp)
+accuracy(actual = cred_tst$DEFAULT, predicted = pred_rf_3_tst_resp)
+accuracy(actual = cred_tst$DEFAULT, predicted = pred_rf_4_tst_resp)
+```
+
+```{r}
+score(actual = cred_trn$DEFAULT, predicted = pred_rf_1_trn_resp)
+score(actual = cred_trn$DEFAULT, predicted = pred_rf_2_trn_resp)
+score(actual = cred_trn$DEFAULT, predicted = pred_rf_3_trn_resp)
+score(actual = cred_trn$DEFAULT, predicted = pred_rf_4_trn_resp)
+```
+
+```{r}
+score(actual = cred_tst$DEFAULT, predicted = pred_rf_1_tst_resp)
+score(actual = cred_tst$DEFAULT, predicted = pred_rf_2_tst_resp)
+score(actual = cred_tst$DEFAULT, predicted = pred_rf_3_tst_resp)
+score(actual = cred_tst$DEFAULT, predicted = pred_rf_4_tst_resp)
+```
+
+
+
+
+
+
+```{r}
+gbm_grid = expand.grid(interaction.depth = c(1, 2),
+                       n.trees = c(500, 1000, 1500),
+                       shrinkage = c(0.001, 0.01, 0.1),
+                       n.minobsinnode = c(5, 10, 15))
+
+set.seed(3)
+g_mod_gbm = train(
+  form = DEFAULT ~ .,
+  data = cred_trn,
+  method = "gbm",
+  trControl = trainControl(method = "cv", number = 5),
+  tuneGrid = gbm_grid,
+  verbose = FALSE)
+
+g_mod_gbm$bestTune
+```
+
+```{r}
+gbm_trn_pred = ifelse(predict(object = g_mod_gbm, n.trees = 1000, interaction.depth = 2, shrinkage = 0.01, n.minobsinnode = 5, type = "prob") > 0.5, 1, 0)[,2]
+
+gbm_tst_pred = ifelse(predict(object = g_mod_gbm, newdata = cred_tst, n.trees = 1000, interaction.depth = 2, shrinkage = 0.01, n.minobsinnode = 5, type = "prob") > 0.5, 1, 0)[,2]
+
+accuracy(actual = cred_trn$DEFAULT, predicted = gbm_trn_pred)
+accuracy(actual = cred_tst$DEFAULT, predicted = gbm_tst_pred)
+```
+
+
+```{r}
+train_con_mat = confusionMatrix(train_tab, positive = "Yes")
+c(train_con_mat$overall["Accuracy"], 
+  train_con_mat$byClass["Sensitivity"], 
+  train_con_mat$byClass["Specificity"])
+```
+

@@ -17,7 +17,7 @@ navbar:
     - text: "Work Experience"
       icon: fa-briefcase
       href: work.html
-##    - text: "Awards & Cerificates"
+##    - text: "Awards & Certificates"
 ##      icon: fa-certificate
 ##      href: awards.html
     - text: "Data Analysis Projects"
@@ -27,24 +27,22 @@ navbar:
       ## menu:
       ##  - text: "Spotify Data"
       ##    href: spotify.html
-      ##  - text: "Running Data"
-      ##    href: running.html
+      - text: "Trivia Data (2025)"
+        href: trivia.html
       - text: "Spotify Data (2025)"
         href: spotify.html
       - text: "한국어 (2024)"
         href: korean.html
       - text: "Calculators (2022)"
         href: calculators.html
+      - text: "HEX Colors (2021)"
+        href: colors.html
       - text: "Running Data (2020)"
         href: running.html
       - text: "Sleeping Data (2019)"
         href: sleep.html
       - text: "Excel/VBA Projects (2017)"
         href: excel.html
-      - text: "Archive"
-        menu:
-        - text: "Colors (2021)"
-          href: colors.html
         ##- text: "TT2"
           ##href: excel.html
     - text: "Schoolwork"

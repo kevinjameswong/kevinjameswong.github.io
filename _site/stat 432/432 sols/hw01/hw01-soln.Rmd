@@ -1,0 +1,286 @@
+---
+title: "STAT 432 Homework 01"
+author: "Spring 2018 | Dalpiaz | UIUC"
+date: '**Due:** Friday, February 2, 11:59 PM'
+---
+
+***
+
+```{r, solution = TRUE}
+library(tibble)
+library(readr)
+
+# define data generating process
+make_hw01_data = function(n_obs = 100) {
+  x = runif(n = n_obs, min = -1.5, max = 1)
+  y = rnorm(n = n_obs, mean = 3 * x ^ 2 + x ^ 5, sd = 0.5)
+  data.frame(y, x)
+}
+
+# generate datasets
+set.seed(42)
+hw01_trn_data = make_hw01_data(n_obs = 100)
+hw01_tst_data = make_hw01_data(n_obs = 500)
+
+# write to files
+write_csv(hw01_trn_data, "hw01-trn-data.csv")
+write_csv(hw01_tst_data, "hw01-tst-data.csv")
+
+# clean up
+rm(hw01_trn_data)
+rm(hw01_tst_data)
+```
+
+This homework will use data in [`hw01-trn-data.csv`](hw01-trn-data.csv) and [`hw01-tst-data.csv`](hw01-tst-data.csv) which are train and test datasets respectively. Both datasets contain a single predictor `x` and a numeric response `y`. The following chunk imports this data.
+
+```{r}
+hw01_trn_data = read.csv("hw01-trn-data.csv")
+hw01_tst_data = read.csv("hw01-tst-data.csv")
+```
+
+For this assignment, you may only use the following packages:
+
+```{r}
+library(FNN)
+library(rpart)
+library(knitr)
+library(kableExtra)
+```
+
+***
+
+## Exercise 1 (Polynomial Models)
+
+Fit a total of five polynomial models to the training data that can be used to predict `y` from `x`. Use polynomial degrees of 1, 3, 5, 7, and 9. For each, calculate both train and test RMSE. Do not output these results directly, instead summarize the results with a single well labeled plot that shows both train and test RMSE as a function of the degree of the polynomial fit.
+
+**Solution:**
+
+```{r, solution = TRUE}
+# fit poly models
+poly_mod_1 = lm(y ~ poly(x, 1), data = hw01_trn_data)
+poly_mod_3 = lm(y ~ poly(x, 3), data = hw01_trn_data)
+poly_mod_5 = lm(y ~ poly(x, 5), data = hw01_trn_data)
+poly_mod_7 = lm(y ~ poly(x, 7), data = hw01_trn_data)
+poly_mod_9 = lm(y ~ poly(x, 9), data = hw01_trn_data)
+```
+
+```{r, solution = TRUE}
+# helper function for RMSE
+calc_rmse = function(actual, predicted) {
+  sqrt(mean((actual - predicted) ^ 2))
+}
+```
+
+```{r, solution = TRUE}
+# poly model training RMSE
+poly_trn_rmse = c(calc_rmse(hw01_trn_data$y, predict(poly_mod_1, hw01_trn_data)),
+                  calc_rmse(hw01_trn_data$y, predict(poly_mod_3, hw01_trn_data)),
+                  calc_rmse(hw01_trn_data$y, predict(poly_mod_5, hw01_trn_data)),
+                  calc_rmse(hw01_trn_data$y, predict(poly_mod_7, hw01_trn_data)),
+                  calc_rmse(hw01_trn_data$y, predict(poly_mod_9, hw01_trn_data)))
+
+# poly model testing RMSE
+poly_tst_rmse = c(calc_rmse(hw01_tst_data$y, predict(poly_mod_1, hw01_tst_data)),
+                  calc_rmse(hw01_tst_data$y, predict(poly_mod_3, hw01_tst_data)),
+                  calc_rmse(hw01_tst_data$y, predict(poly_mod_5, hw01_tst_data)),
+                  calc_rmse(hw01_tst_data$y, predict(poly_mod_7, hw01_tst_data)),
+                  calc_rmse(hw01_tst_data$y, predict(poly_mod_9, hw01_tst_data)))
+```
+
+```{r, solution = TRUE}
+# summarize results
+poly_results = data.frame(
+  degree = c(1, 3, 5, 7, 9),
+  trn_rmse = poly_trn_rmse,
+  tst_rmse = poly_tst_rmse
+)
+```
+
+```{r, solution = TRUE, echo = FALSE, fig.align = "center"}
+# plot results
+plot(trn_rmse ~ degree, data = poly_results, type = "b", col = "dodgerblue",
+     main = "Polynomial Model Results", 
+     xlab = "Polynomial Degree", ylab = "RMSE")
+with(poly_results, lines(degree, tst_rmse, type = "b", col = "darkorange", lty = 2))
+legend("topright", legend = c("Train", "Test"), 
+       col = c("dodgerblue", "darkorange"), lty = c(1, 2))
+```
+
+***
+
+## Exercise 2 (KNN Models)
+
+Fit a total of five KNN models to the training data that can be used to predict `y` from `x`. Use `k` (number of neighbors) values of `1`, `11`, `21`, `31`, and `41`. For each, calculate both train and test RMSE. Do not output these results directly, instead summarize the results with using a well-formatted markdown table that shows `k`, train RMSE and test RMSE.
+
+**Solution:**
+
+```{r, solution = TRUE}
+# fit knn models, predict on train datat
+knn_mod_01_trn = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"],
+                         test  = hw01_trn_data["x"], k =  1)
+knn_mod_11_trn = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"],
+                         test  = hw01_trn_data["x"], k = 11)
+knn_mod_21_trn = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"],
+                         test  = hw01_trn_data["x"], k = 21)
+knn_mod_31_trn = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"], 
+                         test  = hw01_trn_data["x"], k = 31)
+knn_mod_41_trn = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"], 
+                         test  = hw01_trn_data["x"], k = 41)
+```
+
+```{r, solution = TRUE}
+# fit knn models, predict on test datat
+knn_mod_01_tst = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"],
+                         test  = hw01_tst_data["x"], k =  1)
+knn_mod_11_tst = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"],
+                         test  = hw01_tst_data["x"], k = 11)
+knn_mod_21_tst = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"],
+                         test  = hw01_tst_data["x"], k = 21)
+knn_mod_31_tst = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"], 
+                         test  = hw01_tst_data["x"], k = 31)
+knn_mod_41_tst = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"], 
+                         test  = hw01_tst_data["x"], k = 41)
+```
+
+```{r, solution = TRUE}
+# knn model training RMSE
+knn_trn_rmse = c(calc_rmse(hw01_trn_data$y, knn_mod_01_trn$pred),
+                 calc_rmse(hw01_trn_data$y, knn_mod_11_trn$pred),
+                 calc_rmse(hw01_trn_data$y, knn_mod_21_trn$pred),
+                 calc_rmse(hw01_trn_data$y, knn_mod_31_trn$pred),
+                 calc_rmse(hw01_trn_data$y, knn_mod_41_trn$pred))
+
+# knn model testing RMSE
+knn_tst_rmse = c(calc_rmse(hw01_tst_data$y, knn_mod_01_tst$pred),
+                 calc_rmse(hw01_tst_data$y, knn_mod_11_tst$pred),
+                 calc_rmse(hw01_tst_data$y, knn_mod_21_tst$pred),
+                 calc_rmse(hw01_tst_data$y, knn_mod_31_tst$pred),
+                 calc_rmse(hw01_tst_data$y, knn_mod_41_tst$pred))
+```
+
+```{r, solution = TRUE, echo = FALSE}
+# summarize results
+knn_results = data.frame(
+  degree = c(1, 11, 21, 31, 41),
+  trn_rmse = knn_trn_rmse,
+  tst_rmse = knn_tst_rmse
+)
+colnames(knn_results) = c("k", "Train RMSE", "Test RMSE")
+```
+
+```{r, solution = TRUE, echo = FALSE}
+# create results table
+kable_styling(kable(knn_results, format = "html", digits = 3), full_width = FALSE)
+```
+
+***
+
+## Exercise 3 (Tree Models)
+
+Fit a total of five tree models to the training data that can be used to predict `y` from `x`. To do so, use the `rpart()` function from the `rpart` package. The `rpart()` syntax is very similar to `lm()`. For example:
+
+```{r, eval = FALSE}
+rpart(y ~ x, data = some_data, control = rpart.control(cp = 0.5, minsplit = 2))
+```
+
+This code fits a tree with a cost complexity parameter of `0.5`, as defined using the `cp` argument to `rpart.control`. We will consider this to be the single tuning parameter of tree fitting. (More on this much later in the course.) The `minsplit` argument could also be considered a tuning parameter, but we will keep it fixed at 2.
+
+Use `cp` values of `0`, `0.001`, `0.01`, `0.1`, and `1`. For each, calculate both train and test RMSE. Do not output these results directly, instead summarize the results with using a well-formatted markdown table that shows `cp`, train RMSE and test RMSE.
+
+**Solution:**
+
+```{r, solution = TRUE}
+# fit tree models
+tree_mod_0000 = rpart(y ~ x, data = hw01_trn_data, control = rpart.control(cp = 0.000, minsplit = 2))
+tree_mod_0001 = rpart(y ~ x, data = hw01_trn_data, control = rpart.control(cp = 0.001, minsplit = 2))
+tree_mod_0010 = rpart(y ~ x, data = hw01_trn_data, control = rpart.control(cp = 0.010, minsplit = 2))
+tree_mod_0100 = rpart(y ~ x, data = hw01_trn_data, control = rpart.control(cp = 0.100, minsplit = 2))
+tree_mod_1000 = rpart(y ~ x, data = hw01_trn_data, control = rpart.control(cp = 1.000, minsplit = 2))
+```
+
+```{r, solution = TRUE}
+# poly model training RMSE
+tree_trn_rmse = c(calc_rmse(hw01_trn_data$y, predict(tree_mod_0000, hw01_trn_data)),
+                  calc_rmse(hw01_trn_data$y, predict(tree_mod_0001, hw01_trn_data)),
+                  calc_rmse(hw01_trn_data$y, predict(tree_mod_0010, hw01_trn_data)),
+                  calc_rmse(hw01_trn_data$y, predict(tree_mod_0100, hw01_trn_data)),
+                  calc_rmse(hw01_trn_data$y, predict(tree_mod_1000, hw01_trn_data)))
+
+# poly model testing RMSE
+tree_tst_rmse = c(calc_rmse(hw01_tst_data$y, predict(tree_mod_0000, hw01_tst_data)),
+                  calc_rmse(hw01_tst_data$y, predict(tree_mod_0001, hw01_tst_data)),
+                  calc_rmse(hw01_tst_data$y, predict(tree_mod_0010, hw01_tst_data)),
+                  calc_rmse(hw01_tst_data$y, predict(tree_mod_0100, hw01_tst_data)),
+                  calc_rmse(hw01_tst_data$y, predict(tree_mod_1000, hw01_tst_data)))
+```
+
+```{r, solution = TRUE, echo = FALSE}
+# summarize results
+tree_results = data.frame(
+  cp = c(0.000, 0.001, 0.010, 0.100, 1.000),
+  trn_rmse = tree_trn_rmse,
+  tst_rmse = tree_tst_rmse
+)
+colnames(tree_results) = c("cp", "Train RMSE", "Test RMSE")
+```
+
+```{r, solution = TRUE, echo = FALSE}
+# create results table
+kable_styling(kable(tree_results, format = "html", digits = 3), full_width = FALSE)
+```
+
+***
+
+## Exercise 4 (Visualizing Results)
+
+Add lines (curves) to the following plot which correspond to the fitted model for the best polynomial model, best KNN model, and best tree model based on the results of the previous exercises. Use different line types and colors for the different models. Add a legend to indicate which line is which model.
+
+**Solution:**
+
+```{r, solution = TRUE}
+plot_grid = data.frame(x = seq(from = min(hw01_trn_data$x) - 0.5, 
+                               to   = max(hw01_trn_data$x) + 0.5, 
+                               by   = 0.01))
+
+poly_pred = predict(poly_mod_5, plot_grid)
+knn_pred  = knn.reg(train = hw01_trn_data["x"], y = hw01_trn_data["y"],
+                    test = plot_grid["x"], k = 11)$pred
+tree_pred = predict(tree_mod_0010, plot_grid)
+
+plot(y ~ x, data = hw01_trn_data, col = "darkgrey", pch = 20,
+     main = "Homework 01, Training Data")
+grid()
+lines(plot_grid$x, poly_pred, col = "dodgerblue", lty = 1, lwd = 2)
+lines(plot_grid$x, knn_pred,  col = "darkorange", lty = 2, lwd = 2)
+lines(plot_grid$x, tree_pred, col = "darkgreen",  lty = 3, lwd = 2)
+legend("topleft", c("poly", "knn", "tree"), lty = c(1, 2, 3), lwd = 1,
+       col = c("dodgerblue", "darkorange", "darkgreen"), cex = 0.8)
+```
+
+***
+
+## Exercise 5 (Concept Checks)
+
+**(a)** Which, if any, of the polynomial models are likely **underfitting** based on the results you obtained?
+
+**Solution:** Since `degree = 5` has the lowest test RMSE, we believe **`degree = 1`** and **`degree = 3`** maybe be underfitting as they are less flexible.
+
+**(b)** Which, if any, of the polynomial models are likely **overfitting** based on the results you obtained?
+
+**Solution:** Since `degree = 5` has the lowest test RMSE, we believe **`degree = 7`** and **`degree = 9`** maybe be overfitting as they are more flexible.
+
+**(c)** Which, if any, of the KNN models are likely **underfitting** based on the results you obtained?
+
+**Solution:** `k = 21`, `k = 31`, `k = 41` 
+
+**(d)** Which, if any, of the KNN models are likely **overfitting** based on the results you obtained?
+
+**Solution:** `k = 1` 
+
+**(e)** Which, if any, of the tree models are likely **underfitting** based on the results you obtained?
+
+**Solution:** `cp = 0.1`, `cp = 1.000`
+
+**(f)** Which, if any, of the tree models are likely **overfitting** based on the results you obtained?
+
+**Solution:** `cp = 0.000`, `cp = 0.001`

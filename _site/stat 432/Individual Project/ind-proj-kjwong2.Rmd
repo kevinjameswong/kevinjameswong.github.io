@@ -1,0 +1,332 @@
+---
+title: 'STAT 432 Individual Project - Analyzing KC House Data - Kevin Wong'
+author: "Kevin Wong"
+date: 'kjwong2'
+abstract: 'In this project, I used house data from King County, Washington to predict the prices of those homes. I created several models using linear models, random forest models, and k-nearest neighbors models. I used test RMSE as the judge of model performance. I found out that random forest will all of the predictors was the best model with the lowest Test RMSE. Home buyers should use my Random Forest model to predict how much their new house is worth before they spend their money on it, but be cautious while using it because even my best model had a large RMSE. I believe that this was due to the large skewness in the price variable and would investigate deeper with more data.'
+output: 
+  html_document: 
+    theme: simplex
+---
+
+***
+
+# Introduction
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE}
+# general
+library(MASS)
+library(caret)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mlbench)
+
+# specific
+library(randomForest)
+library(gbm)
+library(klaR)
+library(ellipse)
+library(tibble)
+```
+
+```{r echo = FALSE}
+ind_data = read.csv("https://daviddalpiaz.github.io/stat432sp18/projects/kc_house_data.csv")
+ind_data$yr_updated = ifelse(ind_data$yr_renovated == 0, ind_data$yr_built, ind_data$yr_renovated)
+waterfront = as.factor(ind_data$waterfront)
+zipcode = as.factor(ind_data$zipcode)
+hold_data = ind_data[-c(1:2, 15:16, 20:21)]
+set.seed(665065175)
+ind_idx = createDataPartition(hold_data$price, p = 0.75, list = FALSE)
+ind_trn = hold_data[ind_idx, ]
+ind_tst = hold_data[-ind_idx, ]
+```
+
+In this project, my **goal** was to predict prices of houses located in King County, Washington. Using statistical models and methods, I hope to achieve this goal to accurately estimate and predict the price of homes.
+The **motivation** behind this goal is that house buyers/sellers want to know how much money their house is truly worth. Since houses are worth hundreds of thousands of dollars, house buyers should do prior research before purchasing their home. A house buyer can use my project to estimate the true value of their potential new home before they pay their money to the realtor. Similarly, realtors may find this project helpful who would like to sell homes by using the estimated price of a home to negotiate the actual price of the home. Lastly, home sellers who live in a county similar to King County, Washington can use may use this research to predict the price of their home.
+
+EDA/Data: Our dataset originated from [Kaggle](https://www.kaggle.com/harlfoxem/housesalesprediction), a website used by statisticians to post datasets. This dataset, named `kc_house_data` has `r ncol(ind_data)` house features plus the `price` and the `id` columns, along with `r nrow(ind_data)` observations. According to Kaggle, all `r nrow(ind_data)` houses were sold from May 2014 to May 2015. None of the observations have any NA values, so there is no missing data. As a result, I decided not to remove any observations. A full list of the `r ncol(ind_data)` variables will be in the Appendix.
+
+This project will be split up into 5 sections: Introduction, Methods, Results, Discussion, and Appendix. A description of each section will be at the top of that section.
+
+***
+
+# Methods
+
+SPLITTING DATA:
+In this section, I will explain the most important steps I executed in order to complete my project. First, I loaded the data. I randomly split the data into training data and testing data. There were named `ind_trn` and `ind_tst` respectively. I chose to contain 75% of the overall data into training data and the remaining 25% into testing data. This proportion of split was best because I needed enough data to accurately train models but also enough data to test the accuracy of the models. A 75/25 split would allow me the right amount to do so. When splitting the data, I set the seed to 665065175 because that is my student UIN. The code of this is in the Introduction section, because I needed it to dynamically explain the data in the Introduction section.
+
+VARIABLE ELIMINATION:
+I decided to take out several variables from the dataset. First, I removed the `id` variable and `date` variables. These variables have nothing to do with the price of the home. I also removed `sqft_living15` and `sqft_lot15`, because I already had `sqft_living` and `sqft_lot`. `sqft_living15` and `sqft_living` were the same value for many of the observations, and similarly, `sqft_lot15` and `sqft_lot` often shared the same values as well. With that said, these variables were highly correlated causing larger VIFs, so it would be redundant and harmful to keep both in the dataset. I decided to remove `sqft_living15` and `sqft_lot15` because I found that these were less significant predictors than `sqft_living` and `sqft_lot`. Lastly, I combined the `yr_built` and `yr_renovated` into one variable called `yr_updated`. I noticed that if a house was not renovated, there would a 0 value as the `yr_renovated`. This is the equivalent of saying that the house was renovated in year 0. This would wildly skew data. Therefore, I created the `yr_updated` which is the most recent of the `yr_built` and `yr_renovated` variables and removed `yr_built` and `yr_updated` from the dataset. Again, the code for this is in the Introduction section so I could use it in the Introduction section.
+
+MODEL CREATION:
+In this section, I will briefly mention the motive behind creating some of my models. Overall, I trained 13 models: 5 linear models, 4 random forest models, and 4 KNN models. I tried to include several varieties of variables, transformations, and model types across my models. I created the `mod_lm_int` which consisted of no predictors, only the intercept parameter. I created `mod_lm_no_locate` because I wanted to see if location was important in predicting house prices. I can see how continental location will make a difference in prices of homes, but I wanted to test if the location within the county was significant in predicting house price. I created `mod_lm_interact` because I wanted to see if two-way interactions were significant predictors in predicting house price. All of the other liner models are additive models. I created `mod_rf_log_full` because I noticed that our price variable was highly skewed right (see Appendix). To combat this, I tried using the log of the price as the final response. For many of the models, I used `sqft_living` as a predictor because it makes the most logical sense: the bigger the house, the more expensive it should be. For my KNN models, I used k values 1 to 50 because going any larger than 50 took a long time to knit. I needed to find the best KNN model and also the best k value for this models.
+
+```{r}
+#Fitting Linear Models
+mod_lm_int          = lm(price ~ 1, data = ind_trn)
+mod_lm_no_locate    = lm(price ~ . - lat - long - zipcode, data = ind_trn)
+mod_lm_sqftliving   = lm(price ~ sqft_living, data = ind_trn)
+mod_lm_full         = lm(price ~ ., data = ind_trn)
+mod_lm_interact     = lm(price ~ . ^ 2, data = ind_trn)
+```
+
+```{r}
+#Fitting Random Forest Models
+set.seed(665065175)
+mod_rf_sqftliving   = randomForest(price ~ sqft_living, data = ind_trn)
+```
+
+```{r}
+#Fitting Random Forest Models
+set.seed(665065175)
+mod_rf_bed_bath_liv = randomForest(price ~ bedrooms + bathrooms + sqft_living, data = ind_trn)
+```
+
+```{r}
+#Fitting Random Forest Models
+set.seed(665065175)
+mod_rf_log_full     = randomForest(log(price) ~ ., data = ind_trn)
+```
+
+```{r}
+#Fitting Random Forest Models
+set.seed(665065175)
+mod_rf_full         = randomForest(price ~ ., data = ind_trn)
+```
+
+MODEL SELECTION:
+For all of models, I used test RMSE as the best measure of fit. RMSE is the square root of the variance of the residuals, or the standard deviation of the unexplained variance. I am attempting to minimize this value. Test RMSE was calculated differently depending on the model, but it was put into a table.
+
+```{r}
+#helper calc_rmse function
+calc_rmse = function(actual, predicted) {
+  sqrt(mean((actual - predicted) ^ 2))
+}
+```
+
+```{r echo = FALSE, warning = FALSE}
+#Finding RMSEs for Linear Models
+mod_lm_list = list(mod_lm_int, mod_lm_no_locate, mod_lm_sqftliving, mod_lm_full, mod_lm_interact)
+
+mod_lm_tst_pred = lapply(mod_lm_list, predict, newdata = ind_tst)
+
+mod_lm_tst_rmse = sapply(mod_lm_tst_pred, calc_rmse, actual = ind_tst$price)
+
+mod_lm_int_rmse          = mod_lm_tst_rmse[1]
+mod_lm_no_locate_rmse    = mod_lm_tst_rmse[2]
+mod_lm_sqftliving_rmse   = mod_lm_tst_rmse[3]
+mod_lm_full_rmse         = mod_lm_tst_rmse[4]
+mod_lm_interact_rmse     = mod_lm_tst_rmse[5]
+```
+
+```{r echo = FALSE}
+#Finding RMSEs for Random Forest Models
+mod_rf_sqftliving_rmse    = calc_rmse(ind_tst$price, predict(mod_rf_sqftliving, ind_tst))
+mod_rf_bed_bath_liv_rmse  = calc_rmse(ind_tst$price, predict(mod_rf_bed_bath_liv, ind_tst))
+mod_rf_log_full_rmse      = calc_rmse(ind_tst$price, exp(predict(mod_rf_log_full, ind_tst)))
+mod_rf_full_rmse          = calc_rmse(ind_tst$price, predict(mod_rf_full, ind_tst))
+```
+
+```{r}
+#Fitting k-Nearest Neighbors Models
+mod_knn_1_form = as.formula(price ~ sqft_living)
+mod_knn_2_form = as.formula(price ~ scale(sqft_living))
+mod_knn_3_form = as.formula(price ~ scale(sqft_living) + scale(lat) + scale(long))
+mod_knn_4_form = as.formula(price ~ .)
+```
+
+```{r echo = FALSE}
+#k = 1:50 as a tuning parameter
+k = 1:50
+mod_knn_1 = lapply(k, function(x) {knnreg(mod_knn_1_form, data = ind_trn, k = x)})
+mod_knn_2 = lapply(k, function(x) {knnreg(mod_knn_2_form, data = ind_trn, k = x)})
+mod_knn_3 = lapply(k, function(x) {knnreg(mod_knn_3_form, data = ind_trn, k = x)})
+mod_knn_4 = lapply(k, function(x) {knnreg(mod_knn_4_form, data = ind_trn, k = x)})
+```
+
+```{r echo = FALSE}
+#Making KNN Predictions
+mod_knn_1_pred  = lapply(mod_knn_1, predict, newdata = ind_tst)
+mod_knn_2_pred  = lapply(mod_knn_2, predict, newdata = ind_tst)
+mod_knn_3_pred  = lapply(mod_knn_3, predict, newdata = ind_tst)
+mod_knn_4_pred  = lapply(mod_knn_4, predict, newdata = ind_tst)
+```
+
+```{r echo = FALSE}
+#Finding RMSEs for KNN Models
+mod_knn_1_rmse  = sapply(mod_knn_1_pred, calc_rmse, actual = ind_tst$price)
+mod_knn_2_rmse  = sapply(mod_knn_2_pred, calc_rmse, actual = ind_tst$price)
+mod_knn_3_rmse  = sapply(mod_knn_3_pred, calc_rmse, actual = ind_tst$price)
+mod_knn_4_rmse  = sapply(mod_knn_4_pred, calc_rmse, actual = ind_tst$price)
+```
+
+***
+
+# Results
+
+Overall, after testing many different models, I found out that the **Random Forest model that uses all variables as predictors (`mod_rf_full`) is the best model for predicting house prices in King County, Washington.**
+
+After calculating the test RMSE for each model, I put the test RMSEs into a table (see Table A). With 13 models, there are 13 test RMSEs. To simplify my results, I was only concerned with the 5 best models, or the 5 lowest test RMSEs (see Table B). The 5 best models were `mod_lm_full`, `mod_lm_interact`, `mod_rf_log_full`, `mod_rf_full`, and `mod_knn_3`. 
+
+Although `mod_lm_interact` had the 3rd lowest Test RMSE of \$`r mod_lm_interact_rmse`, I did not consider it a workable model because it is simply too hard to interpret. With all of the variables as main effects and the interaction terms, there are `r length(coef(mod_lm_interact))`. This can be a hassle to interpret and a hassle to produce predictions, so I removed it from consideration from my final list of models.
+
+`mod_rf_log_full` had the 2nd lowest test RMSE among all the models, but I do not like this model as much as `mod_rf_full` because `mod_rf_full` had the lowest test RMSE. Therefore, `mod_rf_full` performs better. Also, taking the log of the response variable may be hard to interpret.
+
+In my KNN models, according to the graphs, it appears that a value of k between 10-20 is most appropriate. According to the calculations, the best values of k for `knn_mod_1`, `knn_mod_2`, `knn_mod_3`, and `knn_mod_4` are `r which.min(mod_knn_1_rmse)`, `r which.min(mod_knn_2_rmse)`, `r which.min(mod_knn_3_rmse)`, and `r which.min(mod_knn_4_rmse)` respectively.
+
+In the end, I selected Random Forest model (`mod_rf_full`). This model had the lowest test RMSE. It uses all of the predictors for predicting house prices. It had a test RMSE of \$`r mod_rf_full_rmse`. According to the Actual vs. Predicted, it has the best scatterplot of reduced scatter along the line Predicted = Actual.
+
+```{r echo = FALSE}
+rmse_results = data.frame(
+  model_name = c("mod_lm_int", "mod_lm_no_locate", "mod_lm_sqftliving", "mod_lm_full", "mod_lm_interact", "mod_rf_sqftliving", "mod_rf_bed_bath_liv", "mod_rf_log_full", "mod_rf_full", "mod_knn_1",  "mod_knn_2", "mod_knn_3", "mod_knn_4"),
+  model_type = c("lm", "lm", "lm", "lm", "lm", "rf", "rf", "rf", "rf", "knn", "knn", "knn", "knn"),
+  model_components = c("price ~ 1", "price ~ . - lat - long - zipcode", "price ~ sqft_living", "price ~ .", "price ~ . ^ 2", "price ~ sqft_living", "price ~ bedrooms + bathrooms + sqft_living", "log(price) ~ .", "price ~ .", "price ~ sqft_living", "price ~ scale(sqft_living)", "price ~ scale(sqft_living) + scale(lat) + scale(long)", "price ~ ."),
+  model_rmse = c(mod_lm_tst_rmse, mod_rf_sqftliving_rmse, mod_rf_bed_bath_liv_rmse, mod_rf_log_full_rmse, mod_rf_full_rmse, min(mod_knn_1_rmse), min(mod_knn_2_rmse), min(mod_knn_3_rmse), min(mod_knn_4_rmse))
+)
+colnames(rmse_results) = c("Model", "Model Type", "Model Components", "Test RMSE")
+```
+
+```{r}
+kable(rmse_results, caption = "Table A: RMSE Results")
+```
+
+```{r echo = FALSE}
+best_results = data.frame(
+  model_name = c("mod_lm_full", "mod_lm_interact", "mod_rf_log_full", "mod_rf_full", "mod_knn_3"),
+  model_type = c("lm", "lm", "rf", "rf", "knn"),
+  model_components = c("price ~ .", "price ~ . ^ 2", "log(price) ~ .", "price ~ .", "price ~ scale(sqft_living) + scale(lat) + scale(long)"),
+  model_rmse = c(mod_lm_tst_rmse[4], mod_lm_tst_rmse[5], mod_rf_log_full_rmse, mod_rf_full_rmse, min(mod_knn_3_rmse))
+)
+colnames(rmse_results) = c("Model", "Model Type", "Model Components", "Test RMSE")
+```
+
+```{r}
+kable(best_results, caption = "Table B: Best RMSE Results")
+```
+
+```{r echo = FALSE, fig.align = "center"}
+plot(k, mod_knn_1_rmse, type = "l", col = "darkblue", lty = 1, lwd = 2,
+     xlab = "Number of Neighbors, k", ylab = "Test RMSE",
+     main = "KNN Performance, KC House Data",
+     ylim = c(min(mod_knn_1_rmse, mod_knn_2_rmse, mod_knn_3_rmse, mod_knn_4_rmse) - 50000, max(mod_knn_1_rmse, mod_knn_2_rmse, mod_knn_3_rmse, mod_knn_4_rmse) + 50000))
+grid()
+lines(k, mod_knn_2_rmse, col = "seagreen", lty = 1, lwd = 2)
+lines(k, mod_knn_3_rmse, col = "purple", lty = 1, lwd = 2)
+lines(k, mod_knn_4_rmse, col = "orange", lty = 1, lwd = 2)
+legend("topright", c("KNN Model 1", "KNN Model 2", "KNN Model 3", "KNN Model 4"), lty = 1, lwd = 2,
+       col = c("darkblue", "seagreen", "purple", "orange"), cex = 1)
+```
+
+```{r echo = FALSE, warning = FALSE}
+plot(ind_tst$price, predict(mod_lm_full, ind_tst),
+     col = "darkblue", pch = 20,
+     xlab = "Actual", ylab = "Predicted",
+     main = "Predicted vs. Actual: mod_lm_full")
+grid()
+abline(0, 1, col = "orange", lwd = 2)
+
+plot(ind_tst$price, predict(mod_lm_interact, ind_tst),
+     col = "darkblue", pch = 20,
+     xlab = "Actual", ylab = "Predicted",
+     main = "Predicted vs. Actual: mod_lm_interact")
+grid()
+abline(0, 1, col = "orange", lwd = 2)
+
+plot(ind_tst$price, exp(predict(mod_rf_log_full, ind_tst)),
+     col = "darkblue", pch = 20,
+     xlab = "Actual", ylab = "Predicted",
+     main = "Predicted vs. Actual: mod_rf_log_full")
+grid()
+abline(0, 1, col = "orange", lwd = 2)
+
+plot(ind_tst$price, predict(mod_rf_full, ind_tst),
+     col = "darkblue", pch = 20,
+     xlab = "Actual", ylab = "Predicted",
+     main = "Predicted vs. Actual: mod_rf_full")
+grid()
+abline(0, 1, col = "orange", lwd = 2)
+
+plot(ind_tst$price, mod_knn_3_pred[[which.min(mod_knn_3_rmse)]],
+     col = "darkblue", pch = 20,
+     xlab = "Actual", ylab = "Predicted",
+     main = "Predicted vs. Actual: mod_knn_3")
+grid()
+abline(0, 1, col = "orange", lwd = 2)
+```
+
+***
+
+# Discussion
+
+I would suggest to realtors/home buyers who want to use my Random Forest Model to use my research **with caution**. Since we are given a test RMSE of \$`r mod_rf_full_rmse`, I would warn the realtors that even my best model is not insanely accurate. Because our test RMSE is so high, realtors may under-price houses by hundreds of thousands of dollars or buyers may purchase homes for hundreds of thousands of dollars more than the home is worth. I would use my research and model as a very rough estimate, but not the final price.
+
+As stated in the Introduction,
+My **goal** was to predict prices of houses located in King County, Washington. Using statistical models and methods, I hope to achieve this goal to accurately estimate and predict the price of homes.
+The **motivation** behind this goal is that house buyers/sellers want to know how much money their house is truly worth.
+
+I believe that my research was an attempt to succeed in our originial goal. Throughout the entire
+
+I believe that my results were off because there is such a wide variety in the data of house price. The median price is \$`r median(ind_data$price)`, and the mean price is \$`r mean(ind_data$price)`. Since the median is so much less than the mean, we can imply that there are several large outliers of price to this data, skewing it positively. In fact, of the `r nrow(ind_data)` observations, there are `r sum(ind_data$price > mean(ind_data$price) + 10 * sd(ind_data$price))` observations of the price of the home being above \$` r  mean(ind_data$price) + 10 * sd(ind_data$price`, which is the price of a home 10 standard deviations above the mean. The histogram below will show the shape of the price curve, and it’s skewed right.
+
+To make a better project for next time, I would probably split the data into categories of price. For example, I would split the homes into categories of
+1. \$0-\$200,000
+2. \$200,001 - \$400,000
+3. \$400,001 - \$600,000
+4. \$600,001 - \$1,000,000
+5. \$1,000,001- \$2,000,000
+6. \$2,000,001 - \$4,000,000
+7. \$4,000,001+
+
+I would create these splits because if we are using a model from training data with houses that are worth over \$4,000,000 to predict the price of a house that is truly \$200,000, we can run into extrapolation error. However, this may be difficult to create models because I would need more data of high priced homes. See Appendix for histogram of price variable.
+
+***
+
+# Appendix
+
+```{r}
+glimpse(ind_data)
+```
+
+## Data Dictionary
+[Data Dictionary](https://www.kaggle.com/harlfoxem/housesalesprediction) (which can also be found on Kaggle):
+
+| Variable Name | Description                                                                                                 | Variable Type |
+| ------------- | :---------------------------------------------------------------------------------------------------------: | :-----------: |
+| id            | a notation for a house                                                                                      | Numeric       |
+| date          | Date house was sold                                                                                         | String        |
+| price         | Price is prediction target                                                                                  | Numeric       |
+| bedrooms      | Number of Bedrooms/House                                                                                    | Numeric       |
+| bathrooms     | Number of bathrooms/bedrooms                                                                                | Numeric       |
+| sqft_living   | square footage of the home                                                                                  | Numeric       |
+| sqft_lot      | square footage of the lot                                                                                   | Numeric       |
+| floors        | Total floors (levels) in the house                                                                          | Numeric       |
+| waterfront    | House which has a view to a waterfront                                                                      | Numeric       |
+| view          | Has been viewed                                                                                             | Numeric       |
+| condition     | How good the condition is (Overall)                                                                         | Numeric       |
+| grade         | overall grade given to the housing unit, based on King County grading system                                | Numeric       |
+| sqft_above    | square footage of house apart from basement                                                                 | Numeric       |
+| sqft_below    | square footage of the basement                                                                              | Numeric       |
+| yr_built      | Built Year                                                                                                  | Numeric       |
+| yr_renovated  | Year when house was renovated                                                                               | Numeric       |
+| zipcode       | zip                                                                                                         | Numeric       |
+| lat           | Latitude coordinate                                                                                         | Numeric       |
+| long          | Longitude coordinate                                                                                        | Numeric       |
+| sqft_living15 | Living room area in 2015 (implies--some renovations) This might or might not have affected the lotsize area | Numeric       |
+| sqft_lot15    | lotSize area in 2015 (implies--some renovations)                                                            | Numeric       |
+| yr_updated    | Most recent year of yr_built or yr_renovated                                                                | Numeric       |
+
+## Descriptive Statistics
+
+### Price
+```{r}
+summary(ind_data$price)
+```
+
+```{r}
+hist(ind_data$price, xlab = "price", main = "kjwong2's Histogram of KC House Price", border = "orange", col = "darkblue", breaks = 40)
+```
+
+### Square Footage of Home
+```{r}
+summary(ind_data$sqft_living)
+```

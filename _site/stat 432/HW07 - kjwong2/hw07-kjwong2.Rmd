@@ -1,0 +1,695 @@
+---
+title: "STAT 432 Homework 07"
+author: "Kevin Wong - kjwong2"
+date: '**Due:** Friday, April 6, 11:59 PM'
+---
+
+***
+
+Please see the [homework policy document](https://daviddalpiaz.github.io/stat432sp18/homework_policy.html) for detailed instructions and some grading notes. Failure to follow instructions will result in point reductions.
+
+***
+
+> "Statisticians, like artists, have the bad habit of falling in love with their models."
+>
+> --- **[George Box](https://en.wikipedia.org/wiki/George_E._P._Box)**
+
+***
+
+For this homework, you may only use the following packages:
+
+```{r, message = FALSE, warning = FALSE}
+# general
+library(MASS)
+library(caret)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mlbench)
+
+# specific
+library(ISLR)
+library(ellipse)
+library(randomForest)
+library(gbm)
+library(glmnet)
+library(rpart)
+library(rpart.plot)
+```
+
+If you feel additional general packages would be useful for future homework, please pass these along to the instructor.
+
+***
+
+# Exercise 1 (Classifying Leukemia)
+
+**[7 points]** For this question we will use the data in [`leukemia.csv`](leukemia.csv) which originates from [Golub et al. 1999.](http://www.ncbi.nlm.nih.gov/pubmed/10521349)
+
+The response variable `class` is a categorical variable. There are two possible responses: `ALL` (acute myeloid leukemia) and `AML` (acute lymphoblastic leukemia), both types of leukemia. We will use the many feature variables, which are expression levels of genes, to predict these classes.
+
+Note that, this dataset is rather large and you may have difficultly loading it using the "Import Dataset" feature in RStudio. Instead place the file in the same folder as your `.Rmd` file and run the following command. (Which you should be doing anyway.) Again, since this dataset is large, use 5-fold cross-validation when needed.
+
+```{r, message = FALSE, warning = FALSE}
+leukemia = read_csv("leukemia.csv", progress = FALSE)
+```
+
+For use with the `glmnet` package, it will be useful to create a factor response variable `y` and a feature matrix `X` as seen below. We won't test-train split the data since there are so few observations.
+
+```{r}
+y = as.factor(leukemia$class)
+X = as.matrix(leukemia[, -1])
+```
+
+Do the following:
+
+- Set a seed equal to your UIN.
+- Fit the full path of a logistic regression with both a lasso penalty and a ridge penalty. (Don't use cross-validation. Also let `glmnet` choose the $\lambda$ values.) Create side-by-side plots that shows the features entering (or leaving) the models.
+- Use cross-validation to tune an logistic regression with a lasso penalty. Again, let `glmnet` choose the $\lambda$ values. Store both the $\lambda$ that minimizes the deviance, as well as the $\lambda$ that has a deviance within one standard error. Create a plot of the deviances for each value of $\lambda$ considered. Use these two $\lambda$ values to create a grid for use with `train()` in `caret`. Use `train()` to get cross-validated classification accuracy for these two values of $\lambda$. Store these values.
+- Use cross-validation to tune an logistic regression with a ridge penalty. Again, let `glmnet` choose the $\lambda$ values. Store both the $\lambda$ that minimizes the deviance, as well as the $\lambda$ that has a deviance within one standard error. Create a plot of the deviances for each value of $\lambda$ considered. Use these two $\lambda$ values to create a grid for use with `train()` in `caret`. Use `train()` to get cross-validated classification accuracy for these two values of $\lambda$. Store these values.
+- Use cross-validation to tune $k$-nearest neighbors using `train()` in `caret`. Do not specify a grid of $k$ values to try, let `caret` do so automatically. (It will use 5, 7, 9.) Store the cross-validated accuracy for each. Scale the predictors.
+- Summarize these **seven** models in a table. (Two lasso, two ridge, three knn.) For each report the cross-validated accuracy and the standard deviation of the accuracy.
+
+**Answer:**
+```{r}
+uin = 665065175
+set.seed(uin)
+ridge_fit = glmnet(X, y, family = "binomial", alpha = 0)
+lasso_fit = glmnet(X, y, family = "binomial", alpha = 1)
+```
+
+```{r}
+par(mfrow = c(1, 2))
+plot(ridge_fit, xvar = "lambda", label = TRUE, main = "Ridge")
+plot(lasso_fit, xvar = "lambda", label = TRUE, main = "Lasso")
+```
+
+```{r}
+mod_ex1_ridge_cv = cv.glmnet(X, y, family = "binomial", alpha = 0, nfolds = 5)
+plot(mod_ex1_ridge_cv)
+```
+
+```{r}
+ex1_ridge_lambda = expand.grid(alpha = 0, lambda = c(mod_ex1_ridge_cv$lambda.min, mod_ex1_ridge_cv$lambda.1se))
+```
+
+```{r}
+mod_ex1_ridge_trn = train(X, y,
+                    method = "glmnet", 
+                    trControl = trainControl(method = "cv", number = 5),
+                    tuneGrid = ex1_ridge_lambda)
+```
+
+```{r}
+mod_ex1_lasso_cv = cv.glmnet(X, y, family = "binomial", alpha = 1, nfolds = 5)
+plot(mod_ex1_lasso_cv)
+```
+
+```{r}
+ex1_lasso_lambda = expand.grid(alpha = 1, lambda = c(mod_ex1_lasso_cv$lambda.min, mod_ex1_lasso_cv$lambda.1se))
+```
+
+```{r}
+mod_ex1_lasso_trn = train(X, y,
+                    method = "glmnet", 
+                    trControl = trainControl(method = "cv", number = 5),
+                    tuneGrid = ex1_lasso_lambda)
+```
+
+```{r}
+mod_ex1_knn_trn = train(X, y, 
+                  method = "knn",
+                  preProc = c("center", "scale"),
+                  trControl = trainControl(method = "cv", number = 5))
+```
+
+```{r}
+ex1_methods = c("Lasso Model", "Lasso Model", "Ridge Model", "Ridge Model", "KNN Model", "KNN Model", "KNN Model")
+ex1_parm_vals = c(mod_ex1_lasso_trn$results$lambda, mod_ex1_ridge_trn$results$lambda, mod_ex1_knn_trn$results$k)
+ex1_cv_accs = c(mod_ex1_lasso_trn$results$Accuracy, mod_ex1_ridge_trn$results$Accuracy, mod_ex1_knn_trn$results$Accuracy)
+ex1_cv_acc_sds = c(mod_ex1_lasso_trn$results$AccuracySD, mod_ex1_ridge_trn$results$AccuracySD, mod_ex1_knn_trn$results$AccuracySD)
+```
+
+```{r echo = FALSE}
+ex1_results = data.frame(
+  methods = ex1_methods,
+  parm_vals = ex1_parm_vals,
+  cv_accs = ex1_cv_accs,
+  cv_acc_sds = ex1_cv_acc_sds)
+colnames(ex1_results) = c("Method", "Parameter Values", "CV-5 Accuracy", "Accuracy SD")
+```
+
+```{r}
+kable(ex1_results)
+```
+
+***
+
+# Exercise 2 (The Cost of College)
+
+**[5 points]** For this exercise, we will use the `College` data from the `ISLR` package. Familiarize yourself with this dataset before performing analyses. We will attempt to predict the `Outstate` variable.
+
+Test-train split the data using this code.
+
+```{r, message = FALSE, warning = FALSE}
+set.seed(42)
+index = createDataPartition(College$Outstate, p = 0.75, list = FALSE)
+college_trn = College[index, ]
+college_tst = College[-index, ]
+```
+
+Train a total of **six** models using five-fold cross validation.
+
+- An additive linear model.
+- An elastic net model using additive predictors. Use a `tuneLength` of `10`.
+- An elastic net model that also considers all two-way interactions. Use a `tuneLength` of `10`.
+- A well-tuned KNN model.
+- A well-tuned KNN model that also considers all two-way interactions. (Should this work?)
+- A default-tuned random forest.
+
+Before beginning, set a seed equal to your UIN.
+
+```{r}
+set.seed(uin)
+```
+
+- Create a table which reports CV and Test RMSE for each.
+
+**Answer:**
+
+```{r}
+set.seed(uin)
+mod_ex2_lm = train(
+  form = Outstate ~ .,
+  data = college_trn,
+  method = "lm",
+  trControl = trainControl(method = "cv", number = 5)
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex2_tune_10_add = train(
+  form = Outstate ~ .,
+  data = college_trn,
+  method = "glmnet",
+  trControl = trainControl(method = "cv", number = 5),
+  tuneLength = 10
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex2_tune_10_int = train(
+  form = Outstate ~ . ^ 2,
+  data = college_trn,
+  method = "glmnet",
+  trControl = trainControl(method = "cv", number = 5),
+  tuneLength = 10
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex2_knn = train(
+  form = Outstate ~ .,
+  data = college_trn,
+  method = "knn",
+  preProcess = c("center", "scale"),
+  trControl = trainControl(method = "cv", number = 5),
+  tuneLength = 20
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex2_knn_int = train(
+  form = Outstate ~ . ^ 2,
+  data = college_trn,
+  method = "knn",
+  preProcess = c("center", "scale"),
+  trControl = trainControl(method = "cv", number = 5),
+  tuneLength = 20
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex2_knn_TEST = train(
+  form = Outstate ~ .,
+  data = college_trn,
+  method = "knn",
+  trControl = trainControl(method = "cv", number = 5),
+  tuneLength = 20
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex2_knn_int_TEST = train(
+  form = Outstate ~ . ^ 2,
+  data = college_trn,
+  method = "knn",
+  trControl = trainControl(method = "cv", number = 5),
+  tuneLength = 20
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex2_rf = train(
+  form = Outstate ~ .,
+  data = college_trn,
+  method = "rf",
+  trControl = trainControl(method = "cv", number = 5)
+)
+```
+
+```{r}
+calc_rmse = function(actual, predicted) {
+  sqrt(mean((actual - predicted) ^ 2))
+}
+
+get_best_result = function(caret_fit) {
+  best = which(rownames(caret_fit$results) == rownames(caret_fit$bestTune))
+  best_result = caret_fit$results[best, ]
+  rownames(best_result) = NULL
+  best_result
+}
+```
+
+```{r}
+mod_ex2_lm_rmse           = calc_rmse(actual = college_tst$Outstate, predicted = predict(mod_ex2_lm, college_tst))
+mod_ex2_tune_10_add_rmse  = calc_rmse(actual = college_tst$Outstate, predicted = predict(mod_ex2_tune_10_add, college_tst))
+mod_ex2_tune_10_int_rmse  = calc_rmse(actual = college_tst$Outstate, predicted = predict(mod_ex2_tune_10_int, college_tst))
+mod_ex2_knn_rmse          = calc_rmse(actual = college_tst$Outstate, predicted = predict(mod_ex2_knn, college_tst))
+mod_ex2_knn_int_rmse      = calc_rmse(actual = college_tst$Outstate, predicted = predict(mod_ex2_knn_int, college_tst))
+mod_ex2_rf_rmse           = calc_rmse(actual = college_tst$Outstate, predicted = predict(mod_ex2_rf, college_tst))
+
+ex2_test_rmses = c(mod_ex2_lm_rmse, mod_ex2_tune_10_add_rmse, mod_ex2_tune_10_int_rmse, mod_ex2_knn_rmse, mod_ex2_knn_int_rmse, mod_ex2_rf_rmse)
+
+mod_ex2_lm_rmse_cv          = get_best_result(mod_ex2_lm)$RMSE
+mod_ex2_tune_10_add_rmse_cv = get_best_result(mod_ex2_tune_10_add)$RMSE
+mod_ex2_tune_10_int_rmse_cv = get_best_result(mod_ex2_tune_10_int)$RMSE
+mod_ex2_knn_rmse_cv         = get_best_result(mod_ex2_knn)$RMSE
+mod_ex2_knn_int_rmse_cv     = get_best_result(mod_ex2_knn_int)$RMSE
+mod_ex2_rf_rmse_cv          = get_best_result(mod_ex2_rf)$RMSE
+
+ex2_cv_test_rmses = c(mod_ex2_lm_rmse_cv, mod_ex2_tune_10_add_rmse_cv, mod_ex2_tune_10_int_rmse_cv, mod_ex2_knn_rmse_cv, mod_ex2_knn_int_rmse_cv, mod_ex2_rf_rmse_cv)
+```
+
+```{r echo = FALSE}
+ex2_results = data.frame(
+  model = c("mod_ex2_lm", "mod_ex2_tune_10_add", "mod_ex2_tune_10_int", "mod_ex2_knn", "mod_ex2_knn_int", "mod_ex2_rf"),
+  description = c("Additive Linear Model", "Additive Elastic Net", "Interaction Elastic Net", "KNN", "Interaction KNN", "Random Forest"),
+  test_rmses = ex2_test_rmses,
+  cv_rmses = ex2_cv_test_rmses
+)
+colnames(ex2_results) = c("Model Name", "Model Type", "Test RMSE", "CV RMSE")
+```
+
+```{r}
+kable(ex2_results)
+```
+
+***
+
+# Exercise 3 (Computation Time)
+
+**[5 points]** For this exercise we will create data via simulation, then assess how well certain methods perform. Use the code below to create a train and test dataset.
+
+```{r, message = FALSE, warning = FALSE}
+set.seed(42)
+sim_trn = mlbench.spirals(n = 2500, cycles = 1.5, sd = 0.125)
+sim_trn = data.frame(sim_trn$x, class = as.factor(sim_trn$classes))
+sim_tst = mlbench.spirals(n = 10000, cycles = 1.5, sd = 0.125)
+sim_tst = data.frame(sim_tst$x, class = as.factor(sim_tst$classes))
+```
+
+The training data is plotted below, with colors indicating the `class` variable, which is the response.
+
+```{r, fig.height = 5, fig.width = 5, echo = FALSE, fig.align = "center"}
+sim_trn_col = ifelse(sim_trn$class == 1, "darkorange", "dodgerblue")
+plot(sim_trn$X1, sim_trn$X2, col = sim_trn_col,
+     xlab = "X1", ylab = "X2", pch = 20)
+```
+
+Before proceeding further, set a seed equal to your UIN.
+
+```{r}
+set.seed(uin)
+```
+
+We'll use the following to define 5-fold cross-validation for use with `train()` from `caret`.
+
+```{r, message = FALSE, warning = FALSE}
+cv_5 = trainControl(method = "cv", number = 5)
+```
+
+We now tune two models with `train()`. First, a logistic regression using `glm`. (This actually isn't "tuned" as there are not parameters to be tuned, but we use `train()` to perform cross-validation.) Second we tune a single decision tree using `rpart`.
+
+We store the results in `sim_glm_cv` and `sim_tree_cv` respectively, but we also wrap both function calls with `system.time()` in order to record how long the tuning process takes for each method.
+
+```{r, message = FALSE, warning = FALSE}
+glm_cv_time = system.time({
+  sim_glm_cv  = train(
+    class ~ .,
+    data = sim_trn,
+    trControl = cv_5,
+    method = "glm")
+})
+
+tree_cv_time = system.time({
+  sim_tree_cv = train(
+    class ~ .,
+    data = sim_trn,
+    trControl = cv_5,
+    method = "rpart")
+})
+```
+
+We see that both methods are tuned via cross-validation in a similar amount of time.
+
+```{r}
+glm_cv_time["elapsed"]
+tree_cv_time["elapsed"]
+```
+
+```{r, message = FALSE, warning = FALSE, echo = FALSE, fig.align = "center"}
+rpart.plot(sim_tree_cv$finalModel)
+```
+
+Repeat the above analysis using a random forest, twice. The first time use 5-fold cross-validation. (This is how we had been using random forests before we understood random forests.) The second time, tune the model using OOB samples. We only have two predictors here, so, for both, use the following tuning grid.
+
+```{r}
+rf_grid = expand.grid(mtry = c(1, 2))
+```
+
+Create a table summarizing the results of these four models. (Logistic with CV, Tree with CV, RF with OOB, RF with CV). Report:
+
+- Chosen value of tuning parameter (If applicable)
+- Elapsed tuning time
+- Resampled (CV or OOB) Accuracy
+- Test Accuracy
+
+**Answer:**
+```{r}
+set.seed(uin)
+rf_cv_time = system.time({
+  sim_rf_cv  = train(
+    class ~ .,
+    data = sim_trn,
+    trControl = cv_5,
+    method = "rf",
+    tuneGrid = rf_grid)
+})
+```
+
+```{r}
+set.seed(uin)
+rf_oob_time = system.time({
+  sim_rf_oob = train(
+    class ~ .,
+    data = sim_trn,
+    trControl = trainControl(method = "oob"),
+    method = "rf",
+    tuneGrid = rf_grid)
+})
+```
+
+```{r}
+calc_acc = function(actual, predicted) {
+  mean(actual == predicted)
+}
+```
+
+```{r}
+glm_cv_acc_tst  = calc_acc(actual = sim_tst$class, predicted = predict(sim_glm_cv, sim_tst))
+tree_cv_acc_tst = calc_acc(actual = sim_tst$class, predicted = predict(sim_tree_cv, sim_tst))
+rf_cv_acc_tst   = calc_acc(actual = sim_tst$class, predicted = predict(sim_rf_cv, sim_tst))
+rf_oob_acc_tst  = calc_acc(actual = sim_tst$class, predicted = predict(sim_rf_oob, sim_tst))
+```
+
+```{r echo = FALSE}
+ex3_tune_parms = c(NA, sim_tree_cv$bestTune$cp, sim_rf_cv$bestTune$mtry, sim_rf_oob$bestTune$mtry)
+ex3_times = c(glm_cv_time["elapsed"], tree_cv_time["elapsed"], rf_cv_time["elapsed"], rf_oob_time["elapsed"])
+ex3_accs_resamp = c(max(sim_glm_cv$results$Accuracy), max(sim_tree_cv$results$Accuracy), max(sim_rf_cv$results$Accuracy), max(sim_rf_oob$results$Accuracy))
+ex3_accs_tst = c(glm_cv_acc_tst, tree_cv_acc_tst, rf_cv_acc_tst, rf_oob_acc_tst)
+```
+
+```{r echo = FALSE}
+ex3_results = data.frame(
+  model = c("sim_glm_cv", "sim_tree_cv", "sim_rf_cv", "sim_rf_oob"),
+  description = c("GLM CV", "Tree CV", "Random Forest CV", "Random Forest OOB"),
+  tune_parms = ex3_tune_parms,
+  times = ex3_times,
+  accs_resampe = ex3_accs_resamp,
+  accs_tst = ex3_accs_tst
+)
+colnames(ex3_results) = c("Model", "Description", "Tuning Parameters", "Times", "Resampled Accuracy", "Test Accuracy")
+```
+
+```{r}
+kable(ex3_results)
+```
+
+# Exercise 4 (Predicting Baseball Salaries)
+
+**[5 points]** For this question we will predict the `Salary` of `Hitters`. (`Hitters` is also the name of the dataset.) We first remove the missing data:
+
+```{r}
+Hitters = na.omit(Hitters)
+```
+
+After changing `uin` to your UIN, use the following code to test-train split the data.
+
+```{r}
+set.seed(uin)
+hit_idx = createDataPartition(Hitters$Salary, p = 0.6, list = FALSE)
+hit_trn = Hitters[hit_idx,]
+hit_tst = Hitters[-hit_idx,]
+```
+
+Do the following:
+
+- Tune a boosted tree model using the following tuning grid and 5-fold cross-validation.
+
+```{r}
+gbm_grid = expand.grid(interaction.depth = c(1, 2),
+                       n.trees = c(500, 1000, 1500),
+                       shrinkage = c(0.001, 0.01, 0.1),
+                       n.minobsinnode = 10)
+```
+
+- Tune a random forest using OOB resampling and **all** possible values of `mtry`. 
+
+Create a table summarizing the results of three models:
+
+- Tuned boosted tree model
+- Tuned random forest model
+- Bagged tree model
+
+For each, report:
+
+- Resampled RMSE
+- Test RMSE
+
+**Answer:**
+```{r}
+npred = ncol(hit_trn) - 1
+#There are 19 predictors in our dataset
+```
+
+```{r}
+set.seed(uin)
+mod_ex4_gbm = train(
+  form = Salary ~ .,
+  data = hit_trn,
+  method = "gbm",
+  trControl = trainControl(method = "cv", number = 5),
+  tuneGrid = gbm_grid,
+  verbose = FALSE
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex4_rf = train(
+  form = Salary ~ .,
+  data = hit_trn,
+  method = "rf",
+  verbose = FALSE,
+  trControl = trainControl(method = "oob"),
+  tuneGrid = expand.grid(mtry = 1:npred)
+)
+```
+
+```{r}
+set.seed(uin)
+mod_ex4_bag = train(
+  form = Salary ~ .,
+  data = hit_trn,
+  method = "rf",
+  trControl = trainControl(method = "oob"),
+  tuneGrid = expand.grid(mtry = npred)
+)
+```
+
+```{r}
+mod_ex4_gbm_rmse  = calc_rmse(actual = hit_tst$Salary, predicted = predict(mod_ex4_gbm, hit_tst))
+mod_ex4_rf_rmse   = calc_rmse(actual = hit_tst$Salary, predicted = predict(mod_ex4_rf, hit_tst))
+mod_ex4_bag_rmse  = calc_rmse(actual = hit_tst$Salary, predicted = predict(mod_ex4_bag, hit_tst))
+
+ex4_test_rmses = c(mod_ex4_gbm_rmse, mod_ex4_rf_rmse, mod_ex4_bag_rmse)
+
+mod_ex4_gbm_rmse_cv   = get_best_result(mod_ex4_gbm)$RMSE
+mod_ex4_rf_rmse_cv    = get_best_result(mod_ex4_rf)$RMSE
+mod_ex4_bag_rmse_cv   = get_best_result(mod_ex4_bag)$RMSE
+
+ex4_cv_test_rmses = c(mod_ex4_gbm_rmse_cv, mod_ex4_rf_rmse_cv, mod_ex4_bag_rmse_cv)
+```
+
+```{r echo = FALSE}
+ex4_results = data.frame(
+  model = c("mod_ex4_gbm", "mod_ex4_rf", "mod_ex4_bag"),
+  description = c("Tuned Boosted Tree Model", "Random Forest Tree Model", "Bagged Tree Model"),
+  test_rmses = ex4_test_rmses,
+  cv_rmses = ex4_cv_test_rmses
+)
+colnames(ex4_results) = c("Model Name", "Model Type", "Resampled RMSE", "Test RMSE")
+```
+
+```{r}
+kable(ex4_results)
+```
+
+***
+
+# Exercise 5 (Concept Checks)
+
+**[0.5 point each]** Answer the following questions based on your results from the four exercises. Yes this does mean that the total points total more than 30. The extra points are "buffer" points. The maximum points you are able to score is still 30.
+
+### Leukemia
+
+**(5.1.1)** How many observations are in the dataset? How many predictors are in the dataset?
+
+**Answer:**
+```{r}
+nrow(leukemia)
+ncol(leukemia) - 1
+```
+
+- There are `r nrow(leukemia)` observations and `r ncol(leukemia) - 1` predictors in our dataset.
+
+**(5.1.2)** Based on the deviance plots, do you feel that `glmnet` considered enough $\lambda$ values for lasso?
+
+**Answer:**
+- Yes, there is a relative minimum value of Binomial Deviance around log(lambda) = -4.
+
+**(5.1.3)** Based on the deviance plots, do you feel that `glmnet` considered enough $\lambda$ values for ridge?
+
+**Answer:**
+- No, there is not a relative minimum value of Binomial Deviance. We can still test log(lambda) values to the left of 2.
+
+**(5.1.4)** How does $k$-nearest neighbor compare to the penalized methods? Can you explain any difference?
+
+**Answer:**
+- The three KNN models do not do as well as the penalized models because they have lower CV-5 Accuracies. This could due to the fact that KNN models do not do as well in a high-dimensional space (We have over 5,000 predictors).
+
+**(5.1.5)** Based on your results, which model would you choose? Explain.
+
+**Answer:**
+- I would chose the original ridge model with the minimum lambda value because this model has the lowest CV-5 Accuracy and the lowest Accuracy SD.
+
+### College
+
+**(5.2.1)** Based on the table, which model do you prefer? Justify your answer.
+
+**Answer:**
+- I prefer the Random Forest model because it has the lowest Test RMSE and also the lowest CV RMSE.
+
+**(5.2.2)** For both of the elastic net models, report the best tuning parameters from `caret`. For each, is this ridge, lasso, or somewhere in between? If in between, closer to which?
+
+**Answer:**
+```{r}
+mod_ex2_tune_10_add$bestTune
+mod_ex2_tune_10_int$bestTune
+```
+
+- Both of these models have alpha values are closer to 0 than 1. The alpha values are `r mod_ex2_tune_10_add$bestTune` and `r mod_ex2_tune_10_int$bestTune` respectively, so it's closer to 0 (ridge) than 1 (lasso).
+
+**(5.2.3)** Did you scale the predictors when you used KNN? Should you have scaled the predictors when you used KNN?
+
+**Answer:**
+- I decided to scale the predictors. I think we should do this because this resulted in a lower CV RMSE.
+
+**(5.2.4)** Of the two KNN models which works better? Can you explain why?
+
+**Answer:**
+- Additive is clearly better because it has a lower Test RMSE and lower CV RMSE. This could due to the fact that KNN models do not do as well in high-dimensional space.
+
+**(5.2.5)** What year is this dataset from? What was out-of-state tuition at UIUC at that time?
+
+**Answer:**
+- According to ?College, the dataset is from 1995.
+- According to the data, the amount of for out-of-state tuition at UIUC in 1995 was $7560.
+
+### Timing
+
+**(5.3.1)** Compare the time taken to tune each model. Is the difference between the OOB and CV result for the random forest similar to what you would have expected?
+
+**Answer:**
+- The `rf_cv_time` is `r rf_cv_time["elapsed"]` seconds while the `rf_oob_time` is `r rf_oob_time["elapsed"]` seconds. That is a difference of `r abs(rf_cv_time["elapsed"] - rf_oob_time["elapsed"])` seconds. I would expect a difference in time around this because the `rf_cv_time` is cross-validating 5 folds. However, the ratio between the times is less than 5, making me believe that OOB runs a little slower per each cross-validation fold.
+
+**(5.3.2)** Compare the tuned value of `mtry` for each of the random forests tuned. Do they choose the same model?
+
+**Answer:**
+- The `mtry` value of `mod_ex4_bag` is `r mod_ex4_rf$bestTune$mtry` while the `mtry` value of `mod_ex4_bag` is `r mod_ex4_bag$bestTune$mtry`. They chose different models.
+
+**(5.3.3)** Compare the test accuracy of each of the four procedures considered. Briefly explain these results.
+
+**Answer:**
+- The Test Accuracy of the `sim_glm_cv` is `r glm_cv_acc_tst`. This is the worst because our dataset plot shows a spiral, which is not linear.
+- The Test Accuracy of the `sim_tree_cv` is `r tree_cv_acc_tst`. This is a little better but not as good as the Random Forests because we are only using one tree.
+- The Test Accuracy of the `sim_rf_cv` is `r rf_cv_acc_tst`, and the Test Accuracy of `sim_rf_oob` is `r rf_oob_acc_tst`. We expected these two to be the most accurate because the Random Forest models are using 500 trees and Random Forest models are typically the best kind of models.
+
+### Salary
+
+**(5.4.1)** Report the tuned value of `mtry` for the random forest.
+
+**Answer:**
+```{r}
+mod_ex4_rf$bestTune$mtry
+```
+
+- The tuned value of `mtry` is `r mod_ex4_rf$bestTune$mtry`.
+
+**(5.4.2)** Create a plot that shows the tuning results for the tuning of the boosted tree model.
+
+**Answer:**
+```{r}
+plot(mod_ex4_gbm)
+```
+
+**(5.4.3)** Create a plot of the variable importance for the tuned random forest.
+
+**Answer:**
+```{r}
+varImpPlot(mod_ex4_rf$finalModel, main = "Variable Importance, RF", type = 2)
+```
+
+**(5.4.4)** Create a plot of the variable importance for the tuned boosted tree model.
+
+**Answer:**
+```{r}
+plot(varImp(mod_ex4_gbm), main = "Variable Importance, GBM")
+```
+
+**(5.4.5)** According to the random forest, what are the three most important predictors?
+
+**Answer:**
+- According to the answer in (5.4.3), the three most important variables are `CRuns`, `CRBI`, and `Runs`.
+
+**(5.4.6)** According to the boosted model, what are the three most important predictors?
+
+**Answer:**
+- According to the answer in (5.4.4), the three most important variables are `CRuns`, `Hits`, and `CHmRun`.

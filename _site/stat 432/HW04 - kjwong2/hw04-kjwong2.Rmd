@@ -1,0 +1,317 @@
+---
+title: "STAT 432 Homework 04"
+author: "Kevin Wong - kjwong2"
+date: '**Due:** Friday, February 23, 11:59 PM'
+---
+
+***
+
+Please see the [homework policy document](https://daviddalpiaz.github.io/stat432sp18/homework_policy.html) for detailed instructions and some grading notes. Failure to follow instructions will result in point reductions.
+
+***
+
+> "Better three hours too soon than a minute too late."
+>
+> --- **William Shakespeare**
+
+***
+
+For this homework, you may only use the following packages:
+
+```{r, message = FALSE, warning = FALSE}
+# general
+library(caret)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(e1071)
+
+# specific
+library(ISLR)
+library(pROC)
+```
+
+If you feel additional general packages would be useful for future homework, please pass these along to the instructor.
+
+***
+
+# Exercise 1 (Logistic Regression for Fuel Efficiency)
+
+**[6 points]** For this exercise we will use the `Auto` data from the `ISLR` package.
+
+```{r}
+data(Auto)
+```
+
+As we have seen before, we drop the `name` variable. We also coerce `origin` and `cylinders` to be factors as they are categorical variables.
+
+We also re-create a new response variable `mpg.` Instead of the actual fuel efficiency, we simply label cars that obtain fewer than 30 miles per gallon as 'low' fuel efficiency. Those above 30 have 'high' fuel efficiency. 
+
+```{r}
+Auto = subset(Auto, select = -c(name))
+Auto$origin = factor(Auto$origin)
+Auto$cylinders = factor(Auto$cylinders)
+Auto$mpg = factor(ifelse(Auto$mpg < 30, "low", "high"))
+```
+
+After these modifications, we test-train split the data.
+
+```{r}
+set.seed(1)
+auto_trn_idx  = sample(nrow(Auto), size = trunc(0.75 * nrow(Auto)))
+auto_trn_data = Auto[auto_trn_idx, ]
+auto_tst_data = Auto[-auto_trn_idx, ]
+```
+
+The goal of our modeling in this exercise is to predict whether or not a vehicle is fuel efficient.
+
+Fit five different logistic regressions.
+
+- **Intercept**: $\log \left( \frac{p(x)}{1 - p(x)} \right) = \beta_0$
+- **Simple**: $\log \left( \frac{p(x)}{1 - p(x)} \right) = \beta_0 + \beta_1 \texttt{horsepower}$
+- **Multiple**:$\log \left( \frac{p(x)}{1 - p(x)} \right) = \beta_0 + \beta_1 \texttt{horsepower}  + \beta_2 \texttt{euro}  + \beta_3 \texttt{japan}$
+- **Additive**: An *additive* model using all available predictors
+- **Interaction**: An *interaction* model that includes all first order terms and all possible two-way interactions
+
+Here we'll define $p(x) = P(Y = \texttt{low} \mid X = x)$. The variables `euro` and `japan` are dummy variables based on the `origin` variables. **Do not make these variables by modifying the data.**
+
+Using each of these models to estimate $p(x)$, that is estimate the probability of a `low` fuel efficiency given the characteristics of a vehicle, we can create a classifier.
+
+$$
+\hat{C}(x) =
+\begin{cases} 
+      \texttt{low} & \hat{p}(x) > 0.5 \\
+      \texttt{high} & \hat{p}(x) \leq 0.5
+\end{cases}
+$$
+
+For each classifier, obtain train and test classification error rates. Summarize your results in a well-formatted markdown table.
+
+**Solution:**
+```{r warning = FALSE}
+glm_mod_intcept = glm(mpg ~ 1, data = auto_trn_data, family = "binomial")
+glm_mod_simp = glm(mpg ~ horsepower, data = auto_trn_data, family = "binomial")
+glm_mod_mult = glm(mpg ~ horsepower + origin - cylinders, data = auto_trn_data, family = "binomial")
+glm_mod_add = glm(mpg ~ ., data = auto_trn_data, family = "binomial")
+glm_mod_intact = glm(mpg ~ . ^ 2, data = auto_trn_data, family = "binomial")
+```
+
+```{r}
+calc_class_err = function(actual, predicted) {
+  mean(actual != predicted)
+}
+
+get_logistic_error = function(mod, data, res = "y", pos = 1, neg = 0, cut = 0.5) {
+  probs = predict(mod, newdata = data, type = "response")
+  preds = ifelse(probs > cut, pos, neg)
+  calc_class_err(actual = data[, res], predicted = preds)
+}
+```
+
+```{r warning = FALSE}
+mod_list_ex1 = list(glm_mod_intcept, glm_mod_simp, glm_mod_mult, glm_mod_add, glm_mod_intact)
+
+train_errors_ex1 = sapply(mod_list_ex1, get_logistic_error, data = auto_trn_data, res = "mpg", pos = "low", neg = "high", cut = 0.5)
+test_errors_ex1 = sapply(mod_list_ex1, get_logistic_error, data = auto_tst_data, res = "mpg", pos = "low", neg = "high", cut = 0.5)
+```
+
+```{r echo = FALSE}
+auto_ex1_results = data.frame(
+  model_names_ex1 = c("glm_mod_intcept", "glm_mod_simp", "glm_mod_mult", "glm_mod_add", "glm_mod_intact"),
+  train_errors_ex1 = train_errors_ex1,
+  test_errors_ex1 = test_errors_ex1
+)
+colnames(auto_ex1_results) = c("Model Name", "Training Class Error Rate", "Testing Class Error Rate")
+
+kable_styling(kable(auto_ex1_results, format = "html", digits = 3), full_width = FALSE)
+```
+
+***
+
+# Exercise 2 (Detecting Cancer with Logistic Regression)
+
+**[6 points]** For this exercise we will use data found in [`wisc-trn.csv`](wisc-trn.csv) and [`wisc-tst.csv`](wisc-tst.csv) which contain train and test data respectively. `wisc.csv` is provided but not used. This is a modification of the Breast Cancer Wisconsin (Diagnostic) dataset from the UCI Machine Learning Repository. Only the first 10 feature variables have been provided. (And these are all you should use.)
+
+- [UCI Page](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic))
+- [Data Detail](https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.names)
+
+You should consider coercing the response to be a factor variable. 
+
+Consider an additive logistic regression that considers *only two predictors*, `radius` and `symmetry`. Use this model to estimate 
+
+$$
+p(x) = P(Y = \texttt{M} \mid X = x).
+$$
+
+Report test sensitivity, test specificity, and test accuracy for three classifiers, each using a different cutoff for predicted probability:
+
+$$
+\hat{C}(x) =
+\begin{cases} 
+      M & \hat{p}(x) > c \\
+      B & \hat{p}(x) \leq c
+\end{cases}
+$$
+
+- $c = 0.1$
+- $c = 0.5$
+- $c = 0.9$
+
+We will consider `M` (malignant) to be the "positive" class when calculating sensitivity and specificity. Summarize these results using a single well-formatted table.
+
+**Solution:**
+```{r}
+wisc_trn_data = read.csv("wisc-trn.csv")
+wisc_tst_data = read.csv("wisc-tst.csv")
+model_ex2 = glm(class ~ radius + symmetry, data = wisc_trn_data, family = "binomial")
+```
+
+```{r}
+get_logistic_pred = function(mod, data, res = "y", pos = 1, neg = 0, cut = 0.5) {
+  probs = predict(mod, newdata = data, type = "response")
+  ifelse(probs > cut, pos, neg)
+}
+```
+
+```{r echo = FALSE}
+test_pred_10 = get_logistic_pred(model_ex2, data = wisc_tst_data, res = "class", pos = "M", neg = "B", cut = 0.1)
+test_pred_50 = get_logistic_pred(model_ex2, data = wisc_tst_data, res = "class", pos = "M", neg = "B", cut = 0.5)
+test_pred_90 = get_logistic_pred(model_ex2, data = wisc_tst_data, res = "class", pos = "M", neg = "B", cut = 0.9)
+```
+
+```{r}
+test_tab_10 = table(predicted = test_pred_10, actual = wisc_tst_data$class)
+test_tab_50 = table(predicted = test_pred_50, actual = wisc_tst_data$class)
+test_tab_90 = table(predicted = test_pred_90, actual = wisc_tst_data$class)
+
+test_con_mat_10 = confusionMatrix(test_tab_10, positive = "M")
+test_con_mat_50 = confusionMatrix(test_tab_50, positive = "M")
+test_con_mat_90 = confusionMatrix(test_tab_90, positive = "M")
+```
+
+```{r echo = FALSE}
+metrics = rbind(
+  
+  c(test_con_mat_10$overall["Accuracy"], 
+    test_con_mat_10$byClass["Sensitivity"], 
+    test_con_mat_10$byClass["Specificity"]),
+  
+  c(test_con_mat_50$overall["Accuracy"], 
+    test_con_mat_50$byClass["Sensitivity"], 
+    test_con_mat_50$byClass["Specificity"]),
+  
+  c(test_con_mat_90$overall["Accuracy"], 
+    test_con_mat_90$byClass["Sensitivity"], 
+    test_con_mat_90$byClass["Specificity"])
+
+)
+
+rownames(metrics) = c("c = 0.10", "c = 0.50", "c = 0.90")
+metrics
+```
+
+***
+
+# Exercise 3 (More Sensitivity and Specificity)
+
+**[6 points]** Continuing the setup (data and model) from Exercise 2, we now create two plots which will help us understand the tradeoff between sensitivity and specificity.
+
+- **Plot 1** A plot that shows (test) accuracy, sensitivity, and specificity as a function of the cutoff $c$ used to create a classifier based on the logistic regression model.
+    - Use the test data.
+    - Consider values of c from 0.01 to 0.99. (See `R` code below.)
+    - Accuracy, sensitivity, and specificity will each be a "line" on the plot.
+    - Give each line a different color and line type.
+    - Give the plot a title, axis labels, and legend.
+- **Plot 2** An ROC Curve
+    - Use the test data.
+    - Display the AUC value on the plot.
+    
+Display these two plots side-by-side.
+
+*Hint:* Consider creating some functions specific to this exercise for obtaining accuracy, sensitivity, and specificity. (If you didn't already do so in Exercise 2.)
+
+**Solution:**
+```{r echo = FALSE}
+library(pROC)
+c = seq(0.01, 0.99, by = 0.01)
+
+classify = function(cut = 0.5, mod, data, res = "y", pos = 1, neg = 0) {
+  probs = predict(mod, newdata = data, type = "response")
+  preds = ifelse(probs > cut, pos, neg)
+  test_tab = table(predicted = preds, actual = data[, res])
+  test_conf_mat = confusionMatrix(test_tab, positive = "M")
+  c(test_conf_mat$overall["Accuracy"], 
+    test_conf_mat$byClass["Sensitivity"], 
+    test_conf_mat$byClass["Specificity"])
+}
+preds = sapply(c, classify, model_ex2, wisc_tst_data, "class", "M", "B")
+```
+
+```{r fig.height = 5, fig.width = 10}
+par(mfrow = c(1, 2))
+plot(c, preds[1,], col = "orange", pch = 16, ylab = "Percentage", main = "kjwong2's Plot 1", ylim = (c(min(preds[1,], preds[2,], preds[3,] - 0.3), 1)))
+lines(c, preds[1,], col = "orange")
+points(c, preds[2,], col = "darkblue", pch = 16)
+lines(c, preds[2,], col = "darkblue")
+points(c, preds[3,], col = "green", pch = 16)
+lines(c, preds[3,], col = "green")
+legend("bottomright", c("Accuracy", "Sensitivity", "Specificity"), lwd = 1,
+       col = c("orange", "darkblue", "green"), pch = c(16, 16, 16))
+
+test_prob = predict(model_ex2, newdata = wisc_tst_data, type = "response")
+test_roc = roc(wisc_tst_data$class ~ test_prob, plot = TRUE, main = "kjwong2's Plot 2", print.auc = TRUE)
+```
+
+***
+
+# Exercise 4 (Logistic Regression Decision Boundary)
+
+**[6 points]** Continue with the cancer data from previous exercises. Again, consider an additive logistic regression that considers *only two predictors*, `radius` and `symmetry`. Plot the test data with `radius` as the $x$ axis, and `symmetry` as the $y$ axis, with the points colored according to their tumor status. Add a line which represents the decision boundary for a classifier using 0.5 as a cutoff for predicted probability.
+
+**Solution**
+```{r echo = FALSE}
+glm_boundary_line = function(glm_fit) {
+  intercept = as.numeric(-coef(glm_fit)[1] / coef(glm_fit)[3])
+  slope = as.numeric(-coef(glm_fit)[2] / coef(glm_fit)[3])
+  c(intercept = intercept, slope = slope)
+}
+
+add_glm_boundary = function(glm_fit, line_col = "red") {
+  abline(glm_boundary_line(glm_fit), col = line_col, lwd = 3)
+}
+
+radius1 = seq(min(wisc_tst_data$radius) - 5, max(wisc_tst_data$radius) + 5, by = 0.5)
+symmetry1 = seq(min(wisc_tst_data$symmetry) - 1, max(wisc_tst_data$symmetry) + 1, by = 0.005)
+grid = expand.grid(radius1 = radius1, sym = symmetry1)
+bgcol = ifelse(grid$sym > glm_boundary_line(model_ex2)[1] + glm_boundary_line(model_ex2)[2] * grid$rad, "orange", "darkblue")
+class_col = ifelse(wisc_tst_data$class == "M", "orange", "darkblue")
+
+plot(symmetry ~ radius, data = wisc_tst_data, col = class_col, pch = 20)
+add_glm_boundary(model_ex2)
+points(expand.grid(radius1, symmetry1), col = bgcol, pch = ".")
+legend("bottomright", c("M", "B"), col = c("orange", "darkblue"), pch = c(20, 20))
+```
+
+***
+
+# Exercise 5 (Concept Checks)
+
+**[1 point each]** Answer the following questions based on your results from the three exercises.
+
+**(a)** What is $\hat{\beta}_2$ for the **multiple** model in Exercise 1?
+- The $\hat{\beta}_2$ value for the *Multiple** model in Exercise 1 is `r coef(glm_mod_mult)[2]`.
+
+**(b)** Based on your results in Exercise 1, which of these models performs best?
+- The *Additive* model (`glm_mod_mult`) was the best model of Exercise 1 because it has the lowest Testing Class Error Rate.
+
+**(c)** Based on your results in Exercise 1, which of these models do you think may be underfitting?
+- The *Intercept*, *Simple*, and *Multiple* models are *underfitting* because the *Additive* model is a more complex model with a lower Testing Class Error Rate.
+
+**(d)** Based on your results in Exercise 1, which of these models do you think may be overfitting??
+- The *Interaction* model is *overfitting* because the *Additive* model is a less complex model with a lower Testing Class Error Rate.
+
+**(e)** Of the classifiers in Exercise 2, which do you prefer?
+- The `c = 0.50` is the best classifer because it has the highest Accuracy and Specificity.
+
+**(f)** State the metric you used to make your decision in part **(d)**, and a reason for using that metric.
+- I used Accuracy for my decision because Accuracy accounts for True Positives and True Negatives. Specificity is good as well because it accounts for True Negatives

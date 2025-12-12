@@ -29,7 +29,7 @@ library(tidyverse)
 
 # Contact Information
 
-Here is my resume! [Resume](files/Resume_Wong_20251001.pdf){target="_blank"}
+Here is my resume! [Resume](files/Resume_Wong_20260101.pdf){target="_blank"}
 
 <p class="left">
 `r paste(icon(name = "fa fa-envelope"), " Email:", sep = "")` <kevinjwong09@gmail.com>
