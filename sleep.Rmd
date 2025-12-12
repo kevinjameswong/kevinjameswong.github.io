@@ -57,7 +57,9 @@ Update_Date = as.Date("06-28-2019", format = "%m-%d-%Y")
 #sleep = read.csv(file = "files/sleepdata_6_28_2019.csv", sep = ";")
 
 gs4_deauth()
-sleep = read_sheet(ss = "https://docs.google.com/spreadsheets/d/16CrqOUG20maNsKkc3Pn_FGX_r19sGJCQlvUEeB_6EOc")
+sleep = read_sheet(ss = "https://docs.google.com/spreadsheets/d/16CrqOUG20maNsKkc3Pn_FGX_r19sGJCQlvUEeB_6EOc") %>%
+  filter(`Data Version` == "C") %>%
+  select(Start, End, `Sleep quality`, `Time in bed`, `Wake up`, `Sleep Notes`, `Heart rate`, `Activity (steps)`)
 
 names(sleep) = c("Start", "End", "Sleep.quality", "Time.in.bed", "Wake.up", "Sleep.notes", "Heart.rate", "Activity.(steps)")
 ```

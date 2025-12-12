@@ -3,7 +3,7 @@ title: "Kevin Wong - Data Analysis Projects"
 ---
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+Update_Date = as.Date("01-01-2026", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
@@ -31,11 +31,15 @@ library(tidyverse)
 
 <h4>
 
+* [Trivia Data (2025)](trivia.html)
+
 * [Spotify Wrapped Data (2025)](spotify.html)
 
 * [Learn Korean (2024)](korean.html)
 
 * [Calculators (2022)](calculators.html)
+
+* [HEX Colors (2021)](colors.html)
 
 * [Running Data (2019)](running.html)
 
@@ -44,4 +48,6 @@ library(tidyverse)
 * [Excel Projects (2017)](excel.html)
 
 </h4>
+
+
 

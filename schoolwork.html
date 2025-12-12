@@ -11,7 +11,7 @@
 
 
 
-<title>Kevin Wong - Kevin’s Schoolwork</title>
+<title>Kevin Wong - Schoolwork</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -49,7 +49,7 @@
 
 <title>Kevin Wong - Header</title>
 
-<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -68,6 +68,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -128,6 +130,80 @@ pre code {
 </style>
 
 
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
 
 <!-- tabsets -->
 
@@ -193,6 +269,91 @@ pre code {
 
 
 
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="work.html">
+    <span class="fa fa-briefcase"></span>
+     
+    Work Experience
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-line-chart"></span>
+     
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spotify.html">Spotify Data (2025)</a>
+    </li>
+    <li>
+      <a href="korean.html">한국어 (2024)</a>
+    </li>
+    <li>
+      <a href="calculators.html">Calculators (2022)</a>
+    </li>
+    <li>
+      <a href="running.html">Running Data (2020)</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data (2019)</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel/VBA Projects (2017)</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Archive</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="colors.html">Colors (2021)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Schoolwork
+  </a>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact Me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
 <div id="header">
 
 
@@ -233,7 +394,7 @@ output: html_document
 <h1>
 Kevin Wong
 </h1>
-<p><img src="images/kevin%20wong.jpg" width="150px" height="160px" style="display: block; margin: auto;" /></p>
+<p><img src="images/kevin%20wong.jpg" height="200px" style="display: block; margin: auto;" /></p>
 <hr />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
@@ -580,21 +741,32 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Kevin Wong - Kevin’s Schoolwork</h1>
+<h1 class="title toc-ignore">Kevin Wong - Schoolwork</h1>
 
 </div>
 
 <div id="TOC">
 <ul>
-<li><a href="#courses-taken" id="toc-courses-taken">Courses Taken</a>
+<li><a href="#graduate-degree" id="toc-graduate-degree">Graduate
+Degree</a>
+<ul>
+<li><a href="#courses-taken" id="toc-courses-taken">Courses
+Taken</a></li>
+</ul></li>
+<li><a href="#undergraduate-degree"
+id="toc-undergraduate-degree">Undergraduate Degree</a>
+<ul>
+<li><a href="#courses-taken-1" id="toc-courses-taken-1">Courses
+Taken</a>
 <ul>
 <li><a href="#statistics" id="toc-statistics">Statistics</a></li>
 <li><a href="#leadership-studies" id="toc-leadership-studies">Leadership
 Studies</a></li>
 <li><a href="#business" id="toc-business">Business</a></li>
-</ul></li>
 <li><a href="#school-projects" id="toc-school-projects">School
 Projects</a></li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
 
@@ -608,6 +780,10 @@ Projects</a></li>
 body, p {
    font-family: "Times New Roman";
    font-size: 18px;
+}
+
+.imgheight {
+  height: 150px;
 }
 
 .video-container {
@@ -657,18 +833,48 @@ function myFunction3() {
 Kevin’s Schoolwork
 </h1>
 <p class="last-updated">
-Last updated: May 18, 2019
+Last updated: January 1, 2026
 </p>
 <hr />
+<div id="graduate-degree" class="section level1">
+<h1>Graduate Degree</h1>
+<p>I am currently pursuing a <strong>Master of Science (MS) in Data
+Science</strong> degree at the University of Texas at Austin. I expect
+to graduate in December 2027.</p>
+<p>
+</p>
+<center>
+<img class="imgheight" src="images/UT-Banner.png">
+<img class="imgheight" src="images/UT-Campus.png">
+<p>
+</p>
+</center>
+<div id="courses-taken" class="section level2">
+<h2>Courses Taken</h2>
+<ul>
+<li><strong>TBD</strong></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="undergraduate-degree" class="section level1">
+<h1>Undergraduate Degree</h1>
 <p>I graduated with a <strong>Bachelor of Science (BS) in
 Statistics</strong> degree at the University of Illinois in May 2019. I
 also minored in <em>Leadership Studies</em> and <em>Business</em>. My
 GPA was 3.88.</p>
-<div id="courses-taken" class="section level1">
-<h1>Courses Taken</h1>
-<hr />
-<div id="statistics" class="section level2">
-<h2>Statistics</h2>
+<p>
+</p>
+<center>
+<img class="imgheight" src="images/UI-Banner.png">
+<img class="imgheight" src="images/UI-Campus.png">
+<p>
+</p>
+</center>
+<div id="courses-taken-1" class="section level2">
+<h2>Courses Taken</h2>
+<div id="statistics" class="section level3">
+<h3>Statistics</h3>
 <p>Some of the Statistics Courses I have taken include:</p>
 <ul>
 <li><strong>STAT</strong> 385: Statistics Programming Methods (Grade:
@@ -687,11 +893,11 @@ A)</li>
 A)</li>
 <li><strong>STAT</strong> 448: Advanced Data Analysis (Grade: A)</li>
 </ul>
-<p>My GPA in STAT courses at U of I is 3.96.</p>
+<p>My GPA in STAT courses at the University of Illinois was 3.96.</p>
 <hr />
 </div>
-<div id="leadership-studies" class="section level2">
-<h2>Leadership Studies</h2>
+<div id="leadership-studies" class="section level3">
+<h3>Leadership Studies</h3>
 <p>Some of the Leadership Studies Courses I have taken include:</p>
 <ul>
 <li><strong>AGED</strong> 230: Leadership Communications (Grade: A)</li>
@@ -701,11 +907,12 @@ A)</li>
 A+)</li>
 <li><strong>AGED</strong> 480: Collaborative Leadership (Grade: A)</li>
 </ul>
-<p>My GPA in Leadership courses at U of I is 4.00.</p>
+<p>My GPA in Leadership courses at the University of Illinois was
+4.00.</p>
 <hr />
 </div>
-<div id="business" class="section level2">
-<h2>Business</h2>
+<div id="business" class="section level3">
+<h3>Business</h3>
 <p>Some of the Business Courses I have taken include:</p>
 <ul>
 <li><strong>BADM</strong> 310: Management and Organizational Behavior
@@ -719,18 +926,20 @@ A)</li>
 A)</li>
 <li><strong>FIN</strong> 221: Corporate Finance (Grade: A)</li>
 </ul>
-<p>My GPA in Business Courses at U of I is 4.00.</p>
+<p>My GPA in Business courses at the University of Illinois was
+4.00.</p>
 <hr />
 </div>
-</div>
-<div id="school-projects" class="section level1">
-<h1>School Projects</h1>
+<div id="school-projects" class="section level3">
+<h3>School Projects</h3>
 <h3 class="r33m_vid">
 R33M Video
 </h3>
 <div class="video-container">
 <iframe src="https://www.youtube.com/embed/SG5-_hInODw" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen>
 </iframe>
+</div>
+</div>
 </div>
 </div>
 
@@ -749,7 +958,7 @@ R33M Video
 
 <title>footer.knit</title>
 
-<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -768,6 +977,8 @@ R33M Video
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -828,6 +1039,80 @@ pre code {
 </style>
 
 
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
 
 <!-- tabsets -->
 
@@ -893,6 +1178,91 @@ pre code {
 
 
 
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="work.html">
+    <span class="fa fa-briefcase"></span>
+     
+    Work Experience
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-line-chart"></span>
+     
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spotify.html">Spotify Data (2025)</a>
+    </li>
+    <li>
+      <a href="korean.html">한국어 (2024)</a>
+    </li>
+    <li>
+      <a href="calculators.html">Calculators (2022)</a>
+    </li>
+    <li>
+      <a href="running.html">Running Data (2020)</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data (2019)</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel/VBA Projects (2017)</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Archive</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="colors.html">Colors (2021)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Schoolwork
+  </a>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact Me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
 <div id="header">
 
 
@@ -911,7 +1281,7 @@ body {
 </style>
 <hr />
 <center>
-Copyright © 2025 Kevin Wong, Inc. All rights reserved.
+Copyright © 2026 Kevin Wong, Inc. All rights reserved.
 </center>
 
 

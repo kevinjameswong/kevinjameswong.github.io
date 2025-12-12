@@ -33,13 +33,18 @@ try a:hover
 
 <center>Hello, I am Kevin Wong. Welcome to my website!</center>
 
-<center>I graduated from the University of Illinois at Urbana-Champaign (BS in Statistics) in May 2019 with a 3.88 GPA.</center>
+<br>
+
+<center>I am a Senior Data Management Analyst for CNA Insurance in Chicago, IL.</center>
 
 <br>
 
-<center>Now I am a Senior Data Analyst for CDW in Chicago, IL.</center>
+<center>I’m currently a Master's student in Data Science at the University of Texas at Austin (Expected Graduation: December 2027).</center>
+<center>I earned a BS in Statistics from the University of Illinois at Urbana-Champaign in May 2019 with a 3.88 GPA.</center>
 
 <hr />
+
+
 
 <h4>
   <center>

@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+Update_Date = as.Date("01-01-2026", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
@@ -39,39 +39,76 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 <hr />
 
+Thank you to [Team Color Codes](https://teamcolorcodes.com/) for collecting this data.
 
 [Google Sheets Dataset](https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU){target="_blank"}
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 gs4_deauth()
 
-colors_import = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU", sheet = "All Universities") %>%
-  filter(is.na(School) == FALSE) %>%
-  select(School, Primary, Secondary, Third, Fourth, Kevin, Conference, City, State, `School Name`, `Primary-R`, `Primary-G`, `Primary-B`, `Secondary-R`, `Secondary-G`, `Secondary-B`, `Third-R`, `Third-G`, `Third-B`, `Fourth-R`, `Fourth-G`, `Fourth-B`) %>%
-  group_by(Kevin) %>%
-  mutate(Primary_Avg = mean(`Primary-R`, `Primary-G`, `Primary-B`, na.rm = TRUE),
-         Secondary_Avg = mean(`Secondary-R`, `Secondary-G`, `Secondary-B`, na.rm = TRUE),
-         Third_Avg = mean(`Third-R`, `Third-G`, `Third-B`, na.rm = TRUE),
-         Fourth_Avg = mean(`Fourth-R`, `Fourth-G`, `Fourth-B`, na.rm = TRUE)
+colors_import = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1_jY_9L3TU_5szudWYH3-8iqOaE6TjUBaLS_rTDHzeyU", sheet = "All Teams") %>%
+  arrange(Index) %>%
+  filter(`Data Version` == "C", is.na(`Full Name`) == FALSE) %>%
+  select(Index, `Full Name`, `Color Name 1`, `Hex 1`, `R 1`, `G 1`, `B 1`, `Color Name 2`, `Hex 2`, `R 2`, `G 2`, `B 2`, `Color Name 3`, `Hex 3`, `R 3`, `G 3`, `B 3`, `Color Name 4`, `Hex 4`, `R 4`, `G 4`, `B 4`, `Color Name 5`, `Hex 5`, `R 5`, `G 5`, `B 5`, `Color Name 6`, `Hex 6`, `R 6`, `G 6`, `B 6`, `Color Name 7`, `Hex 7`, `R 7`, `G 7`, `B 7`, `Color Name 8`, `Hex 8`, `R 8`, `G 8`, `B 8`, League, Conference, Division, Location, Nickname, City, State, `College/Pros`, `School Name`, `Old Conference`) %>%
+  group_by(Index) %>%
+  mutate(Index = as.integer(Index),
+         Avg_1 = mean(`R 1`, `G 1`, `B 1`, na.rm = TRUE),
+         Avg_2 = mean(`R 2`, `G 2`, `B 2`, na.rm = TRUE),
+         Avg_3 = mean(`R 3`, `G 3`, `B 3`, na.rm = TRUE),
+         Avg_4 = mean(`R 4`, `G 4`, `B 4`, na.rm = TRUE),
+         Avg_5 = mean(`R 5`, `G 5`, `B 5`, na.rm = TRUE),
+         Avg_6 = mean(`R 6`, `G 6`, `B 6`, na.rm = TRUE),
+         Avg_7 = mean(`R 7`, `G 7`, `B 7`, na.rm = TRUE),
+         Avg_8 = mean(`R 8`, `G 8`, `B 8`, na.rm = TRUE),
+         `Color Name 1` = toupper(`Color Name 1`),
+         `Color Name 2` = toupper(`Color Name 2`),
+         `Color Name 3` = toupper(`Color Name 3`),
+         `Color Name 4` = toupper(`Color Name 4`),
+         `Color Name 5` = toupper(`Color Name 5`),
+         `Color Name 6` = toupper(`Color Name 6`),
+         `Color Name 7` = toupper(`Color Name 7`),
+         `Color Name 8` = toupper(`Color Name 8`),
+         `Hex 1` = toupper(`Hex 1`),
+         `Hex 2` = toupper(`Hex 2`),
+         `Hex 3` = toupper(`Hex 3`),
+         `Hex 4` = toupper(`Hex 4`),
+         `Hex 5` = toupper(`Hex 5`),
+         `Hex 6` = toupper(`Hex 6`),
+         `Hex 7` = toupper(`Hex 7`),
+         `Hex 8` = toupper(`Hex 8`)
          ) %>%
   ungroup() %>%
-  select(School, Primary, Secondary, Third, Fourth, Kevin, Conference, City, State, `School Name`, Primary_Avg, Secondary_Avg, Third_Avg, Fourth_Avg)
+  select(Index, `Full Name`, `Color Name 1`, `Hex 1`, `Color Name 2`, `Hex 2`, `Color Name 3`, `Hex 3`, `Color Name 4`, `Hex 4`, `Color Name 5`, `Hex 5`, `Color Name 6`, `Hex 6`, `Color Name 7`, `Hex 7`, `Color Name 8`, `Hex 8`, League, Conference, Division, Location, Nickname, City, State, `College/Pros`, `School Name`, `Old Conference`, Avg_1, Avg_2, Avg_3, Avg_4, Avg_5, Avg_6, Avg_7, Avg_8)
 
-colors_import$Primary_Avg[is.nan(colors_import$Primary_Avg)] = 0
-colors_import$Secondary_Avg[is.nan(colors_import$Secondary_Avg)] = 0
-colors_import$Third_Avg[is.nan(colors_import$Third_Avg)] = 0
-colors_import$Fourth_Avg[is.nan(colors_import$Fourth_Avg)] = 0
+colors_import$Avg_1[is.nan(colors_import$Avg_1)] = 0
+colors_import$Avg_2[is.nan(colors_import$Avg_2)] = 0
+colors_import$Avg_3[is.nan(colors_import$Avg_3)] = 0
+colors_import$Avg_4[is.nan(colors_import$Avg_4)] = 0
+colors_import$Avg_5[is.nan(colors_import$Avg_5)] = 0
+colors_import$Avg_6[is.nan(colors_import$Avg_6)] = 0
+colors_import$Avg_7[is.nan(colors_import$Avg_7)] = 0
+colors_import$Avg_8[is.nan(colors_import$Avg_8)] = 0
+
+
+
+options(knitr.kable.NA = "")
+#options(knitr.kable.max_rows = 30)
 
 colors_import %>%
-  select(School, Primary, Secondary, Third, Fourth, City, State, Conference) %>%
-  kable(format = "html", align = "llllllll", col.names = c("School", "Primary", "Secondary", "Third", "Fourth", "City", "State", "Sports Conference")) %>%
+  arrange(Index) %>%
+  select(Index, `Full Name`, `Color Name 1`, `Hex 1`, `Color Name 2`, `Hex 2`, `Color Name 3`, `Hex 3`, `Color Name 4`, `Hex 4`, `Color Name 5`, `Hex 5`, `Color Name 6`, `Hex 6`, `Color Name 7`, `Hex 7`, `Color Name 8`, `Hex 8`, League, Conference, Division, Location, Nickname, City, State, `College/Pros`, `School Name`, `Old Conference`) %>%
+  kable(format = "html", align = "llllllllllllllllllllllllllll", col.names = c("Index", "Full Name", "Color Name 1", "Hex 1", "Color Name 2", "Hex 2", "Color Name 3", "Hex 3", "Color Name 4", "Hex 4", "Color Name 5", "Hex 5", "Color Name 6", "Hex 6", "Color Name 7", "Hex 7", "Color Name 8", "Hex 8", "League", "Conference", "Division", "Location", "Nickname", "City", "State", "College/Pros", "School Name", "Old Conference")) %>%
   kable_styling(bootstrap_options = c("hover", "responsive")) %>%
-  column_spec(1:8, background = "white") %>%
+  column_spec(1:28, background = "white") %>%
   scroll_box(width = "100%", height = "100%") %>%
-  column_spec(2, background = paste("#", colors_import$Primary, sep = ""), color = ifelse(test = colors_import$Primary_Avg > 130, yes = "black", no = "white")) %>%
-  column_spec(3, background = paste("#", colors_import$Secondary, sep = ""), color = ifelse(test = colors_import$Secondary_Avg > 130, yes = "black", no = "white")) %>%
-  column_spec(4, background = paste("#", colors_import$Third, sep = ""), color = ifelse(test = colors_import$Third_Avg > 130, yes = "black", no = "white")) %>%
-  column_spec(5, background = paste("#", colors_import$Fourth, sep = ""), color = ifelse(test = colors_import$Fourth_Avg > 130, yes = "black", no = "white"))
+  column_spec(3:4, background = paste("#", colors_import$`Hex 1`, sep = ""), color = case_when(colors_import$Avg_1 > 130 ~ "black", .default = "white")) %>%
+  column_spec(5:6, background = paste("#", colors_import$`Hex 2`, sep = ""), color = case_when(colors_import$Avg_2 > 130 ~ "black", .default = "white")) %>%
+  column_spec(7:8, background = paste("#", colors_import$`Hex 3`, sep = ""), color = case_when(colors_import$Avg_3 > 130 ~ "black", .default = "white")) %>%
+  column_spec(9:10, background = paste("#", colors_import$`Hex 4`, sep = ""), color = case_when(colors_import$Avg_4 > 130 ~ "black", .default = "white")) %>%
+  column_spec(11:12, background = paste("#", colors_import$`Hex 5`, sep = ""), color = case_when(colors_import$Avg_5 > 130 ~ "black", .default = "white")) %>%
+  column_spec(13:14, background = paste("#", colors_import$`Hex 6`, sep = ""), color = case_when(colors_import$Avg_6 > 130 ~ "black", .default = "white")) %>%
+  column_spec(15:16, background = paste("#", colors_import$`Hex 7`, sep = ""), color = case_when(colors_import$Avg_7 > 130 ~ "black", .default = "white")) %>%
+  column_spec(17:18, background = paste("#", colors_import$`Hex 8`, sep = ""), color = case_when(colors_import$Avg_8 > 130 ~ "black", .default = "white"))
 ```
 
 

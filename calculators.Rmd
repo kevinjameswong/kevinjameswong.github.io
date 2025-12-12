@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+Update_Date = as.Date("01-01-2026", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
@@ -38,12 +38,13 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 <hr />
 
-		  
-
 <p class="last-updated">
 Please use my distribution calculators as needed! You may visit my GitHub for the code.
 </p>
 
+<p class="left">
+[Link to Shiny App](https://kevinjameswong.shinyapps.io/calculators/){target="_blank"}
+</p>
 
 <div class="shiny-container">
 <iframe src="https://kevinjameswong.shinyapps.io/calculators/">

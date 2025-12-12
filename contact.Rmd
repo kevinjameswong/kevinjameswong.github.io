@@ -3,7 +3,7 @@ title: "Kevin Wong - Contact Me"
 ---
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+Update_Date = as.Date("01-01-2026", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
@@ -29,7 +29,7 @@ library(tidyverse)
 
 # Contact Information
 
-Here is my resume! [Resume](files/Resume_Wong_20250101.pdf){target="_blank"}
+Here is my resume! [Resume](files/Resume_Wong_20251001.pdf){target="_blank"}
 
 <p class="left">
 `r paste(icon(name = "fa fa-envelope"), " Email:", sep = "")` <kevinjwong09@gmail.com>
@@ -39,7 +39,9 @@ Here is my resume! [Resume](files/Resume_Wong_20250101.pdf){target="_blank"}
 `r paste(icon(name = "fab fa-linkedin"), " LinkedIn:", sep = "")` [www.linkedin.com/in/kevinjameswong](https://www.linkedin.com/in/kevinjameswong/){target="_blank"}
 </p>
 
+<!--
 <p class="left">
 `r icon(name = "fab fa-square-github")` GitHub: [www.github.com/kevinjameswong](https://www.github.com/kevinjameswong){target="_blank"}
 </p>
+-->
 

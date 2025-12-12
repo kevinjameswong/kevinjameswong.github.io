@@ -27,7 +27,7 @@ korean = korean %>%
   mutate(Duplicate = ifelse(TT == Index, 0, 1) %>% as.integer()) %>%
   select(English, Korean, Romanization, Easy, Index, Duplicate) %>%
   ungroup()# %>%
-  #filter(Index %in% c(1, 3, 5, 7, 9))
+#filter(Index %in% c(1, 3, 5, 7, 9))
 
 
 percent = function(x, digits = 2, format = "f", ...) {
@@ -161,7 +161,7 @@ uix = dashboardPage(
                 )
               )
       ),
-
+      
       
       
       tabItem(tabName = "Quiz",
@@ -186,12 +186,12 @@ uix = dashboardPage(
                       selected = c(1, 2, 3, 4)
                     ),
                     #checkboxGroupInput(
-                      #inputId = "questionTypeX",
-                      #label = "Question Difficulty:",
-                      #choiceNames = c("Easy", "Hard"),
-                      #choiceValues = c(1, 2),
-                      #selected = c(1, 2)
-                      #selected = c(1, 2)
+                    #inputId = "questionTypeX",
+                    #label = "Question Difficulty:",
+                    #choiceNames = c("Easy", "Hard"),
+                    #choiceValues = c(1, 2),
+                    #selected = c(1, 2)
+                    #selected = c(1, 2)
                     #)
                     #),
                     actionButton(
@@ -200,7 +200,7 @@ uix = dashboardPage(
                     ),
                     
                     p("Please wait about 5 seconds for quiz to generate. Thank you.")
-                    ),
+                ),
                 box(width = 6,
                     br(),
                     #valueBoxOutput(outputId = "numberCorrect", width = 6))
@@ -216,8 +216,8 @@ uix = dashboardPage(
                   solidHeader = FALSE,
                   #title = "Quiz",
                   h2("Quiz"),
-
-
+                  
+                  
                   htmlOutput(outputId = "header_question_01"),
                   textOutput(outputId = "question_question_01"),
                   uiOutput(outputId = "buttons_question_01"),
@@ -299,31 +299,31 @@ uix = dashboardPage(
         fluidRow(
           box(width = 12,
               dataTableOutput(outputId = "Diction")
-            )
           )
+        )
       ),
       tabItem(
         tabName = "Romanization",
         fluidRow(
           box(width = 6,
               
-             column(width = 6,
-                    textOutput(outputId = "R_FR_Korean") %>% span(style = "font-size:30px;"),
-                    textInput(inputId = "R_FR_TextInput",
-                              label = "Romanization:",
-                              value = "",
-                              width = "100%",
-                              placeholder = "Answer"),
-             actionButton(inputId = "R_FR_Submit", label = "Submit", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
-             #actionButton(inputId = "R_FR_Next", label = "Next", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
-        )),
+              column(width = 6,
+                     textOutput(outputId = "R_FR_Korean") %>% span(style = "font-size:30px;"),
+                     textInput(inputId = "R_FR_TextInput",
+                               label = "Romanization:",
+                               value = "",
+                               width = "100%",
+                               placeholder = "Answer"),
+                     actionButton(inputId = "R_FR_Submit", label = "Submit", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
+                     #actionButton(inputId = "R_FR_Next", label = "Next", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
+              )),
           box(width = 6,
               h4("Total Score"),
               column(width = 12,
-                    valueBoxOutput(outputId = "R_submission_written_score"),
-                    valueBoxOutput(outputId = "R_submission_written_testnumber"),
-                    actionButton(inputId = "R_FR_ClearScore", label = "Reset Score", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
-                ))
+                     valueBoxOutput(outputId = "R_submission_written_score"),
+                     valueBoxOutput(outputId = "R_submission_written_testnumber"),
+                     actionButton(inputId = "R_FR_ClearScore", label = "Reset Score", style = "color: #FFFFFF; background-color: #8FC8DC; border-color: #000000; font-size: 100%")
+              ))
         ),
         fluidRow(
           box(width = 12,
@@ -337,8 +337,8 @@ uix = dashboardPage(
       
       
     )
-    )
-  ) #dashboardPage
+  )
+) #dashboardPage
 
 serverx = function(input, output, session) {
   
@@ -648,7 +648,7 @@ serverx = function(input, output, session) {
   observeEvent(input$quizSubmit, {
     E_start_01$submission_question_01 = input$submission_question_01
   })
-
+  
   header_question_01 = eventReactive(
     eventExpr = input$quizStart,
     valueExpr = {ifelse(
@@ -659,7 +659,7 @@ serverx = function(input, output, session) {
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
-
+  
   output$header_question_01 = renderText({
     ifelse(
       test = is.null(x = E_start_01$submission_question_01),
@@ -1064,7 +1064,7 @@ serverx = function(input, output, session) {
       )
     )
   })
-
+  
   outcome_question_01 = eventReactive(
     eventExpr = input$quizSubmit,
     valueExpr = {ifelse(test = E_start_01$submission_question_01 == correct_answer_int_question_01(), yes = 1, no = 0)},
@@ -1146,8 +1146,8 @@ serverx = function(input, output, session) {
   #ignoreInit = TRUE
   #)
   
-
-
+  
+  
   observeEvent(input$R_FR_Submit, {
     R_submission_written_testnumber$start = R_submission_written_testnumber$start + 1
   })
@@ -1156,50 +1156,50 @@ serverx = function(input, output, session) {
     R_submission_written_score$start = R_submission_written_score$start + ifelse(test = tolower(input$R_FR_TextInput) == tolower(R_submission_written_correctanswer$start), yes = 1, no = 0)
   })
   
-
-
- 
+  
+  
+  
   #R_submission_written_correctanswer$start = eventReactive(
-    #eventExpr = input$R_FR_Submit,
-    #valueExpr = {korean_duo[R_submission_written_start$R_NEW_INTMORE(), ]$Romanization},
-    #ignoreNULL = TRUE,
-    #ignoreInit = TRUE
+  #eventExpr = input$R_FR_Submit,
+  #valueExpr = {korean_duo[R_submission_written_start$R_NEW_INTMORE(), ]$Romanization},
+  #ignoreNULL = TRUE,
+  #ignoreInit = TRUE
   #)
   
   #R_submission_written_score$start = eventReactive(
-    #eventExpr = input$R_FR_Submit,
-    #valueExpr = {R_submission_written_score$start + ifelse(test = input$R_FR_TextInput == R_submission_written_correctanswer$start(), yes = 1, no = 0)},
-    #ignoreNULL = TRUE,
-    #ignoreInit = TRUE
+  #eventExpr = input$R_FR_Submit,
+  #valueExpr = {R_submission_written_score$start + ifelse(test = input$R_FR_TextInput == R_submission_written_correctanswer$start(), yes = 1, no = 0)},
+  #ignoreNULL = TRUE,
+  #ignoreInit = TRUE
   #)
-
+  
   #R_submission_written_testnumber = eventReactive(
-    #eventExpr = input$R_FR_Submit,
-    #valueExpr = {R_submission_written_testnumber() + 1},
-    #ignoreNULL = TRUE,
-    #ignoreInit = TRUE
+  #eventExpr = input$R_FR_Submit,
+  #valueExpr = {R_submission_written_testnumber() + 1},
+  #ignoreNULL = TRUE,
+  #ignoreInit = TRUE
   #)
-
+  
   
   observeEvent(input$R_FR_Submit, {
     updateTextInput(session = session, inputId = "R_FR_TextInput", value = "")
   })
   
   #observeEvent(input$R_FR_Submit, {
-    #input$R_FR_TextInput = NULL
+  #input$R_FR_TextInput = NULL
   #})
   
-
+  
   #mydata = eventReactive(
-    #eventExpr = input$R_FR_Submit,
-    #valueExpr = {rbind(mydata, TT = 1)},
-    #ignoreNULL = TRUE,
-    #ignoreInit = TRUE
+  #eventExpr = input$R_FR_Submit,
+  #valueExpr = {rbind(mydata, TT = 1)},
+  #ignoreNULL = TRUE,
+  #ignoreInit = TRUE
   #)
   
   #E_start_01 = reactiveValues(submission_question_01 = NULL)
   #observeEvent(input$quizStart, {
-    #E_start_01$submission_question_01 = NULL
+  #E_start_01$submission_question_01 = NULL
   #})
   
   observeEvent(input$R_FR_Submit, {
@@ -1215,7 +1215,7 @@ serverx = function(input, output, session) {
     )
   })
   
-
+  
   
   observeEvent(input$R_FR_Submit, {
     R_submission_written_start$R_NEW_INTMORE = sample(x = korean_duo %>% group_by(Index) %>% select(Index) %>% unlist() %>% unname(), size = 1, replace = TRUE)
@@ -1226,10 +1226,10 @@ serverx = function(input, output, session) {
   })
   
   #R_FR_Korean = eventReactive(
-    #eventExpr = input$R_FR_Submit,
-    #valueExpr = {paste("Korean: ", korean_duo[R_submission_written_start$R_NEW_INTMORE, ]$Korean, sep = "")},
-    #ignoreNULL = TRUE,
-    #ignoreInit = TRUE
+  #eventExpr = input$R_FR_Submit,
+  #valueExpr = {paste("Korean: ", korean_duo[R_submission_written_start$R_NEW_INTMORE, ]$Korean, sep = "")},
+  #ignoreNULL = TRUE,
+  #ignoreInit = TRUE
   #)
   
   observeEvent(input$R_FR_Submit, {
@@ -1289,7 +1289,7 @@ serverx = function(input, output, session) {
     )
   })
   
-
+  
   
   
   
@@ -1299,7 +1299,7 @@ serverx = function(input, output, session) {
       #filter(Index <= 30) %>%
       select(English, Korean, Romanization)
   })
-
+  
   #R_FR_ClearScore
   #R_FR_Submit
   #R_FR_Next
@@ -1307,8 +1307,8 @@ serverx = function(input, output, session) {
   
 }
 
-  #eventRactive = update value
-  #observeEvent = make something happen
+#eventRactive = update value
+#observeEvent = make something happen
 
 
 

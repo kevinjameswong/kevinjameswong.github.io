@@ -45,94 +45,94 @@ uix = dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       modify_stop_propagation(
-      menuItem(
-        text = "Hypothesis Testing",
-        startExpanded = TRUE,
-        #tabName = "TxT",
-        #https://forum.posit.co/t/shinydashboard-keep-sidebar-tab-expanded-while-other-tab-is-clicked-expanded/10192
-        #badgeLabel = "NEW",
-        menuSubItem(
-          text = "One Sample - Mean (Normal)",
-          icon = icon(name = "calculator"),
-          tabName = "HypothesisTest_OneSample_MeanNormal",
+        menuItem(
+          text = "Hypothesis Testing",
+          startExpanded = TRUE,
+          #tabName = "TxT",
+          #https://forum.posit.co/t/shinydashboard-keep-sidebar-tab-expanded-while-other-tab-is-clicked-expanded/10192
           #badgeLabel = "NEW",
-          selected = TRUE),
-        menuSubItem(
-          text = "One Sample - Mean (T)",
-          icon = icon(name = "calculator"),
-          tabName = "HypothesisTest_OneSample_MeanT",
-          #badgeLabel = "NEW",
-          selected = TRUE),
-        menuSubItem(
-          text = "One Sample - Proportion",
-          icon = icon(name = "calculator"),
-          tabName = "HypothesisTest_OneSample_Proportion",
-          #badgeLabel = "NEW",
-          selected = FALSE)#,
-        #menuSubItem(
+          menuSubItem(
+            text = "One Sample - Mean (Normal)",
+            icon = icon(name = "calculator"),
+            tabName = "HypothesisTest_OneSample_MeanNormal",
+            #badgeLabel = "NEW",
+            selected = TRUE),
+          menuSubItem(
+            text = "One Sample - Mean (T)",
+            icon = icon(name = "calculator"),
+            tabName = "HypothesisTest_OneSample_MeanT",
+            #badgeLabel = "NEW",
+            selected = TRUE),
+          menuSubItem(
+            text = "One Sample - Proportion",
+            icon = icon(name = "calculator"),
+            tabName = "HypothesisTest_OneSample_Proportion",
+            #badgeLabel = "NEW",
+            selected = FALSE)#,
+          #menuSubItem(
           #text = "One Sample - Variance",
           #icon = icon(name = "calculator"),
           #tabName = "HypothesisTest_OneSample_Variance",
           ##badgeLabel = "NEW",
           #selected = FALSE)
-      )
+        )
       ),
       modify_stop_propagation(
-      menuItem(
-        text = "Probability Calculators",
-        startExpanded = TRUE,
-        #tabName = "TxT",
-        #badgeLabel = "NEW",
-        menuSubItem(
-          text = "Binomial Distribution",
-          icon = icon(name = "calculator"),
-          tabName = "ProbabilityCalculator_Binomial",
+        menuItem(
+          text = "Probability Calculators",
+          startExpanded = TRUE,
+          #tabName = "TxT",
           #badgeLabel = "NEW",
-          selected = FALSE),
-        menuSubItem(
-          text = "Normal Distrubtion",
-          icon = icon(name = "calculator"),
-          tabName = "ProbabilityCalculator_Normal",
-          #badgeLabel = "NEW",
-          selected = FALSE),
-        menuSubItem(
-          text = "Geometric Distrubtion",
-          icon = icon(name = "calculator"),
-          tabName = "ProbabilityCalculator_Geometric",
-          #badgeLabel = "NEW",
-          selected = FALSE)
-      )
+          menuSubItem(
+            text = "Binomial Distribution",
+            icon = icon(name = "calculator"),
+            tabName = "ProbabilityCalculator_Binomial",
+            #badgeLabel = "NEW",
+            selected = FALSE),
+          menuSubItem(
+            text = "Normal Distrubtion",
+            icon = icon(name = "calculator"),
+            tabName = "ProbabilityCalculator_Normal",
+            #badgeLabel = "NEW",
+            selected = FALSE),
+          menuSubItem(
+            text = "Geometric Distrubtion",
+            icon = icon(name = "calculator"),
+            tabName = "ProbabilityCalculator_Geometric",
+            #badgeLabel = "NEW",
+            selected = FALSE)
+        )
       ),
       modify_stop_propagation(
-      menuItem(
-        text = "Confidence Intervals",
-        startExpanded = TRUE,
-        #tabName = "TxT",
-        #badgeLabel = "NEW",
-        menuSubItem(
-          text = "One Sample - Mean (Normal)",
-          icon = icon(name = "calculator"),
-          tabName = "ConfidenceIntervals_OneSample_MeanNormal",
+        menuItem(
+          text = "Confidence Intervals",
+          startExpanded = TRUE,
+          #tabName = "TxT",
           #badgeLabel = "NEW",
-          selected = FALSE),
-        menuSubItem(
-          text = "One Sample - Mean (T)",
-          icon = icon(name = "calculator"),
-          tabName = "ConfidenceIntervals_OneSample_MeanT",
-          #badgeLabel = "NEW",
-          selected = FALSE),
-        menuSubItem(
-          text = "One Sample - Proportion",
-          icon = icon(name = "calculator"),
-          tabName = "ConfidenceIntervals_OneSample_Proportion",
-          #badgeLabel = "NEW",
-          selected = FALSE),
-        menuSubItem(
-          text = "One Sample - Variance",
-          icon = icon(name = "calculator"),
-          tabName = "ConfidenceIntervals_OneSample_Variance",
-          #badgeLabel = "NEW",
-          selected = FALSE)
+          menuSubItem(
+            text = "One Sample - Mean (Normal)",
+            icon = icon(name = "calculator"),
+            tabName = "ConfidenceIntervals_OneSample_MeanNormal",
+            #badgeLabel = "NEW",
+            selected = FALSE),
+          menuSubItem(
+            text = "One Sample - Mean (T)",
+            icon = icon(name = "calculator"),
+            tabName = "ConfidenceIntervals_OneSample_MeanT",
+            #badgeLabel = "NEW",
+            selected = FALSE),
+          menuSubItem(
+            text = "One Sample - Proportion",
+            icon = icon(name = "calculator"),
+            tabName = "ConfidenceIntervals_OneSample_Proportion",
+            #badgeLabel = "NEW",
+            selected = FALSE),
+          menuSubItem(
+            text = "One Sample - Variance",
+            icon = icon(name = "calculator"),
+            tabName = "ConfidenceIntervals_OneSample_Variance",
+            #badgeLabel = "NEW",
+            selected = FALSE)
         )
       ),
       modify_stop_propagation(
@@ -290,7 +290,7 @@ uix = dashboardPage(
               
       ),
       
-            tabItem(tabName = "HypothesisTest_OneSample_Proportion",
+      tabItem(tabName = "HypothesisTest_OneSample_Proportion",
               #br(), #"Yoing",
               fluidRow(width = 12,
                        box(title = "Input", width = 3, #background = "gray",
@@ -350,46 +350,50 @@ uix = dashboardPage(
       
       tabItem(tabName = "ProbabilityCalculator_Binomial",
               fluidRow(width = 12,
-                box(title = "Input", width = 3,
-                column(width = 12,
-                       numericInput(
-                         inputId = "ProbabilityCalculator_Binomial_P",
-                         label = "Probability:",
-                         value = 0.5,
-                         min = 0,
-                         max = 1,
-                         step = 0.1
+                       box(title = "Input", width = 3,
+                           column(width = 12,
+                                  numericInput(
+                                    inputId = "ProbabilityCalculator_Binomial_P",
+                                    label = "Probability:",
+                                    value = 0.5,
+                                    min = 0,
+                                    max = 1,
+                                    step = 0.1
+                                  ),
+                                  numericInput(
+                                    inputId = "ProbabilityCalculator_Binomial_N",
+                                    label = "Attempts:",
+                                    value = 10,
+                                    min = 0,
+                                    step = 1
+                                  ),
+                                  numericInput(
+                                    inputId = "ProbabilityCalculator_Binomial_K",
+                                    label = "Successes:",
+                                    value = 3,
+                                    min = 0,
+                                    step = 1
+                                  ),
+                                  actionButton(inputId = "ProbabilityCalculator_Binomial_UpdateButton", label = "Update", width = "100%")
+                           )
                        ),
-                       numericInput(
-                         inputId = "ProbabilityCalculator_Binomial_N",
-                         label = "Attempts:",
-                         value = 10,
-                         min = 0,
-                         step = 1
-                       ),
-                       numericInput(
-                         inputId = "ProbabilityCalculator_Binomial_K",
-                         label = "Successes:",
-                         value = 3,
-                         min = 0,
-                         step = 1
-                       ),
-                       actionButton(inputId = "ProbabilityCalculator_Binomial_UpdateButton", label = "Update", width = "100%")
+                       box(title = "Probability Calculator - Binomial Distribution", width = 9,
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_P"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_N"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_K"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_ExpectedOutcome"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_Probability_LessThanKSuccesses"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_Probability_AtMostKSuccesses"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_Probability_ExactlyKSuccesses"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_Probability_GreaterThanKSuccesses"),
+                           valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_Probability_AtLeastKSuccesses")
                        )
-                ),
-                box(title = "Probability Calculator - Binomial Distribution", width = 9,
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_P"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_N"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_K"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_ExpectedOutcome"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_LessThanKSuccesses"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_AtMostKSuccesses"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_ExactlyKSuccesses"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_GreaterThanKSuccesses"),
-                  valueBoxOutput(outputId = "ProbabilityCalculator_Binomial_AtLeastKSuccesses")
-                  )
-                
-      )
+              ),
+              fluidRow(width = 12,
+                       box(title = "Graph", width = 12,
+                           tableOutput(outputId = "ProbabilityCalculator_Binomial_Table")
+                       )
+              )
       ),
       
       tabItem(tabName = "ProbabilityCalculator_Geometric",
@@ -416,7 +420,7 @@ uix = dashboardPage(
                        ),
                        box(title = "Probability Calculator - Geometric Distribution", width = 9,
                            valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_P"),
-                           valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_K"),
+                           #valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_K"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_ExpectedOutcome"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_LessThanKSuccesses"),
                            valueBoxOutput(outputId = "ProbabilityCalculator_Geometric_AtMostKSuccesses"),
@@ -427,7 +431,7 @@ uix = dashboardPage(
                        
               )
       ),
-
+      
       # Second tab content
       tabItem(tabName = "ProbabilityCalculator_Normal",
               #br(), #"Yoing",
@@ -458,7 +462,7 @@ uix = dashboardPage(
                                     value = 12,
                                     step = 1
                                   ),
-
+                                  
                                   actionButton(inputId = "ProbabilityCalculator_Normal_UpdateButton", label = "Update", width = "100%")
                            )
                        ),
@@ -470,7 +474,7 @@ uix = dashboardPage(
                            valueBoxOutput(outputId = "ProbabilityCalculator_Normal_Probability")
                        )
                        
-                    
+                       
               )
               
       ),
@@ -752,13 +756,13 @@ uix = dashboardPage(
               )
       )
       
-
-
-  ))
+      
+      
+    ))
 )
 
 serverx = function(input, output, session) {
-
+  
   
   ProbabilityCalculator_Binomial_P = eventReactive(
     eventExpr = input$ProbabilityCalculator_Binomial_UpdateButton,
@@ -775,54 +779,54 @@ serverx = function(input, output, session) {
   )
   
   ProbabilityCalculator_Binomial_K = eventReactive(
-    eventExpr = input$ProbabilityCalculator_Binomial_UpdateButtonButton,
+    eventExpr = input$ProbabilityCalculator_Binomial_UpdateButton,
     valueExpr = {input$ProbabilityCalculator_Binomial_K},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
   ProbabilityCalculator_Binomial_ExpectedOutcome = eventReactive(
-    eventExpr = input$ProbabilityCalculator_Binomial_UpdateButtonButton,
+    eventExpr = input$ProbabilityCalculator_Binomial_UpdateButton,
     valueExpr = {input$ProbabilityCalculator_Binomial_P * input$ProbabilityCalculator_Binomial_N},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Binomial_Prob_LessThan = eventReactive(
-    eventExpr = input$ProbabilityCalculator_Binomial_UpdateButtonButton,
+  ProbabilityCalculator_Binomial_Probability_LessThanKSuccesses = eventReactive(
+    eventExpr = input$ProbabilityCalculator_Binomial_UpdateButton,
     valueExpr = {pbinom(q = input$ProbabilityCalculator_Binomial_K - 1, size = input$ProbabilityCalculator_Binomial_N, prob = input$ProbabilityCalculator_Binomial_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Binomial_Prob_AtMost = eventReactive(
+  ProbabilityCalculator_Binomial_Probability_AtMostKSuccesses = eventReactive(
     eventExpr = input$ProbabilityCalculator_Binomial_UpdateButton,
     valueExpr = {pbinom(q = input$ProbabilityCalculator_Binomial_K, size = input$ProbabilityCalculator_Binomial_N, prob = input$ProbabilityCalculator_Binomial_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
-
-  ProbabilityCalculator_Binomial_Prob_Exactly = eventReactive(
+  
+  ProbabilityCalculator_Binomial_Probability_ExactlyKSuccesses = eventReactive(
     eventExpr = input$ProbabilityCalculator_Binomial_UpdateButton,
     valueExpr = {pbinom(q = input$ProbabilityCalculator_Binomial_K, size = input$ProbabilityCalculator_Binomial_N, prob = input$ProbabilityCalculator_Binomial_P) - pbinom(q = input$ProbabilityCalculator_Binomial_K - 1, size = input$ProbabilityCalculator_Binomial_N, prob = input$ProbabilityCalculator_Binomial_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Binomial_Prob_GreaterThan = eventReactive(
+  ProbabilityCalculator_Binomial_Probability_GreaterThanKSuccesses = eventReactive(
     eventExpr = input$ProbabilityCalculator_Binomial_UpdateButton,
     valueExpr = {1 - pbinom(q = input$ProbabilityCalculator_Binomial_K, size = input$ProbabilityCalculator_Binomial_N, prob = input$ProbabilityCalculator_Binomial_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Binomial_Prob_AtLeast = eventReactive(
+  ProbabilityCalculator_Binomial_Probability_AtLeastKSuccesses = eventReactive(
     eventExpr = input$ProbabilityCalculator_Binomial_UpdateButton,
     valueExpr = {1 - pbinom(q = input$ProbabilityCalculator_Binomial_K - 1, size = input$ProbabilityCalculator_Binomial_N, prob = input$ProbabilityCalculator_Binomial_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
-
+  
   output$ProbabilityCalculator_Binomial_P = renderValueBox({
     ProbabilityCalculator_Binomial_P() %>%
       percent(digits = 2) %>%
@@ -846,36 +850,70 @@ serverx = function(input, output, session) {
       valueBox(subtitle = "Expected Outcome", color = "light-blue", width = 4)
   })
   
-  output$ProbabilityCalculator_Binomial_LessThanKSuccesses = renderValueBox({
-    ProbabilityCalculator_Binomial_Prob_LessThan() %>%
+  output$ProbabilityCalculator_Binomial_Probability_LessThanKSuccesses = renderValueBox({
+    ProbabilityCalculator_Binomial_Probability_LessThanKSuccesses() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("Less than ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""), color = "green", icon = icon(name = "less-than"), width = 4)
   })
   
-  output$ProbabilityCalculator_Binomial_AtMostKSuccesses = renderValueBox({
-    ProbabilityCalculator_Binomial_Prob_AtMost() %>%
+  output$ProbabilityCalculator_Binomial_Probability_AtMostKSuccesses = renderValueBox({
+    ProbabilityCalculator_Binomial_Probability_AtMostKSuccesses() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("At Most ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""), color = "green", icon = icon(name = "less-than-equal"), width = 4)
   })
   
-  output$ProbabilityCalculator_Binomial_ExactlyKSuccesses = renderValueBox({
-    ProbabilityCalculator_Binomial_Prob_Exactly() %>%
+  output$ProbabilityCalculator_Binomial_Probability_ExactlyKSuccesses = renderValueBox({
+    ProbabilityCalculator_Binomial_Probability_ExactlyKSuccesses() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("Exactly ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""), color = "light-blue", icon = icon(name = "equals"), width = 4)
   })
   
-  output$ProbabilityCalculator_Binomial_GreaterThanKSuccesses = renderValueBox({
-    ProbabilityCalculator_Binomial_Prob_GreaterThan() %>%
+  output$ProbabilityCalculator_Binomial_Probability_GreaterThanKSuccesses = renderValueBox({
+    ProbabilityCalculator_Binomial_Probability_GreaterThanKSuccesses() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("Greater than ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""), color = "yellow", icon = icon(name = "greater-than"), width = 4)
   })
   
-  output$ProbabilityCalculator_Binomial_AtLeastKSuccesses = renderValueBox({
-    ProbabilityCalculator_Binomial_Prob_AtLeast() %>%
+  output$ProbabilityCalculator_Binomial_Probability_AtLeastKSuccesses = renderValueBox({
+    ProbabilityCalculator_Binomial_Probability_AtLeastKSuccesses() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("At Least ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""), color = "yellow", icon = icon(name = "greater-than-equal"), width = 4)
   })
   
+  output$ProbabilityCalculator_Binomial_Table = renderText({
+    tt = data.frame(
+      Metric = c(
+        "Probability of Each Success",
+        "Number of Attempts",
+        "Number of Successes",
+        "Expected Outcome",
+        paste("Less than ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""),
+        paste("At Most ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""),
+        paste("Exactly ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""),
+        paste("Greather than ", ProbabilityCalculator_Binomial_K(), " Successes", sep = ""),
+        paste("At Least ", ProbabilityCalculator_Binomial_K(), " Successes", sep = "")
+      ),
+      Value = c(
+        ProbabilityCalculator_Binomial_P(),
+        ProbabilityCalculator_Binomial_N(),
+        ProbabilityCalculator_Binomial_K(),
+        ProbabilityCalculator_Binomial_ExpectedOutcome(),
+        ProbabilityCalculator_Binomial_Probability_LessThanKSuccesses(),
+        ProbabilityCalculator_Binomial_Probability_AtMostKSuccesses(),
+        ProbabilityCalculator_Binomial_Probability_ExactlyKSuccesses(),
+        ProbabilityCalculator_Binomial_Probability_GreaterThanKSuccesses(),
+        ProbabilityCalculator_Binomial_Probability_AtLeastKSuccesses()
+      )
+    )
+    
+    last_rowTT = length(tt$Metric)
+    
+    tt %>%
+      kable(format = "html", align = "lllllllll", col.names = c("Metric", "Value")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped"), full_width = FALSE, position = "left") %>%
+      scroll_box(width = "100%", height = "100%") %>%
+      row_spec(row = last_rowTT, bold = TRUE, hline_after = TRUE)
+  })
   
   
   
@@ -898,42 +936,43 @@ serverx = function(input, output, session) {
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
+  
   ProbabilityCalculator_Geometric_ExpectedOutcome = eventReactive(
-    eventExpr = input$ProbabilityCalculator_Geometric_UpdateButtonButton,
+    eventExpr = input$ProbabilityCalculator_Geometric_UpdateButton,
     valueExpr = {1 / input$ProbabilityCalculator_Geometric_P},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Geometric_Prob_LessThan = eventReactive(
-    eventExpr = input$ProbabilityCalculator_Geometric_UpdateButtonButton,
+  ProbabilityCalculator_Geometric_Probability_LessThanKSuccesses = eventReactive(
+    eventExpr = input$ProbabilityCalculator_Geometric_UpdateButton,
     valueExpr = {pgeom(q = input$ProbabilityCalculator_Geometric_N - 2, prob = input$ProbabilityCalculator_Geometric_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Geometric_Prob_AtMost = eventReactive(
+  ProbabilityCalculator_Geometric_Probability_AtMostKSuccesses = eventReactive(
     eventExpr = input$ProbabilityCalculator_Geometric_UpdateButton,
     valueExpr = {pgeom(q = input$ProbabilityCalculator_Geometric_N - 1, prob = input$ProbabilityCalculator_Geometric_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Geometric_Prob_Exactly = eventReactive(
+  ProbabilityCalculator_Geometric_Probability_ExactlyKSuccesses = eventReactive(
     eventExpr = input$ProbabilityCalculator_Geometric_UpdateButton,
     valueExpr = {pgeom(q = input$ProbabilityCalculator_Geometric_N - 1, prob = input$ProbabilityCalculator_Geometric_P) - pgeom(q = input$ProbabilityCalculator_Geometric_N - 2, prob = input$ProbabilityCalculator_Geometric_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Geometric_Prob_GreaterThan = eventReactive(
+  ProbabilityCalculator_Geometric_Probability_GreaterThanKSuccesses = eventReactive(
     eventExpr = input$ProbabilityCalculator_Geometric_UpdateButton,
     valueExpr = {1 - pgeom(q = input$ProbabilityCalculator_Geometric_N - 1, prob = input$ProbabilityCalculator_Geometric_P)},
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
   
-  ProbabilityCalculator_Geometric_Prob_AtLeast = eventReactive(
+  ProbabilityCalculator_Geometric_Probability_AtLeastKSuccesses = eventReactive(
     eventExpr = input$ProbabilityCalculator_Geometric_UpdateButton,
     valueExpr = {1 - pgeom(q = input$ProbabilityCalculator_Geometric_N - 2, prob = input$ProbabilityCalculator_Geometric_P)},
     ignoreNULL = TRUE,
@@ -958,31 +997,31 @@ serverx = function(input, output, session) {
   })
   
   output$ProbabilityCalculator_Geometric_LessThanKSuccesses = renderValueBox({
-    ProbabilityCalculator_Geometric_Prob_LessThan() %>%
+    ProbabilityCalculator_Geometric_Probability_LessThan() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("Less than ", ProbabilityCalculator_Geometric_N(), " Attempts", sep = ""), color = "green", icon = icon(name = "less-than"), width = 4)
   })
   
   output$ProbabilityCalculator_Geometric_AtMostKSuccesses = renderValueBox({
-    ProbabilityCalculator_Geometric_Prob_AtMost() %>%
+    ProbabilityCalculator_Geometric_Probability_AtMost() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("At Most ", ProbabilityCalculator_Geometric_N(), " Attempts", sep = ""), color = "green", icon = icon(name = "less-than-equal"), width = 4)
   })
   
   output$ProbabilityCalculator_Geometric_ExactlyKSuccesses = renderValueBox({
-    ProbabilityCalculator_Geometric_Prob_Exactly() %>%
+    ProbabilityCalculator_Geometric_Probability_Exactly() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("Exactly ", ProbabilityCalculator_Geometric_N(), " Attempts", sep = ""), color = "light-blue", icon = icon(name = "equals"), width = 4)
   })
   
   output$ProbabilityCalculator_Geometric_GreaterThanKSuccesses = renderValueBox({
-    ProbabilityCalculator_Geometric_Prob_GreaterThan() %>%
+    ProbabilityCalculator_Geometric_Probability_GreaterThan() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("Greater than ", ProbabilityCalculator_Geometric_N(), " Attempts", sep = ""), color = "yellow", icon = icon(name = "greater-than"), width = 4)
   })
   
   output$ProbabilityCalculator_Geometric_AtLeastKSuccesses = renderValueBox({
-    ProbabilityCalculator_Geometric_Prob_AtLeast() %>%
+    ProbabilityCalculator_Geometric_Probability_AtLeast() %>%
       percent(digits = 2) %>%
       valueBox(subtitle = paste("At Least ", ProbabilityCalculator_Geometric_N(), " Attempts", sep = ""), color = "yellow", icon = icon(name = "greater-than-equal"), width = 4)
   })
@@ -1064,9 +1103,9 @@ serverx = function(input, output, session) {
       gghighlight(x > ProbabilityCalculator_Normal_LowerBound(), x < ProbabilityCalculator_Normal_UpperBound()) +
       ylab(label = "Probability Density")
   })
-
   
-
+  
+  
   
   
   
@@ -1124,12 +1163,12 @@ serverx = function(input, output, session) {
     ConfidenceIntervals_OneSample_MeanNormal_LowerBound() %>%
       valueBox(subtitle = "Lower Bound", icon = icon(name = "l"), width = 4)
   })
-
+  
   output$ConfidenceIntervals_OneSample_MeanNormal_UpperBound = renderValueBox({
     ConfidenceIntervals_OneSample_MeanNormal_UpperBound() %>%
       valueBox(subtitle = "Upper Bound", icon = icon(name = "u"), width = 4)
   })
-
+  
   output$ConfidenceIntervals_OneSample_MeanNormal_Plot = renderPlot({
     dataX = data.frame(x = seq(
       from = ConfidenceIntervals_OneSample_MeanNormal_MeanSample() - (5 * ConfidenceIntervals_OneSample_MeanNormal_StandardError()),
@@ -1141,7 +1180,7 @@ serverx = function(input, output, session) {
       ylab(label = "Probability Density")
   })
   
-
+  
   
   ##
   ConfidenceIntervals_OneSample_MeanT_LowerBound = eventReactive(
@@ -1284,7 +1323,7 @@ serverx = function(input, output, session) {
     eventExpr = input$HypothesisTest_OneSample_MeanNormal_UpdateButton,
     valueExpr = {
       ((HypothesisTest_OneSample_MeanNormal_MeanSample() - HypothesisTest_OneSample_MeanNormal_MeanPopulation()) /
-        (HypothesisTest_OneSample_MeanNormal_SDPopulation() / sqrt(HypothesisTest_OneSample_MeanNormal_SampleSize()))) %>%
+         (HypothesisTest_OneSample_MeanNormal_SDPopulation() / sqrt(HypothesisTest_OneSample_MeanNormal_SampleSize()))) %>%
         round(digits = 3)
     },
     ignoreNULL = TRUE,
@@ -1331,12 +1370,12 @@ serverx = function(input, output, session) {
           round(digits = 4)
       } else if (HypothesisTest_OneSample_MeanNormal_TestType() == "Two Sided") {
         paste(
-        qnorm(p = HypothesisTest_OneSample_MeanNormal_Alpha() / 2, mean = 0, sd = 1) %>%
-          round(digits = 4),
-        ", ",
-        qnorm(p = 1 - (HypothesisTest_OneSample_MeanNormal_Alpha() / 2), mean = 0, sd = 1) %>%
-          round(digits = 4),
-        sep = "")
+          qnorm(p = HypothesisTest_OneSample_MeanNormal_Alpha() / 2, mean = 0, sd = 1) %>%
+            round(digits = 4),
+          ", ",
+          qnorm(p = 1 - (HypothesisTest_OneSample_MeanNormal_Alpha() / 2), mean = 0, sd = 1) %>%
+            round(digits = 4),
+          sep = "")
       }
     },
     ignoreNULL = TRUE,
@@ -1369,25 +1408,25 @@ serverx = function(input, output, session) {
   HypothesisTest_OneSample_MeanNormal_FinalDecision = eventReactive(
     eventExpr = input$HypothesisTest_OneSample_MeanNormal_UpdateButton,
     valueExpr = {
-    if (HypothesisTest_OneSample_MeanNormal_PValue() >= HypothesisTest_OneSample_MeanNormal_Alpha() &&
-        input$HypothesisTest_OneSample_MeanNormal_TestType == "One Sided - Left") {
-      paste("FAIL TO REJECT the Null Hypothesis. There is NOT enough evidence to conclude that the Population Mean (\u03BC) is less than than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
-    } else if (HypothesisTest_OneSample_MeanNormal_PValue() < HypothesisTest_OneSample_MeanNormal_Alpha() &&
-        input$HypothesisTest_OneSample_MeanNormal_TestType == "One Sided - Left") {
-      paste("REJECT the Null Hypothesis. There IS enough evidence to conclude that the Population Mean (\u03BC) is lower than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
-    } else if (HypothesisTest_OneSample_MeanNormal_PValue() >= HypothesisTest_OneSample_MeanNormal_Alpha() &&
-              input$HypothesisTest_OneSample_MeanNormal_TestType == "One Sided - Right") {
-      paste("FAIL TO REJECT the Null Hypothesis. There is NOT enough evidence to conclude that the Population Mean (\u03BC) is greater than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
-    } else if (HypothesisTest_OneSample_MeanNormal_PValue() < HypothesisTest_OneSample_MeanNormal_Alpha() &&
-               input$HypothesisTest_OneSample_MeanNormal_TestType == "One Sided - Right") {
-      paste("REJECT the Null Hypothesis. There IS enough evidence to conclude that the Population Mean (\u03BC) is greater than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
-    } else if (HypothesisTest_OneSample_MeanNormal_PValue() >= HypothesisTest_OneSample_MeanNormal_Alpha() &&
-               input$HypothesisTest_OneSample_MeanNormal_TestType == "Two Sided") {
-      paste("FAIL TO REJECT the Null Hypothesis. There is NOT enough evidence to conclude that the Population Mean (\u03BC) is different than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
-    } else if (HypothesisTest_OneSample_MeanNormal_PValue() < HypothesisTest_OneSample_MeanNormal_Alpha() &&
-              input$HypothesisTest_OneSample_MeanNormal_TestType == "Two Sided") {
-      paste("REJECT the Null Hypothesis. There IS enough evidence to conclude that the Population Mean (\u03BC) is different than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
-    }
+      if (HypothesisTest_OneSample_MeanNormal_PValue() >= HypothesisTest_OneSample_MeanNormal_Alpha() &&
+          input$HypothesisTest_OneSample_MeanNormal_TestType == "One Sided - Left") {
+        paste("FAIL TO REJECT the Null Hypothesis. There is NOT enough evidence to conclude that the Population Mean (\u03BC) is less than than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
+      } else if (HypothesisTest_OneSample_MeanNormal_PValue() < HypothesisTest_OneSample_MeanNormal_Alpha() &&
+                 input$HypothesisTest_OneSample_MeanNormal_TestType == "One Sided - Left") {
+        paste("REJECT the Null Hypothesis. There IS enough evidence to conclude that the Population Mean (\u03BC) is lower than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
+      } else if (HypothesisTest_OneSample_MeanNormal_PValue() >= HypothesisTest_OneSample_MeanNormal_Alpha() &&
+                 input$HypothesisTest_OneSample_MeanNormal_TestType == "One Sided - Right") {
+        paste("FAIL TO REJECT the Null Hypothesis. There is NOT enough evidence to conclude that the Population Mean (\u03BC) is greater than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
+      } else if (HypothesisTest_OneSample_MeanNormal_PValue() < HypothesisTest_OneSample_MeanNormal_Alpha() &&
+                 input$HypothesisTest_OneSample_MeanNormal_TestType == "One Sided - Right") {
+        paste("REJECT the Null Hypothesis. There IS enough evidence to conclude that the Population Mean (\u03BC) is greater than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
+      } else if (HypothesisTest_OneSample_MeanNormal_PValue() >= HypothesisTest_OneSample_MeanNormal_Alpha() &&
+                 input$HypothesisTest_OneSample_MeanNormal_TestType == "Two Sided") {
+        paste("FAIL TO REJECT the Null Hypothesis. There is NOT enough evidence to conclude that the Population Mean (\u03BC) is different than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
+      } else if (HypothesisTest_OneSample_MeanNormal_PValue() < HypothesisTest_OneSample_MeanNormal_Alpha() &&
+                 input$HypothesisTest_OneSample_MeanNormal_TestType == "Two Sided") {
+        paste("REJECT the Null Hypothesis. There IS enough evidence to conclude that the Population Mean (\u03BC) is different than ", HypothesisTest_OneSample_MeanNormal_MeanPopulation(), ".", sep = "")
+      }
     },
     ignoreNULL = TRUE,
     ignoreInit = FALSE
@@ -1437,7 +1476,7 @@ serverx = function(input, output, session) {
   
   
   
-
+  
   
   
   
@@ -1662,7 +1701,7 @@ serverx = function(input, output, session) {
     ignoreNULL = TRUE,
     ignoreInit = FALSE
   )
-
+  
   HypothesisTest_OneSample_Proportion_SampleSize = eventReactive(
     eventExpr = input$HypothesisTest_OneSample_Proportion_UpdateButton,
     valueExpr = {input$HypothesisTest_OneSample_Proportion_SampleSize},
@@ -1681,8 +1720,8 @@ serverx = function(input, output, session) {
     eventExpr = input$HypothesisTest_OneSample_Proportion_UpdateButton,
     valueExpr = {
       ((HypothesisTest_OneSample_Proportion_ProportionSample() - HypothesisTest_OneSample_Proportion_ProportionPopulation()) /
-        sqrt((HypothesisTest_OneSample_Proportion_ProportionPopulation() * (1 - HypothesisTest_OneSample_Proportion_ProportionPopulation())) / HypothesisTest_OneSample_Proportion_SampleSize())) %>%
-         round(digits = 3)
+         sqrt((HypothesisTest_OneSample_Proportion_ProportionPopulation() * (1 - HypothesisTest_OneSample_Proportion_ProportionPopulation())) / HypothesisTest_OneSample_Proportion_SampleSize())) %>%
+        round(digits = 3)
     },
     ignoreNULL = TRUE,
     ignoreInit = FALSE

@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+Update_Date = as.Date("01-01-2026", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
@@ -47,6 +47,10 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 <p class="last-updated">
 Please use my Shiny app to practice Korean and test your knowledge.
+</p>
+
+<p class="left">
+[Link to Shiny App](https://kevinjameswong.shinyapps.io/korean/){target="_blank"}
 </p>
 
 <div class="shiny-container">

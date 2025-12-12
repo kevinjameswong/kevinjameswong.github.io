@@ -1,12 +1,12 @@
 ---
-title: "Kevin Wong - Music Data"
+title: "Kevin Wong - Spotify Data"
 output:
   html_document:
     toc: yes
 ---
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-Update_Date = as.Date("01-01-2025", format = "%m-%d-%Y")
+Update_Date = as.Date("01-01-2026", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
@@ -40,6 +40,7 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 gs4_deauth()
 spotify = read_sheet(ss = "https://docs.google.com/spreadsheets/d/183Zf6fyC4CtSpcp3HdBRfhwbF04Ez1sKJgDSDHg0R8k", sheet = "Spotify Wrapped") %>%
+  filter(`Data Version` == "C") %>%
   mutate(
     Song = Song %>% as.character(),
     Album = Album %>% as.character()
@@ -93,14 +94,19 @@ spotify$Seconds = spotify$TotalSeconds %>% ceiling() %>% "%%"(60)
 I have been collecting my Spotify Wrapped data since `r min(spotify$Year)`. I have `r length(table(spotify$Year))` years worth of data, from `r min(spotify$Year)` - `r max(spotify$Year)`.
 </p>
 
-<!--
+<p class="left">
+[Link to Shiny App](https://kevinjameswong.shinyapps.io/spotify/){target="_blank"}
+</p>
+
 <div class="shiny-container">
 <iframe src="https://kevinjameswong.shinyapps.io/spotify/">
 </iframe>
 </div>
--->
 
+
+<!--
 <iframe src="https://kevinjameswong.shinyapps.io/spotify/" id="myFrame">
 </iframe>
+-->
 
 

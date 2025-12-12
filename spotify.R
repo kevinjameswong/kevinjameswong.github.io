@@ -14,6 +14,7 @@ library(tidyverse)
 
 gs4_deauth()
 spotify = read_sheet(ss = "https://docs.google.com/spreadsheets/d/183Zf6fyC4CtSpcp3HdBRfhwbF04Ez1sKJgDSDHg0R8k", sheet = "Spotify Wrapped") %>%
+  filter(`Data Version` == "C") %>%
   mutate(
     Song = Song %>% as.character(),
     Album = Album %>% as.character()
@@ -73,8 +74,8 @@ total_time = function(seconds) {
 }
 
 Minutes_All = bind_cols(
-  as.data.frame(c(2018, 2020, 2021, 2022, 2023, 2024)),
-  as.data.frame(c(36663, 38198, 2768, 11681, 6591, 16228))
+  as.data.frame(c(2018, 2020, 2021, 2022, 2023, 2024, 2025)),
+  as.data.frame(c(36663, 38198, 2768, 11681, 6591, 16228, 436768))
 )
 
 names(Minutes_All) = c("Year", "Minutes")
@@ -223,10 +224,10 @@ uix = dashboardPage(
         tabName = "Artists",
         badgeLabel = "NEW")#,
       #menuItem(
-        #text = "Listening Statistics", #view most songs by artist in single year (top 5), highest score in a single year (top 5), most songs all time, highest score all time, most years appearing in spotify wrapped
-        #icon = icon(name = "th"),
-        #tabName = "Records",
-        #badgeLabel = "NEW")
+      #text = "Listening Statistics", #view most songs by artist in single year (top 5), highest score in a single year (top 5), most songs all time, highest score all time, most years appearing in spotify wrapped
+      #icon = icon(name = "th"),
+      #tabName = "Records",
+      #badgeLabel = "NEW")
     )
   ),
   
@@ -247,7 +248,7 @@ uix = dashboardPage(
                       choices = TopArtists_ByYear$Year %>% unique() %>% sort(),
                       #choices = c("2020", "2021", "2022", "2023", "2024"),
                       #selected = TopArtists_ByYear$Year %>% unique() %>% sort() %>% tail()
-                      selected = c("2024")
+                      selected = spotify$Year %>% max()
                     )
                 )
               ),
@@ -319,7 +320,7 @@ uix = dashboardPage(
                        selectInput(
                          inputId = "SelectedArtist",
                          label = "Select Artist:",
-                         choices = ttt %>% unique() %>% sort(), selected = "TWICE"
+                         choices = ttt %>% unique() %>% sort(), selected = "LE SSERAFIM" #selected = "TWICE"
                        )
                 )),
               fluidRow(
@@ -441,7 +442,7 @@ serverx = function(input, output, session) {
   })
   
   
-
+  
   output$sayyouloveme = renderPlot({
     spotify %>%
       filter(Year == input$SelectedYear) %>%
@@ -475,8 +476,8 @@ serverx = function(input, output, session) {
             axis.text.y = element_blank(),
             axis.ticks.y = element_blank()
       ) +
-    #scale_x_discrete(limits = c(2020, 2021, 2022, 2023, 2024))
-    scale_x_continuous(breaks = min(TopArtists_ByYear$Year):max(TopArtists_ByYear$Year))
+      #scale_x_discrete(limits = c(2020, 2021, 2022, 2023, 2024))
+      scale_x_continuous(breaks = min(TopArtists_ByYear$Year):max(TopArtists_ByYear$Year))
   })
   
   output$X123 = renderText({
@@ -486,7 +487,7 @@ serverx = function(input, output, session) {
       select(ArtistName, Score, Song_Count) %>%
       arrange(desc(Score), desc(Song_Count)) %>%
       kable(format = "html", align = "llrr", col.names = c("Artist Name", "Score", "Song Count")) %>%
-      kable_styling(bootstrap_options = c("hover", "responsive", "striped")) %>%
+      kable_styling(bootstrap_options = c("hover", "responsive", "striped"), wraptable_width = "10pt") %>%
       scroll_box(width = "100%", height = "100%")
   })
   
@@ -595,7 +596,7 @@ serverx = function(input, output, session) {
       group_by(NewArtistFlag) %>%
       #arrange(Year, Song_Count) %>%
       filter(Year == input$SelectedYear, is.na(NewArtistFlag) == FALSE) %>%
-
+      
       summarize(`Song Count` = sum(Song_Count)) %>%
       arrange(NewArtistFlag)
     #arrange(desc(`Song Count`)) %>%

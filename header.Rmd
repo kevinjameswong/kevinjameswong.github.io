@@ -36,7 +36,8 @@ output: html_document
 
 <h1>Kevin Wong</h1>
 
-```{r out.height = "160px", out.width = "150px", fig.align = "center", echo = FALSE}
+```{r out.height = "200px", out.width = "150px", fig.align = "center", echo = FALSE}
+## used to say  ```{r out.height = "160px", out.width = "150px", fig.align = "center", echo = FALSE}
 ## used to say out.height = "150px"
 library(knitr)
 include_graphics("images/kevin wong.jpg")

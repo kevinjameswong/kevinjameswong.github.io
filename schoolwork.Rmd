@@ -1,12 +1,12 @@
 ---
-title: "Kevin Wong - Kevin's Schoolwork"
+title: "Kevin Wong - Schoolwork"
 output:
   html_document:
     toc: yes
 ---
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-Update_Date = as.Date("05-18-2019", format = "%m-%d-%Y")
+Update_Date = as.Date("01-01-2026", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
@@ -34,6 +34,10 @@ library(tidyverse)
 body, p {
    font-family: "Times New Roman";
    font-size: 18px;
+}
+
+.imgheight {
+  height: 150px;
 }
 
 .video-container {
@@ -90,13 +94,35 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 ***
 
-I graduated with a **Bachelor of Science (BS) in Statistics** degree at the University of Illinois in May 2019. I also minored in *Leadership Studies* and *Business*. My GPA was 3.88.
+# Graduate Degree
 
-# Courses Taken
+I am currently pursuing a **Master of Science (MS) in Data Science** degree at the University of Texas at Austin. I expect to graduate in December 2027.
+
+<p></p>
+<center>
+<img class="imgheight" src="images/UT-Banner.png"> <img class="imgheight" src="images/UT-Campus.png"> 
+<p></p>
+</center>
+
+## Courses Taken
+
+- **TBD**
 
 ***
 
-## Statistics
+# Undergraduate Degree
+
+I graduated with a **Bachelor of Science (BS) in Statistics** degree at the University of Illinois in May 2019. I also minored in *Leadership Studies* and *Business*. My GPA was 3.88.
+
+<p></p>
+<center>
+<img class="imgheight" src="images/UI-Banner.png"> <img class="imgheight" src="images/UI-Campus.png"> 
+<p></p>
+</center>
+
+## Courses Taken
+
+### Statistics
 
 Some of the Statistics Courses I have taken include:  
 
@@ -109,11 +135,11 @@ Some of the Statistics Courses I have taken include:
 - **STAT** 440: Statistical Data Management               (Grade: A)
 - **STAT** 448: Advanced Data Analysis                    (Grade: A)
 
-My GPA in STAT courses at U of I is 3.96.
+My GPA in STAT courses at the University of Illinois was 3.96.
 
 ***
 
-## Leadership Studies
+### Leadership Studies
 Some of the Leadership Studies Courses I have taken include:  
 
 - **AGED** 230: Leadership Communications            (Grade: A)
@@ -121,11 +147,11 @@ Some of the Leadership Studies Courses I have taken include:
 - **AGED** 380: Leadership in Groups and Teams       (Grade: A+)
 - **AGED** 480: Collaborative Leadership             (Grade: A)
 
-My GPA in Leadership courses at U of I is 4.00.
+My GPA in Leadership courses at the University of Illinois was 4.00.
 
 ***
 
-## Business
+### Business
 
 Some of the Business Courses I have taken include:  
 
@@ -136,11 +162,11 @@ Some of the Business Courses I have taken include:
 - **ACCY** 200: Fundamentals of Accounting              (Grade: A)
 - **FIN** 221: Corporate Finance                        (Grade: A)
 
-My GPA in Business Courses at U of I is 4.00.
+My GPA in Business courses at the University of Illinois was 4.00.
 
 ***
 
-# School Projects
+### School Projects
 
 <h3 class="r33m_vid">R33M Video</h3>
 

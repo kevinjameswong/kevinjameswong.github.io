@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-Update_Date = as.Date("04-01-2025", format = "%m-%d-%Y")
+#Update_Date = as.Date("07-01-2025", format = "%m-%d-%Y")
 #Update_Date
 
 library(dplyr)
@@ -22,12 +22,27 @@ library(shiny)
 library(shinydashboard)
 library(stringr)
 library(tidyverse)
+
+library(randomForest)
+library(generics)
+library(caret)
+
+percent = function(x, digits = 2, format = "f", ...) {
+  t = formatC(x * 100, format = format, digits = digits, ...) %>% paste("%", sep = "")
+  return(t)
+}
+
+seed = 3
 ```
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 gs4_deauth()
+
+Parts = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ", sheet = "# of Participants")
+
 trivia = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ", sheet = "Trivia Questions with Answers") %>%
-  filter(is.na(Date) == FALSE, is.na(Category) == FALSE) %>%
+  arrange(Index) %>%
+  filter(`Data Version` == "C", is.na(Date) == FALSE, is.na(Category) == FALSE, is.na(TeamAnswerCorrect) == FALSE) %>%
   mutate(
     Date = Date %>% as.Date(),
     `Question Number` = `Question Number` %>% as.character() %>% as.factor(),
@@ -37,22 +52,65 @@ trivia = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jH
       `Question Number` %in% c("7", "8", "9") ~ "3",
       `Question Number` %in% c("Bonus") ~ "Bonus",
       `Question Number` %in% c("Halftime") ~ "Halftime",
-      `Question Number` %in% c("10", "11", "12") ~ "4",
-      `Question Number` %in% c("13", "14", "15") ~ "5",
-      `Question Number` %in% c("16", "17", "18") ~ "6",
+      `Question Number` %in% c("11", "12", "13") ~ "4",
+      `Question Number` %in% c("14", "15", "16") ~ "5",
+      `Question Number` %in% c("17", "18", "19") ~ "6",
       .default = `Question Number`
     ) %>% as.factor(),
     `Question within Round` = case_when(
-      `Question Number` %in% c("1", "4", "7", "10", "13", "16") ~ "1",
-      `Question Number` %in% c("2", "5", "8", "11", "14", "17") ~ "2",
-      `Question Number` %in% c("3", "6", "9", "12", "15", "18") ~ "3",
+      `Question Number` %in% c("1", "4", "7", "11", "14", "17") ~ "1",
+      `Question Number` %in% c("2", "5", "8", "12", "15", "18") ~ "2",
+      `Question Number` %in% c("3", "6", "9", "13", "16", "19") ~ "3",
       `Question Number` %in% c("Bonus") ~ "Bonus",
       `Question Number` %in% c("Halftime") ~ "Halftime",
       .default = `Question Number`
     ) %>% as.factor(),
+    `Trivia Half` = case_when(
+      Round %in% c("1", "2", "3") ~ "First Half",
+      Round %in% c("4", "5", "6") ~ "Second Half",
+      .default = `Question Number`
+    ),
     `Correct Answer` = `Correct Answer` %>% as.character(),
     `Submitted Answer` = `Submitted Answer` %>% as.character(),
+    
+    Points_Wagered_Original = `Points Wagered`,
+    Points_Scored_Original = case_when(
+      TeamAnswerCorrect == 1  ~ Points_Wagered_Original,
+      .default = 0
+    ),
+    Points_Wasted_Original = case_when(
+      TeamAnswerCorrect == 0 ~ Points_Wagered_Original,
+      .default = 0
+    ),
+    Points_Net_Original = case_when(
+      TeamAnswerCorrect == 1 ~ Points_Wagered_Original,
+      .default = - Points_Wagered_Original
+    ),
+    
+    Points_Wagered_Weighted = case_when(
+      #`Trivia Half` == "First Half" ~ Points_Wagered_Original,
+      `Trivia Half` == "Second Half" & Points_Wagered_Original == "2" ~ 1,
+      `Trivia Half` == "Second Half" & Points_Wagered_Original == "4" ~ 3,
+      `Trivia Half` == "Second Half" & Points_Wagered_Original == "6" ~ 5,
+      .default = Points_Wagered_Original
+    ),
+    Points_Scored_Weighted = case_when(
+      TeamAnswerCorrect == 1  ~ Points_Wagered_Weighted,
+      .default = 0
+    ),
+    Points_Wasted_Weighted = case_when(
+      TeamAnswerCorrect == 0 ~ Points_Wagered_Weighted,
+      .default = 0
+    ),
+    Points_Net_Weighted = case_when(
+      TeamAnswerCorrect == 1 ~ Points_Wagered_Weighted,
+      .default = - Points_Wagered_Weighted
+    ),
+
+    
+    
     Category_Level02 = case_when(
+      # make a grouping for business and advertising
       str_detect(string = toupper(Category), pattern = "GEOGRAPHY|PARKS|LANDMARKS") == TRUE ~ "Geography",
       str_detect(string = toupper(Category), pattern = "BASEBALL|BASKETBALL|BOWLING|BOXING|FOOTBALL|GOLF|HOCKEY|RUNNING|SOCCER|SPORTS") == TRUE ~ "Sports",
       str_detect(string = toupper(Category), pattern = "LITERATURE|BOOKS") == TRUE ~ "Literature",
@@ -61,61 +119,114 @@ trivia = read_sheet(ss = "https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jH
       toupper(Category) == "TV" ~ "TV",
       str_detect(string = toupper(Category), pattern = "TELEVISION") == TRUE ~ "TV",
       toupper(Category) == "DOGS" ~ "Animals",
-      .default = Category
+      .default = "Other"
     ),
     Category_Level03 = case_when(
       Category_Level02 == "TV" ~ 1,
       .default = 2
-    )
-  ) %>%
-  arrange(Index) %>%
-  select(Index, Date, `Question Number`, Round, `Question within Round`, Category, Question, `Correct Answer`, `Submitted Answer`, `Correct?`, Confidence, `Question Type`, Freebie, Notes, `Top 5 Finish`, Category_Level02, Category_Level03)
+    ),
 
-trivia$PointsScored = case_when(
-  trivia$`Correct?` == 1  ~ trivia$Confidence,
+    Freebie = case_when(
+      Freebie == 1 ~ 1,
+      .default = 0
+    ),
+    
+    TeamAnswerCorrect_Text = case_when(
+      TeamAnswerCorrect == 1 ~ "Correct",
+      .default = "Incorrect"
+    ) %>% as.factor()
+      
+    ) %>%
+    left_join(y = Parts, b = "Date") %>%
+    select(Index, Date, `Question Number`, Round, `Question within Round`, `Trivia Half`, Category, Question, `Correct Answer`, `Submitted Answer`, TeamAnswerCorrect, Points_Wagered_Original, Points_Scored_Original, Points_Wasted_Original, Points_Net_Original, Points_Wagered_Weighted, Points_Scored_Weighted, Points_Wasted_Weighted, Points_Net_Weighted, `Question Type`, `Question Type 2`, Freebie, Notes, `Top 5 Finish`, Category_Level02, Category_Level03, NumberofTeamMembers, TeamAnswerCorrect_Text) %>%
+  filter(Round %in% c("Bonus", "Halftime", "Final", "Tiebreaker") == FALSE)
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+Update_Date = trivia$Date %>% as.Date() %>% max()
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+#Creating Train and Test sets
+set.seed(seed = seed)
+
+trivia_trn_index = sample(x = trivia$Index, size = nrow(trivia) * .7, replace = FALSE) %>% sort(decreasing = FALSE)
+
+trivia_tst_index = trivia %>% filter(Index %in% trivia_trn_index == FALSE) %>% select(Index) %>% unlist() %>% unname() %>% sort(decreasing = FALSE)
+
+trivia_trn = trivia %>% filter(Index %in% trivia_trn_index)
+trivia_tst = trivia %>% filter(Index %in% trivia_tst_index)
+
+rf_fit = train(TeamAnswerCorrect ~ `Question Type` + Round + `Question within Round` + `Trivia Half` + Category + Category_Level02 + Freebie + Points_Wagered_Weighted + NumberofTeamMembers,
+            data = trivia_trn,
+            method = "rf",
+            trControl = trainControl(method = "cv", number = 5),
+            tuneLength = 5
+)
+
+rf_fit$xlevels[["Category_Level02"]] = union(rf_fit$xlevels[["Category_Level02"]], trivia_tst$Category_Level02)
+rf_fit$xlevels[["Category"]] = union(rf_fit$xlevels[["Category"]], trivia_tst$Category)
+rf_fit$xlevels[["Question Type"]] = union(rf_fit$xlevels[["Question Type"]], trivia_tst$`Question Type`)
+rf_fit$xlevels[["Question Type 2"]] = union(rf_fit$xlevels[["Question Type 2"]], trivia_tst$`Question Type 2`)
+
+test_data_probabilities = predict(rf_fit,  newdata = trivia_tst)
+
+cutoffs = seq(from = 0.5, to = 1, by = 0.01)
+score_acc = rep(0, length(cutoffs))
+
+score = function(actual, predicted) {
+  1   * sum(predicted == 0 & actual == 0) +
+  1   * sum(predicted == 1 & actual == 1) +
+  -1  * sum(predicted == 0 & actual == 1) +
+  -1  * sum(predicted == 1 & actual == 0)
+}
+
+# test cutoffs for accuracy tuned forest
+#for (c in test_data_probabilities) {
+#  pred = ifelse(test_data_probabilities > 0.5, yes = 1, no = 0)
+#}
+
+trivia_tst$prediction_probability = test_data_probabilities
+trivia_tst$prediction = case_when(
+  trivia_tst$prediction_probability > 0.5 ~ 1,
+  .default = 0
+)
+
+#trivia_tst$prediction = trivia_tst$prediction %>% as.factor()
+
+trivia_tst$model_accurate = case_when(
+  trivia_tst$prediction == trivia_tst$TeamAnswerCorrect ~ 1,
   .default = 0
 )
 ```
 
-
-
-
-
+```{r echo = FALSE, eval = FALSE}
+confusionMatrix(data = rf_fit, reference = trivia_tst$TeamAnswerCorrect)
+?confusionMatrix
+```
 
 ```{r echo = FALSE, eval = FALSE}
-trivia %>%
-  filter(Round %in% c("Bonus", "Halftime", "Final") == FALSE) %>%
-  filter(is.na(Freebie)) %>%
-  group_by(Category) %>%
-  summarize(TotalQuestions = n(),
-            Correct = sum(`Correct?`),
-            Accuracy = Correct / TotalQuestions) %>%
-  arrange(desc(TotalQuestions), desc(Accuracy), Category)
+print(rf_fit)
 
-trivia %>%
-  filter(Round %in% c("Bonus", "Halftime", "Final") == FALSE) %>%
-  group_by(`Question Type`) %>%
-  summarize(TotalQuestions = n(),
-            Correct = sum(`Correct?`),
-            Accuracy = Correct / TotalQuestions) %>%
-  arrange(desc(Accuracy), desc(TotalQuestions), `Question Type`)
+importance <- varImp(rf_fit, scale = FALSE)
+plot(importance)
 
-trivia %>%
-  filter(Round %in% c("Bonus", "Halftime", "Final") == FALSE) %>%
-  group_by(Confidence) %>%
-  summarize(TotalQuestions = n(),
-            Correct = sum(`Correct?`),
-            Accuracy = Correct / TotalQuestions) %>%
-  arrange(desc(Accuracy), desc(TotalQuestions), Confidence)
+rpart.plot(rf_fit$finalModel, margin = 0.1)
 ```
 
 
 
-```{r echo = FALSE, eval = FALSE}
-trivia %>%
-  group_by(Date) %>%
-  summarize(Average = sum(PointsScored)
-```
+
+
+
+
+
+
+
+
+
 
 <style type="text/css">
 body .main-container {
@@ -140,8 +251,73 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 
 
 <p class="left">
-[Trivia Questions](https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ){target="_blank"}
+[Link to Google Sheets - Trivia Questions](https://docs.google.com/spreadsheets/d/1k4vAQll8rTX4jHBNEOxlEYl1MEra502bfDBahPyEYQQ){target="_blank"}
 </p>
+
+
+
+<p class="last-updated">
+<!--I have been going to trivia nights with my family for about a year, and have been tracking our stats since `r paste(format(x = trivia$Date %>% min(), format = "%B"), " ", format(x = trivia$Date %>% min(), format = "%d") %>% as.numeric(), ", ", format(x = trivia$Date %>% min(), format = "%Y") %>% as.numeric(), sep = "")`.
+-->
+Team Answer Correct: `r paste(trivia$TeamAnswerCorrect %>% mean() %>% percent(), sep = "")`<br />
+Random Forest: `r paste(trivia_tst$model_accurate %>% mean() %>% percent(), sep = "")`
+</p>
+
+<p class="last-updated">
+At trivia night, my family answers about `r paste(trivia$TeamAnswerCorrect %>% mean() %>% percent(), sep = "")` of questions accurately.
+<br />
+However, using a Random Forest model, I can predict whether we got it correct or not with an accuracy of `r paste(trivia_tst$model_accurate %>% mean() %>% percent(), sep = "")`.
+</p>
+
+***
+
+Example:
+Training Data
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+set.seed(seed = seed)
+Table_Train_Int = sample(x = trivia_trn_index, size = 20, replace = FALSE)
+Table_Train_Sample = trivia_trn %>%
+  filter(Index %in% Table_Train_Int) %>%
+  select(Date, Category, `Question Type`, Freebie, NumberofTeamMembers, TeamAnswerCorrect_Text) %>%
+  arrange(Date, Category, `Question Type`, Freebie, NumberofTeamMembers, TeamAnswerCorrect_Text)
+
+names(Table_Train_Sample) = c("Date", "Category", "Question Type", "Freebie", "Team Members", "Team Answer Correct")
+
+kable(Table_Train_Sample, format = "html", align = "llllll") %>%
+  kable_styling(bootstrap_options = c("responsive"), full_width = TRUE) %>%
+  column_spec(column = c(1:ncol(Table_Train_Sample)), background = "white", color = "black", include_thead = TRUE)
+```
+
+Example:
+Testing Data
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+set.seed(seed = seed)
+Table_Test_Int = sample(x = trivia_tst_index, size = 10, replace = FALSE)
+Table_Test_Sample = trivia_tst %>%
+  filter(Index %in% Table_Test_Int) %>%
+  mutate(
+    ModelPredictionTeamAnswer  = ifelse(prediction == 1, "Correct", "Incorrect"),
+    ModelPredictionProbability = prediction_probability %>% percent(),
+    ModelPredictionAccuracy    = ifelse(model_accurate == 1, "Accurate", "Inaccurate")
+  ) %>%
+  select(Date, Category, `Question Type`, Freebie, NumberofTeamMembers, TeamAnswerCorrect_Text, ModelPredictionTeamAnswer, ModelPredictionProbability, ModelPredictionAccuracy) %>%
+  arrange(Date, Category, `Question Type`, Freebie, NumberofTeamMembers, TeamAnswerCorrect_Text, ModelPredictionTeamAnswer, ModelPredictionProbability, ModelPredictionAccuracy)
+
+names(Table_Test_Sample) = c("Date", "Category", "Question Type", "Freebie", "Team Members", "Team Answer Correct", "Model Prediction of Team Answer", "Model Prediction Probability", "Model Prediction Accuracy")
+
+kable(Table_Test_Sample, format = "html", align = "lllllllll") %>%
+  kable_styling(bootstrap_options = c("responsive"), full_width = TRUE) %>%
+  column_spec(column = c(1:ncol(Table_Test_Sample)), background = "white", color = "black", include_thead = TRUE) %>%
+  column_spec(column = ncol(Table_Test_Sample), background = case_when(Table_Test_Sample$`Model Prediction Accuracy` == "Accurate" ~ "green", .default = "red"), include_thead = FALSE)
+```
+
+
+***
+
+<p class="left">
+[Link to Shiny App](https://kevinjameswong.shinyapps.io/trivia/){target="_blank"}
+</p>
+
 
 <div class="shiny-container">
 <iframe src="https://kevinjameswong.shinyapps.io/trivia/">
@@ -149,6 +325,14 @@ Last updated: `r paste(format(x = Update_Date, format = "%B"), " ", format(x = U
 </div>
 
 
+
+```{r echo = FALSE, eval = FALSE, message = FALSE, warning = FALSE}
+rfImp = varImp(rf_fit, scale = FALSE)
+rfImp
+
+
+Also make something that has accuracy of model across time
+```
 
 
 

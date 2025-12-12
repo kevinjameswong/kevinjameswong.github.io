@@ -49,7 +49,7 @@
 
 <title>Kevin Wong - Header</title>
 
-<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -68,6 +68,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -128,6 +130,80 @@ pre code {
 </style>
 
 
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
 
 <!-- tabsets -->
 
@@ -193,6 +269,91 @@ pre code {
 
 
 
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="work.html">
+    <span class="fa fa-briefcase"></span>
+     
+    Work Experience
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-line-chart"></span>
+     
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spotify.html">Spotify Data (2025)</a>
+    </li>
+    <li>
+      <a href="korean.html">한국어 (2024)</a>
+    </li>
+    <li>
+      <a href="calculators.html">Calculators (2022)</a>
+    </li>
+    <li>
+      <a href="running.html">Running Data (2020)</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data (2019)</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel/VBA Projects (2017)</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Archive</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="colors.html">Colors (2021)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Schoolwork
+  </a>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact Me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
 <div id="header">
 
 
@@ -233,7 +394,7 @@ output: html_document
 <h1>
 Kevin Wong
 </h1>
-<p><img src="images/kevin%20wong.jpg" width="150px" height="160px" style="display: block; margin: auto;" /></p>
+<p><img src="images/kevin%20wong.jpg" height="200px" style="display: block; margin: auto;" /></p>
 <hr />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120232594-1"></script>
@@ -586,11 +747,14 @@ $(document).ready(function () {
 
 <div id="TOC">
 <ul>
+<li><a href="#cna-financial-corporation"
+id="toc-cna-financial-corporation">CNA Financial Corporation</a></li>
 <li><a href="#cdw" id="toc-cdw">CDW</a></li>
 <li><a href="#compass-mortgage" id="toc-compass-mortgage">Compass
 Mortgage</a></li>
-<li><a href="#kane-county-cougars" id="toc-kane-county-cougars">Kane
-County Cougars</a></li>
+<li><a href="#kane-county-cougars-baseball-organization"
+id="toc-kane-county-cougars-baseball-organization">Kane County Cougars
+Baseball Organization</a></li>
 <li><a href="#irwin-academic-services-center"
 id="toc-irwin-academic-services-center">Irwin Academic Services
 Center</a></li>
@@ -608,6 +772,10 @@ Center</a></li>
 
 code {
   color: #BLACK;
+}
+
+.imgheight {
+  height: 150px;
 }
 
 @media only screen and (min-width: 925px) {
@@ -630,68 +798,115 @@ code {
 Work Experience
 </h1>
 <p class="last-updated">
-Last updated: January 1, 2025
+Last updated: January 1, 2026
 </p>
 <hr />
+<div id="cna-financial-corporation" class="section level2">
+<h2>CNA Financial Corporation</h2>
+<p>
+</p>
+<center>
+<img class="imgheight" src="images/cna.png">
+<p>
+</p>
+</center>
+<h3>
+<span>CNA Financial Corporation</span> <br class="br-mobile-break">
+<span class="test222">Chicago, IL</span>
+</h3>
+<h4>
+<span>Senior Data Management Analyst</span> <br class="br-mobile-break">
+<span class="test222">July 2025 - Present</span>
+</h4>
+<ul class="new">
+<li>
+Collaborate with leaders and business partners to understand analytical
+requirements, identify appropriate data sources, and deliver information
+that supports the expected outcomes.
+</li>
+<li>
+Heavily leverage BigQuery SQL to create or adapt data models that are
+enabled and regularly updated in a cloud environment.
+</li>
+<li>
+Employ a standard production deployment process for created datasets to
+Google BigQuery and Power BI online, ensuring communication with
+stakeholders throughout the process.
+</li>
+<li>
+Support and enhance data processes by building out controls, validating,
+and adding capability to common datasets while ensuring reliability and
+data integrity.
+</li>
+<li>
+Identify requirements and subsequently build dashboards/exhibits for our
+stakeholders using Power BI, while ensuring the underlying SQL-based
+data is correct and up to date throughout the process.
+</li>
+</ul>
+<hr />
+</div>
 <div id="cdw" class="section level2">
 <h2>CDW</h2>
 <p>
 </p>
 <center>
-<!--image -->
-<img src="images/cdw%20white.png" width=160px>
+<img class="imgheight" src="images/cdw%20white.png">
 <p>
 </p>
 </center>
 <h3>
-<!--<span>People Who Get IT</span>Removing 10/2/2023-->
 <span>Make Amazing Happen</span> <br class="br-mobile-break"> <span
 class="test222">Chicago, IL</span>
 </h3>
 <h4>
 <span>Senior Data Analyst - Product and Partner Management</span>
-<br class="br-mobile-break"> <span class="test222">October 2023 -
-Present</span>
+<br class="br-mobile-break"> <span class="test222">August 2021 - July
+2025</span>
 </h4>
 <ul class="new">
 <li>
-Managed Client reporting and analytics that were presented to VP and
-shareholders on a weekly basis
+Promoted to Senior Data Analyst (Oct 2023) for leading high-impact
+cross-functional initiatives and mentoring junior analysts.
 </li>
 <li>
-Coordinated data migration from on-premise database to new cloud
-environment
+Developed executive-level performance reports for VPs and shareholders,
+enabling data-driven strategic decisions.
 </li>
 <li>
-Forecasted quarterly projections in Power BI for several product
-categories using historical weekly trends and pending transactions
+Led SQL-based data migration to AWS cloud, cutting query processing
+times by 20% and improving scalability.
 </li>
 <li>
-Designed market share analysis report to indicate opportunities for
-expansions in developed and developing markets
+Built Power BI forecasting models across four product categories,
+increasing budget accuracy by 10%.
+</li>
+<li>
+Designed market share analysis reports, uncovering expansion
+opportunities and driving entries into new markets.
 </li>
 </ul>
 <h4>
 <span>Data Analyst - Product and Partner Management</span>
-<br class="br-mobile-break"> <span class="test222">August 2021 - October
-2023</span>
+<br class="br-mobile-break">
+<!--<span class="test222">August 2021 - October 2023</span>-->
 </h4>
 <ul class="new">
 <li>
-Managed partner finance reporting, transitioning dashboards from Excel
-to self-service BI
+Converted partner finance dashboards from Excel to Power BI, saving 10
+hours/week through automation and improved usability.
 </li>
 <li>
-Selected as team mentor through outstanding leadership to train and
-onboard new employees
+Mentored 6+ new analysts, enhancing onboarding efficiency and
+contributing to overall team productivit.y
 </li>
 <li>
-Created attach-based reporting to identify trends of correlated
-transactions to increase orders
+Built attach-based analytics reports, uncovering transaction trends that
+led to a 12% increase in orders.
 </li>
 <li>
-Designed actionable reporting tools that supported effective management
-of data quality, open orders, and other partner compliance topics
+Designed actionable reporting tools to improve data quality, monitor
+open orders, and strengthen partner compliance management.
 </li>
 </ul>
 <hr />
@@ -701,12 +916,7 @@ of data quality, open orders, and other partner compliance topics
 <p>
 </p>
 <center>
-<!--
-<img src="images/compass.png" width=500px>
-<img src="images/compass_white.png" width=500px>
-<img id="test" src="images/compass_white.png" width=500px>
-!-->
-<img src="images/compass%20blue.jpeg" height=150px>
+<img class="imgheight" src="images/compass%20blue.jpeg">
 <p>
 </p>
 </center>
@@ -720,75 +930,30 @@ IL</span>
 class="test222">June 2019 - August 2021</span>
 </h4>
 <ul class="new">
-<!-- <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
-  <li>Wrote and executed SQL queries to provide custom reports and analysis for senior management</li>
-  <li>Clean, transform, and model data to ensure and improve accuracy of metrics calculations</li>
-  <li>Develop, maintain and perform processes to continuously monitor data quality and integrity in platform applications</li>
-  <li>Analyze and interpret data to identify trends, patterns, and opportunities for the business</li>
-  <li>Managed Salesforce CRM data structures and synchronization of custom objects</li> 
-  <li>Manage data by creating, updating, and organizing data</li>
-  <li>Design and implement data structures and user interfaces</li>
-  <li>Develop databases using data access languages</li>
-  <li>Develop data schemas to support information delivery and consumption</li>
-  <li>Prepare reports and analysis</li>
-  <li>Troubleshoot the reporting database</li>
-  <li>Train end users on new reports and/or dashboards</li>
-  <li>Create and iterate on deliverables</li> -->
-<!-- resume as of 7/31/2021
-  <li>Responsible for managing data organization, the design and implementation of data, and overall development of SQL database</li>
-  <li>Write and execute SQL queries to provide custom reports and analysis for senior management</li>
-  <li>Design analysis and development of data architectures for SQL relational database</li>
-  <li>Clean, transform, and model data to ensure and improve accuracy of metrics calculations</li>
-  <li>Develop, maintain and perform processes to continuously monitor data quality and integrity in platform
-applications</li>
-  <li>Analyze and interpret data to identify trends, patterns, and opportunities for the business</li>
-  <li>Manage Salesforce CRM data structures and synchronization of custom objects</li>
-  <li>Received 3 moments of recognition for outstanding achievement of statistical analysis and overall employee
-performance: November 2019, January 2020, March 2021</li> -->
 <li>
 Managed data organization, the design and implementation of data, and
-overall development of SQL database
+overall development of SQL database.
 </li>
 <li>
 Wrote and executed SQL queries to provide custom Sisense reports and
-analysis for senior management
+analysis for senior management.
 </li>
 <li>
-Designed analysis and development of data architectures for SQL
-relational database
+Optimized Salesforce CRM data structures, improving sync efficiency by
+20%.
 </li>
 <li>
-Cleaned, transformed, and modeled data to ensure and improve accuracy of
-metrics calculations
-</li>
-<li>
-Developed, maintained, and performed processes to continuously monitor
-data quality and integrity in platform applications
-</li>
-<li>
-Analyzed and interpreted data to identify trends, patterns, and
-opportunities for the business
-</li>
-<li>
-Managed Salesforce CRM data structures and synchronization of custom
-objects
-</li>
-<li>
-Received 3 moments of recognition for outstanding achievement of
-statistical analysis and overall employee performance: November 2019,
-January 2020, March 2021
+Earned 3 awards for statistical analysis and performance (2019-2021).
 </li>
 </ul>
-<!--
-[Compass Mortgage Website](https://www.compmort.com){target="_blank"}
--->
 <hr />
 </div>
-<div id="kane-county-cougars" class="section level2">
-<h2>Kane County Cougars</h2>
+<div id="kane-county-cougars-baseball-organization"
+class="section level2">
+<h2>Kane County Cougars Baseball Organization</h2>
 <center>
-<img src="images/cougarslogo.png" width=200px>
-<img src="images/field.jpeg" width=268px>
+<img class="imgheight" src="images/cougars-logo.png">
+<img class="imgheight" src="images/cougars-field.jpeg">
 <p>
 </p>
 </center>
@@ -806,35 +971,53 @@ Accounting Intern for 2018 MILB Season
 </li>
 <li>
 Produced daily compilation of data generated by online ticket sales
-system
+system.
 </li>
 <li>
 Generated reports to facilitate the reconciliation of sales data to cash
-receipts report by credit card companies, including PayPal
-</li>
-<li>
-Compiled data into spreadsheets regarding the cash flow from previous
-years in comparison to the current year
-</li>
-<li>
-Processed group outing orders by reconciling billing discrepancies
-between group sales personnel and a third-party food service operator
+receipts report by credit card companies, including PayPal.
 </li>
 <li>
 Aided overseeing of nearly $25,000 of physical cash flow per game,
 accounted for the transaction of the assets, and then reconciled bank
-accounts for those sales of assets
+accounts for those sales of assets.
 </li>
 </ul>
-<!--
-[Kane County Cougars Website](https://www.milb.com/kane-county){target="_blank"}
--->
+<h4>
+<span>Promotions Intern</span> <br class="br-mobile-break"> <span
+class="test222">Summer 2017</span>
+</h4>
+<ul class="new">
+<li>
+Promotions Intern for 2017 MILB Season
+</li>
+<li>
+Led pre- and post-game fan engagement activities, enhancing the overall
+game day experience for audiences of all ages.
+</li>
+<li>
+Coordinated interactive promotions on the concourse and field, engaging
+with 100+ fans per game to boost participation and team spirit.
+</li>
+<li>
+Assisted in planning and executing themed game nights, giveaways, and
+sponsor activities to drive attendance and fan excitement.
+</li>
+<li>
+Collaborated with marketing and operations teams to ensure seamless
+execution of all promotional activities and fan experiences.
+</li>
+<li>
+Managed setup and breakdown of promotional materials and signage,
+ensuring branding consistency throughout the ballpark.
+</li>
+</ul>
 <hr />
 </div>
 <div id="irwin-academic-services-center" class="section level2">
 <h2>Irwin Academic Services Center</h2>
 <center>
-<img src="images/irwin.jpg" width=200px>
+<img class="imgheight" src="images/irwin.jpg">
 <p>
 </p>
 </center>
@@ -878,7 +1061,7 @@ barriers and foster success
 
 <title>footer.knit</title>
 
-<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
@@ -897,6 +1080,8 @@ barriers and foster success
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -957,6 +1142,80 @@ pre code {
 </style>
 
 
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
 
 <!-- tabsets -->
 
@@ -1022,6 +1281,91 @@ pre code {
 
 
 
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Kevin's Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="work.html">
+    <span class="fa fa-briefcase"></span>
+     
+    Work Experience
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-line-chart"></span>
+     
+    Data Analysis Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="spotify.html">Spotify Data (2025)</a>
+    </li>
+    <li>
+      <a href="korean.html">한국어 (2024)</a>
+    </li>
+    <li>
+      <a href="calculators.html">Calculators (2022)</a>
+    </li>
+    <li>
+      <a href="running.html">Running Data (2020)</a>
+    </li>
+    <li>
+      <a href="sleep.html">Sleeping Data (2019)</a>
+    </li>
+    <li>
+      <a href="excel.html">Excel/VBA Projects (2017)</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Archive</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="colors.html">Colors (2021)</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="schoolwork.html">
+    <span class="fa fa-graduation-cap"></span>
+     
+    Schoolwork
+  </a>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope-o"></span>
+     
+    Contact Me
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
 <div id="header">
 
 
@@ -1040,7 +1384,7 @@ body {
 </style>
 <hr />
 <center>
-Copyright © 2025 Kevin Wong, Inc. All rights reserved.
+Copyright © 2026 Kevin Wong, Inc. All rights reserved.
 </center>
 
 
