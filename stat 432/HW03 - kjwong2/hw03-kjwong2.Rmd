@@ -1,0 +1,304 @@
+---
+title: "STAT 432 - Homework 03"
+author: "Kevin Wong - kjwong2"
+date: '**Due:** Friday, February 16, 11:59 PM'
+---
+
+***
+
+Please see the [homework policy document](https://daviddalpiaz.github.io/stat432sp18/homework_policy.html) for detailed instructions and some grading notes. Failure to follow instructions will result in point reductions.
+
+***
+
+> "How did it get so late so soon?"
+>
+> --- **Dr. Seuss**
+
+***
+
+For this homework we will again use the `Sacramento` data from the `caret` package. You should read the documentation for this data. The **goal** of our modeling will be to predict home prices.
+
+You may only use the following packages:
+
+```{r, message = FALSE, warning = FALSE}
+library(caret)
+library(randomForest)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+Before modeling, we will perform some data preparation.
+
+Instead of using the `city` or `zip` variables that exist in the dataset, we will simply create a variable indicating whether or not a house is technically within the city limits Sacramento. (We do this because they would both be factor variables with a large number of factors. This is a choice that is made due to laziness, not because it is justified. Think about what issues these variables might cause.)
+
+```{r}
+data(Sacramento)
+sac_data = Sacramento
+sac_data$limits = factor(ifelse(sac_data$city == "SACRAMENTO", "in", "out"))
+sac_data = subset(sac_data, select = -c(city, zip))
+```
+
+A plot of longitude versus latitude gives us a sense of where the city limits are.
+
+```{r, fig.align = "center"}
+qplot(y = longitude, x = latitude, data = sac_data, 
+      col = limits, main = "Sacramento City Limits ")
+```
+
+You should consider performing some additional [exploratory data analysis](https://en.wikipedia.org/wiki/Exploratory_data_analysis), but we provide a histogram of the home prices.
+
+```{r fig.align = "center", message = FALSE, warning = FALSE}
+qplot(x = price, data = sac_data, main = "Sacramento Home Prices")
+```
+
+After these modifications, we test-train split the data.
+
+```{r}
+set.seed(42)
+sac_trn_idx  = sample(nrow(sac_data), size = trunc(0.80 * nrow(sac_data)))
+sac_trn_data = sac_data[sac_trn_idx, ]
+sac_tst_data = sac_data[-sac_trn_idx, ]
+```
+
+The training data should be used for all model fitting. Do not modify the data for any exercise in this assignment.
+
+***
+
+## Exercise 1 ($k$-Nearest Neighbors Preprocessing)
+
+For this exercise, we will create $k$-nearest neighbors models in an attempt to be able to predict `price`. Do not modify `sac_trn_data`. Do not use the `baths` variable. Use the `knnreg` function from the `caret` package.
+
+Consider three different preprocessing setups:
+
+- **Setup 1**
+    - Numeric variables not scaled. 
+    - Factor variables remain factors. `knnreg()` will use one-hot encoding.
+- **Setup 2**
+    - Numeric variables are scaled to have mean 0 and standard deviation 1.
+    - Factor variables remain factors. `knnreg()` will use one-hot encoding.
+- **Setup 3**
+    - Numeric variables are scaled to have mean 0 and standard deviation 1.
+    - Factor variables coerced to numeric. (We could then scale them, but for simplicity we will not.)
+
+For each setup, train models using values of `k` from `1` to `100`. For each, calculate test RMSE. (In total you will calculate 300 test RMSEs, 100 for each setup.) Summarize these results in a single plot which plots the test RMSE as a function of `k`. (The plot will have three "curves," one for each setup.) Your plot should be reasonably visually appealing, well-labeled, and include a legend.
+
+**Solution:**
+```{r}
+tst_calc_rmse1 = rep(0, 100)
+tst_calc_rmse2 = rep(0, 100)
+tst_calc_rmse3 = rep(0, 100)
+
+calc_rmse = function(mod, actual, data) {
+  predicted = predict(mod, data)
+  sqrt(mean((actual - predicted) ^ 2))
+}
+```
+
+```{r}
+for (i in 1:100) {
+  knn_sac_mod_1 = knnreg(price ~ beds + sqft + type + latitude + longitude + limits, data = sac_trn_data, k = i)
+  knn_sac_mod_2 = knnreg(price ~ scale(beds) + scale(sqft) + type + scale(latitude) + scale(longitude) + limits, data = sac_trn_data, k = i)
+  knn_sac_mod_3 = knnreg(price ~ scale(beds) + scale(sqft) + as.numeric(type) + scale(latitude) + scale(longitude) + as.numeric(limits), data = sac_trn_data, k = i)
+  
+  tst_calc_rmse1[i] = calc_rmse(knn_sac_mod_1, sac_tst_data$price, sac_tst_data)
+  tst_calc_rmse2[i] = calc_rmse(knn_sac_mod_2, sac_tst_data$price, sac_tst_data)
+  tst_calc_rmse3[i] = calc_rmse(knn_sac_mod_3, sac_tst_data$price, sac_tst_data)
+}
+```
+
+```{r}
+tst_calc_rmse_total_ex1 = c(tst_calc_rmse1, tst_calc_rmse2, tst_calc_rmse3)
+min(tst_calc_rmse_total_ex1)
+which.min(tst_calc_rmse_total_ex1)
+```
+
+- The best model of the 300 is the `k = 9` of the `knn_sac_mod_2` model (`price ~ scale(beds) + scale(sqft) + type + scale(latitude) + scale(longitude) + limits`) because it has a Test RMSE of `r min(tst_calc_rmse_total_ex1)`.
+
+```{r echo = FALSE}
+plot(seq(1:100), tst_calc_rmse1, type = "b", col = "darkblue", main = "kjwong2's Test RMSE plot", xlab = "K Values", ylab = "Test RMSE", ylim = c(min(tst_calc_rmse_total_ex1) - 1000, max(tst_calc_rmse_total_ex1) + 1000), pch = 16)
+grid()
+lines(seq(1:100), tst_calc_rmse2, type = "b", col = "darkorange", lty = 2)
+lines(seq(1:100), tst_calc_rmse3, type = "b", col = "green", lty = 3, pch = 20)
+legend("topright", legend = c("Setup 1", "Setup 2", "Setup 3"), col = c("darkblue", "darkorange", "green"), lty = c(1, 2, 3), pch = c(16, 1, 20))
+```
+
+***
+
+## Exercise 2 (Comparing Models)
+
+For this exercise, we will create two additional models which we will compare to the best $k$-nearest neighbors model from the previous exercise. Again, do not modify `sac_trn_data` and do not use the `baths` variable.
+
+Fit:
+
+- A linear model using the formula: `price ~ . + sqft:type + type:limits - baths`
+- A random forest that using all available predictors, excluding `baths`.
+
+Create a well-formatted markdown table that displays the test RMSEs for these two models, as well as the best model from the previous exercise. 
+
+**Solution:**
+```{r}
+best_knn_mod_4 = knnreg(price ~ scale(beds) + scale(sqft) + type + scale(latitude) + scale(longitude) + limits, data = sac_trn_data, k = 9)
+lm_sac_mod_5 = lm(price ~ . + sqft:type + type:limits - baths, data = sac_trn_data)
+rf_sac_mod_6 = randomForest(price ~ . - baths, data = sac_trn_data)
+```
+
+```{r}
+mod_ex2_list = list(best_knn_mod_4, lm_sac_mod_5, rf_sac_mod_6)
+sac_ex2_trn_rmse = sapply(mod_ex2_list, actual = sac_trn_data$price, calc_rmse, data = sac_trn_data)
+sac_ex2_tst_rmse = sapply(mod_ex2_list, actual = sac_tst_data$price, calc_rmse, data = sac_tst_data)
+```
+
+```{r echo = FALSE}
+sac_ex2_results = data.frame(
+  Model_names_ex2 = c("best_knn_mod_4", "lm_sac_mod_5", "rf_sac_mod_6"),
+  trn_rmse_ex2 = sac_ex2_trn_rmse,
+  tst_rmse_ex2 = sac_ex2_tst_rmse
+)
+colnames(sac_ex2_results) = c("Model Name", "Training RMSE", "Testing RMSE")
+
+kable_styling(kable(sac_ex2_results, format = "html", digits = 3), full_width = FALSE)
+```
+
+***
+
+## Exercise 3 (Visualizing Results)
+
+For each of the models in Exercise 2, create a **Predicted vs Actual** plot. Each plot should:
+
+- Plot the predicted value ($y$-axis) versus the actual value in the test set ($x$-axis).
+- Include a line indicating where $x = y$.
+- Use a title indicating the model results being visualizing.
+- Include some modification of default behavior to make the plot more visually appealing.
+
+Arrange the three plots side-by-side in a single row.
+
+**Solution:**
+
+  
+```{r echo = FALSE}
+par(mfrow = c(1, 3))
+plot(sac_tst_data$price, predict(best_knn_mod_4, sac_tst_data), ylab= "Predicted", xlab="Actual", main = "Actual vs. Predicted (KNN)", col="darkblue")
+abline(a = 0, b = 1, col = "orange")
+grid()
+legend("bottomright", legend = c("y = x"), col = c("orange"), lty = 1)
+plot(sac_tst_data$price, predict(lm_sac_mod_5, sac_tst_data), ylab= "Predicted", xlab="Actual", main = "Actual vs. Predicted (Linear Model)", col = "gold")
+abline(a = 0, b = 1, col = "maroon")
+grid()
+legend("bottomright", legend = c("y = x"), col = c("maroon"), lty = 1)
+plot(sac_tst_data$price, predict(rf_sac_mod_6, sac_tst_data), ylab= "Predicted", xlab="Actual", main = "Actual vs. Predicted (RandomForest)", col = "dodgerblue")
+abline(a = 0, b = 1, col = "green")
+grid()
+legend("bottomright", legend = c("y = x"), col = c("green"), lty = 1)
+```
+
+
+***
+
+## Exercise 4 (Test-Train Split)
+
+Repeat Exercise 1, but with the following train and test data. Again, summarize your results in a plot.
+
+```{r}
+set.seed(432)
+sac_trn_idx_new  = sample(nrow(sac_data), size = trunc(0.80 * nrow(sac_data)))
+sac_trn_data_new = sac_data[sac_trn_idx_new, ]
+sac_tst_data_new = sac_data[-sac_trn_idx_new, ]
+```
+
+**Solution:**
+```{r}
+tst_calc_rmse7 = rep(0, 100)
+tst_calc_rmse8 = rep(0, 100)
+tst_calc_rmse9 = rep(0, 100)
+
+for (i in 1:100) {
+  knn_sac_mod_7 = knnreg(price ~ beds + sqft + type + latitude + longitude + limits, data = sac_trn_data_new, k = i)
+  knn_sac_mod_8 = knnreg(price ~ scale(beds) + scale(sqft) + type + scale(latitude) + scale(longitude) + limits, data = sac_trn_data_new, k = i)
+  knn_sac_mod_9 = knnreg(price ~ scale(beds) + scale(sqft) + as.numeric(type) + scale(latitude) + scale(longitude) + as.numeric(limits), data = sac_trn_data_new, k = i)
+  
+  tst_calc_rmse7[i] = calc_rmse(knn_sac_mod_7, sac_tst_data_new$price, sac_tst_data_new)
+  tst_calc_rmse8[i] = calc_rmse(knn_sac_mod_8, sac_tst_data_new$price, sac_tst_data_new)
+  tst_calc_rmse9[i] = calc_rmse(knn_sac_mod_9, sac_tst_data_new$price, sac_tst_data_new)
+}
+```
+
+```{r}
+tst_calc_rmse_total_ex4 = c(tst_calc_rmse7, tst_calc_rmse8, tst_calc_rmse9)
+min(tst_calc_rmse_total_ex4)
+which.min(tst_calc_rmse_total_ex4)
+```
+
+- The best model of the 300 is the `k = 18` of the `knn_sac_mod_8` model (`price ~ scale(beds) + scale(sqft) + type + scale(latitude) + scale(longitude) + limits`) because it has a Test RMSE of `r min(tst_calc_rmse_total_ex4)`.
+
+```{r echo = FALSE}
+plot(seq(1:100), tst_calc_rmse7, type = "b", col = "darkblue", main = "kjwong2's Test RMSE plot (New Data)", xlab = "K Values", ylab = "Test RMSE", ylim = c(min(tst_calc_rmse_total_ex4) - 1000, max(tst_calc_rmse_total_ex4) + 1000), pch = 16)
+grid()
+lines(seq(1:100), tst_calc_rmse8, type = "b", col = "darkorange", lty = 2)
+lines(seq(1:100), tst_calc_rmse9, type = "b", col = "green", lty = 3, pch = 20)
+legend("topright", legend = c("Setup 1", "Setup 2", "Setup 3"), col = c("darkblue", "darkorange", "green"), lty = c(1, 2, 3), pch = c(16, 1, 20))
+```
+
+***
+
+## Exercise 5 (Concept Checks)
+
+**[a]** Which of the 300 models trained in Exercise 1 do you feel performs best?
+
+**Solution:**
+- The best model of the 300 is the `k = 9` of the `knn_sac_mod_2` model.
+
+**[b]** Based on your results for Exercise 1, do you feel that scaling the numeric variables was appropriate?
+
+**Solution:**
+```{r}
+mean(tst_calc_rmse1)
+mean(tst_calc_rmse2)
+```
+
+- Yes, scaling the variables was appropriate because the mean Test RMSE of the first 100 models was higher than the second 100 models.
+
+**[c]** Based on your results for Exercise 1, do you feel that the method used to utilize the factor variables had a large effect?
+
+**Solution:**
+```{r}
+mean(tst_calc_rmse2)
+mean(tst_calc_rmse3)
+```
+
+- Yes, utilizing the factor variables had a large effect because the mean Test RMSE of the models in `knn_sac_mod_2` which had factor variables is lower than the mean Test RMSE of the models in `knn_sac_mod_3` which were changed to numeric.
+
+**[d]** Based on your results for Exercise 2, which of these models do you prefer?
+
+**Solution:**
+I prefer the Random Forest model (`rf_sac_mod_6`) because it has the lowest Test RMSE.
+
+**[e]** Based on your results for Exercise 3, do you prefer a different model than part **[d]**? If so which and why?
+
+**Solution:**
+- No, because the random Forest appears to be the most crowded along the line Y=X among the 3 plots.
+
+**[f]** Based on your results for Exercise 4, do you prefer a different preprossesing setup for $k$-nearest neighbors? (Compared to your preference based on Exercise 1.) If so, which and why?
+
+**Solution:**
+```{r}
+mean(tst_calc_rmse_total_ex1)
+mean(tst_calc_rmse_total_ex4)
+```
+
+- No, because the mean Test RMSE of the 300 models in Exercise 1 is lower than the mean Test RMSE of the 300 models in Exercise 4.
+
+**[g]** Based on your results for Exercise 4, do you prefer a different value of $k$ for $k$-nearest neighbors? (Compared to your preference based on Exercise 1.) If so, which and why?
+
+**Solution**
+```{r}
+which.min(tst_calc_rmse1)
+which.min(tst_calc_rmse2)
+which.min(tst_calc_rmse3)
+which.min(tst_calc_rmse7)
+which.min(tst_calc_rmse8)
+which.min(tst_calc_rmse9)
+```
+
+- Yes, the values of the lowest k values are shown above. In Exercise 1, the best k value is 9 for all three models, but in Exercise 4, it's clear that slightly higher k values are better (k = 15-25).
+

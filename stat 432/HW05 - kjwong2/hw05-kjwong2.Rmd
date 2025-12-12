@@ -1,0 +1,322 @@
+---
+title: "STAT 432 Homework 05"
+author: "Kevin Wong - kjwong2"
+date: '**Due:** Friday, March 2, 11:59 PM'
+---
+
+***
+
+Please see the [homework policy document](https://daviddalpiaz.github.io/stat432sp18/homework_policy.html) for detailed instructions and some grading notes. Failure to follow instructions will result in point reductions.
+
+***
+
+> "Our greatest glory is not in never falling, but in rising every time we fall."
+>
+> --- **Confucius**
+
+***
+
+For this homework, you may only use the following packages:
+
+```{r, message = FALSE, warning = FALSE}
+# general
+library(MASS)
+library(caret)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+# specific
+library(e1071)
+library(nnet)
+library(ellipse)
+```
+
+If you feel additional general packages would be useful for future homework, please pass these along to the instructor.
+
+***
+
+# Exercise 1 (Detecting Cancer with KNN)
+
+**[6 points]** For this exercise we will use data found in [`wisc-trn.csv`](wisc-trn.csv) and [`wisc-tst.csv`](wisc-tst.csv) which contain train and test data respectively. `wisc.csv` is provided but not used. This is a modification of the Breast Cancer Wisconsin (Diagnostic) dataset from the UCI Machine Learning Repository. Only the first 10 feature variables have been provided. (And these are all you should use.)
+
+- [UCI Page](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic))
+- [Data Detail](https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.names)
+
+You should consider coercing the response to be a factor variable.
+
+Consider two different preprocessing setups:
+
+- **Setup 1**
+    - Numeric variables not scaled. 
+- **Setup 2**
+    - Numeric variables are scaled to have mean 0 and standard deviation 1.
+
+For each setup, train KNN models using values of `k` from `1` to `50`. Using only the variables `radius`, `symmetry`, and `texture`. For each, calculate test classification error. Summarize these results in a single plot which plots the test error as a function of `k`. (The plot will have two "curves," one for each setup.) Your plot should be reasonably visually appealing, well-labeled, and include a legend.
+
+**Answer:**
+```{r}
+wisc_trn_data = read.csv("wisc-trn.csv")
+wisc_tst_data = read.csv("wisc-tst.csv")
+```
+
+```{r}
+set.seed(10)
+calc_class_err = function(actual, predicted) {
+  mean(actual != predicted)
+}
+
+k_seq = 1:200
+class_err_mod_1 = 1:200
+class_err_mod_2 = 1:200
+for (i in 1:200){
+  knn_tst_mod_1 = knn3(class ~ radius + symmetry + texture, data = wisc_trn_data, k = i)
+  knn_tst_mod_2 = knn3(class ~ scale(radius) + scale(symmetry) + scale(texture), data = wisc_trn_data, k = i)
+  
+  predictions_1 = predict(knn_tst_mod_1, newdata = wisc_tst_data, type = "class")
+  predictions_2 = predict(knn_tst_mod_2, newdata = wisc_tst_data, type = "class")
+  
+  class_err_mod_1[i] = calc_class_err(actual = wisc_tst_data$class, predicted = predictions_1)
+  class_err_mod_2[i] = calc_class_err(actual = wisc_tst_data$class, predicted = predictions_2)
+}
+```
+
+```{r, echo = FALSE}
+plot(k_seq, class_err_mod_1, type = "l", col = "darkblue", lty = 1, lwd = 2,
+     xlab = "Number of Neighbors, k", ylab = "Classification Error Rate",
+     main = "kjwong2's Plot: Test Error Rate vs. Neighbors",
+     ylim = c(min(class_err_mod_1, class_err_mod_2) - 0.02,
+              max(class_err_mod_1, class_err_mod_2) + 0.03))
+grid()
+lines(k_seq, class_err_mod_2, col = "darkorange", lty = 1, lwd = 2)
+legend("topright", c("Setup 1 (Not Scaled)", "Setup 2 (Scaled)"), lty = c(1, 1), lwd = 2,
+       col = c("darkblue", "darkorange"))
+```
+
+***
+
+# Exercise 2 (Bias-Variance Tradeoff, Logistic Regression)
+
+**[9 points]** Run a simulation study to estimate the bias, variance, and mean squared error of estimating $p(x)$ using logistic regression. Recall that
+$p(x) = P(Y = 1 \mid X = x)$.
+
+Consider the (true) logistic regression model
+
+$$
+\log \left( \frac{p(x)}{1 - p(x)} \right) = 1 + 2 x_1  - x_2
+$$
+
+To specify the full data generating process, consider the following `R` function.
+
+```{r}
+make_sim_data = function(n_obs = 100) {
+  x1 = runif(n = n_obs, min = 0, max = 2)
+  x2 = runif(n = n_obs, min = 0, max = 4)
+  prob = exp(1 + 2 * x1 - 1 * x2) / (1 + exp(1 + 2 * x1 - 1 * x2))
+  y = rbinom(n = n_obs, size = 1, prob = prob)
+  data.frame(y, x1, x2)
+}
+```
+
+So, the following generates one simulated dataset according to the data generating process defined above.
+
+```{r}
+sim_data = make_sim_data()
+```
+
+Evaluate estimates of $p(x_1 = 0.5, x_2 = 0.75)$ from fitting four models:
+
+$$
+\log \left( \frac{p(x)}{1 - p(x)} \right) = \beta_0
+$$
+
+$$
+\log \left( \frac{p(x)}{1 - p(x)} \right) = \beta_0 + \beta_1 x_1  + \beta_2 x_2
+$$
+
+$$
+\log \left( \frac{p(x)}{1 - p(x)} \right) = \beta_0 + \beta_1 x_1  + \beta_2 x_2  + \beta_3 x_1x_2
+$$
+
+$$
+\log \left( \frac{p(x)}{1 - p(x)} \right) = \beta_0 + \beta_1 x_1  + \beta_2 x_2 + \beta_3 x_1^2 + \beta_4 x_2^2 + \beta_5 x_1x_2
+$$
+
+Use `2000` simulations of datasets with a sample size of `30` to estimate squared bias, variance, and the mean squared error of estimating $p(x_1 = 0.5, x_2 = 0.75)$ using $\hat{p}(x_1 = 0.5, x_2 = 0.75)$ for each model. Report your results using a well formatted table.
+
+At the beginning of your simulation study, run the following code, but with your nine-digit Illinois UIN.
+
+```{r}
+set.seed(665065175)
+```
+
+**Answer:**
+```{r}
+n_sims = 2000
+n_models = 4
+x = data.frame(x1 = 0.5, x2 = 0.75)
+predictions_ex2 = matrix(0, nrow = n_sims, ncol = n_models)
+```
+
+```{r, warning = FALSE}
+for(i in 1:n_sims) {
+  sim_data = make_sim_data()
+  
+  ex2_model_1_intcept = glm(y ~ 1, data = sim_data, family = "binomial")
+  ex2_model_2_add = glm(y ~ x1 + x2, data = sim_data, family = "binomial")
+  ex2_model_3_inter = glm(y ~ x1 * x2, data = sim_data, family = "binomial")
+  ex2_model_4_quad = glm(y ~ x1 * x2 + I(x1 ^ 2) + I(x2 ^ 2), data = sim_data, family = "binomial")
+
+  predictions_ex2[i, 1] = predict(ex2_model_1_intcept, x, type = "response")
+  predictions_ex2[i, 2] = predict(ex2_model_2_add, x, type = "response")
+  predictions_ex2[i, 3] = predict(ex2_model_3_inter, x, type = "response")
+  predictions_ex2[i, 4] = predict(ex2_model_4_quad, x, type = "response")
+}
+```
+
+```{r}
+get_mse = function(truth, estimate) {
+  mean((estimate - truth) ^ 2)
+}
+
+get_bias = function(estimate, truth) {
+  mean(estimate) - truth
+}
+
+get_var = function(estimate) {
+  mean((estimate - mean(estimate)) ^ 2)
+}
+```
+
+```{r}
+p = function(x) {
+  with(x,
+       exp(1 + 2 * x1 - 1 * x2) / (1 + exp(1 + 2 * x1 - 1 * x2))
+  )
+}
+
+p(x = x)
+```
+
+```{r, echo = FALSE}
+e2_results = data.frame(
+  model_name = c("Intercept Only", "Additive", "Interaction", "Second Order"),
+  mse = apply(predictions_ex2, 2, get_mse, truth = p(x)),
+  bias = (apply(predictions_ex2, 2, get_bias, truth = p(x)) ^ 2),
+  variance = apply(predictions_ex2, 2, get_var)
+)
+colnames(e2_results) = c("Logistic Regression Model", 
+                      "Mean Squared Error", 
+                      "Bias Squared", 
+                      "Variance")
+knitr::kable(e2_results)
+```
+
+***
+
+# Exercise 3 (Comparing Classifiers)
+
+**[8 points]** Use the data found in [`hw05-trn.csv`](hw05-trn.csv) and [`hw05-tst.csv`](hw05-tst.csv) which contain train and test data respectively. Use `y` as the response. Coerce `y` to be a factor after importing the data if it is not already.
+
+Create a pairs plot with ellipses for the training data, then train the following models using both available predictors:
+
+- Additive Logistic Regression (Multinomial Regression)
+- LDA (with Priors estimated from data)
+- LDA with Flat Prior
+- QDA (with Priors estimated from data)
+- QDA with Flat Prior
+- Naive Bayes (with Priors estimated from data)
+
+Calculate test and train error rates for each model. Summarize these results using a single well-formatted table.
+
+**Answer:**
+```{r}
+hw05_trn_data = read.csv("hw05-trn.csv")
+hw05_tst_data = read.csv("hw05-tst.csv")
+```
+
+```{r echo = FALSE}
+featurePlot(x = hw05_trn_data[, c("x1", "x2")], 
+            y = hw05_trn_data$y, 
+            plot = "ellipse",
+            auto.key = list(columns = 4))
+```
+
+```{r}
+flat = c(1, 1, 1, 1) / 4
+
+trn_err_rates = c(
+  calc_class_err(hw05_trn_data$y, predict(multinom(y ~ x1 + x2, hw05_trn_data, trace = FALSE), hw05_trn_data)),
+  calc_class_err(hw05_trn_data$y, predict(lda(y ~ x1 + x2, hw05_trn_data), hw05_trn_data)$class),
+  calc_class_err(hw05_trn_data$y, predict(lda(y ~ x1 + x2, hw05_trn_data, prior = flat), hw05_trn_data)$class),
+  calc_class_err(hw05_trn_data$y, predict(qda(y ~ x1 + x2, hw05_trn_data), hw05_trn_data)$class),
+  calc_class_err(hw05_trn_data$y, predict(qda(y ~ x1 + x2, hw05_trn_data, prior = flat), hw05_trn_data)$class),
+  calc_class_err(hw05_trn_data$y, predict(naiveBayes(y ~ x1 + x2, hw05_trn_data), hw05_trn_data))
+)
+
+tst_err_rates = c(
+  calc_class_err(hw05_tst_data$y, predict(multinom(y ~ x1 + x2, hw05_trn_data, trace = FALSE), hw05_tst_data)),
+  calc_class_err(hw05_tst_data$y, predict(lda(y ~ x1 + x2, hw05_trn_data), hw05_tst_data)$class),
+  calc_class_err(hw05_tst_data$y, predict(lda(y ~ x1 + x2, hw05_trn_data, prior = flat), hw05_tst_data)$class),
+  calc_class_err(hw05_tst_data$y, predict(qda(y ~ x1 + x2, hw05_trn_data), hw05_tst_data)$class),
+  calc_class_err(hw05_tst_data$y, predict(qda(y ~ x1 + x2, hw05_trn_data, prior = flat), hw05_tst_data)$class),
+  calc_class_err(hw05_tst_data$y, predict(naiveBayes(y ~ x1 + x2, hw05_trn_data), hw05_tst_data))
+)
+```
+
+```{r, echo = FALSE}
+ex3_results = data.frame(
+  model_names = c("Logistic (Multinomial)", "LDA", "LDA, Flat Prior", "QDA", "QDA, Flat Prior", "Naive Bayes"),
+  trn_err_rates = round(trn_err_rates, 4),
+  tst_err_rates = round(tst_err_rates, 4)
+)
+
+colnames(ex3_results) = c("Method", "Training Error Rate", "Testing Error Rate")
+knitr::kable(ex3_results)
+```
+
+***
+
+# Exercise 4 (Concept Checks)
+
+**[1 point each]** Answer the following questions based on your results from the previous three exercises.
+
+**(a)** Based on your results in Exercise 2, which models are performing unbiased estimation?
+
+**Answer:**
+The additive, interactive, and the second order quadratic models.
+
+**(b)** Based on your results in Exercise 2, which of these models performs best?
+
+**Answer:**
+The additive model performs best because it has the lowest Mean Squared Error.
+
+**(c)** In Exercise 3, which model performs best?
+
+**Answer:**
+The QDA with a Flat Prior performs best because it has the lowest Testing Classification Error Rate.
+
+**(d)** In Exercise 3, why does Naive Bayes perform poorly?
+
+**Answer:**
+Naive Bayes assumes that the covarience between the predictors is 0 (the correlation between the predictors is 0). However, from looking at the plots, there seems to be a correlation between `x1` and `x2` in all classes.
+
+**(e)** In Exercise 3, which performs better, LDA or QDA? Why?
+
+**Answer:**
+QDA is better because we can see that the correlation matrix ($\Sigma_k$) is different for different classes.
+
+**(f)** In Exercise 3, which prior performs better? Estimating from data, or using a flat prior? Why?
+
+**Answer:**
+The flat prior is better because for this dataset, the proportion of data in the levels of `y` is equal.
+
+**(g)** In Exercise 3, of the four classes, which is the easiest to classify?
+
+**Answer:**
+```{r}
+tst_table = table(Predicted = predict(qda(y ~ ., data = hw05_trn_data, prior = flat), hw05_tst_data)$class, Actual = hw05_tst_data$y)
+tst_table
+```
+
+We can see from the confusion matrix above, the QDA with Flat Prior with class `B` is the easiest to classify.

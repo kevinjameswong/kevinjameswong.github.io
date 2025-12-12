@@ -1,0 +1,383 @@
+---
+title: "STAT 432 Homework 06"
+author: "Spring 2018 - Kevin Wong - kjwong2"
+date: '**Due:** Friday, March 16, 11:59 PM'
+---
+
+***
+
+Please see the [homework policy document](https://daviddalpiaz.github.io/stat432sp18/homework_policy.html) for detailed instructions and some grading notes. Failure to follow instructions will result in point reductions.
+
+***
+
+> "Nobody actually creates perfect code the first time around, except me. But there's only one of me."
+>
+> --- **[Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds)**
+
+***
+
+For this homework, you may only use the following packages:
+
+```{r, message = FALSE, warning = FALSE}
+# general
+library(MASS)
+library(caret)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mlbench)
+
+# specific
+library(randomForest)
+library(gbm)
+library(klaR)
+library(ellipse)
+```
+
+If you feel additional general packages would be useful for future homework, please pass these along to the instructor.
+
+You should use the `caret` package and training pipeline to complete this homework. **Any time you use the `train()` function, first run `set.seed(1337)`.**
+
+***
+
+# Exercise 1 (Tuning KNN Regression with `caret`)
+
+**[6 points]** For this exercise we will train KNN regression models for the `Boston` data from the `MASS` package. Use `medv` as the response and all other variables as predictors. Use the test-train split given below. When tuning models and reporting cross-validated error, use 5-fold cross-validation.
+
+```{r}
+data(Boston, package = "MASS")
+set.seed(1)
+bstn_idx = createDataPartition(Boston$medv, p = 0.75, list = FALSE)
+bstn_trn = Boston[bstn_idx, ]
+bstn_tst = Boston[-bstn_idx, ]
+```
+
+Consider $k \in \{1, 5, 10, 15, 20, 25, 30, 35\}$ and two pre-processing setups:
+
+  - Do **not** scale the predictors.
+  - **Do** scale the predictors.
+
+Provide plots of cross-validated error versus tuning parameters for both KNN pre-processing setups. Use the same value on the $y$ axis for both plots. (You can be lazy and let `caret` create these plots. Since it will use `lattice` plotting, putting them side-by-side, or on the same plot would be difficult.)
+
+**Answer:**
+```{r}
+set.seed(1337)
+ex1_mod_knn_scale_no = train(
+  form = medv ~ .,
+  data = bstn_trn,
+  method = "knn",
+  trControl = trainControl(method = "cv", number = 5),
+  tuneGrid = expand.grid(k = c(1, 5, 10, 15, 20, 25, 30, 35))
+)
+```
+
+```{r}
+set.seed(1337)
+ex1_mod_knn_scale_yes = train(
+  form = medv ~ .,
+  data = bstn_trn,
+  method = "knn",
+  preProcess = c("center", "scale"),
+  trControl = trainControl(method = "cv", number = 5),
+  tuneGrid = expand.grid(k = c(1, 5, 10, 15, 20, 25, 30, 35))
+)
+```
+
+```{r echo = FALSE}
+plot(ex1_mod_knn_scale_no, col = "darkblue", pch = 16, lwd = 2, cex = 1.25, ylim = c(4,9), main = "kjwong2's Plot: Boston KNN Performance (NOT Scaled)", xlab = "Number of Neighbors, k")
+plot(ex1_mod_knn_scale_yes, col = "orange", pch = 16, lwd = 2, cex = 1.25, ylim = c(4,9), main = "kjwong2's Plot: Boston KNN Performance (Scaled)", xlab = "Number of Neighbors, k")
+```
+
+***
+
+# Exercise 2 (More Regression with `caret`)
+
+**[7 points]** For this exercise we will train more regression models for the `Boston` data from the `MASS` package. Use `medv` as the response and all other variables as predictors. Use the test-train split given previously. When tuning models and reporting cross-validated error, use 5-fold cross-validation.
+
+Traing a total of three new models:
+
+- An additive linear regression
+- A random forest 
+    - Use the default tuning parameters chosen by `caret`
+- A boosted tree model (Use `gbm`)
+    - Use the provided tuning grid below
+
+```{r}
+gbm_grid = expand.grid(interaction.depth = c(1, 2, 3),
+                       n.trees = (1:20) * 100,
+                       shrinkage = c(0.1, 0.3),
+                       n.minobsinnode = 20)
+```
+
+Provide plots of error versus tuning parameters for the the boosted tree model. Also provide a table that summarizes the cross-validated and test RMSE for each of the three (tuned) models as well as the two models tuned in the previous exercise.
+
+**Answer:**
+```{r}
+set.seed(1337)
+ex2_mod_lm = train(
+  form = medv ~ .,
+  data = bstn_trn,
+  method = "lm",
+  trControl = trainControl(method = "cv", number = 5)
+)
+```
+
+```{r}
+set.seed(1337)
+ex2_mod_rf = train(
+  form = medv ~ .,
+  data = bstn_trn,
+  method = "rf",
+  trControl = trainControl(method = "cv", number = 5)
+)
+```
+
+```{r}
+set.seed(1337)
+ex2_mod_gbm = train(
+  form = medv ~ .,
+  data = bstn_trn,
+  method = "gbm",
+  trControl = trainControl(method = "cv", number = 5),
+  tuneGrid = gbm_grid,
+  verbose = FALSE
+)
+```
+
+```{r}
+calc_rmse = function(actual, predicted) {
+  sqrt(mean((actual - predicted) ^ 2))
+}
+
+get_best_result = function(caret_fit) {
+  best = which(rownames(caret_fit$results) == rownames(caret_fit$bestTune))
+  best_result = caret_fit$results[best, ]
+  rownames(best_result) = NULL
+  best_result
+}
+
+ex2_cv_rmses = c(
+  get_best_result(ex1_mod_knn_scale_no)$RMSE,
+  get_best_result(ex1_mod_knn_scale_yes)$RMSE,
+  get_best_result(ex2_mod_lm)$RMSE,
+  get_best_result(ex2_mod_rf)$RMSE,
+  get_best_result(ex2_mod_gbm)$RMSE
+)
+
+ex2_test_rmses = c(
+  calc_rmse(bstn_tst$medv, predict(ex1_mod_knn_scale_no, bstn_tst)),
+  calc_rmse(bstn_tst$medv, predict(ex1_mod_knn_scale_yes, bstn_tst)),
+  calc_rmse(bstn_tst$medv, predict(ex2_mod_lm, bstn_tst)),
+  calc_rmse(bstn_tst$medv, predict(ex2_mod_rf, bstn_tst)),
+  calc_rmse(bstn_tst$medv, predict(ex2_mod_gbm, bstn_tst))
+)
+```
+
+```{r echo = FALSE}
+plot(ex2_mod_gbm, main = "kjwong2's Plot: Boosted Iterations vs. RMSE (Cross-Validation)")
+```
+
+```{r echo = FALSE}
+ex2_results = data.frame(
+  ex2_model_name = c("ex1_mod_knn_scale_no", "ex1_mod_knn_scale_yes", "ex2_mod_lm", "ex2_mod_rf", "ex2_mod_gbm"),
+  ex2_method = c("KNN (Unscaled)", "KNN (Scaled)", "Additive Linear Regression", "Random Forest", "Boosted Tree Model"),
+  ex2_cv_rmses = ex2_cv_rmses,
+  ex2_test_rmses = ex2_test_rmses
+)
+colnames(ex2_results) = c("Model Name", "Method", "Cross-Validation RMSE", "Test RMSE")
+knitr::kable(ex2_results)
+```
+
+***
+
+# Exercise 3 (Clasification with `caret`)
+
+**[7 points]** For this exercise we will train a number of classifiers using the training data generated below. The categorical response variable is `classes` and the remaining variables should be used as predictors. When tuning models and reporting cross-validated error, use 10-fold cross-validation. We will not use a test set for this exercise.
+
+```{r}
+set.seed(42)
+# simulate data using mlbench
+sim_trn = mlbench.2dnormals(n = 500, cl = 7, r = 10, sd = 3)
+# create tidy data
+sim_trn = data.frame(
+  classes = sim_trn$classes,
+  sim_trn$x
+)
+```
+
+```{r fig.height = 7, fig.width = 7, fig.align = "center"}
+featurePlot(x = sim_trn[, -1], 
+            y = sim_trn$classes, 
+            plot = "pairs",
+            auto.key = list(columns = 2),
+            par.settings = list(superpose.symbol = list(pch = 1:9))
+)
+```
+
+Fit a total of five models:
+
+- LDA
+- QDA
+- Naive Bayes
+- Regularized Discriminant Analysis (RDA)
+    - Use method `rda` with `caret` which requires the `klaR` package
+    - Use the default tuning grid
+- Random Forest
+    - Use a tuning grid that considers `mtry` values of `1` and `2`
+
+Provide a plot of accuracy versus tuning parameters for the RDA model. Also provide a table that summarizes the cross-validated accuracy and their standard deviations for each of the five (tuned) models.
+
+**Answer:**
+```{r}
+set.seed(1337)
+ex3_mod_lda = train(
+  form = classes ~ .,
+  data = sim_trn,
+  method = "lda",
+  trControl = trainControl(method = "cv", number = 10)
+)
+```
+
+```{r}
+set.seed(1337)
+ex3_mod_qda = train(
+  form = classes ~ .,
+  data = sim_trn,
+  method = "qda",
+  trControl = trainControl(method = "cv", number = 10)
+)
+```
+
+```{r}
+set.seed(1337)
+ex3_mod_nb = train(
+  form = classes ~ .,
+  data = sim_trn,
+  method = "nb",
+  trControl = trainControl(method = "cv", number = 10)
+)
+```
+
+```{r}
+set.seed(1337)
+ex3_mod_rda = train(
+  form = classes ~ .,
+  data = sim_trn,
+  method = "rda",
+  trControl = trainControl(method = "cv", number = 10)
+)
+```
+
+```{r}
+set.seed(1337)
+ex3_mod_rf = train(
+  form = classes ~ .,
+  data = sim_trn,
+  method = "rf",
+  trControl = trainControl(method = "cv", number = 10),
+  tuneGrid = expand.grid(mtry = c(1, 2))
+)
+```
+
+```{r}
+ex3_cv_accuracies = c(
+  get_best_result(ex3_mod_lda)$Accuracy,
+  get_best_result(ex3_mod_qda)$Accuracy,
+  get_best_result(ex3_mod_nb)$Accuracy,
+  get_best_result(ex3_mod_rda)$Accuracy,
+  get_best_result(ex3_mod_rf)$Accuracy
+)
+
+ex3_accuracy_sds = c(
+  get_best_result(ex3_mod_lda)$AccuracySD,
+  get_best_result(ex3_mod_qda)$AccuracySD,
+  get_best_result(ex3_mod_nb)$AccuracySD,
+  get_best_result(ex3_mod_rda)$AccuracySD,
+  get_best_result(ex3_mod_rf)$AccuracySD
+)
+```
+
+```{r echo = FALSE}
+plot(ex3_mod_rda, main = "kjwong2's Plot: Gamma vs. Accuracy (Cross-Validation)")
+```
+
+```{r echo = FALSE}
+ex3_results = data.frame(
+  ex3_model_name = c("ex3_mod_lda", "ex3_mod_qda", "ex3_mod_nb", "ex3_mod_rda", "ex3_mod_rf"),
+  ex3_method = c("LDA", "QDA", "Naive Bayes", "RDA", "Random Forest"),
+  ex3_cv_accuracies = ex3_cv_accuracies,
+  ex3_accuracy_sds = ex3_accuracy_sds
+)
+colnames(ex3_results) = c("Model Name", "Method", "Cross-Validation Accuracy", "Standard Deviation")
+knitr::kable(ex3_results)
+```
+
+***
+
+# Exercise 4 (Concept Checks)
+
+**[1 point each]** Answer the following questions based on your results from the three exercises. 
+
+## Regression
+
+**(a)** What value of $k$ is chosen for KNN without predictor scaling?
+
+**Answer:**
+```{r}
+ex1_mod_knn_scale_no$bestTune
+```
+- k = 5 is the best value of KNN without predictor scaling.
+
+**(b)** What value of $k$ is chosen for KNN **with** predictor scaling?
+
+**Answer:**
+```{r}
+ex1_mod_knn_scale_yes$bestTune
+```
+- k = 10 is the best value of KNN with predictor scaling.
+
+**(c)** What are the values of the tuning parameters chosen for the boosted tree regression model?
+
+**Answer:**
+```{r}
+ex2_mod_gbm$bestTune
+```
+
+**(d)** Which regression model achieves the lowest cross-validated error?
+
+**Answer:**
+- The Random Forest model achieves the lowest cross-validation error with an error of `r ex2_cv_rmses[which.min(ex2_cv_rmses)]`
+
+**(e)** Which method achieves the lowest test error?
+
+**Answer:**
+- The Random Forest model achieves the lowest cross-validation error with an error of `r ex2_test_rmses[which.min(ex2_test_rmses)]`
+
+## Classification
+
+**(f)** What are the values of the tuning parameters chosen for the RDA model?
+
+**Answer:**
+```{r}
+ex3_mod_rda$bestTune
+```
+
+**(g)** Based on the scatterplot, which method, LDA or QDA, do you think is *more* appropriate? Explain.
+
+**Answer:**
+- I believe LDA is more appropriate because the scatterplot shows that the data classes have the *same shape* but *different locations*.
+
+**(h)** Based on the scatterplot, which method, QDA or Naive Bayes, do you think is *more* appropriate? Explain.
+
+**Answer:**
+- I believe Naive Bayes is more appropriate because the scatterplot shows that the data classes have *different locations* but x1 and x2 appear to be *uncorrelated*.
+
+**(i)** Which model achieves the best cross-validated accuracy?
+
+**Answer:**
+- The RDA model achieves the lowest cross-validation error with an error of `r ex3_cv_accuracies[which.max(ex3_cv_accuracies)]`
+
+**(j)** Do you believe the model in **(i)** is the model that should be chosen? Explain.
+
+**Answer:**
+- I believe that this is the best model because it has the highest accuracy AND the lowest standard deviation.

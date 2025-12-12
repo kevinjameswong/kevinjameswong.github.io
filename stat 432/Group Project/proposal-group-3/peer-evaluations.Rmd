@@ -1,0 +1,75 @@
+---
+title: "Group 3 - Peer Evaluations"
+author: "Kevin Wong"
+date: "5/8/2018"
+output:
+  pdf_document:
+    toc: yes
+---
+
+# Peer Evaluations
+
+***
+
+## Yuhui Luo (yuhuil2):
+
+Which parts of the project were worked on by that member:  
+* Yuhui wrote most of the code in the entire project. He was very skilled at creating models, finding predictions/accuracies, and creating plots from that. He also did the Results section.  
+
+How well that member communicated with the team:  
+* 90. Yuhui was a responsive group member.
+
+How well that member understood the course concepts:  
+* 100. Yuhui was the smartest group member and knew a lot of the class topics, and presented many ideas beyond class concepts
+
+Proportion of the project completed by that member:  
+* 35%  Yuhui was responsible for most of the code work in the project. He attended every meeting and on time. Overall, I was very satisfied with Yuhui as a group member.
+
+***
+
+## Adlai Stevenson (aesteve2):
+
+Which parts of the project were worked on by that member:  
+* Adlai wrote the Abstract of the final project. That's *all* he contributed to the group project. He knew that he was a bad team member, so he offered us Starbucks gift cards to make up for it.
+
+How well that member communicated with the team:  
+* 5. He wrote maybe 2-3 messages this semester to the group chat.
+
+How well that member understood the course concepts:  
+* 0. He didn't show that he knew anything.
+
+Proportion of the project completed by that member:  
+* 1%  He wrote the abstract. He showed up to only about half of the meetings and would only come towards the tail end of them.
+
+***
+
+## Kevin Wong (kjwong2):
+
+Which parts of the project were worked on by that member:  
+* I wrote a lot of the proposal. I also did a lot of the Methods section of the proposal. I also did a little bit of the Introduction and Discussion.  
+
+How well that member communicated with the team:  
+* 90. I responded and was supportive in the group chat. 
+
+How well that member understood the course concepts:  
+* 80. Kailun and Yuhui were graduate students so they knew more than me. I showed that I had a mediocre understanding with the class concepts.
+
+Proportion of the project completed by that member:  
+* 29%  I did all of the work listed above, and I formatted the entire report to make it nice and clean. I attended every meeting and on time.
+
+***
+
+## Kailun Zheng (kailunz2):
+
+Which parts of the project were worked on by that member:  
+* Kailun wrote the Introduction and Discussion. She helped with the proposal. She also picked the dataset.
+
+How well that member communicated with the team:  
+* 100. Kailun was very responsive to everything with immediate responses. She was a great communicator and on top of things.
+
+How well that member understood the course concepts:  
+* 90. She understood most of the class concepts.
+
+Proportion of the project completed by that member:  
+* 35%  Kailun was the leader of the group. She did a lot to make sure that our group was focused and on task. She scheduled all of our meetings. She also wrote her fair share the report. She attended every meeting and on time. She was a great team member.
+
